@@ -1,8 +1,10 @@
 // ==========================================
-// DataLayer Management System - WKND Fly
+// DataLayer Management System - Secur Financial
 // Only properties present in data-elements.json are initialized.
 // No checkout (not in data-elements). Cart has only total (Reservation-TotalValue).
 // ==========================================
+
+import { fetchPlaceholders } from './aem.js';
 
 window._dataLayerQueue = window._dataLayerQueue || [];
 window._dataLayerReady = false;
@@ -10,8 +12,8 @@ window._dataLayerUpdating = false;
 
 let _dataLayer = null;
 
-const STORAGE_KEY = 'wkndfly_dataLayer';
-const STORAGE_TIMESTAMP_KEY = 'wkndfly_dataLayer_timestamp';
+const STORAGE_KEY = 'secur_financial_dataLayer';
+const STORAGE_TIMESTAMP_KEY = 'secur_financial_dataLayer_timestamp';
 const STORAGE_TTL = 30 * 24 * 60 * 60 * 1000;
 const ECID_SESSION_KEY = 'com.adobe.reactor.dataElements.ECID';
 
@@ -124,21 +126,40 @@ function processDataLayerQueue() {
  * project: only id, currency (Project-ID, Currency). No locale.
  * cart: only total (Reservation-TotalValue).
  */
-function getInitialDataLayerFromDataElements() {
-  const initialDataLayer = {
-    page: {},
-    product: {},
-    mortgage: {},
-    partnerData: {},
-    project: {
-      id: "securfinancial2"
-    },
-    wizard: {}
-  };
-  return initialDataLayer;
+async function getInitialDataLayerFromDataElements() {
+  try {
+    const placeholders = await fetchPlaceholders();
+    console.info('Fetched placeholders for datalayer initialization:', placeholders);
+    const placeholderDataLayer = placeholders?.datalayer;
+    console.info('Placeholder "datalayer" value:', placeholderDataLayer);
+
+    if (!placeholderDataLayer) {
+      console.warn('[datalayer] Placeholder "datalayer" missing. Initializing with empty dataLayer object.');
+      return {};
+    }
+
+    if (typeof placeholderDataLayer === 'object') {
+      console.info('[datalayer] Initial dataLayer loaded from placeholder object.');
+      return placeholderDataLayer;
+    }
+
+    if (typeof placeholderDataLayer === 'string') {
+      console.info('[datalayer] Initial dataLayer loaded from placeholder JSON string.');
+      return JSON.parse(placeholderDataLayer);
+    }
+
+    console.warn('[datalayer] Placeholder "datalayer" has unsupported type. Initializing with empty dataLayer object.', {
+      placeholderType: typeof placeholderDataLayer,
+    });
+  } catch (error) {
+    console.warn('Error fetching placeholders for datalayer:', error);
+    console.warn('[datalayer] Initializing with empty dataLayer object due to placeholder fetch/parse error.');
+  }
+
+  return {};
 }
 
-export function buildCustomDataLayer() {
+export async function buildCustomDataLayer() {
   try {
     const savedDataLayer = localStorage.getItem(STORAGE_KEY);
     const savedTimestamp = localStorage.getItem(STORAGE_TIMESTAMP_KEY);
@@ -155,15 +176,14 @@ export function buildCustomDataLayer() {
     }
     if (savedDataLayer && isDataValid) {
       _dataLayer = JSON.parse(savedDataLayer);
-      normalizeDemosystem4Email();
     } else {
-      _dataLayer = getInitialDataLayerFromDataElements();
+      console.info('[datalayer] Creating initial dataLayer from placeholder.');
+      _dataLayer = await getInitialDataLayerFromDataElements();
     }
     applyEcidToDataLayer();
     if (!_dataLayer.page) _dataLayer.page = {};
     _dataLayer.page.title = document.title || _dataLayer.page.title;
-    const pathName = (window.location && window.location.pathname) || '';
-    _dataLayer.page.name = getPageNameFromPathname(pathName) || _dataLayer.page.name;
+    _dataLayer.page.name = (document.title || '').toLowerCase() || _dataLayer.page.name;
     syncWindowDataLayer();
 
     try {
@@ -182,7 +202,8 @@ export function buildCustomDataLayer() {
     }, 0);
   } catch (error) {
     console.error('Error initializing dataLayer:', error);
-    _dataLayer = getInitialDataLayerFromDataElements();
+    console.warn('[datalayer] Initializing with empty/placeholder data after initialization error.');
+    _dataLayer = await getInitialDataLayerFromDataElements();
     syncWindowDataLayer();
     window._dataLayerReady = true;
     processDataLayerQueue();
@@ -217,8 +238,8 @@ window.updateDataLayer = function (updates, merge = true) {
   dispatchDataLayerEvent('updated');
 };
 
-window.resetDataLayerToInitial = function (options = {}) {
-  const initialDataLayer = getInitialDataLayerFromDataElements();
+window.resetDataLayerToInitial = async function (options = {}) {
+  const initialDataLayer = await getInitialDataLayerFromDataElements();
   const preserveEcid = options.preserveEcid !== false;
   const updatePageContext = options.updatePageContext !== false;
 
