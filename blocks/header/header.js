@@ -552,10 +552,10 @@ function createUserProfile(container, langCode, inlineInTools = false) {
  */
 function handleSignOut(langCode) {
   // Clear authentication flag
-  localStorage.removeItem("secur_financial_user_logged_in");
+  localStorage.removeItem("project_user_logged_in");
 
   // Optional: Clear other user data (uncomment if needed)
-  // localStorage.removeItem('secur_financial_registered_user');
+  // localStorage.removeItem('project_registered_user');
   // localStorage.removeItem('com.adobe.reactor.dataElements.Profile - Email');
 
   // Reset dataLayer to canonical initial state from scripts/datalayer.js
@@ -642,7 +642,7 @@ export default async function decorate(block) {
 
     // Hide all nav items after the first 4 for unauthenticated users
     const navItems = navSections.querySelectorAll(':scope .default-content-wrapper > ul > li');
-    const isUserLoggedIn = localStorage.getItem('secur_financial_user_logged_in') === 'true';
+    const isUserLoggedIn = localStorage.getItem('project_user_logged_in') === 'true';
     if (!isUserLoggedIn && navItems.length > 4) {
       for (let i = 4; i < navItems.length; i++) {
         navItems[i].classList.add('nav-auth-hidden');
@@ -657,8 +657,7 @@ export default async function decorate(block) {
     // Find the <li> that contains the Sign In link so we can replace it with the user profile
     const signInLi = nav.querySelector('.nav-sections a[href*="sign-in"]')?.closest('li');
     // Add User Profile in place of Sign In when logged in
-    const isLoggedIn = localStorage.getItem("secur_financial_user_logged_in") === "true"
-      || localStorage.getItem("wkndfly_user_logged_in") === "true";
+    const isLoggedIn = localStorage.getItem("project_user_logged_in") === "true";
     if (isLoggedIn) {
       if (signInLi) signInLi.classList.add('nav-auth-hidden');
       createUserProfile(targetContainer, langCode, true);

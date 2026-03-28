@@ -2,13 +2,13 @@ import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { readBlockConfig } from '../../scripts/aem.js';
 /**
  * Checkout block – consolidates selected flights from the flights block and shows Trip Summary.
- * Selected flights are stored in localStorage (wknd-fly-selected-flights) when user clicks Select on any flight.
+ * Selected flights are stored in localStorage (project_selected_flights) when user clicks Select on any flight.
  * Book Now on the flights block redirects to the checkout page where this block is authored.
  * Confirm Purchase saves booking to sessionStorage and redirects to the confirmation page.
  */
 
-const TRIP_STORAGE_KEY = 'wknd-fly-selected-flights';
-const BOOKING_STORAGE_KEY = 'wknd-fly-booking-confirmation';
+const TRIP_STORAGE_KEY = 'project_selected_flights';
+const BOOKING_STORAGE_KEY = 'project_booking_confirmation';
 
 const LIVE_CONFIRMATION_PATH = '/en/confirmation';
 
@@ -29,12 +29,7 @@ function getSelectedFlights() {
   try {
     const localRaw = localStorage.getItem(TRIP_STORAGE_KEY);
     if (localRaw) return JSON.parse(localRaw);
-    // Backward compatibility: migrate older sessionStorage data once.
-    const sessionRaw = sessionStorage.getItem(TRIP_STORAGE_KEY);
-    if (!sessionRaw) return [];
-    const parsed = JSON.parse(sessionRaw);
-    localStorage.setItem(TRIP_STORAGE_KEY, JSON.stringify(parsed));
-    return parsed;
+    return [];
   } catch {
     return [];
   }
@@ -459,8 +454,7 @@ function renderTripTotal(sidebar, total, config) {
 /** Fill the form data from datalayer object available in local storage */
 function fillFormDataFromDataLayer(block) {
   try {
-    const dataLayerKey = 'wkndfly_registered_user';
-    const rawData = localStorage.getItem(dataLayerKey);
+    const rawData = localStorage.getItem('project_registered_user');
     if (!rawData) return;
 
     const userData = JSON.parse(rawData);

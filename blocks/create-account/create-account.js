@@ -275,7 +275,7 @@ function attachCreateAccountSubmitHandler(block) {
           }
         }
 
-        localStorage.setItem("secur_financial_registered_user", JSON.stringify(registrationData));
+        localStorage.setItem("project_registered_user", JSON.stringify(registrationData));
 
         syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
         clearProductObject();

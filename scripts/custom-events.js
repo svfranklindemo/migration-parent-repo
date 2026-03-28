@@ -5,7 +5,7 @@
 
 const LAUNCH_WAIT_TIMEOUT_MS = 10000;
 const LAUNCH_POLL_INTERVAL_MS = 50;
-const LAUNCH_QUEUE_STORAGE_KEY = 'secur_financial_launch_event_queue';
+const LAUNCH_QUEUE_STORAGE_KEY = 'project_launch_event_queue';
 const LAUNCH_QUEUE_TTL_MS = 30 * 60 * 1000;
 const LAUNCH_QUEUE_MAX_EVENTS = 100;
 const LAUNCH_FLUSH_POLL_TIMEOUT_MS = 60000;

@@ -134,12 +134,8 @@ function prefillEmail(form) {
 
   if (!storedEmail) {
     try {
-      const reg = JSON.parse(
-        localStorage.getItem("secur_financial_registered_user") || "{}"
-      );
-      if (reg.email) {
-        storedEmail = reg.email;
-      }
+      const reg = JSON.parse(localStorage.getItem("project_registered_user") || "{}");
+      if (reg.email) storedEmail = reg.email;
     } catch (e) {
       // Ignore JSON parse errors
     }
@@ -317,7 +313,7 @@ function attachSignInHandler(block) {
     // Sign-in successful - Load user data from registration
     try {
       // Set authentication flag in localStorage
-      localStorage.setItem("secur_financial_user_logged_in", "true");
+      localStorage.setItem("project_user_logged_in", "true");
 
       localStorage.setItem(
         "com.adobe.reactor.dataElements.Identities",

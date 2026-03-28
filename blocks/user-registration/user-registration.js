@@ -239,7 +239,7 @@ function attachFormSubmitHandler(block) {
       }
 
       localStorage.setItem(
-        "wkndfly_registered_user",
+        "project_registered_user",
         JSON.stringify(registrationData)
       );
 

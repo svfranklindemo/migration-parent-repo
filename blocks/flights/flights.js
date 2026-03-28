@@ -29,7 +29,7 @@ const AIRPORTS = [
 ];
 
 // Trip / checkout: persist selected flights across pages/tabs (localStorage)
-const TRIP_STORAGE_KEY = 'wknd-fly-selected-flights';
+const TRIP_STORAGE_KEY = 'project_selected_flights';
 
 // Normalize string for matching URL slug to country (e.g. "United States" -> "unitedstates")
 function slugify(str) {
@@ -231,12 +231,7 @@ export function getSelectedFlights() {
   try {
     const localRaw = localStorage.getItem(TRIP_STORAGE_KEY);
     if (localRaw) return JSON.parse(localRaw);
-    // Backward compatibility: migrate older sessionStorage data once.
-    const sessionRaw = sessionStorage.getItem(TRIP_STORAGE_KEY);
-    if (!sessionRaw) return [];
-    const parsed = JSON.parse(sessionRaw);
-    localStorage.setItem(TRIP_STORAGE_KEY, JSON.stringify(parsed));
-    return parsed;
+    return [];
   } catch {
     return [];
   }
