@@ -721,40 +721,6 @@ function applySectionItemWidths(section) {
   }
 }
 
-function applySectionTextColor(section, colorValue) {
-  const isHexColor = (s) => {
-    const t = String(s).trim();
-    if (!t) return false;
-    if (t.startsWith('#')) return /^#[0-9a-fA-F]{3}$|^#[0-9a-fA-F]{6}$/.test(t);
-    return /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(t);
-  };
-  const toHex = (s) => {
-    const t = String(s).trim();
-    if (t.startsWith('#')) return t;
-    return /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(t) ? `#${t}` : t;
-  };
-  const raw = (colorValue ?? section.dataset.secColor ?? section.dataset.sectionTextColor ?? '').toString().trim();
-  section.classList.remove('section--custom-text-color');
-  section.style.removeProperty('--section-text-color');
-  if (raw && isHexColor(raw)) {
-    section.style.setProperty('--section-text-color', toHex(raw));
-    section.classList.add('section--custom-text-color');
-    section.dataset.secColor = raw;
-  } else {
-    delete section.dataset.secColor;
-  }
-}
-
-function applySectionTextAlignment(section, alignmentValue) {
-  const value = (alignmentValue ?? section.dataset.secAlignment ?? '').toString().trim().toLowerCase();
-  if (['left', 'center', 'right'].includes(value)) {
-    section.dataset.secAlignment = value;
-  } else {
-    delete section.dataset.secAlignment;
-    section.removeAttribute('data-sec-alignment');
-  }
-}
-
 function applySectionBackgroundImage(section, bgImagePath) {
   const existing = section.querySelector('picture.section-bg');
   if (existing) existing.remove();
