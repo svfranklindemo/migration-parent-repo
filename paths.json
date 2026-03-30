@@ -1,22 +1,22 @@
 {
   "mappings": [
-    "/content/secur-financial/language-masters/en:/",
-    "/content/secur-financial/language-masters/en/:/en/",
-    "/content/secur-financial/language-masters/fr/:/fr/",
-    "/content/secur-financial/language-masters/fr:/fr",
-    "/content/secur-financial/language-masters/es/:/es/",
-    "/content/secur-financial/language-masters/es:/es",
-    "/content/secur-financial/language-masters/ja/:/ja/",
-    "/content/secur-financial/language-masters/ja:/ja",
-    "/content/secur-financial/language-masters/de/:/de/",
-    "/content/secur-financial/language-masters/de:/de",
-    "/content/secur-financial/configuration:/.helix/config.json",
-    "/content/secur-financial/metadata:/metadata.json",
-    "/content/secur-financial/redirects:/redirects.json",
-    "/content/secur-financial/placeholders:/placeholders.json"
+    "/content/luma-site/language-masters/en:/",
+    "/content/luma-site/language-masters/en/:/en/",
+    "/content/luma-site/language-masters/fr/:/fr/",
+    "/content/luma-site/language-masters/fr:/fr",
+    "/content/luma-site/language-masters/es/:/es/",
+    "/content/luma-site/language-masters/es:/es",
+    "/content/luma-site/language-masters/ja/:/ja/",
+    "/content/luma-site/language-masters/ja:/ja",
+    "/content/luma-site/language-masters/de/:/de/",
+    "/content/luma-site/language-masters/de:/de",
+    "/content/luma-site/configuration:/.helix/config.json",
+    "/content/luma-site/metadata:/metadata.json",
+    "/content/luma-site/redirects:/redirects.json",
+    "/content/luma-site/placeholders:/placeholders.json"
   ],
   "includes": [
-    "/content/secur-financial/",
-    "/content/dam/secur-financial/"
+    "/content/luma-site/",
+    "/content/dam/luma-site/"
   ]
 }
