@@ -21,7 +21,7 @@
       console.info('[launch] Appending Launch script:', src);
       const script = document.createElement('script');
       script.src = src;
-      script.async = false;
+      script.async = true;
       script.onload = () => {
         window._launchReady = true;
         document.dispatchEvent(new CustomEvent('launchReady'));

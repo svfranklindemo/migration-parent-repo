@@ -100,7 +100,24 @@ function buildTwitterLinks() {
   });
 }
 
-initializeCustomEvents();
+function initializeCustomEventsWhenLaunchReady(timeoutMs = 5000) {
+  if (window._launchReady === true || typeof window._satellite !== 'undefined') {
+    initializeCustomEvents();
+    return;
+  }
+
+  let initialized = false;
+  const initOnce = () => {
+    if (initialized) return;
+    initialized = true;
+    initializeCustomEvents();
+  };
+
+  document.addEventListener('launchReady', initOnce, { once: true });
+  window.setTimeout(initOnce, timeoutMs);
+}
+
+initializeCustomEventsWhenLaunchReady();
 
 if (!window.location.hostname.includes('localhost')) {
   embedCustomLibraries();
