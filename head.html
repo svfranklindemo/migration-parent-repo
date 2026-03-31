@@ -14,10 +14,22 @@
         console.warn('[launch] Placeholder "launch" is missing. Launch script will not be loaded.');
         return;
       }
+      if (document.querySelector(`head > script[src="${src}"]`)) {
+        console.info('[launch] Launch script already present:', src);
+        return;
+      }
       console.info('[launch] Appending Launch script:', src);
       const script = document.createElement('script');
       script.src = src;
-      script.async = true;
+      script.async = false;
+      script.onload = () => {
+        window._launchReady = true;
+        document.dispatchEvent(new CustomEvent('launchReady'));
+        console.info('[launch] Launch script loaded and launchReady dispatched.');
+      };
+      script.onerror = (error) => {
+        console.warn('[launch] Launch script failed to load:', src, error);
+      };
       document.head.appendChild(script);
     };
 
