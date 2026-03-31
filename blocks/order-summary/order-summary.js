@@ -1,3 +1,5 @@
+import { dispatchCustomEvent } from "../../scripts/custom-events.js";
+
 /**
  * Generate random purchase order number
  * @returns {string} Random purchase order number
@@ -314,6 +316,7 @@ function handleConfirmOrder() {
   } else {
     console.warn("⚠️ updateDataLayer not available");
   }
+  dispatchCustomEvent("purchase");
   
   // Navigate to order confirmation
   setTimeout(() => {
@@ -376,6 +379,7 @@ export default function decorate(block) {
 
   // Initial render
   renderOrderSummary(block);
+  dispatchCustomEvent("checkout");
 
   // Setup listener for cart updates
   setupDataLayerListener(block);

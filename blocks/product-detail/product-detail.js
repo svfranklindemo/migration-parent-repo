@@ -1,5 +1,6 @@
 import { createOptimizedPicture, readBlockConfig } from "../../scripts/aem.js";
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
+import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 
 /**
  * Get query parameter from URL
@@ -316,6 +317,7 @@ function buildProductDetail(product, isAuthor) {
       price: price || 0,
       quantity: 1,
     });
+    dispatchCustomEvent("addToCart");
 
     // Show visual feedback
     addToCartBtn.textContent = "Added to Cart ✓";
@@ -330,6 +332,7 @@ function buildProductDetail(product, isAuthor) {
   addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
   addToWishlistBtn.addEventListener("click", () => {
     // TODO: Implement wishlist functionality
+    dispatchCustomEvent("commerce.saveForLaters");
   });
 
   actionsEl.append(addToCartBtn, addToWishlistBtn);
