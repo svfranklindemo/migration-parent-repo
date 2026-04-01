@@ -1777,7 +1777,10 @@ main .section.home-getoffer-container > div:nth-child(1) .cards > ul > li img {
     display: flex;
     justify-content: center;
     background-color: #fafafa;
-    height: 30px;
+}
+
+.luma-theme .TopRibbon .TopRibbon__image{
+  height: 30px;
 }
 .Page .TopRibbon__content {
     max-width: 1200px;
