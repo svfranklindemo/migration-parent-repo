@@ -570,6 +570,43 @@ function handleSignOut(langCode) {
   window.location.href = homeUrl;
 }
 
+function isLumaThemeSelected() {
+  return document.body.classList.contains('luma-theme');
+}
+
+function addLumaCartIcon(container, langCode) {
+  if (!container || !isLumaThemeSelected() || container.querySelector('.cart-icon')) {
+    return;
+  }
+
+  const cartLink = document.createElement('a');
+  cartLink.href = `/${langCode}/cart`;
+  cartLink.className = 'cart-icon';
+  cartLink.setAttribute('aria-label', 'Shopping Cart');
+  cartLink.setAttribute('title', 'Shopping Cart');
+
+  const cartBadge = document.createElement('span');
+  cartBadge.className = 'cart-badge';
+  cartBadge.textContent = '0';
+  cartBadge.style.display = 'none';
+  cartLink.appendChild(cartBadge);
+  container.append(cartLink);
+
+  const updateCartCount = () => {
+    const cartData = window.getDataLayerProperty
+      ? window.getDataLayerProperty('cart')
+      : null;
+    const count = cartData?.productCount || 0;
+
+    cartBadge.textContent = count;
+    cartBadge.style.display = count > 0 ? 'flex' : 'none';
+    cartLink.setAttribute('aria-label', `Shopping Cart (${count} items)`);
+  };
+
+  updateCartCount();
+  document.addEventListener('dataLayerUpdated', updateCartCount);
+}
+
 
 /**
  * loads and decorates the header, mainly the nav
@@ -640,10 +677,11 @@ export default async function decorate(block) {
       });
     });
 
-    // Hide all nav items after the first 4 for unauthenticated users
+    // Hide all nav items after the first 4 for unauthenticated users,
+    // except on luma-themed pages where the full nav should remain visible.
     const navItems = navSections.querySelectorAll(':scope .default-content-wrapper > ul > li');
     const isUserLoggedIn = localStorage.getItem('project_user_logged_in') === 'true';
-    if (!isUserLoggedIn && navItems.length > 4) {
+    if (!isLumaThemeSelected() && !isUserLoggedIn && navItems.length > 4) {
       for (let i = 4; i < navItems.length; i++) {
         navItems[i].classList.add('nav-auth-hidden');
       }
@@ -654,6 +692,7 @@ export default async function decorate(block) {
   if (navTools) {
     const contentWrapper = nav.querySelector('.nav-tools > div[class = "default-content-wrapper"]');
     const targetContainer = contentWrapper || navTools;
+    addLumaCartIcon(targetContainer, langCode);
     // Find the <li> that contains the Sign In link so we can replace it with the user profile
     const signInLi = nav.querySelector('.nav-sections a[href*="sign-in"]')?.closest('li');
     // Add User Profile in place of Sign In when logged in
