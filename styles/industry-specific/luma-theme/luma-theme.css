@@ -116,9 +116,86 @@ body.luma-theme .search.search-icon .search-box .icon img,
 body.luma-theme .search.search-icon .search-trigger .icon img {
   filter: invert(0);
 }
+body.luma-theme .iframe-wrapper {
+  height: calc(100vh - 300px);
+  overflow: hidden;
+}
+
+body.luma-theme .iframe.block {
+  overflow: hidden;
+}
+
+body.luma-theme .iframe.block iframe {
+  margin: 0 var(--section-gutter-space);
+}
 
 @media (width < 900px) {
   body.luma-theme header nav .nav-sections ul > li > a {
     color: #000000;
+  }
+}
+
+
+/*membership*/
+body.luma-theme main .membership .membership-title {
+  margin: 0 auto 30px;
+}
+
+body.luma-theme main .membership form {
+  padding: 40px;
+}
+
+body.luma-theme main .membership.form form .membership-panel.panel-wrapper {
+  gap: 30px 30px;
+}
+
+body.luma-theme main .membership label {
+  margin-bottom: 8px;
+}
+
+body.luma-theme main .membership .submit-wrapper {
+  margin-top: 10px;
+}
+
+@media (width <= 768px) {
+  body.luma-theme main .membership .membership-title {
+    margin-bottom: 24px;
+  }
+
+  body.luma-theme main .membership form {
+    padding: 30px 20px;
+  }
+
+  body.luma-theme main .membership.form form .membership-panel.panel-wrapper {
+    gap: 20px 20px;
+  }
+}
+
+@media (width <= 480px) {
+  body.luma-theme main .membership form {
+    padding: 24px 16px;
+  }
+}
+
+
+
+/*slider*/
+body.luma-theme .section > div.carousel-wrapper {
+  overflow: visible;
+  margin: 0 auto;
+  max-width: none;
+}
+
+body.luma-theme .carousel .button-container .next {
+  right: -25px;
+}
+
+body.luma-theme .carousel .button-container .prev {
+  left: -25px;
+}
+
+@media only screen and (width > 1024px) {
+  body.luma-theme .carousel-container > .default-content-wrapper {
+    flex: 0.824;
   }
 }
