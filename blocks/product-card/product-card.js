@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
+import { getEnvironmentValue, getHostname } from '../../scripts/utils.js';
 
 const FALLBACK_PRODUCT = {
   id: 'f0I76hY77',
@@ -10,10 +11,11 @@ const FALLBACK_PRODUCT = {
   image: 'https://main--demo-boilerplate--lamontacrook.hlx.page/en/media_1f909a9ffb576222b96b4fdf875def856037efc95.png',
 };
 
-const AUTHOR_PRODUCT_ENDPOINT = 'https://author-p189874-e1977911.adobeaemcloud.com/graphql/execute.json/secur-financial/product-card-information';
+const AUTHOR_PRODUCT_ENDPOINT = '/graphql/execute.json/secur-financial/product-card-information';
 const PUBLISH_PRODUCT_ENDPOINT = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/secure-financial-product-card-information';
 const PUBLISH_ENVIRONMENT = 'p189874-e1977911';
 const PRODUCT_CARD_REVEAL_TIMEOUT_MS = 5000;
+let productCardApiConfigPromise;
 
 const productCardRevealState = {
   initialized: false,
@@ -21,6 +23,20 @@ const productCardRevealState = {
   pendingBlocks: new Set(),
   fallbackTimer: null,
 };
+
+async function getProductCardApiConfig() {
+  if (!productCardApiConfigPromise) {
+    productCardApiConfigPromise = (async () => {
+      const placeholderHost = await getHostname();
+      const placeholderEnvironment = await getEnvironmentValue();
+      return {
+        authorBase: (placeholderHost || window.location.origin || '').replace(/\/$/, ''),
+        environment: placeholderEnvironment || PUBLISH_ENVIRONMENT,
+      };
+    })();
+  }
+  return productCardApiConfigPromise;
+}
 
 function revealAllProductCardWrappers() {
   if (productCardRevealState.revealed) return;
@@ -133,12 +149,13 @@ function normalizeContentFragmentPath(rawPath) {
 
 async function fetchProductData(contentFragmentPath) {
   const isAuthor = isAuthorEnvironment();
+  const { authorBase, environment } = await getProductCardApiConfig();
   const pathParam = contentFragmentPath ? `path=${contentFragmentPath}` : '';
   const authorPathParam = pathParam ? `;${pathParam}` : '';
   const publishPathParam = pathParam ? `&${pathParam}` : '';
   const requestUrl = isAuthor
-    ? `${AUTHOR_PRODUCT_ENDPOINT};ts=${Date.now()}${authorPathParam}`
-    : `${PUBLISH_PRODUCT_ENDPOINT}?environment=${PUBLISH_ENVIRONMENT}&time=${Date.now()}${publishPathParam}`;
+    ? `${authorBase}${AUTHOR_PRODUCT_ENDPOINT};ts=${Date.now()}${authorPathParam}`
+    : `${PUBLISH_PRODUCT_ENDPOINT}?environment=${environment}&time=${Date.now()}${publishPathParam}`;
 
   try {
     const response = await fetch(requestUrl, {
