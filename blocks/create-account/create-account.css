@@ -46,6 +46,11 @@ main .create-account .heading-wrapper {
   padding: 0 !important;
 }
 
+main .create-account .field-wrapper.is-hidden,
+main .create-account .heading-wrapper.is-hidden {
+  display: none !important;
+}
+
 main .create-account h2#heading-create-account {
   font-size: 2.25rem;
   font-weight: 400;
@@ -62,6 +67,16 @@ main .create-account h2#communicationHeading {
   padding: 0;
   color: #1e293b;
   letter-spacing: 0.05em;
+}
+
+main .create-account h2#heading-know-you-better {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 28px 0 0;
+  padding: 0;
+  color: #1e293b;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 main .create-account .panel-wrapper > .heading-wrapper {
@@ -139,6 +154,15 @@ main .create-account .field-wrapper.switch {
   gap: 12px;
   margin: 0;
   padding: 4px 0;
+}
+
+main .create-account .loyalty-program-field {
+  grid-column: span 12 !important;
+  margin-top: 4px;
+}
+
+main .create-account .know-you-better-heading {
+  margin-top: 12px !important;
 }
 
 main .create-account .field-wrapper.switch label {

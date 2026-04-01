@@ -2,6 +2,18 @@ import { readBlockConfig, applyFormCustomStyles } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
 
+function isTruthy(value) {
+  return value === true || String(value).trim().toLowerCase() === "true";
+}
+
+function normalizeVariant(value) {
+  return String(value || "default").trim().toLowerCase();
+}
+
+function withConditionalClasses(baseClassName, isVisible) {
+  return isVisible ? baseClassName : `${baseClassName} is-hidden`;
+}
+
 function applyButtonConfigToSubmitButton(block, config, defaultEventType = 'form-submit') {
   const submitButton = block.querySelector("form button[type='submit']");
   if (!submitButton) return;
@@ -22,7 +34,13 @@ function clearProductObject() {
   }
 }
 
-function buildCreateAccountFormDef() {
+function buildCreateAccountFormDef(config = {}) {
+  const isLumaVariant = normalizeVariant(config.variant) === "luma";
+  const showLoyaltyProgram = isTruthy(config.showloyaltyprogram);
+  const shoeSizes = ["", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
+  const shirtSizes = ["", "s", "m", "l", "xl", "xxl"];
+  const favoriteColors = ["", "black", "blue", "green", "orange", "pink", "purple", "red", "white", "yellow"];
+
   return {
     id: "create-account",
     fieldType: "form",
@@ -102,6 +120,20 @@ function buildCreateAccountFormDef() {
             properties: { colspan: 12 },
           },
           {
+            id: "joinLoyaltyProgram",
+            name: "joinLoyaltyProgram",
+            fieldType: "checkbox",
+            label: { value: "I want to join loyalty program" },
+            enum: ["true"],
+            type: "string",
+            appliedCssClassNames: withConditionalClasses("col-12 loyalty-program-field", showLoyaltyProgram),
+            properties: {
+              variant: "switch",
+              alignment: "horizontal",
+              colspan: 12,
+            },
+          },
+          {
             id: "communicationHeading",
             fieldType: "heading",
             label: { value: "Communication preferences" },
@@ -147,6 +179,42 @@ function buildCreateAccountFormDef() {
             },
           },
           {
+            id: "heading-know-you-better",
+            fieldType: "heading",
+            label: { value: "LET US KNOW YOU BETTER" },
+            appliedCssClassNames: withConditionalClasses("col-12 know-you-better-heading", isLumaVariant),
+          },
+          {
+            id: "shoeSize",
+            name: "shoeSize",
+            fieldType: "drop-down",
+            label: { value: "Shoe size" },
+            enum: shoeSizes,
+            enumNames: ["Select...", ...shoeSizes.slice(1)],
+            appliedCssClassNames: withConditionalClasses("col-6 luma-preference-field", isLumaVariant),
+            properties: { colspan: 6 },
+          },
+          {
+            id: "shirtSize",
+            name: "shirtSize",
+            fieldType: "drop-down",
+            label: { value: "Shirt size" },
+            enum: shirtSizes,
+            enumNames: ["Select...", "S", "M", "L", "XL", "XXL"],
+            appliedCssClassNames: withConditionalClasses("col-6 luma-preference-field", isLumaVariant),
+            properties: { colspan: 6 },
+          },
+          {
+            id: "favoriteColor",
+            name: "favoriteColor",
+            fieldType: "drop-down",
+            label: { value: "Favorite color" },
+            enum: favoriteColors,
+            enumNames: ["Select...", "Black", "Blue", "Green", "Orange", "Pink", "Purple", "Red", "White", "Yellow"],
+            appliedCssClassNames: withConditionalClasses("col-12 luma-preference-field", isLumaVariant),
+            properties: { colspan: 12 },
+          },
+          {
             id: "submit-btn",
             name: "submitButton",
             fieldType: "button",
@@ -164,7 +232,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   [...block.children].forEach((row) => { row.style.display = "none"; });
 
-  const formDef = buildCreateAccountFormDef();
+  const formDef = buildCreateAccountFormDef(config);
   const formContainer = document.createElement("div");
   formContainer.className = "form";
 

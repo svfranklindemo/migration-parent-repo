@@ -22,6 +22,30 @@
       "id": "create-account",
       "fields": [
         {
+          "component": "select",
+          "name": "variant",
+          "label": "Variant",
+          "value": "default",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": "default"
+            },
+            {
+              "name": "Luma",
+              "value": "luma"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "showloyaltyprogram",
+          "label": "Show Loyalty Program",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
           "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",
