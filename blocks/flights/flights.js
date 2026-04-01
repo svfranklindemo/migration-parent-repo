@@ -8,8 +8,10 @@ const PUBLISH_GRAPHQL_BASE_For_Search = 'https://275323-918sangriatortoise.adobe
 
 const AUTHOR_GRAPHQL_BASE_For_Destination = 'https://author-p189874-e1977911.adobeaemcloud.com/graphql/execute.json/wknd-fly/flight-details-list-for-destination-page';
 const PUBLISH_GRAPHQL_BASE_For_Destination = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/flight-details-list';
+
 const AUTHOR_GRAPHQL_BASE_For_Dropdown = 'https://author-p189874-e1977911.adobeaemcloud.com/graphql/execute.json/wknd-fly/flight-source-dropdown';
-const PUBLISH_GRAPHQL_BASE_For_Dropdown = 'https://publish-p189874-e1977911.adobeaemcloud.com/graphql/execute.json/wknd-fly/flight-source-dropdown';
+const PUBLISH_GRAPHQL_BASE_For_Dropdown = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/flight-source-dropdown';
+
 let selectButtonDataAttributes = {};
 
 // Sample airport data (shared with flight-search)
@@ -280,7 +282,9 @@ async function fetchAirportsFromGraphQL(contentFragmentPath) {
   if (!contentFragmentPath) return [];
   const isAuthor = isAuthorEnvironment();
   try {
-    const url = `${isAuthor ? AUTHOR_GRAPHQL_BASE_For_Dropdown : PUBLISH_GRAPHQL_BASE_For_Dropdown};path=${contentFragmentPath};ts=${Date.now()}`;
+    const url = isAuthor
+      ? `${AUTHOR_GRAPHQL_BASE_For_Dropdown};path=${contentFragmentPath};ts=${Date.now()}`
+      : `${PUBLISH_GRAPHQL_BASE_For_Dropdown}?environment=p189874-e1977911&path=${contentFragmentPath}&time=${Date.now()}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
