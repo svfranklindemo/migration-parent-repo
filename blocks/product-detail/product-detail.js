@@ -2,6 +2,31 @@ import { createOptimizedPicture, readBlockConfig } from "../../scripts/aem.js";
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { addProductToCart } from "../../scripts/cart-store.js";
+import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
+
+const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/luma3/lumaProductDetails;";
+const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/luma-fetch";
+const PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY = "getProductsByPathAndSKU";
+const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/luma3/lumaProductListByPath;";
+const PUBLISH_PRODUCTS_ENDPOINT_KEY = "menproductspagelister";
+let productDetailAuthorBasePromise;
+let productDetailPublishEnvironmentPromise;
+
+async function getProductDetailAuthorBase() {
+  if (!productDetailAuthorBasePromise) {
+    productDetailAuthorBasePromise = getHostname()
+      .then((hostname) => (hostname || window.location.origin || "").replace(/\/$/, ""))
+      .catch(() => (window.location.origin || "").replace(/\/$/, ""));
+  }
+  return productDetailAuthorBasePromise;
+}
+
+async function getProductDetailPublishEnvironment() {
+  if (!productDetailPublishEnvironmentPromise) {
+    productDetailPublishEnvironmentPromise = getEnvironmentValue().catch(() => undefined);
+  }
+  return productDetailPublishEnvironmentPromise;
+}
 
 /**
  * Get query parameter from URL
@@ -27,11 +52,12 @@ async function fetchProductDetail(path, sku, isAuthor) {
       console.error("Product Detail: Missing path or SKU");
       return null;
     }
-   const skuItem = isAuthor ? `;sku=${sku}` : `&sku=${sku}`;
-    const baseUrl = isAuthor
-      ? "https://author-p121371-e1189853.adobeaemcloud.com/graphql/execute.json/luma3/getProductsByPathAndSKU;"
-      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGrapghQlByPathAndSku?";
-    const url = `${baseUrl}_path=${path}${skuItem}`;
+    const skuItem = isAuthor ? `;sku=${sku}` : `&sku=${sku}`;
+    const authorBase = await getProductDetailAuthorBase();
+    const environment = await getProductDetailPublishEnvironment();
+    const url = isAuthor
+      ? `${authorBase}${AUTHOR_PRODUCT_DETAIL_ENDPOINT}_path=${path}${skuItem}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path};sku=${sku}`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -60,10 +86,11 @@ async function fetchAllProducts(path, isAuthor) {
     if (!path) {
       return [];
     }
-        const baseUrl = isAuthor
-      ? "https://author-p121371-e1189853.adobeaemcloud.com/graphql/execute.json/luma3/menproductspagelister;"
-      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl?";
-    const url = `${baseUrl}_path=${path}`;
+    const authorBase = await getProductDetailAuthorBase();
+    const environment = await getProductDetailPublishEnvironment();
+    const url = isAuthor
+      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {

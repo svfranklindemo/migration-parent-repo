@@ -29,6 +29,7 @@ export const INTERNAL_PAGES = ['/footer', '/nav', '/fragments', '/data', '/draft
 let lang;
 import { fetchPlaceholders } from './aem.js';
 import { isAuthorEnvironment } from './scripts.js';
+const DEFAULT_AEM_AUTHOR_HOSTNAME = 'https://author-p189874-e1977911.adobeaemcloud.com';
 
 /**
  * Extracts the site name from the current URL pathname
@@ -73,8 +74,10 @@ export async function getHostname() {
     if (hostname) {
       return hostname;
     }
+    return DEFAULT_AEM_AUTHOR_HOSTNAME;
   } catch (error) {
     console.warn('Error fetching placeholders for hostname:', error);
+    return DEFAULT_AEM_AUTHOR_HOSTNAME;
   }
 }
 

@@ -1,5 +1,28 @@
 import { readBlockConfig, createOptimizedPicture } from "../../scripts/aem.js";
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
+import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
+
+const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/luma3/lumaProductListByPath;";
+const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/luma-fetch";
+const PUBLISH_PRODUCTS_ENDPOINT_KEY = "menproductspagelister";
+let categoryProductsAuthorBasePromise;
+let categoryProductsPublishEnvironmentPromise;
+
+async function getCategoryProductsAuthorBase() {
+  if (!categoryProductsAuthorBasePromise) {
+    categoryProductsAuthorBasePromise = getHostname()
+      .then((hostname) => (hostname || window.location.origin || "").replace(/\/$/, ""))
+      .catch(() => (window.location.origin || "").replace(/\/$/, ""));
+  }
+  return categoryProductsAuthorBasePromise;
+}
+
+async function getCategoryProductsPublishEnvironment() {
+  if (!categoryProductsPublishEnvironmentPromise) {
+    categoryProductsPublishEnvironmentPromise = getEnvironmentValue().catch(() => undefined);
+  }
+  return categoryProductsPublishEnvironmentPromise;
+}
 
 function buildCard(item, isAuthor) {
   const { id, sku, name, image = {}, category = [] } = item || {};
@@ -75,10 +98,12 @@ async function fetchProducts(path) {
   try {
     if (!path) return [];
 
-    const baseUrl = isAuthorEnvironment()
-    ? "https://author-p121371-e1189853.adobeaemcloud.com/graphql/execute.json/luma3/menproductspagelister;"
-    : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl?";
-  const url = `${baseUrl}_path=${path}`;
+    const isAuthor = isAuthorEnvironment();
+    const authorBase = await getCategoryProductsAuthorBase();
+    const environment = await getCategoryProductsPublishEnvironment();
+    const url = isAuthor
+      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
 
     const resp = await fetch(url, {
       method: 'GET',

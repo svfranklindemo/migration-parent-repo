@@ -1,5 +1,6 @@
 import { createOptimizedPicture, readBlockConfig } from "../../scripts/aem.js";
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
+import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 import {
   getCartSnapshot,
   getEmptyCart,
@@ -8,6 +9,28 @@ import {
   setCartItemQuantity,
   syncFallbackCart,
 } from "../../scripts/cart-store.js";
+
+const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/luma3/lumaProductListByPath;";
+const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/luma-fetch";
+const PUBLISH_PRODUCTS_ENDPOINT_KEY = "menproductspagelister";
+let cartAuthorBasePromise;
+let cartPublishEnvironmentPromise;
+
+async function getCartAuthorBase() {
+  if (!cartAuthorBasePromise) {
+    cartAuthorBasePromise = getHostname()
+      .then((hostname) => (hostname || window.location.origin || "").replace(/\/$/, ""))
+      .catch(() => (window.location.origin || "").replace(/\/$/, ""));
+  }
+  return cartAuthorBasePromise;
+}
+
+async function getCartPublishEnvironment() {
+  if (!cartPublishEnvironmentPromise) {
+    cartPublishEnvironmentPromise = getEnvironmentValue().catch(() => undefined);
+  }
+  return cartPublishEnvironmentPromise;
+}
 
 /**
  * Format price as currency
@@ -406,10 +429,11 @@ async function fetchAllProducts(path, isAuthor) {
     if (!path) {
       return [];
     }
-    const baseUrl = isAuthor
-      ? "https://author-p121371-e1189853.adobeaemcloud.com/graphql/execute.json/luma3/menproductspagelister;"
-      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl?";
-    const url = `${baseUrl}_path=${path}`;
+    const authorBase = await getCartAuthorBase();
+    const environment = await getCartPublishEnvironment();
+    const url = isAuthor
+      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {
