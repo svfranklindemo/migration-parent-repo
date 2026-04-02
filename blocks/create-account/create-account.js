@@ -345,6 +345,10 @@ function attachCreateAccountSubmitHandler(block) {
 
         localStorage.setItem("project_registered_user", JSON.stringify(registrationData));
 
+        if (window.dataLayer?.projectName === 'luma3') {
+          window.dataLayer.createAccountConsent = true;
+        }
+
         syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
         clearProductObject();
 
