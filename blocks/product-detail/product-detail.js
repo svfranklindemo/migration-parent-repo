@@ -116,8 +116,8 @@ async function fetchAllProducts(path, isAuthor) {
  * @returns {HTMLElement} - Product card
  */
 function buildRecommendationCard(item, isAuthor) {
-  const { id, sku, name, image = {}, category = [] } = item || {};
-  let imgUrl = isAuthor ? image?._authorUrl : image?._publishUrl;
+  const { id, sku, name, damImageURL = {}, category = [] } = item || {};
+  const imgUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
   const productId = sku || id || "";
 
   const card = document.createElement("article");
@@ -211,14 +211,14 @@ function buildProductDetail(product, isAuthor) {
     price,
     category = [],
     description = {},
-    image = {},
+    damImageURL = {},
     sku,
     id,
   } = product;
 
   // Update dataLayer with product information
   // If dataLayer is not ready, the update will be queued automatically
-  const imageUrl = isAuthor ? image?._authorUrl : image?._publishUrl;
+  const imageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
 
   const productData = {
     id: id || sku || "",
@@ -252,7 +252,7 @@ function buildProductDetail(product, isAuthor) {
   const imageSection = document.createElement("div");
   imageSection.className = "pd-image";
 
-  const imgUrl = isAuthor ? image?._authorUrl : image?._publishUrl;
+  const imgUrl = imageUrl;
   if (imgUrl) {
     let picture = null;
     if (!isAuthor && imgUrl.startsWith("http")) {
@@ -326,7 +326,7 @@ function buildProductDetail(product, isAuthor) {
   addToCartBtn.textContent = "Add to Cart";
   addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
   addToCartBtn.addEventListener("click", () => {
-    const imageUrl = isAuthor ? image?._authorUrl : image?._publishUrl;
+    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
     const formattedCategory =
       category.length > 0
         ? category
@@ -337,8 +337,8 @@ function buildProductDetail(product, isAuthor) {
     addProductToCart({
       id: id || sku || "",
       name: name || "",
-      image: imageUrl || "",
-      thumbnail: imageUrl || "",
+      image: cartImageUrl || "",
+      thumbnail: cartImageUrl || "",
       category: formattedCategory,
       description: description?.html || description?.markdown || "",
       price: price || 0,

@@ -25,8 +25,8 @@ async function getCategoryProductsPublishEnvironment() {
 }
 
 function buildCard(item, isAuthor) {
-  const { id, sku, name, image = {}, category = [] } = item || {};
-  let imgUrl = isAuthor ? image?._authorUrl : image?._publishUrl;
+  const { id, sku, name, damImageURL = {}, category = [] } = item || {};
+  const imgUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
   const productId = sku || id || "";
 
   const card = document.createElement("article");
