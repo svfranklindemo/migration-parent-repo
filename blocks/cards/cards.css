@@ -14,10 +14,12 @@
   );
 }*/
 
-/* Prevent cards FOUC with controlled placeholder space while loading. */
+/* Prevent cards FOUC while keeping zero reserved height during loading. */
 .cards.block[data-block-status="initialized"],
 .cards.block[data-block-status="loading"] {
-  min-height: var(--cards-loading-min-height, 0px);
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* Hide raw authored rows while loading so they don't create oversized blank space. */
@@ -27,7 +29,9 @@
 }
 
 .cards.block[data-block-status="loaded"] {
+  height: auto;
   min-height: 0;
+  overflow: visible;
 }
 
 .card-link .cards a:any-link {
