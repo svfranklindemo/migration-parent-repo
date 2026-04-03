@@ -582,6 +582,25 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* Prevent cards FOUC: collapse block while loading, reveal only when loaded. */
+.cards.block[data-block-status="initialized"],
+.cards.block[data-block-status="loading"] {
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cards.block[data-block-status="initialized"] > *,
+.cards.block[data-block-status="loading"] > * {
+  display: none;
+}
+
+.cards.block[data-block-status="loaded"] {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
 h1,
 h2,
 h3,
