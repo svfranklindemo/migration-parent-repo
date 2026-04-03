@@ -14,14 +14,20 @@
   );
 }*/
 
-/* Prevent cards FOUC: keep raw authored markup hidden until block decoration is complete. */
+/* Prevent cards FOUC with controlled placeholder space while loading. */
 .cards.block[data-block-status="initialized"],
 .cards.block[data-block-status="loading"] {
-  visibility: hidden;
+  min-height: var(--cards-loading-min-height, 280px);
+}
+
+/* Hide raw authored rows while loading so they don't create oversized blank space. */
+.cards.block[data-block-status="initialized"] > *,
+.cards.block[data-block-status="loading"] > * {
+  display: none;
 }
 
 .cards.block[data-block-status="loaded"] {
-  visibility: visible;
+  min-height: 0;
 }
 
 .card-link .cards a:any-link {
