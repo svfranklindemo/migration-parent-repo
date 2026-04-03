@@ -17,7 +17,7 @@
 /* Prevent cards FOUC with controlled placeholder space while loading. */
 .cards.block[data-block-status="initialized"],
 .cards.block[data-block-status="loading"] {
-  min-height: var(--cards-loading-min-height, 280px);
+  min-height: var(--cards-loading-min-height, 0px);
 }
 
 /* Hide raw authored rows while loading so they don't create oversized blank space. */
