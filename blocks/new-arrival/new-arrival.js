@@ -324,8 +324,7 @@ function createCarousel(block, cards) {
     if (width <= 400) return 220;
     if (width <= 600) return 240;
     if (width <= 900) return 260;
-    if (width <= 1200) return 280;
-    return 300;
+    return 227.2;
   }
 
   function getWrapperPadding() {

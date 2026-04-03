@@ -207,7 +207,15 @@ body.luma-theme .carousel .button-container .prev {
     margin: 0;
     margin-top: 40px;
 }
-
+.feature-support .cards > ul > li.teaser-overlay .cards-card-body p {
+    font-family: 'Adobe Clean Black';
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    width: 50%;
+}
 .cards.feature-support > ul {
     display: flex;
     justify-content: space-around;
