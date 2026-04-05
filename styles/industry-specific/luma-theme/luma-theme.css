@@ -222,7 +222,13 @@ body.luma-theme main .membership .submit-wrapper {
   }
 }
 
-
+.section.banner-less-height.hero-container .hero {
+    min-height: 300px;
+    height: 300px !important;
+}
+body.luma-theme .hero.image-background-text-left div:nth-child(2) {
+    margin-left: 0;
+}
 
 /*slider*/
 body.luma-theme .section > div.carousel-wrapper {
