@@ -35,7 +35,7 @@ function setFieldValue(field, value) {
   return true;
 }
 
-function prefillLoanPreapprovalFormFromDataLayer(form) {
+function prePopulateFormFromDataLayer(form) {
   if (!form || !window.dataLayer) return false;
   let hasPrefill = false;
   Object.entries(DEFAULT_FORM_FIELD_MAP).forEach(([fieldName, dataLayerPath]) => {
@@ -55,7 +55,7 @@ function prefillLoanPreapprovalFormFromDataLayer(form) {
 function setupLoanPreapprovalFormPrefill(form) {
   if (!form) return;
   const syncPrefillToDataLayer = () => {
-    const didPrefill = prefillLoanPreapprovalFormFromDataLayer(form);
+    const didPrefill = prePopulateFormFromDataLayer(form);
     if (didPrefill) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
     }

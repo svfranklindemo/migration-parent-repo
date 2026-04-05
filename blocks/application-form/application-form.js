@@ -36,7 +36,7 @@ function setFieldValue(field, value) {
   return true;
 }
 
-function prefillApplicationFormFromDataLayer(form) {
+function prePopulateFormFromDataLayer(form) {
   if (!form || !window.dataLayer) return false;
   let hasPrefill = false;
   Object.entries(DEFAULT_FORM_FIELD_MAP).forEach(([fieldName, dataLayerPath]) => {
@@ -56,7 +56,7 @@ function prefillApplicationFormFromDataLayer(form) {
 function setupApplicationFormPrefill(form) {
   if (!form) return;
   const applyPrefill = () => {
-    prefillApplicationFormFromDataLayer(form);
+    prePopulateFormFromDataLayer(form);
   };
 
   applyPrefill();

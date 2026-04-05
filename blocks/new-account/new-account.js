@@ -33,7 +33,7 @@ function setFieldValue(field, value) {
   return true;
 }
 
-function prefillNewAccountFormFromDataLayer(form) {
+function prePopulateFormFromDataLayer(form) {
   if (!form || !window.dataLayer) return false;
   let hasPrefill = false;
   Object.entries(DEFAULT_FORM_FIELD_MAP).forEach(([fieldName, dataLayerPath]) => {
@@ -53,7 +53,7 @@ function prefillNewAccountFormFromDataLayer(form) {
 function setupNewAccountFormPrefill(form) {
   if (!form) return;
   const applyPrefill = () => {
-    prefillNewAccountFormFromDataLayer(form);
+    prePopulateFormFromDataLayer(form);
   };
 
   applyPrefill();
