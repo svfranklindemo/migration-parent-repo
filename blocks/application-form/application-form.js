@@ -12,18 +12,6 @@ import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '.
 
 const APPLICATION_FORM_WIZARD_NAME = 'Credit Card Application';
 const APPLICATION_FORM_WIZARD_TITLE = 'Credit Card Application';
-const APPLICATION_FORM_PREFILL_FIELD_MAP = {
-  firstName: DEFAULT_FORM_FIELD_MAP.firstName,
-  lastName: DEFAULT_FORM_FIELD_MAP.lastName,
-  email: DEFAULT_FORM_FIELD_MAP.email,
-  phone: DEFAULT_FORM_FIELD_MAP.phone,
-  streetAddress: DEFAULT_FORM_FIELD_MAP.streetAddress,
-  state: DEFAULT_FORM_FIELD_MAP.state,
-  zipCode: DEFAULT_FORM_FIELD_MAP.zipCode,
-  city: DEFAULT_FORM_FIELD_MAP.city,
-  country: DEFAULT_FORM_FIELD_MAP.country,
-  dateOfBirth: DEFAULT_FORM_FIELD_MAP.dateOfBirth,
-};
 
 function getNestedProperty(obj, path) {
   if (!obj || !path) return undefined;
@@ -51,7 +39,7 @@ function setFieldValue(field, value) {
 function prefillApplicationFormFromDataLayer(form) {
   if (!form || !window.dataLayer) return false;
   let hasPrefill = false;
-  Object.entries(APPLICATION_FORM_PREFILL_FIELD_MAP).forEach(([fieldName, dataLayerPath]) => {
+  Object.entries(DEFAULT_FORM_FIELD_MAP).forEach(([fieldName, dataLayerPath]) => {
     const field = form.querySelector(`[name="${fieldName}"]`);
     if (!field || hasExistingFieldValue(field)) return;
     const value = getNestedProperty(window.dataLayer, dataLayerPath);
