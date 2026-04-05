@@ -7,6 +7,7 @@
 
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -133,6 +134,11 @@ export default async function decorate(block) {
   // After form is rendered, apply button config and attach submit handler
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config);
+    const form = block.querySelector('form');
+    if (form) {
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+      attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
+    }
     attachFormSubmitHandler(block);
   }, 100);
 }
@@ -173,10 +179,9 @@ function attachFormSubmitHandler(block) {
         }
       }
 
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
       if (typeof window.updateDataLayer === 'function') {
         window.updateDataLayer({
-          personalEmail: { address: email },
-          person: { name: { firstName, lastName } },
           loyaltyConsent: consent,
         });
       }

@@ -38,6 +38,11 @@ export const DEFAULT_FORM_FIELD_MAP = {
   country: 'homeAddress.country',
   dateOfBirth: 'person.birthDate',
   isMember: 'person.isMember',
+  wkndFlyMember: 'person.wkndFlyMember',
+  emailComm: 'consents.marketing.email.val',
+  prefEmail: 'consents.marketing.email.val',
+  prefPhone: 'consents.marketing.call.val',
+  prefSms: 'consents.marketing.sms.val',
 };
 
 export function buildFormDataLayerUpdates(form, fieldMap) {

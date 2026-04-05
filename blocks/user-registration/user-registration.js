@@ -1,5 +1,6 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -120,7 +121,11 @@ export default async function decorate(block) {
   // Wait for form to be fully rendered before attaching listeners
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config);
-    attachDataLayerUpdaters(block);
+    const form = block.querySelector("form");
+    if (form) {
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+      attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
+    }
     prePopulateFormFromDataLayer(block);
     attachFormSubmitHandler(block);
     addSignInLink(block);
@@ -188,8 +193,27 @@ function attachFormSubmitHandler(block) {
       return;
     }
 
-    // Update dataLayer one final time with all form data
-    updateAllDataLayerFields(formData);
+    // Update dataLayer with standard fields and custom fields
+    syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+    
+    // Handle custom fields separately
+    const isMember = (formData.wkndFlyMember || "").toLowerCase() === "member" ? "y" : "n";
+    if (typeof window.updateDataLayer === 'function') {
+      window.updateDataLayer({
+        person: {
+          wkndFlyMember: formData.wkndFlyMember || "",
+          isMember: isMember === "y",
+        },
+        _demosystem4: {
+          identification: {
+            core: {
+              email: formData.email || null,
+              isMember,
+            },
+          },
+        },
+      });
+    }
 
     // Simulate user registration (replace with actual API call)
     try {
@@ -420,10 +444,8 @@ function prePopulateFormFromDataLayer(block) {
   };
 
   // Populate each field from dataLayer
-  Object.keys(fieldToDataLayerMap).forEach((fieldName) => {
-    const dataLayerPath = fieldToDataLayerMap[fieldName];
-    const value = getNestedProperty(dataLayer, dataLayerPath);
-
+  const setFieldValue = (fieldName, path) => {
+    const value = getNestedProperty(dataLayer, path);
     if (value !== undefined && value !== null && value !== "") {
       const field = form.querySelector(`[name="${fieldName}"]`);
       if (!field) return;
@@ -436,7 +458,16 @@ function prePopulateFormFromDataLayer(block) {
         field.value = value;
       }
     }
-  });
+  };
+
+  // Populate standard fields using DEFAULT_FORM_FIELD_MAP paths
+  setFieldValue("firstName", "person.name.firstName");
+  setFieldValue("lastName", "person.name.lastName");
+  setFieldValue("email", "personalEmail.address");
+  setFieldValue("phone", "mobilePhone.number");
+  
+  // Populate custom fields
+  setFieldValue("wkndFlyMember", "person.wkndFlyMember");
 
   // Pre-populate email communication checkbox
   const emailCommVal = getNestedProperty(dataLayer, "consents.marketing.email.val");
@@ -446,83 +477,7 @@ function prePopulateFormFromDataLayer(block) {
   }
 }
 
-/**
- * Maps form field names to dataLayer paths
- */
-const fieldToDataLayerMap = {
-  firstName: "person.name.firstName",
-  lastName: "person.name.lastName",
-  email: "personalEmail.address",
-  phone: "mobilePhone.number",
-  wkndFlyMember: "person.wkndFlyMember",
-  emailComm: "consents.marketing.email.val",
-};
 
-/**
- * Updates dataLayer with field value
- * @param {string} fieldName - Form field name
- * @param {*} value - Field value
- */
-function updateDataLayerField(fieldName, value) {
-  if (!window.updateDataLayer) {
-    console.warn("DataLayer not available yet");
-    return;
-  }
-
-  const dataLayerPath = fieldToDataLayerMap[fieldName];
-  if (!dataLayerPath) return;
-
-  const pathParts = dataLayerPath.split(".");
-  const updateObj = {};
-  let current = updateObj;
-
-  for (let i = 0; i < pathParts.length - 1; i++) {
-    current[pathParts[i]] = {};
-    current = current[pathParts[i]];
-  }
-
-  if (fieldName === "emailComm") {
-    current[pathParts[pathParts.length - 1]] = value === "true" || value === true;
-  } else {
-    current[pathParts[pathParts.length - 1]] = value || "";
-  }
-
-  window.updateDataLayer(updateObj);
-}
-
-/**
- * Attaches dataLayer updaters to all form fields
- * @param {HTMLElement} block - The user registration block
- */
-function attachDataLayerUpdaters(block) {
-  const form = block.querySelector("form");
-  if (!form) {
-    console.warn("Form not found in user registration block");
-    return;
-  }
-
-  const fields = form.querySelectorAll("input, select, textarea");
-
-  fields.forEach((field) => {
-    const fieldName = field.name || field.id;
-    if (!fieldName) return;
-
-    if (field.type === "checkbox" || field.type === "radio") {
-      field.addEventListener("change", () => {
-        handleFieldUpdate(form, fieldName, field);
-      });
-    } else {
-      field.addEventListener("blur", () => {
-        handleFieldUpdate(form, fieldName, field);
-      });
-      if (field.tagName.toLowerCase() === "select") {
-        field.addEventListener("change", () => {
-          handleFieldUpdate(form, fieldName, field);
-        });
-      }
-    }
-  });
-}
 
 /**
  * Handles field update and triggers dataLayer update

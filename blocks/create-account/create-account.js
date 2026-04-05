@@ -89,7 +89,7 @@ function buildCreateAccountFormDef(config = {}) {
           },
           {
             id: "address",
-            name: "address",
+            name: "streetAddress",
             fieldType: "text-input",
             label: { value: "Address" },
             autoComplete: "street-address",
@@ -249,7 +249,6 @@ export default async function decorate(block) {
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'form-submit');
     prePopulateFormFromDataLayer(block);
-    attachDataLayerUpdaters(block);
     attachCreateAccountSubmitHandler(block);
     const form = block.querySelector("form");
     if (form) {
@@ -408,20 +407,6 @@ function showErrorMessage(form, message) {
   }
 }
 
-const fieldToDataLayerMap = {
-  firstName: "person.name.firstName",
-  lastName: "person.name.lastName",
-  email: "personalEmail.address",
-  phone: "mobilePhone.number",
-  address: "person.address.street1",
-  zipCode: "person.address.postalCode",
-  city: "person.address.city",
-  dateOfBirth: "person.birthDate",
-  prefEmail: "consents.marketing.email.val",
-  prefPhone: "consents.marketing.call.val",
-  prefSms: "consents.marketing.sms.val",
-};
-
 function prePopulateFormFromDataLayer(block) {
   if (!window.dataLayer) return;
 
@@ -430,66 +415,17 @@ function prePopulateFormFromDataLayer(block) {
 
   const getNestedProperty = (obj, path) => path.split(".").reduce((current, prop) => current?.[prop], obj);
 
-  Object.keys(fieldToDataLayerMap).forEach((fieldName) => {
-    const value = getNestedProperty(window.dataLayer, fieldToDataLayerMap[fieldName]);
+  Object.entries(DEFAULT_FORM_FIELD_MAP).forEach(([fieldName, path]) => {
+    const value = getNestedProperty(window.dataLayer, path);
     if (value === undefined || value === null || value === "") return;
 
     const field = form.querySelector(`[name="${fieldName}"]`);
     if (!field) return;
 
     if (field.type === "checkbox") {
-      field.checked = value === true || value === "true";
+      field.checked = value === true || value === "true" || value === "y";
     } else {
       field.value = value;
-    }
-  });
-}
-
-function updateDataLayerField(fieldName, value) {
-  if (!window.updateDataLayer) return;
-  const dataLayerPath = fieldToDataLayerMap[fieldName];
-  if (!dataLayerPath) return;
-
-  const pathParts = dataLayerPath.split(".");
-  const updateObj = {};
-  let current = updateObj;
-
-  for (let i = 0; i < pathParts.length - 1; i += 1) {
-    current[pathParts[i]] = {};
-    current = current[pathParts[i]];
-  }
-
-  if (fieldName.startsWith("pref")) {
-    const normalized = value === "true" || value === true ? "y" : "n";
-    current[pathParts[pathParts.length - 1]] = normalized;
-  } else {
-    current[pathParts[pathParts.length - 1]] = value || "";
-  }
-
-  window.updateDataLayer(updateObj);
-}
-
-function handleFieldUpdate(fieldName, field) {
-  if (field.type === "checkbox") {
-    updateDataLayerField(fieldName, field.checked ? field.value || "true" : "");
-    return;
-  }
-  updateDataLayerField(fieldName, field.value);
-}
-
-function attachDataLayerUpdaters(block) {
-  const form = block.querySelector("form");
-  if (!form) return;
-
-  const fields = form.querySelectorAll("input, select, textarea");
-  fields.forEach((field) => {
-    const fieldName = field.name || field.id;
-    if (!fieldName) return;
-
-    if (field.type === "checkbox" || field.type === "radio" || field.tagName.toLowerCase() === "select") {
-      field.addEventListener("change", () => handleFieldUpdate(fieldName, field));
-    } else {
-      field.addEventListener("blur", () => handleFieldUpdate(fieldName, field));
     }
   });
 }
