@@ -132,11 +132,15 @@ body.luma-theme header nav .nav-tools .cart-icon .cart-badge {
   box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
   z-index: 1;
 }
-
+body.luma-theme .hero.block.overlay.hero--text-overlay-off picture, body.luma-theme .hero.image-background-text-left.hero--text-overlay-off picture, body.luma-theme .hero.image-background-text-right.hero--text-overlay-off picture {
+    filter: brightness(1);
+}
 body.luma-theme header nav .nav-tools .cart-icon .cart-badge[style*='display: none'] {
   display: none !important;
 }
-
+body.luma-theme .hero.image-background-text-right div:nth-child(2) {
+    margin-right: 0;
+}
 body.luma-theme .cta-button a.button::after,
 body.luma-theme .cta-button-secondary a.button::after,
 body.luma-theme .cta-button-dark a.button::after,
@@ -343,4 +347,12 @@ body.luma-theme .carousel .button-container .prev {
         flex: 1 1 100%;
         max-width: 100%;
     }
+}
+
+body.luma-theme h1 {
+  font-size: 28px;
+}
+
+body.luma-theme .hero h2 {
+  font-size: 28px;
 }
