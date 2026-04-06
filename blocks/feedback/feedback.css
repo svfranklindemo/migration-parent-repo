@@ -7,18 +7,19 @@ main .feedback .feedback-list {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 4.5rem;
+  gap: 2.5rem;
 }
 
 main .feedback .feedback-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 50%) minmax(0, 50%);
   align-items: center;
-  gap: 2rem 3rem;
+  gap: 1rem 1.5rem;
 }
 
 main .feedback .feedback-question {
-  font-size: clamp(2rem, 2vw + 1rem, 3.125rem);
+  width: 100%;
+  font-size: 21px;
   line-height: 1.12;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -26,7 +27,9 @@ main .feedback .feedback-question {
 }
 
 main .feedback .feedback-stars {
+  width: 100%;
   display: inline-flex;
+  justify-content: flex-start;
   align-items: center;
   gap: 0.45rem;
 }
@@ -36,7 +39,7 @@ main .feedback .feedback-star {
   background: transparent;
   color: #aeb6c8;
   padding: 0;
-  font-size: clamp(2rem, 1.1vw + 1rem, 2.75rem);
+  font-size: 21px;
   line-height: 1;
   cursor: pointer;
   transition: transform 0.15s ease, color 0.15s ease;
