@@ -23,6 +23,22 @@
       "fields": [
         {
           "component": "text",
+          "name": "sign-in-redirect-url",
+          "label": "Sign-In Redirect URL",
+          "value": "/",
+          "valueType": "string",
+          "description": "URL to redirect to after successful sign-in (default: /)"
+        },
+        {
+          "component": "text",
+          "name": "create-account-url",
+          "label": "Create Account URL",
+          "value": "",
+          "valueType": "string",
+          "description": "URL for the 'Create an account' link (if empty, uses smart path construction)"
+        },
+        {
+          "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",
           "value": "",

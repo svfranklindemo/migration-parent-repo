@@ -23,6 +23,14 @@
       "fields": [
         {
           "component": "text",
+          "name": "sign-in-redirect-url",
+          "label": "Sign-In Redirect URL",
+          "value": "/en/sign-in",
+          "valueType": "string",
+          "description": "URL to redirect to after successful registration (default: /en/sign-in)"
+        },
+        {
+          "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",
           "value": "",

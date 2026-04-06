@@ -20,6 +20,10 @@ export default async function decorate(block) {
   /* Hide button config rows on published/live, same as hero/cards */
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
+  // Set authorable redirect URL for sign-in page
+  const signInRedirectUrl = config.signInRedirectUrl ?? config['sign-in-redirect-url'] ?? "/en/sign-in";
+  block.dataset.signInRedirectUrl = signInRedirectUrl;
+
   // Build Adaptive Form definition for User Registration (fields per design)
   const formDef = {
     id: "user-registration",
@@ -280,9 +284,10 @@ function attachFormSubmitHandler(block) {
         "Registration successful! Redirecting to sign-in..."
       );
 
-      // Redirect to sign-in page after delay (allows custom/analytics calls to complete)
+      // Redirect to authored sign-in URL or default after delay (allows custom/analytics calls to complete)
+      const signInUrl = block.dataset.signInRedirectUrl || "/en/sign-in";
       setTimeout(() => {
-        window.location.href = "/en/sign-in";
+        window.location.href = signInUrl;
       }, 2000);
     } catch (error) {
       console.error("Registration error:", error);
@@ -419,7 +424,8 @@ function addSignInLink(block) {
   signInDiv.className = "user-registration-sign-in-link";
   signInDiv.style.cssText = "margin-top: 1rem; text-align: center;";
   const signInAnchor = document.createElement("a");
-  signInAnchor.href = "/en/sign-in";
+  // Use authored sign-in URL or default
+  signInAnchor.href = block.dataset.signInRedirectUrl || "/en/sign-in";
   signInAnchor.textContent = "Sign In";
   signInAnchor.style.color = "#2874F0";
   signInDiv.append(document.createTextNode("Already have an account? "), signInAnchor);
