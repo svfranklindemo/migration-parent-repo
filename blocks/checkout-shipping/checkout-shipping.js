@@ -47,6 +47,27 @@ function collectCheckoutShippingData(form) {
   return data;
 }
 
+function mapPaymentType(paymentMethod) {
+  return String(paymentMethod || '').toLowerCase() === 'paypal' ? 'paypal' : 'cards';
+}
+
+function mapShippingSelection(shippingMethod) {
+  const normalized = String(shippingMethod || '').toLowerCase();
+  switch (normalized) {
+    case 'ground':
+      return { shippingMethod: 'groundShipping', shippingAmount: 10 };
+    case 'priority':
+      return { shippingMethod: 'priorityShipping', shippingAmount: 20 };
+    case 'express':
+      return { shippingMethod: 'expressShipping', shippingAmount: 30 };
+    case 'pickup':
+      return { shippingMethod: 'pickupShipping', shippingAmount: 0 };
+    case 'standard':
+    default:
+      return { shippingMethod: 'standardShipping', shippingAmount: 0 };
+  }
+}
+
 function mountSummaryBox(block) {
   const col = block.querySelector('.checkout-shipping--summary-col.panel-wrapper');
   if (!col) return null;
@@ -136,6 +157,17 @@ function attachSubmitHandler(block, config) {
       const data = collectCheckoutShippingData(form);
       persistShippingStep(data);
 
+      const shipping = mapShippingSelection(data.shippingMethod);
+      const paymentType = mapPaymentType(data.paymentMethod);
+      const createAccountConsent = Boolean(data.createAccount);
+      const joinLumaLoyaltyConsent = Boolean(data.lumaLoyalty);
+      const homeAddress = {
+        street1: data.street || '',
+        city: data.city || '',
+        postalCode: data.postalCode || '',
+        country: data.country || '',
+      };
+
       if (typeof window.updateDataLayer === 'function') {
         window.updateDataLayer(
           {
@@ -143,6 +175,17 @@ function attachSubmitHandler(block, config) {
               step: 'shipping',
               paymentMethod: data.paymentMethod,
               shippingMethod: data.shippingMethod,
+            },
+            shipping,
+            paymentType,
+            createAccountConsent,
+            joinLumaLoyaltyConsent,
+            homeAddress,
+            address: {
+              streetAddress: data.street || '',
+              city: data.city || '',
+              postalCode: data.postalCode || '',
+              country: data.country || '',
             },
             person: {
               name: {
@@ -158,7 +201,7 @@ function attachSubmitHandler(block, config) {
       }
 
       const submitBtn = form.querySelector("button[type='submit']");
-      const authoredEvent = submitBtn?.dataset?.buttonEventType?.trim();
+      const authoredEvent = submitBtn?.dataset?.buttonEventType?.trim() || 'checkout';
       if (authoredEvent) dispatchCustomEvent(authoredEvent);
 
       const next = (config['continue-path'] || config.continuepath || '').toString().trim();
