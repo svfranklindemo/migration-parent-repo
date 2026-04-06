@@ -23,14 +23,6 @@
       "fields": [
         {
           "component": "text",
-          "name": "form-id",
-          "label": "Form ID",
-          "value": "",
-          "valueType": "string",
-          "description": "When provided, sends dataLayer object form.action with this value on submit"
-        },
-        {
-          "component": "text",
           "name": "form-title",
           "label": "Form Title",
           "value": "JOIN WKND FLY CLUB",

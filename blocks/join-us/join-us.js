@@ -58,7 +58,7 @@ export default async function decorate(block) {
     ? isTruthy(config.showconsentcheckbox)
     : normalizeVariant(config.variant) !== 'no-checkbox';
   const hideCheckbox = !showConsentCheckbox;
-  const formActionId = (config.formid ?? config['form-id'] ?? '').toString().trim();
+  const formActionId = (config.buttonformid ?? config['button-form-id'] ?? '').toString().trim();
   const formTitle = (config.formtitle ?? config['form-title'] ?? '').toString().trim() || DEFAULT_FORM_TITLE;
   const successToastMessage = (config.successmessage ?? config['success-message'] ?? '').toString().trim() || DEFAULT_SUCCESS_TOAST_MESSAGE;
 
