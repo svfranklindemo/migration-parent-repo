@@ -1401,6 +1401,21 @@
     "fields": [
       {
         "component": "text",
+        "name": "form-id",
+        "label": "Form ID",
+        "value": "",
+        "valueType": "string",
+        "description": "When provided, sends dataLayer object form.action with this value on submit"
+      },
+      {
+        "component": "boolean",
+        "name": "showconsentcheckbox",
+        "label": "Show Consent Checkbox",
+        "value": "true",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
         "name": "buttoneventtype",
         "label": "Button Event Type",
         "value": "",

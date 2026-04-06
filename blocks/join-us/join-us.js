@@ -9,6 +9,14 @@ import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
 
+function normalizeVariant(value) {
+  return String(value || "default").trim().toLowerCase();
+}
+
+function isTruthy(value) {
+  return value === true || String(value || '').trim().toLowerCase() === 'true';
+}
+
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
   if (!submitButton) return;
@@ -43,6 +51,11 @@ function showSuccessPopup() {
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   [...block.children].forEach((row) => { row.style.display = 'none'; });
+  const showConsentCheckbox = (config.showconsentcheckbox !== undefined)
+    ? isTruthy(config.showconsentcheckbox)
+    : normalizeVariant(config.variant) !== 'no-checkbox';
+  const hideCheckbox = !showConsentCheckbox;
+  const formActionId = (config.formid ?? config['form-id'] ?? '').toString().trim();
 
   // Build Adaptive Form definition for Join Us (same pattern as sign-in)
   const formDef = {
@@ -89,21 +102,25 @@ export default async function decorate(block) {
             label: { value: 'Phone number' },
             properties: { colspan: 12 },
           },
-          {
-            id: 'consent',
-            name: 'consent',
-            fieldType: 'checkbox',
-            label: {
-              value: 'I want to join WKND Fly Club and I have read and understand the Privacy and Cookies Policy. I want to receive personalized communication by email.',
-            },
-            enum: ['true'],
-            type: 'string',
-            properties: {
-              variant: 'switch',
-              alignment: 'horizontal',
-              colspan: 12,
-            },
-          },
+          ...(!hideCheckbox
+            ? [
+                {
+                  id: 'consent',
+                  name: 'consent',
+                  fieldType: 'checkbox',
+                  label: {
+                    value: 'I want to join WKND Fly Club and I have read and understand the Privacy and Cookies Policy. I want to receive personalized communication by email.',
+                  },
+                  enum: ['true'],
+                  type: 'string',
+                  properties: {
+                    variant: 'switch',
+                    alignment: 'horizontal',
+                    colspan: 12,
+                  },
+                },
+              ]
+            : []),
           {
             id: 'join-us-btn',
             name: 'joinUsButton',
@@ -139,7 +156,7 @@ export default async function decorate(block) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
       attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
     }
-    attachFormSubmitHandler(block);
+    attachFormSubmitHandler(block, formActionId);
   }, 100);
 }
 
@@ -149,7 +166,7 @@ export default async function decorate(block) {
  * runtime from doing a POST to the page URL (which returns 405 / "Error invoking a rest API").
  * @param {HTMLElement} block - The join-us block
  */
-function attachFormSubmitHandler(block) {
+function attachFormSubmitHandler(block, formActionId = '') {
   const form = block.querySelector('form');
   if (!form) {
     console.warn('Form not found in join-us block');
@@ -165,7 +182,8 @@ function attachFormSubmitHandler(block) {
       const email = form.querySelector('input[name="email"]')?.value?.trim() || '';
       const firstName = form.querySelector('input[name="firstName"]')?.value?.trim() || '';
       const lastName = form.querySelector('input[name="lastName"]')?.value?.trim() || '';
-      const consent = form.querySelector('input[name="consent"]')?.checked ?? true ? 'true' : 'false';
+      const consentField = form.querySelector('input[name="consent"]');
+      const consent = consentField ? (consentField.checked ? 'true' : 'false') : 'false';
 
       // So Launch "Profile - Email from Storage" and Identity Map resolve when Registration rule runs
       if (email) {
@@ -181,9 +199,20 @@ function attachFormSubmitHandler(block) {
 
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
       if (typeof window.updateDataLayer === 'function') {
-        window.updateDataLayer({
-          loyaltyConsent: consent,
-        });
+        const projectName = String(window.dataLayer?.projectName || '').trim().toLowerCase();
+        const dataLayerPayload = {};
+
+        if (projectName === 'luma3') {
+          dataLayerPayload.joinLumaLoyaltyConsent = 'true';
+        } else {
+          // Keep existing behavior for wknd-fly and default fallback.
+          dataLayerPayload.loyaltyConsent = consent;
+        }
+
+        if (formActionId) {
+          dataLayerPayload.form = { action: formActionId };
+        }
+        window.updateDataLayer(dataLayerPayload);
       }
       showSuccessPopup();
       // If button has an authored event type, fire it (for Launch, same pattern as flight-search)
