@@ -1,6 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { getCartSnapshot } from '../../scripts/cart-store.js';
+import { buildFormDataLayerUpdates, DEFAULT_FORM_FIELD_MAP } from '../../scripts/form-data-layer.js';
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -169,40 +170,16 @@ function attachSubmitHandler(block, config) {
       const paymentType = mapPaymentType(data.paymentMethod);
       const createAccountConsent = Boolean(data.createAccount);
       const joinLumaLoyaltyConsent = Boolean(data.lumaLoyalty);
-      const homeAddress = {
-        street1: data.street || '',
-        city: data.city || '',
-        postalCode: data.postalCode || '',
-        country: data.country || '',
-      };
+      const baseFormUpdates = buildFormDataLayerUpdates(form, DEFAULT_FORM_FIELD_MAP) || {};
 
       if (typeof window.updateDataLayer === 'function') {
         window.updateDataLayer(
           {
-            checkout: {
-              step: 'shipping',
-              paymentMethod: data.paymentMethod,
-              shippingMethod: data.shippingMethod,
-            },
+            ...baseFormUpdates,
             shipping,
             paymentType,
             createAccountConsent,
             joinLumaLoyaltyConsent,
-            homeAddress,
-            address: {
-              streetAddress: data.street || '',
-              city: data.city || '',
-              postalCode: data.postalCode || '',
-              country: data.country || '',
-            },
-            person: {
-              name: {
-                firstName: data.firstName || '',
-                lastName: data.lastName || '',
-              },
-            },
-            personalEmail: { address: data.email || '' },
-            mobilePhone: { number: data.phone || '' },
           },
           true
         );
@@ -294,7 +271,7 @@ export default async function decorate(block) {
               },
               {
                 id: 'street',
-                name: 'street',
+                name: 'streetAddress',
                 fieldType: 'text-input',
                 label: { value: 'Street address' },
                 properties: { colspan: 6 },
@@ -308,7 +285,7 @@ export default async function decorate(block) {
               },
               {
                 id: 'postalCode',
-                name: 'postalCode',
+                name: 'zipCode',
                 fieldType: 'text-input',
                 label: { value: 'Postal code' },
                 properties: { colspan: 6 },
