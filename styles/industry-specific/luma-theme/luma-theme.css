@@ -381,6 +381,43 @@ body.luma-theme .carousel .button-container .prev {
   }
 }
 
+body.luma-theme .hero p {
+  font-family: 'Adobe Clean Black';
+}
+
+body.luma-theme .default-content-wrapper .button-container {
+  text-align: center;
+  margin: 0;
+}
+
+body.luma-theme .default-content-wrapper .button-container a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.875rem 1.5rem;
+  border: 2px solid #d7d7d7;
+  background: #fff;
+  color: #2f3138;
+  font-family: 'Adobe Clean Bold';
+  font-size: 1rem;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+body.luma-theme .default-content-wrapper .button-container a.button::after {
+  content: none !important;
+  display: none !important;
+}
+
+body.luma-theme .default-content-wrapper .button-container a.button:hover {
+  border-color: #bdbdbd;
+  background: #fff;
+  color: #2f3138;
+}
+
 
 /* Feature Support Cards - Luma Style */
 .cards.feature-support {
