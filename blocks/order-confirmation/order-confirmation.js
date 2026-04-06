@@ -1,9 +1,17 @@
+import { dispatchCustomEvent } from "../../scripts/custom-events.js";
+import { readBlockConfig } from "../../scripts/aem.js";
+
 /**
  * Get purchase order number from localStorage (set by order-summary)
  * Falls back to generating new one if not found
  * @returns {string} Purchase order number
  */
 function getPurchaseOrderNumber() {
+  const orderFromUrl = new URLSearchParams(window.location.search).get("order");
+  if (orderFromUrl) {
+    return orderFromUrl;
+  }
+
   const stored = localStorage.getItem("luma_purchase_order_number");
   if (stored) {
     return stored;
@@ -108,6 +116,7 @@ function buildConfirmationContent(orderNumber) {
  */
 export default function decorate(block) {
   block.textContent = "";
+  const config = readBlockConfig(block) || {};
 
   // Get purchase order number from localStorage (set by order-summary)
   const orderNumber = getPurchaseOrderNumber();
@@ -116,6 +125,10 @@ export default function decorate(block) {
   container.className = "order-confirmation-container";
 
   const content = buildConfirmationContent(orderNumber);
+
+  // Fire purchase order event on page load before cart reset.
+  const purchaseOrderEventType = (config["purchase-order-event-type"] || config.purchaseordereventtype || "").trim() || "purchaseOrder";
+  dispatchCustomEvent(purchaseOrderEventType);
 
   // Reset cart and commerce data after a small delay
   setTimeout(() => {

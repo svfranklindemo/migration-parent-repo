@@ -321,7 +321,7 @@ function handleConfirmOrder() {
   
   // Navigate to order confirmation
   setTimeout(() => {
-    navigateToPage("order-confirmation");
+    navigateToPage(`order-confirmation?order=${encodeURIComponent(purchaseOrderNumber)}`);
   }, 100);
 }
 
