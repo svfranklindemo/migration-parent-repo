@@ -418,6 +418,115 @@ body.luma-theme .default-content-wrapper .button-container a.button:hover {
   color: #2f3138;
 }
 
+body.luma-theme main .section.join-us-container .join-us-wrapper {
+  display: flex !important;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+body.luma-theme main .section.join-us-container .join-us.block {
+  flex: 0 0 70% !important;
+  width: 70% !important;
+  max-width: 70% !important;
+  margin-left: auto;
+  background: transparent;
+  min-width: 0;
+}
+
+body.luma-theme main .join-us {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body.luma-theme main .join-us .form,
+body.luma-theme main .join-us form,
+body.luma-theme main .join-us .panel-wrapper {
+  background: transparent !important;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+
+body.luma-theme main .join-us .panel-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+body.luma-theme main .join-us .heading-wrapper {
+  grid-column: 1 / -1;
+  margin: 0 0 1rem !important;
+  text-align: center;
+}
+
+body.luma-theme main .join-us .heading-wrapper > .field-label {
+  display: none !important;
+}
+
+body.luma-theme main .join-us .field-wrapper {
+  grid-column: span 6;
+  margin: 0;
+}
+
+body.luma-theme main .join-us .submit-wrapper {
+  grid-column: 1 / -1;
+  margin-top: 0;
+  text-align: left;
+}
+
+body.luma-theme main .join-us input[type="text"],
+body.luma-theme main .join-us input[type="email"],
+body.luma-theme main .join-us input[type="tel"] {
+  width: 100%;
+  height: 38px;
+  padding: 0 1rem;
+  margin: 0;
+  border: 2px solid #d8d8d8;
+  border-radius: 0;
+  background: #fff;
+  color: #2f3138;
+  box-shadow: none;
+}
+
+body.luma-theme main .join-us input[type="text"]:focus,
+body.luma-theme main .join-us input[type="email"]:focus,
+body.luma-theme main .join-us input[type="tel"]:focus {
+  border-color: #bdbdbd;
+  box-shadow: none;
+}
+
+body.luma-theme main .join-us .submit-wrapper button {
+  width: auto;
+  min-width: 120px;
+  padding: 0.9rem 2rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--main-accent-color);
+  color: #fff;
+  font-family: 'Adobe Clean Bold';
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: none;
+}
+
+body.luma-theme main .join-us .submit-wrapper button:hover {
+  background: var(--main-accent-color);
+  color: #fff;
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
 
 /* Feature Support Cards - Luma Style */
 .cards.feature-support {
@@ -542,4 +651,16 @@ body.luma-theme .hero h2 {
 }
 body.luma-theme .na-carousel-wrapper{
     padding: 0;
+}
+
+@media (width <= 768px) {
+  body.luma-theme main .section.join-us-container .join-us.block {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.luma-theme main .join-us .field-wrapper {
+    grid-column: 1 / -1;
+  }
 }
