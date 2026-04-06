@@ -179,6 +179,11 @@ function attachSubmitHandler(block, config) {
       if (typeof window.updateDataLayer === 'function') {
         window.updateDataLayer(
           {
+            checkout: {
+              step: 'shipping',
+              paymentMethod: data.paymentMethod,
+              shippingMethod: data.shippingMethod,
+            },
             shipping,
             paymentType,
             createAccountConsent,
