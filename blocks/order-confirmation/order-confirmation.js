@@ -2,8 +2,8 @@ import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { readBlockConfig } from "../../scripts/aem.js";
 
 /**
- * Get purchase order number from localStorage (set by order-summary)
- * Falls back to generating new one if not found
+ * Get purchase order number from URL query param.
+ * Falls back to generating a new one if not found.
  * @returns {string} Purchase order number
  */
 function getPurchaseOrderNumber() {
@@ -12,10 +12,6 @@ function getPurchaseOrderNumber() {
     return orderFromUrl;
   }
 
-  const stored = localStorage.getItem("luma_purchase_order_number");
-  if (stored) {
-    return stored;
-  }
   // Fallback: generate new order number if not found
   const prefix = "fb";
   const timestamp = Date.now().toString(36);
@@ -53,8 +49,6 @@ function resetCart() {
     console.log("Cart and commerce data reset in dataLayer");
   }
   
-  // Clean up stored purchase order number
-  localStorage.removeItem("luma_purchase_order_number");
 }
 
 /**
@@ -118,7 +112,7 @@ export default function decorate(block) {
   block.textContent = "";
   const config = readBlockConfig(block) || {};
 
-  // Get purchase order number from localStorage (set by order-summary)
+  // Get purchase order number from URL (set by order-summary)
   const orderNumber = getPurchaseOrderNumber();
 
   const container = document.createElement("div");

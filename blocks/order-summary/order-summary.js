@@ -13,12 +13,34 @@ function generatePurchaseOrderNumber() {
 }
 
 /**
- * Load checkout data from localStorage
- * @returns {Object|null} Saved checkout data
+ * Safely read nested value from dataLayer using helper when available.
+ * @param {string} path - Dot-notated path
+ * @returns {any} Value or undefined
+ */
+function getDataLayerValue(path) {
+  if (window.getDataLayerProperty) {
+    return window.getDataLayerProperty(path);
+  }
+  return path.split('.').reduce((current, part) => current?.[part], window.dataLayer || {});
+}
+
+/**
+ * Load checkout data from dataLayer.
+ * @returns {Object} Checkout data
  */
 function loadCheckoutData() {
-  const saved = localStorage.getItem("luma_checkout_data");
-  return saved ? JSON.parse(saved) : null;
+  const fromDataLayer = {
+    firstName: getDataLayerValue('person.name.firstName') || '',
+    lastName: getDataLayerValue('person.name.lastName') || '',
+    email: getDataLayerValue('personalEmail.address') || '',
+    phone: getDataLayerValue('mobilePhone.number') || '',
+    streetAddress: getDataLayerValue('homeAddress.street1') || '',
+    city: getDataLayerValue('homeAddress.city') || '',
+    postalCode: getDataLayerValue('homeAddress.postalCode') || '',
+    country: getDataLayerValue('homeAddress.country') || '',
+  };
+
+  return fromDataLayer;
 }
 
 /**
@@ -40,6 +62,31 @@ function getCartData() {
  */
 function formatPrice(amount) {
   return `$${amount.toFixed(2)}`;
+}
+
+function formatShippingMethod(method) {
+  const normalized = String(method || '').trim();
+  const labels = {
+    standardShipping: 'Standard Shipping',
+    groundShipping: 'Ground Shipping',
+    priorityShipping: 'Priority Shipping',
+    expressShipping: 'Express Shipping',
+    pickupShipping: 'Pickup',
+  };
+  return labels[normalized] || normalized || 'Not selected';
+}
+
+function loadCheckoutMeta() {
+  const shippingMethod = getDataLayerValue('shipping.shippingMethod') || '';
+  const shippingAmountRaw = Number(getDataLayerValue('shipping.shippingAmount'));
+  const shippingAmount = Number.isFinite(shippingAmountRaw) ? shippingAmountRaw : 0;
+  const paymentType = getDataLayerValue('paymentType') || '';
+
+  return {
+    shippingMethod,
+    shippingAmount,
+    paymentType,
+  };
 }
 
 /**
@@ -142,7 +189,7 @@ function buildCartItem(product) {
  * @param {Object} cartData - Cart data from dataLayer
  * @returns {HTMLElement} Order summary container
  */
-function buildOrderSummary(checkoutData, cartData) {
+function buildOrderSummary(checkoutData, cartData, checkoutMeta = {}) {
   const container = document.createElement("div");
   container.className = "order-summary-content";
 
@@ -211,7 +258,12 @@ function buildOrderSummary(checkoutData, cartData) {
 
   const shippingContent = document.createElement("div");
   shippingContent.className = "order-summary-shipping";
-  shippingContent.textContent = "---";
+  const shippingMethodLabel = formatShippingMethod(checkoutMeta.shippingMethod);
+  const paymentTypeLabel = checkoutMeta.paymentType ? String(checkoutMeta.paymentType).toUpperCase() : 'N/A';
+  shippingContent.innerHTML = `
+    <p>${shippingMethodLabel}</p>
+    <p>Payment: ${paymentTypeLabel}</p>
+  `;
 
   shippingSection.append(shippingTitle, shippingContent);
 
@@ -226,7 +278,7 @@ function buildOrderSummary(checkoutData, cartData) {
     </div>
     <div class="order-summary-price-row">
       <span>Shipping</span>
-      <span>---</span>
+      <span>${formatPrice(checkoutMeta.shippingAmount || 0)}</span>
     </div>
     <div class="order-summary-price-row">
       <span>Discount</span>
@@ -276,37 +328,15 @@ function buildButtons() {
  * Handle confirm order - Update dataLayer with commerce object
  */
 function handleConfirmOrder() {
-  const cartData = getCartData();
-  const checkoutData = loadCheckoutData();
   
   // Generate purchase order number
   const purchaseOrderNumber = generatePurchaseOrderNumber();
-  
-  // Store purchase order number for order-confirmation page
-  localStorage.setItem("luma_purchase_order_number", purchaseOrderNumber);
-  
-  // Prepare order items for commerce object
-  const products = Object.values(cartData.products || {});
-  const orderItems = products.map(product => ({
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    quantity: product.quantity || 1,
-    category: product.category || "",
-  }));
+
   
   // Create commerce object
   const commerceData = {
     order: {
-      purchaseOrderNumber: purchaseOrderNumber,
-      productCount: cartData.productCount || 0,
-      subTotal: cartData.subTotal || 0,
-      total: cartData.total || 0,
-      items: orderItems,
-    },
-    shipping: {
-      shippingAmount: 5,
-      shippingMethod: "standardShipping",
+      purchaseOrderNumber: purchaseOrderNumber
     },
   };
   
@@ -332,6 +362,7 @@ function handleConfirmOrder() {
 function renderOrderSummary(block) {
   const checkoutData = loadCheckoutData();
   const cartData = getCartData();
+  const checkoutMeta = loadCheckoutMeta();
 
   const container = block.querySelector(".order-summary-container");
   if (!container) return;
@@ -348,23 +379,10 @@ function renderOrderSummary(block) {
     container.appendChild(newTitle);
   }
 
-  const summary = buildOrderSummary(checkoutData, cartData);
+  const summary = buildOrderSummary(checkoutData, cartData, checkoutMeta);
   const buttons = buildButtons();
 
   container.append(summary, buttons);
-}
-
-/**
- * Setup dataLayer listener for cart updates
- * @param {HTMLElement} block - The block element
- */
-function setupDataLayerListener(block) {
-  document.addEventListener("dataLayerUpdated", (event) => {
-    const { dataLayer } = event.detail;
-    if (dataLayer && dataLayer.cart) {
-      renderOrderSummary(block);
-    }
-  });
 }
 
 /**
@@ -384,7 +402,4 @@ export default function decorate(block) {
   // Initial render
   renderOrderSummary(block);
   dispatchCustomEvent(checkoutEventType);
-
-  // Setup listener for cart updates
-  setupDataLayerListener(block);
 }
