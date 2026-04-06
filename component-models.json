@@ -8654,5 +8654,18 @@
   {
     "id": "order-confirmation",
     "fields": []
+  },
+  {
+    "id": "feedback",
+    "fields": [
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
   }
 ]
