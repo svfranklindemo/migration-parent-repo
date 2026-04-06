@@ -30,6 +30,14 @@ export default async function decorate(block) {
 
   const isAuthor = isAuthorEnvironment();
 
+  // Set authorable redirect URLs
+  const signInRedirectUrl = config.signInRedirectUrl ?? config['sign-in-redirect-url'] ?? "/";
+  block.dataset.signInRedirectUrl = signInRedirectUrl;
+  
+  // Set authorable create account URL
+  const createAccountUrl = config.createAccountUrl ?? config['create-account-url'];
+  block.dataset.createAccountUrl = createAccountUrl;
+
   // Build Adaptive Form definition for Sign In
   const formDef = {
     id: "sign-in",
@@ -96,7 +104,7 @@ export default async function decorate(block) {
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config);
     attachSignInHandler(block);
-    addCreateAccountLink(block, isAuthor);
+    addCreateAccountLink(block, isAuthor, config);
   }, 100);
 }
 
@@ -352,9 +360,10 @@ function attachSignInHandler(block) {
       // Show success message
       showSuccessMessage(form, "Sign-in successful! Redirecting...");
 
-      // Redirect to home page after delay (allows custom/analytics calls to complete)
+      // Redirect to authored URL or default to home page after delay (allows custom/analytics calls to complete)
+      const redirectUrl = block.dataset.signInRedirectUrl || "/";
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = redirectUrl;
       }, 2000);
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -433,7 +442,7 @@ function showErrorMessage(form, message) {
   }, 5000);
 }
 
-function addCreateAccountLink(block, isAuthor) {
+function addCreateAccountLink(block, isAuthor, config = {}) {
   const formElement = block.querySelector("form");
   if (!formElement) return;
 
@@ -451,22 +460,26 @@ function addCreateAccountLink(block, isAuthor) {
   createAccountLink.className = "create-account-link";
   createAccountLink.textContent = "Create an account";
 
-  // Smart path construction
-  const currentPath = window.location.pathname;
-  let registrationPath;
+  // Determine registration path: use authored config if available, otherwise smart path construction
+  let registrationPath = config.createAccountUrl ?? config['create-account-url'] ?? block.dataset.createAccountUrl;
+  
+  if (!registrationPath) {
+    // Fallback to smart path construction
+    const currentPath = window.location.pathname;
 
-  if (isAuthor) {
-    // For author, replace 'sign-in.html' with 'create-account.html'
-    registrationPath = currentPath.replace(
-      "/sign-in.html",
-      "/en/registration.html"
-    );
-  } else {
-    // For EDS publish, replace '/sign-in' with '/create-account'
-    registrationPath = currentPath.replace(
-      /\/sign-in(\.html)?$/,
-      "/registration"
-    );
+    if (isAuthor) {
+      // For author, replace 'sign-in.html' with 'en/registration.html'
+      registrationPath = currentPath.replace(
+        "/sign-in.html",
+        "/en/registration.html"
+      );
+    } else {
+      // For EDS publish, replace '/sign-in' with '/registration'
+      registrationPath = currentPath.replace(
+        /\/sign-in(\.html)?$/,
+        "/registration"
+      );
+    }
   }
 
   createAccountLink.href = registrationPath;
