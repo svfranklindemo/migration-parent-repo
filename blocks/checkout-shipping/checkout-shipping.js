@@ -125,6 +125,14 @@ function persistShippingStep(data) {
   }
 }
 
+function getOrderSummaryFallbackPath() {
+  const currentPath = (window.location.pathname || '/').replace(/\/$/, '');
+  const lastSlash = currentPath.lastIndexOf('/');
+  const basePath = lastSlash > 0 ? currentPath.substring(0, lastSlash) : '';
+  const targetPage = currentPath.endsWith('.html') ? 'order-summary.html' : 'order-summary';
+  return `${basePath}/${targetPage}`;
+}
+
 function attachSubmitHandler(block, config) {
   const form = block.querySelector('form');
   if (!form) return;
@@ -171,11 +179,6 @@ function attachSubmitHandler(block, config) {
       if (typeof window.updateDataLayer === 'function') {
         window.updateDataLayer(
           {
-            checkout: {
-              step: 'shipping',
-              paymentMethod: data.paymentMethod,
-              shippingMethod: data.shippingMethod,
-            },
             shipping,
             paymentType,
             createAccountConsent,
@@ -206,6 +209,9 @@ function attachSubmitHandler(block, config) {
 
       const next = (config['continue-path'] || config.continuepath || '').toString().trim();
       if (next) window.location.href = next;
+      else {
+        window.location.href = getOrderSummaryFallbackPath();
+      }
     },
     true
   );
