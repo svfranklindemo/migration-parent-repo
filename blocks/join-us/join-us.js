@@ -9,6 +9,9 @@ import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
 
+const DEFAULT_FORM_TITLE = 'JOIN WKND FLY CLUB';
+const DEFAULT_SUCCESS_TOAST_MESSAGE = 'Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!';
+
 function normalizeVariant(value) {
   return String(value || "default").trim().toLowerCase();
 }
@@ -30,14 +33,14 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function showSuccessPopup() {
+function showSuccessPopup(message = DEFAULT_SUCCESS_TOAST_MESSAGE) {
   const overlay = document.createElement('div');
   overlay.className = 'join-us-success-overlay';
   overlay.setAttribute('aria-live', 'polite');
   overlay.innerHTML = `
     <div class="join-us-success-popup join-us-success-visible">
       <span class="join-us-success-icon" aria-hidden="true"></span>
-      <p class="join-us-success-text">Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!</p>
+      <p class="join-us-success-text">${message}</p>
     </div>
   `;
   document.body.appendChild(overlay);
@@ -56,6 +59,8 @@ export default async function decorate(block) {
     : normalizeVariant(config.variant) !== 'no-checkbox';
   const hideCheckbox = !showConsentCheckbox;
   const formActionId = (config.formid ?? config['form-id'] ?? '').toString().trim();
+  const formTitle = (config.formtitle ?? config['form-title'] ?? '').toString().trim() || DEFAULT_FORM_TITLE;
+  const successToastMessage = (config.successmessage ?? config['success-message'] ?? '').toString().trim() || DEFAULT_SUCCESS_TOAST_MESSAGE;
 
   // Build Adaptive Form definition for Join Us (same pattern as sign-in)
   const formDef = {
@@ -66,7 +71,7 @@ export default async function decorate(block) {
       {
         id: 'heading-join-us',
         fieldType: 'heading',
-        label: { value: 'JOIN WKND FLY CLUB' },
+        label: { value: formTitle },
         appliedCssClassNames: 'col-12',
       },
       {
@@ -156,7 +161,7 @@ export default async function decorate(block) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
       attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
     }
-    attachFormSubmitHandler(block, formActionId);
+    attachFormSubmitHandler(block, formActionId, successToastMessage);
   }, 100);
 }
 
@@ -166,7 +171,7 @@ export default async function decorate(block) {
  * runtime from doing a POST to the page URL (which returns 405 / "Error invoking a rest API").
  * @param {HTMLElement} block - The join-us block
  */
-function attachFormSubmitHandler(block, formActionId = '') {
+function attachFormSubmitHandler(block, formActionId = '', successToastMessage = DEFAULT_SUCCESS_TOAST_MESSAGE) {
   const form = block.querySelector('form');
   if (!form) {
     console.warn('Form not found in join-us block');
@@ -214,7 +219,7 @@ function attachFormSubmitHandler(block, formActionId = '') {
         }
         window.updateDataLayer(dataLayerPayload);
       }
-      showSuccessPopup();
+      showSuccessPopup(successToastMessage);
       // If button has an authored event type, fire it (for Launch, same pattern as flight-search)
       const submitBtn = form.querySelector("button[type='submit']");
       const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim();
