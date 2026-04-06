@@ -269,6 +269,14 @@ body.luma-theme .carousel .button-container .prev {
     font-weight: 800;
     width: 50%;
 }
+.luma-theme .cards > ul > li.teaser-overlay .cards-card-body p {
+    font-family: 'Adobe Clean Black';
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
 .cards.feature-support > ul {
     display: flex;
     justify-content: space-around;
@@ -363,4 +371,7 @@ body.luma-theme h1 {
 
 body.luma-theme .hero h2 {
   font-size: 28px;
+}
+body.luma-theme .na-carousel-wrapper{
+    padding: 0;
 }
