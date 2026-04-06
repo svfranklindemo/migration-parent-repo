@@ -240,7 +240,7 @@ body.luma-theme .section.ContentCardContainer .Banner.hero-banner {
   justify-content: flex-start;
   align-items: center;
   text-align: left;
-  padding: 60px 40px;
+  
   box-sizing: border-box;
 }
 
@@ -265,7 +265,7 @@ body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Banner__conte
   align-items: flex-start;
   text-align: left;
   max-width: 600px;
-  margin-left: 15%;
+  margin-left: 5%;
   padding: 20px;
   box-sizing: border-box;
   background: transparent;
