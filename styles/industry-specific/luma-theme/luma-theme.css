@@ -324,6 +324,7 @@ body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Button {
 }
 
 body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Button button {
+  display: none;
   min-height: 0;
   padding: 0.875rem 1.5rem;
   border: 2px solid var(--main-accent-color);
