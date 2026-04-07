@@ -319,9 +319,20 @@ body {
 }
 
 body.appear {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   overflow-x: hidden;
 }
+
+body main {
+  flex: 1;
+}
+
+body footer {
+  margin-top: auto;
+}
+
 body.gray-theme {
   filter: grayscale(100%);
 }
