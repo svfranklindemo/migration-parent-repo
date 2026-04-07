@@ -601,6 +601,41 @@ footer .footer[data-block-status="loaded"] {
   overflow: visible;
 }
 
+/* Prevent new-arrival FOUC: show a loading gradient placeholder until loaded. */
+.new-arrival.block[data-block-status="initialized"],
+.new-arrival.block[data-block-status="loading"] {
+  position: relative;
+  height: 250px;
+  min-height: 250px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.new-arrival.block[data-block-status="initialized"] > *,
+.new-arrival.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.new-arrival.block[data-block-status="loaded"] {
+  background: none;
+  animation: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+@keyframes new-arrival-loading-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
 h1,
 h2,
 h3,
