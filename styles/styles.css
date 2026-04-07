@@ -1916,3 +1916,28 @@ body.securbank-theme main :is(ul, menu) ul {
 .yellow-bg{
     background-color: rgb(255, 235, 1) !important;
 }
+.sign-in-wrapper {
+  position: relative;
+  min-height: 560px;
+  display: block !important;
+}
+
+.sign-in-wrapper:not(.show) .sign-in {
+  visibility: hidden;
+}
+
+.sign-in-wrapper:not(.show)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+  z-index: 2;
+}
+
+.sign-in-wrapper.show {
+  display: block !important;
+  min-height: 0;
+}

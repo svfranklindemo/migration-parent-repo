@@ -14,15 +14,7 @@ const FALLBACK_PRODUCT = {
 const AUTHOR_PRODUCT_ENDPOINT = '/graphql/execute.json/secur-financial/product-card-information';
 const PUBLISH_PRODUCT_ENDPOINT = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/secure-financial-product-card-information';
 const PUBLISH_ENVIRONMENT = 'p189874-e1977911';
-const PRODUCT_CARD_REVEAL_TIMEOUT_MS = 5000;
 let productCardApiConfigPromise;
-
-const productCardRevealState = {
-  initialized: false,
-  revealed: false,
-  pendingBlocks: new Set(),
-  fallbackTimer: null,
-};
 
 async function getProductCardApiConfig() {
   if (!productCardApiConfigPromise) {
@@ -38,30 +30,9 @@ async function getProductCardApiConfig() {
   return productCardApiConfigPromise;
 }
 
-function revealAllProductCardWrappers() {
-  if (productCardRevealState.revealed) return;
-  productCardRevealState.revealed = true;
-  if (productCardRevealState.fallbackTimer) {
-    clearTimeout(productCardRevealState.fallbackTimer);
-    productCardRevealState.fallbackTimer = null;
-  }
-  document.querySelectorAll('.product-card-wrapper').forEach((wrapper) => wrapper.classList.add('show'));
-}
-
-function initializeProductCardRevealState() {
-  if (productCardRevealState.initialized) return;
-  productCardRevealState.initialized = true;
-  document.querySelectorAll('.product-card').forEach((block) => productCardRevealState.pendingBlocks.add(block));
-  productCardRevealState.fallbackTimer = window.setTimeout(() => {
-    revealAllProductCardWrappers();
-  }, PRODUCT_CARD_REVEAL_TIMEOUT_MS);
-}
-
-function markProductCardReady(block) {
-  productCardRevealState.pendingBlocks.delete(block);
-  if (productCardRevealState.pendingBlocks.size === 0) {
-    revealAllProductCardWrappers();
-  }
+function revealProductCardWrapper(block) {
+  const wrapperElement = block.closest('.product-card-wrapper');
+  if (wrapperElement) wrapperElement.classList.add('show');
 }
 
 function resolvePath(obj, path) {
@@ -335,13 +306,8 @@ function createButtonFromConfig(config) {
 }
 
 export default async function decorate(block) {
-  initializeProductCardRevealState();
-  const previousVisibility = block.style.visibility;
-  const previousPointerEvents = block.style.pointerEvents;
-  block.style.visibility = 'hidden';
-  block.style.pointerEvents = 'none';
+  block.classList.add('product-card-block');
   [...block.children].forEach((row) => { row.style.display = 'none'; });
-  block.classList.add('product-card-block', 'product-card-block--loading');
   try {
     const config = readBlockConfig(block) || {};
     const rawContentFragmentPath =
@@ -385,9 +351,6 @@ export default async function decorate(block) {
     wrapper.append(list);
     block.append(wrapper);
   } finally {
-    markProductCardReady(block);
-    block.classList.remove('product-card-block--loading');
-    block.style.visibility = previousVisibility;
-    block.style.pointerEvents = previousPointerEvents;
+    revealProductCardWrapper(block);
   }
 }

@@ -45,11 +45,6 @@
     font-weight: 800;
     font-family: var(--black-font-family);
 }
-.product-card-block.product-card-block--loading {
-  visibility: hidden;
-  pointer-events: none;
-}
-
 .product-card-block .cards {
   display: flex;
   justify-content: center;
