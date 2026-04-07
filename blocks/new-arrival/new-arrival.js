@@ -87,10 +87,11 @@ function buildCard(item, isAuthor) {
   const categoryText = category && category.length ? category.join(", ") : "";
   const cat = document.createElement("p");
   cat.className = "na-card-category";
-  // Format category: remove "luma:" or "Lumaproducts:", replace commas with slashes, uppercase
+  // Format category: remove "luma:" or "Lumaproducts:", replace commas with slashes, replace hyphens with spaces, uppercase
   cat.textContent = categoryText
     .replace(/^(luma:|lumaproducts:)/gi, "") // Remove luma/lumaproducts prefix (case-insensitive)
     .replace(/\//g, " / ") // Replace slashes with /
+    .replace(/-/g, " ") // Replace hyphens with spaces
     .toUpperCase(); // Convert to uppercase
   const title = document.createElement("h3");
   title.className = "na-card-title";
