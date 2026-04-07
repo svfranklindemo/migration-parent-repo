@@ -1916,6 +1916,7 @@ body.securbank-theme main :is(ul, menu) ul {
 .yellow-bg{
     background-color: rgb(255, 235, 1) !important;
 }
+
 .sign-in-wrapper {
   position: relative;
   min-height: 560px;
@@ -1939,5 +1940,36 @@ body.securbank-theme main :is(ul, menu) ul {
 
 .sign-in-wrapper.show {
   display: block !important;
+  min-height: 0;
+}
+
+.product-card-wrapper {
+  position: relative;
+  min-height: 320px;
+  display: block;
+}
+
+.product-card-wrapper:not(.show) .product-card {
+  visibility: hidden;
+}
+
+.product-card-wrapper:not(.show)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%) 0 0 / 400% 100%,
+    linear-gradient(#e5e7eb, #e5e7eb) 20px 20px / calc(100% - 40px) 170px no-repeat,
+    linear-gradient(#e5e7eb, #e5e7eb) 20px 210px / 120px 14px no-repeat,
+    linear-gradient(#e5e7eb, #e5e7eb) 20px 236px / calc(100% - 40px) 20px no-repeat,
+    linear-gradient(#e5e7eb, #e5e7eb) 20px 266px / calc(100% - 80px) 14px no-repeat,
+    linear-gradient(#e5e7eb, #e5e7eb) 20px 294px / 140px 38px no-repeat;
+  animation: none !important;
+  transition: none !important;
+  z-index: 2;
+}
+
+.product-card-wrapper.show {
   min-height: 0;
 }
