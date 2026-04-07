@@ -605,8 +605,8 @@ footer .footer[data-block-status="loaded"] {
 .new-arrival.block[data-block-status="initialized"],
 .new-arrival.block[data-block-status="loading"] {
   position: relative;
-  height: 250px;
-  min-height: 250px;
+  height: 300px;
+  min-height: 300px;
   overflow: hidden;
   background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
   background-size: 400% 100%;
