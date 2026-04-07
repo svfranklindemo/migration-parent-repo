@@ -1,5 +1,7 @@
 import { DEFAULT_THANK_YOU_MESSAGE, getSubmitBaseUrl } from './constant.js';
 
+const ENABLE_SHEET_POST_SUBMIT = false;
+
 export function submitSuccess(e, form) {
   const { payload } = e;
   const redirectUrl = form.dataset.redirectUrl || payload?.body?.redirectUrl;
@@ -129,6 +131,12 @@ export async function handleSubmit(e, form, captcha) {
       form.querySelectorAll('.form-message.show').forEach((el) => el.classList.remove('show'));
 
       if (form.dataset.source === 'sheet') {
+        if (!ENABLE_SHEET_POST_SUBMIT) {
+          form.setAttribute('data-submitting', 'false');
+          const submitButton = form.querySelector('button[type="submit"]');
+          if (submitButton) submitButton.disabled = false;
+          return;
+        }
         await submitDocBasedForm(form, captcha);
       }
     }
