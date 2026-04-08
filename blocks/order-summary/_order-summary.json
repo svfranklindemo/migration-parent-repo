@@ -28,6 +28,22 @@
           "value": "checkout",
           "valueType": "string",
           "description": "Launch event fired when order summary loads. Default: checkout"
+        },
+        {
+          "component": "text",
+          "name": "back-path",
+          "label": "Back Path",
+          "value": "checkout",
+          "valueType": "string",
+          "description": "Where to navigate on BACK. Use a full path (e.g. /en/checkout) or just a page name (e.g. checkout). .html is added automatically on author."
+        },
+        {
+          "component": "text",
+          "name": "confirm-path",
+          "label": "Confirm Path",
+          "value": "order-confirmation",
+          "valueType": "string",
+          "description": "Where to navigate on CONFIRM ORDER. Use a full path (e.g. /en/order-confirmation) or just a page name (e.g. order-confirmation). Order number appended as ?order=. .html is added automatically on author."
         }
       ]
     }

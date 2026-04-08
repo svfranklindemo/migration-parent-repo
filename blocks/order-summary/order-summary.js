@@ -90,13 +90,18 @@ function loadCheckoutMeta() {
 }
 
 /**
- * Navigate to a page
- * @param {string} page - Page to navigate to
+ * Navigate to a sibling page, automatically appending .html on author environments.
+ * @param {string} page - Page name (without .html)
+ * @param {boolean} returnOnly - If true, return the URL instead of navigating
+ * @returns {string|undefined} URL when returnOnly is true
  */
-function navigateToPage(page) {
+function navigateToPage(page, returnOnly = false) {
   const currentPath = window.location.pathname;
   const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-  window.location.href = `${basePath}/${page}`;
+  const targetPage = currentPath.endsWith('.html') ? `${page}.html` : page;
+  const url = `${basePath}/${targetPage}`;
+  if (returnOnly) return url;
+  window.location.href = url;
 }
 
 /**
@@ -298,9 +303,10 @@ function buildOrderSummary(checkoutData, cartData, checkoutMeta = {}) {
 
 /**
  * Build action buttons
+ * @param {Object} config - Block config
  * @returns {HTMLElement} Buttons container
  */
-function buildButtons() {
+function buildButtons(config = {}) {
   const buttonGroup = document.createElement("div");
   buttonGroup.className = "order-summary-buttons";
 
@@ -309,7 +315,9 @@ function buildButtons() {
   backBtn.className = "order-summary-btn order-summary-btn-back";
   backBtn.textContent = "BACK";
   backBtn.addEventListener("click", () => {
-    navigateToPage("checkout");
+    const backPath = (config['back-path'] || config.backpath || '').toString().trim();
+    if (backPath) window.location.href = backPath;
+    else navigateToPage("checkout");
   });
 
   const confirmBtn = document.createElement("button");
@@ -317,7 +325,7 @@ function buildButtons() {
   confirmBtn.className = "order-summary-btn order-summary-btn-confirm";
   confirmBtn.textContent = "CONFIRM ORDER";
   confirmBtn.addEventListener("click", () => {
-    handleConfirmOrder();
+    handleConfirmOrder(config);
   });
 
   buttonGroup.append(backBtn, confirmBtn);
@@ -326,21 +334,17 @@ function buildButtons() {
 
 /**
  * Handle confirm order - Update dataLayer with commerce object
+ * @param {Object} config - Block config
  */
-function handleConfirmOrder() {
-  
-  // Generate purchase order number
+function handleConfirmOrder(config = {}) {
   const purchaseOrderNumber = generatePurchaseOrderNumber();
 
-  
-  // Create commerce object
   const commerceData = {
     order: {
       purchaseOrderNumber: purchaseOrderNumber
     },
   };
-  
-  // Update dataLayer with commerce object
+
   if (window.updateDataLayer) {
     window.updateDataLayer({ commerce: commerceData }, true);
     console.log("Commerce data added to dataLayer:", commerceData);
@@ -348,17 +352,25 @@ function handleConfirmOrder() {
     console.warn("⚠️ updateDataLayer not available");
   }
 
-  // Navigate to order confirmation
   setTimeout(() => {
-    navigateToPage(`order-confirmation?order=${encodeURIComponent(purchaseOrderNumber)}`);
+    const confirmPath = (config['confirm-path'] || config.confirmpath || '').toString().trim();
+    let basePath;
+    if (confirmPath && confirmPath.includes('/')) {
+      basePath = confirmPath;
+    } else {
+      basePath = navigateToPage(confirmPath || 'order-confirmation', true);
+    }
+    const sep = basePath.includes('?') ? '&' : '?';
+    window.location.href = `${basePath}${sep}order=${encodeURIComponent(purchaseOrderNumber)}`;
   }, 100);
 }
 
 /**
  * Render the order summary
  * @param {HTMLElement} block - The block element
+ * @param {Object} config - Block config
  */
-function renderOrderSummary(block) {
+function renderOrderSummary(block, config = {}) {
   const checkoutData = loadCheckoutData();
   const cartData = getCartData();
   const checkoutMeta = loadCheckoutMeta();
@@ -379,7 +391,7 @@ function renderOrderSummary(block) {
   }
 
   const summary = buildOrderSummary(checkoutData, cartData, checkoutMeta);
-  const buttons = buildButtons();
+  const buttons = buildButtons(config);
 
   container.append(summary, buttons);
 }
@@ -399,6 +411,6 @@ export default function decorate(block) {
   block.appendChild(container);
 
   // Initial render
-  renderOrderSummary(block);
+  renderOrderSummary(block, config);
   dispatchCustomEvent(checkoutEventType);
 }

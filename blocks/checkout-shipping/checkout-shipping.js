@@ -126,11 +126,11 @@ function persistShippingStep(data) {
   }
 }
 
-function getOrderSummaryFallbackPath() {
+function getOrderSummaryFallbackPath(pageName = 'order-summary') {
   const currentPath = (window.location.pathname || '/').replace(/\/$/, '');
   const lastSlash = currentPath.lastIndexOf('/');
   const basePath = lastSlash > 0 ? currentPath.substring(0, lastSlash) : '';
-  const targetPage = currentPath.endsWith('.html') ? 'order-summary.html' : 'order-summary';
+  const targetPage = currentPath.endsWith('.html') ? `${pageName}.html` : pageName;
   return `${basePath}/${targetPage}`;
 }
 
@@ -189,10 +189,11 @@ function attachSubmitHandler(block, config) {
       const authoredEvent = submitBtn?.dataset?.buttonEventType?.trim() || 'checkout';
       if (authoredEvent) dispatchCustomEvent(authoredEvent);
 
-      const next = (config['continue-path'] || config.continuepath || '').toString().trim();
-      if (next) window.location.href = next;
-      else {
-        window.location.href = getOrderSummaryFallbackPath();
+      const continuePath = (config['continue-path'] || config.continuepath || '').toString().trim();
+      if (continuePath && continuePath.includes('/')) {
+        window.location.href = continuePath;
+      } else {
+        window.location.href = getOrderSummaryFallbackPath(continuePath || 'order-summary');
       }
     },
     true

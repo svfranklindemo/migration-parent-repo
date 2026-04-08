@@ -25,9 +25,9 @@
           "component": "text",
           "name": "continue-path",
           "label": "Continue Path",
-          "value": "",
+          "value": "order-summary",
           "valueType": "string",
-          "description": "URL after CONTINUE (e.g. /en/payment). Leave empty to stay on page."
+          "description": "Where to navigate after CONTINUE. Use a full path (e.g. /en/order-summary) or just a page name (e.g. order-summary). .html is added automatically on author. Defaults to sibling order-summary page."
         },
         {
           "component": "text",
