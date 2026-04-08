@@ -347,8 +347,7 @@ function handleConfirmOrder() {
   } else {
     console.warn("⚠️ updateDataLayer not available");
   }
-  dispatchCustomEvent("purchase");
-  
+
   // Navigate to order confirmation
   setTimeout(() => {
     navigateToPage(`order-confirmation?order=${encodeURIComponent(purchaseOrderNumber)}`);
