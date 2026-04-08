@@ -493,15 +493,6 @@ export default async function decorate(block) {
   // Clear author table
   block.innerHTML = "";
 
-  // Add header
-  const header = document.createElement("div");
-  header.className = "na-header";
-  const title = document.createElement("h2");
-  title.className = "na-title";
-  title.textContent = "New Arrivals";
-  header.append(title);
-  block.append(header);
-
   // Fetch all products
   const allProducts = await fetchProducts(folderHref);
 
