@@ -2,7 +2,7 @@ import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/ae
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/luma3/lumaProductListByPath;";
+const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/luma-fetch";
 const PUBLISH_PRODUCTS_ENDPOINT_KEY = "lumaProductListByPath";
 let categoryProductsAuthorBasePromise;
