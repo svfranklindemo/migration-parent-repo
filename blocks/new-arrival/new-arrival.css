@@ -115,18 +115,19 @@
 
 .na-card-category {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 11px;
   color: #888;
   text-align: center;
 }
 
 .na-card-title {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 16px;
   font-weight: 600;
   color: #2c2c2c;
   line-height: 1.4;
   text-align: center;
+  padding-top: 0px;
 }
 
 /* Carousel Navigation Buttons */

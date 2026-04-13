@@ -55,6 +55,12 @@
       "confirmation",
       "feedback",
       "join-us",
+      "cart",
+      "category-products-lister",
+      "new-arrival",
+      "order-confirmation",
+      "order-summary",
+      "product-detail",
       "product-card"
     ]
   },
@@ -85,10 +91,9 @@
   {
     "id": "column",
     "components": [
-      "action-button",
-      "button",
+      "text",
       "image",
-      "text",      
+      "button",
       "title",
       "video"
     ]

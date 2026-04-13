@@ -96,7 +96,7 @@ export default async function decorate(block) {
           {
             id: 'email',
             name: 'email',
-            fieldType: 'email',
+            fieldType: 'text',
             label: { value: 'Email' },
             properties: { colspan: 12 },
           },
