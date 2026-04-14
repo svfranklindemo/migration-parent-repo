@@ -4,9 +4,9 @@ import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { addProductToCart } from "../../scripts/cart-store.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
-const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productDescriptionByPath&SKU;";
+const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productDescriptionByPathAndSKU;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
-const PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY = "productDescriptionByPath&SKU";
+const PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY = "productDescriptionByPathAndSKU";
 const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
 const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
 let productDetailAuthorBasePromise;
