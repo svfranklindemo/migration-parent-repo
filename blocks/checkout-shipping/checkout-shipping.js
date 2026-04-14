@@ -186,7 +186,7 @@ function attachSubmitHandler(block, config) {
       }
 
       const submitBtn = form.querySelector("button[type='submit']");
-      const authoredEvent = submitBtn?.dataset?.buttonEventType?.trim() || 'checkout';
+      const authoredEvent = submitBtn?.dataset?.buttonEventType?.trim();
       if (authoredEvent) dispatchCustomEvent(authoredEvent);
 
       const continuePath = (config['continue-path'] || config.continuepath || '').toString().trim();

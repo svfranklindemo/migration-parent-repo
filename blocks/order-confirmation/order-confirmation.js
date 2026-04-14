@@ -121,8 +121,10 @@ export default function decorate(block) {
   const content = buildConfirmationContent(orderNumber);
 
   // Fire purchase order event on page load before cart reset.
-  const purchaseOrderEventType = (config["purchase-order-event-type"] || config.purchaseordereventtype || "").trim() || "purchaseOrder";
-  dispatchCustomEvent(purchaseOrderEventType);
+  const purchaseOrderEventType = (config["purchase-order-event-type"] || config.purchaseordereventtype || "").trim();
+  if (purchaseOrderEventType) {
+    dispatchCustomEvent(purchaseOrderEventType);
+  }
 
   // Reset cart and commerce data after a small delay
   setTimeout(() => {

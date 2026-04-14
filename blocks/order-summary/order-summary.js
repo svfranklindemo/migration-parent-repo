@@ -402,7 +402,7 @@ function renderOrderSummary(block, config = {}) {
  */
 export default function decorate(block) {
   const config = readBlockConfig(block);
-  const checkoutEventType = (config.checkouteventtype || config['checkout-event-type'] || '').trim() || 'checkout';
+  const checkoutEventType = (config.checkouteventtype || config['checkout-event-type'] || '').trim();
 
   block.textContent = "";
 
@@ -412,5 +412,7 @@ export default function decorate(block) {
 
   // Initial render
   renderOrderSummary(block, config);
-  dispatchCustomEvent(checkoutEventType);
+  if (checkoutEventType) {
+    dispatchCustomEvent(checkoutEventType);
+  }
 }

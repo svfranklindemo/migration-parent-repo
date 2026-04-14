@@ -318,7 +318,9 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
       price: price || 0,
       quantity: 1,
     });
-    dispatchCustomEvent(eventConfig.addToCart || "addToCart");
+    if (eventConfig.addToCart) {
+      dispatchCustomEvent(eventConfig.addToCart);
+    }
 
     // Show visual feedback
     addToCartBtn.textContent = "Added to Cart ✓";
@@ -333,7 +335,9 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
   addToWishlistBtn.addEventListener("click", () => {
     // TODO: Implement wishlist functionality
-    dispatchCustomEvent(eventConfig.addToWishlist || "commerce.saveForLaters");
+    if (eventConfig.addToWishlist) {
+      dispatchCustomEvent(eventConfig.addToWishlist);
+    }
   });
 
   actionsEl.append(addToCartBtn, addToWishlistBtn);
@@ -404,9 +408,9 @@ export default async function decorate(block) {
   // Read block config for authorable event types and folder path
   const config = readBlockConfig(block);
   const eventConfig = {
-    productView: (config.productvieweventtype || config['product-view-event-type'] || '').trim() || 'at-view-start',
-    addToCart: (config.addtocarteventtype || config['add-to-cart-event-type'] || '').trim() || 'addToCart',
-    addToWishlist: (config.addtowishlisteventtype || config['add-to-wishlist-event-type'] || '').trim() || 'commerce.saveForLaters',
+    productView: (config.productvieweventtype || config['product-view-event-type'] || '').trim(),
+    addToCart: (config.addtocarteventtype || config['add-to-cart-event-type'] || '').trim(),
+    addToWishlist: (config.addtowishlisteventtype || config['add-to-wishlist-event-type'] || '').trim(),
   };
 
   // Extract folder path from block config
@@ -477,5 +481,7 @@ export default async function decorate(block) {
   if (recommendations) {
     block.appendChild(recommendations);
   }
-  dispatchCustomEvent(eventConfig.productView);
+  if (eventConfig.productView) {
+    dispatchCustomEvent(eventConfig.productView);
+  }
 }

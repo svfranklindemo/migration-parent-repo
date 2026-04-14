@@ -24,12 +24,11 @@
           "component": "text",
           "name": "purchase-order-event-type",
           "label": "Purchase Order Event Type",
-          "value": "purchaseOrder",
+          "value": "",
           "valueType": "string",
-          "description": "Launch event fired when order confirmation loads. Default: purchaseOrder"
+          "description": "Optional Launch event fired when order confirmation loads."
         }
       ]
     }
   ]
 }
-

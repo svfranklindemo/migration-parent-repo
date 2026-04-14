@@ -25,9 +25,9 @@
           "component": "text",
           "name": "checkouteventtype",
           "label": "Checkout Event Type",
-          "value": "checkout",
+          "value": "",
           "valueType": "string",
-          "description": "Launch event fired when order summary loads. Default: checkout"
+          "description": "Optional Launch event fired when order summary loads."
         },
         {
           "component": "text",
@@ -49,4 +49,3 @@
     }
   ]
 }
-

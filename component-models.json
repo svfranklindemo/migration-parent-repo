@@ -8627,25 +8627,25 @@
         "component": "text",
         "name": "productvieweventtype",
         "label": "Product View Event Type",
-        "value": "at-view-start",
+        "value": "",
         "valueType": "string",
-        "description": "Launch event fired when product page loads. Default: at-view-start"
+        "description": "Optional Launch event fired when the product page loads."
       },
       {
         "component": "text",
         "name": "addtocarteventtype",
         "label": "Add To Cart Event Type",
-        "value": "addToCart",
+        "value": "",
         "valueType": "string",
-        "description": "Launch event fired on Add to Cart click. Default: addToCart"
+        "description": "Optional Launch event fired on Add to Cart click."
       },
       {
         "component": "text",
         "name": "addtowishlisteventtype",
         "label": "Add To Wishlist Event Type",
-        "value": "commerce.saveForLaters",
+        "value": "",
         "valueType": "string",
-        "description": "Launch event fired on Add to Wishlist click. Default: commerce.saveForLaters"
+        "description": "Optional Launch event fired on Add to Wishlist click."
       }
     ]
   },
@@ -8690,9 +8690,9 @@
         "component": "text",
         "name": "checkouteventtype",
         "label": "Checkout Event Type",
-        "value": "checkout",
+        "value": "",
         "valueType": "string",
-        "description": "Launch event fired when order summary loads. Default: checkout"
+        "description": "Optional Launch event fired when order summary loads."
       },
       {
         "component": "text",
@@ -8719,9 +8719,9 @@
         "component": "text",
         "name": "purchase-order-event-type",
         "label": "Purchase Order Event Type",
-        "value": "purchaseOrder",
+        "value": "",
         "valueType": "string",
-        "description": "Launch event fired when order confirmation loads. Default: purchaseOrder"
+        "description": "Optional Launch event fired when order confirmation loads."
       }
     ]
   },
