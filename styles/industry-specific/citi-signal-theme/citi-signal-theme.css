@@ -139,6 +139,7 @@ body.citi-signal-theme a.sign-in-btn,
 body.citi-signal-theme header nav .nav-tools a[href*="sign"] {
   color: #000000;
   border: 1px solid rgb(0 0 0 / 40%);
+  border-radius: 25px !important;
 }
 
 body.citi-signal-theme header nav .nav-tools {
@@ -212,7 +213,8 @@ body.citi-signal-theme .search.search-icon .search-trigger .icon img {
   filter: invert(0);
 }
 
-body.citi-signal-theme .cards > ul > li.image-right img{
+body.citi-signal-theme .cards > ul > li.image-right img,
+body.citi-signal-theme .cards > ul > li.image-left img{
 min-height: 350px;
 
 }

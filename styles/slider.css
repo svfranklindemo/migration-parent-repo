@@ -78,7 +78,7 @@ html[dir="rtl"] .carousel-container .button-container button {
   display: inline;
 }
 
-.carousel-container .button-container a.button:any-link, button {
+.carousel-container .button-container a.button:any-link {
   margin: 0;
   margin-top:10px;
 }
