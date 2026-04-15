@@ -1,3 +1,5 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 function embedYoutube(url, autoplay, background) {
   const usp = new URLSearchParams(url.search);
   let suffix = '';
@@ -406,15 +408,25 @@ function processColumnAlignment(col) {
   col._alignmentProcessed = true;
 }
 
-function parseColumnWidths(block) {
-  const raw = block.querySelector('p[data-aue-prop="columnWidths"]')?.textContent?.trim()
+function parseWidthsValue(rawValue) {
+  if (!rawValue) return null;
+  const parts = String(rawValue)
+    .split(',')
+    .map((s) => parseInt(s.trim(), 10))
+    .filter((n) => !Number.isNaN(n) && n > 0 && n <= 100);
+  return parts.length > 0 ? parts : null;
+}
+
+function parseColumnWidths(block, config = {}) {
+  const raw = config.columnwidths
+    || config.columnWidths
+    || config['column-widths']
+    || block.querySelector('p[data-aue-prop="columnWidths"]')?.textContent?.trim()
     || block.querySelector('[data-aue-prop="columnWidths"]')?.textContent?.trim()
     || block.getAttribute('data-column-widths')
     || block.dataset?.columnWidths
     || '';
-  if (!raw) return null;
-  const parts = raw.split(',').map((s) => parseInt(s.trim(), 10)).filter((n) => !Number.isNaN(n) && n > 0 && n <= 100);
-  return parts.length > 0 ? parts : null;
+  return parseWidthsValue(raw);
 }
 
 function applyColumnWidths(block, rawValue) {
@@ -422,8 +434,8 @@ function applyColumnWidths(block, rawValue) {
   const trimmed = rawValue.trim();
   if (!trimmed) return;
   block.dataset.columnWidths = trimmed;
-  const widths = trimmed.split(',').map((s) => parseInt(s.trim(), 10)).filter((n) => !Number.isNaN(n) && n > 0 && n <= 100);
-  if (widths.length === 0) return;
+  const widths = parseWidthsValue(trimmed);
+  if (!widths || widths.length === 0) return;
   [...block.children].forEach((row) => {
     if (!row.classList.contains('columns-row')) return;
     [...row.children].forEach((col, colIndex) => {
@@ -442,10 +454,11 @@ export default async function decorate(block) {
     return;
   }
 
+  const config = readBlockConfig(block) || {};
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
 
-  const columnWidths = parseColumnWidths(block);
+  const columnWidths = parseColumnWidths(block, config);
 
   /** Action-button blocks created from live "p,p,p" pattern; decorate and load after column loop */
   const actionButtonBlocksToLoad = [];

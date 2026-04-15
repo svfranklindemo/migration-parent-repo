@@ -139,7 +139,7 @@ div[data-aue-prop="itemAlignment"] p {
 
 
 /* Responsive Styles */
-@media (width < 1024px) {
+@media (width < 900px) {
   .columns-container .columns-wrapper {
     padding: 0 5%;
   }
@@ -172,4 +172,3 @@ div[data-aue-prop="itemAlignment"] p {
   }
 
 }
-
