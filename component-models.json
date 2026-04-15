@@ -8660,12 +8660,36 @@
         "description": "Optional Launch event fired on Add to Cart click."
       },
       {
+        "component": "boolean",
+        "name": "showaddtowishlistbutton",
+        "label": "Show Add To Wishlist Button",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, Add to Cart and Add to Wishlist buttons are not rendered."
+      },
+      {
         "component": "text",
         "name": "addtowishlisteventtype",
         "label": "Add To Wishlist Event Type",
         "value": "",
         "valueType": "string",
-        "description": "Optional Launch event fired on Add to Wishlist click."
+        "description": "Optional Launch event fired on Add to Wishlist click.",
+        "condition": {
+          "==": [
+            {
+              "var": "showaddtowishlistbutton"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "showyoumayalsolikesection",
+        "label": "Show Related Products Section",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, the Related Products section is not rendered."
       }
     ]
   },

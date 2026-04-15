@@ -291,57 +291,60 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     contentSection.appendChild(descEl);
   }
 
-  // Action buttons
-  const actionsEl = document.createElement("div");
-  actionsEl.className = "pd-actions";
+  if (eventConfig.showAddToWishlistButton) {
+    // Action buttons
+    const actionsEl = document.createElement("div");
+    actionsEl.className = "pd-actions";
 
-  const addToCartBtn = document.createElement("button");
-  addToCartBtn.className = "pd-btn pd-btn-primary";
-  addToCartBtn.textContent = "Add to Cart";
-  addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
-  addToCartBtn.addEventListener("click", () => {
-    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
-    const formattedCategory =
-      category.length > 0
-        ? category
-            .map((cat) => cat.replace(/^luma:/, "").replace(/\//g, " / "))
-            .join(", ")
-        : "";
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "pd-btn pd-btn-primary";
+    addToCartBtn.textContent = "Add to Cart";
+    addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
+    addToCartBtn.addEventListener("click", () => {
+      const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+      const formattedCategory =
+        category.length > 0
+          ? category
+              .map((cat) => cat.replace(/^luma:/, "").replace(/\//g, " / "))
+              .join(", ")
+          : "";
 
-    addProductToCart({
-      id: id || sku || "",
-      name: name || "",
-      image: cartImageUrl || "",
-      thumbnail: cartImageUrl || "",
-      category: formattedCategory,
-      description: description?.html || description?.markdown || "",
-      price: price || 0,
-      quantity: 1,
+      addProductToCart({
+        id: id || sku || "",
+        name: name || "",
+        image: cartImageUrl || "",
+        thumbnail: cartImageUrl || "",
+        category: formattedCategory,
+        description: description?.html || description?.markdown || "",
+        price: price || 0,
+        quantity: 1,
+      });
+      if (eventConfig.addToCart) {
+        dispatchCustomEvent(eventConfig.addToCart);
+      }
+
+      // Show visual feedback
+      addToCartBtn.textContent = "Added to Cart ✓";
+      setTimeout(() => {
+        addToCartBtn.textContent = "Add to Cart";
+      }, 2000);
     });
-    if (eventConfig.addToCart) {
-      dispatchCustomEvent(eventConfig.addToCart);
-    }
 
-    // Show visual feedback
-    addToCartBtn.textContent = "Added to Cart ✓";
-    setTimeout(() => {
-      addToCartBtn.textContent = "Add to Cart";
-    }, 2000);
-  });
+    const addToWishlistBtn = document.createElement("button");
+    addToWishlistBtn.className = "pd-btn pd-btn-secondary";
+    addToWishlistBtn.textContent = "Add to Wishlist";
+    addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
+    addToWishlistBtn.addEventListener("click", () => {
+      // TODO: Implement wishlist functionality
+      if (eventConfig.addToWishlist) {
+        dispatchCustomEvent(eventConfig.addToWishlist);
+      }
+    });
 
-  const addToWishlistBtn = document.createElement("button");
-  addToWishlistBtn.className = "pd-btn pd-btn-secondary";
-  addToWishlistBtn.textContent = "Add to Wishlist";
-  addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
-  addToWishlistBtn.addEventListener("click", () => {
-    // TODO: Implement wishlist functionality
-    if (eventConfig.addToWishlist) {
-      dispatchCustomEvent(eventConfig.addToWishlist);
-    }
-  });
+    actionsEl.append(addToCartBtn, addToWishlistBtn);
 
-  actionsEl.append(addToCartBtn, addToWishlistBtn);
-  contentSection.appendChild(actionsEl);
+    contentSection.appendChild(actionsEl);
+  }
 
   container.append(imageSection, contentSection);
   return container;
@@ -403,6 +406,7 @@ function buildRecommendations(currentProduct, allProducts, isAuthor) {
  * @param {HTMLElement} block - The block element
  */
 export default async function decorate(block) {
+  const isTruthy = (value) => value === true || String(value || '').trim().toLowerCase() === 'true';
   const isAuthor = isAuthorEnvironment();
 
   // Read block config for authorable event types and folder path
@@ -411,6 +415,12 @@ export default async function decorate(block) {
     productView: (config.productvieweventtype || config['product-view-event-type'] || '').trim(),
     addToCart: (config.addtocarteventtype || config['add-to-cart-event-type'] || '').trim(),
     addToWishlist: (config.addtowishlisteventtype || config['add-to-wishlist-event-type'] || '').trim(),
+    showAddToWishlistButton: (config.showaddtowishlistbutton === undefined && config['show-add-to-wishlist-button'] === undefined)
+      ? true
+      : isTruthy(config.showaddtowishlistbutton ?? config['show-add-to-wishlist-button']),
+    showYouMayAlsoLikeSection: (config.showyoumayalsolikesection === undefined && config['show-you-may-also-like-section'] === undefined)
+      ? true
+      : isTruthy(config.showyoumayalsolikesection ?? config['show-you-may-also-like-section']),
   };
 
   // Extract folder path from block config
@@ -477,9 +487,11 @@ export default async function decorate(block) {
   block.appendChild(productDetail);
 
   // Display recommendations
-  const recommendations = buildRecommendations(product, allProducts, isAuthor);
-  if (recommendations) {
-    block.appendChild(recommendations);
+  if (eventConfig.showYouMayAlsoLikeSection) {
+    const recommendations = buildRecommendations(product, allProducts, isAuthor);
+    if (recommendations) {
+      block.appendChild(recommendations);
+    }
   }
   if (eventConfig.productView) {
     dispatchCustomEvent(eventConfig.productView);
