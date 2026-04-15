@@ -38,6 +38,16 @@ function getQueryParam(param) {
   return urlParams.get(param);
 }
 
+function normalizeCategoryValue(value) {
+  const normalized = String(value || "")
+    .replace(/^(?:(?:citi-signal|luma|lumaproducts):)+/gi, "")
+    .replace(/-/g, " ")
+    .trim();
+
+  if (!normalized) return "";
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
 /**
  * Fetch product details from GraphQL
  * @param {string} path - Content fragment folder path
@@ -99,7 +109,7 @@ async function fetchAllProducts(path, isAuthor) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.lumaProductsModelList?.items || [];
+    const items = json?.data?.productModelList?.items || [];
     const filtered = items.filter((item) => item && item.sku);
     return filtered;
   } catch (e) {
@@ -170,14 +180,12 @@ function buildRecommendationCard(item, isAuthor) {
 
   const meta = document.createElement("div");
   meta.className = "pd-rec-card-meta";
-  const categoryText = category && category.length ? category.join(", ") : "";
   const cat = document.createElement("p");
   cat.className = "pd-rec-card-category";
-  // Format category: remove "luma:" or "Lumaproducts:", replace commas with slashes, uppercase
-  cat.textContent = categoryText
-    .replace(/^(luma:|lumaproducts:)/gi, "") // Remove luma/lumaproducts prefix (case-insensitive)
-    .replace(/\//g, " / ") // Replace slashes with /
-    .toUpperCase(); // Convert to uppercase
+  cat.textContent = category
+    .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+    .filter(Boolean)
+    .join(" / ");
   const title = document.createElement("h3");
   title.className = "pd-rec-card-title";
   title.textContent = name || "";
@@ -216,7 +224,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     category:
       category.length > 0
         ? category
-            .map((cat) => cat.replace(/^luma:/, "").replace(/\//g, " / "))
+            .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
             .join(", ")
         : "",
     description: description?.html || description?.markdown || "",
@@ -256,13 +264,11 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   if (category && category.length > 0) {
     const categoryText = category
       .map(
-        (cat) =>
-          cat
-            .replace(/^(luma:|lumaproducts:)/gi, "") // Remove luma/lumaproducts prefix (case-insensitive)
+        (catValue) =>
+          normalizeCategoryValue(catValue)
             .replace(/\//g, " / ") // Replace slashes with /
       )
-      .join(" / ")
-      .toUpperCase();
+      .join(" / ");
     const categoryEl = document.createElement("p");
     categoryEl.className = "pd-category";
     categoryEl.textContent = categoryText;
@@ -302,12 +308,12 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
     addToCartBtn.addEventListener("click", () => {
       const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
-      const formattedCategory =
-        category.length > 0
-          ? category
-              .map((cat) => cat.replace(/^luma:/, "").replace(/\//g, " / "))
-              .join(", ")
-          : "";
+        const formattedCategory =
+          category.length > 0
+            ? category
+                .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+                .join(", ")
+            : "";
 
       addProductToCart({
         id: id || sku || "",
