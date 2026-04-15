@@ -570,12 +570,13 @@ function handleSignOut(langCode) {
   window.location.href = homeUrl;
 }
 
-function isLumaThemeSelected() {
-  return document.body.classList.contains('luma-theme');
+function usesLumaStyleHeader() {
+  return document.body.classList.contains('luma-theme')
+    || document.body.classList.contains('citi-signal-theme');
 }
 
 function addLumaCartIcon(container, langCode) {
-  if (!container || !isLumaThemeSelected() || container.querySelector('.cart-icon')) {
+  if (!container || !usesLumaStyleHeader() || container.querySelector('.cart-icon')) {
     return;
   }
 
@@ -681,7 +682,7 @@ export default async function decorate(block) {
     // except on luma-themed pages where the full nav should remain visible.
     const navItems = navSections.querySelectorAll(':scope .default-content-wrapper > ul > li');
     const isUserLoggedIn = localStorage.getItem('project_user_logged_in') === 'true';
-    if (!isLumaThemeSelected() && !isUserLoggedIn && navItems.length > 4) {
+    if (!usesLumaStyleHeader() && !isUserLoggedIn && navItems.length > 4) {
       for (let i = 4; i < navItems.length; i++) {
         navItems[i].classList.add('nav-auth-hidden');
       }
