@@ -172,3 +172,16 @@ body.citi-signal-theme .search.search-icon .search-trigger .icon img {
     color: #000000;
   }
 }
+
+@media (width >= 900px) {
+  body.citi-signal-theme header nav .nav-sections ul {
+    display: flex;
+    gap: 22px;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  body.citi-signal-theme header nav[aria-expanded='true'] .nav-sections {
+    justify-content: left;
+  }
+}
