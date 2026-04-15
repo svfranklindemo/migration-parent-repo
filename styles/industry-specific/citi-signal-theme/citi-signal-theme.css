@@ -14,8 +14,53 @@ body.citi-signal-theme main {
   flex: 1;
 }
 
+body.citi-signal-theme h1 {
+  font-family: 'Adobe Clean Black', sans-serif !important;
+  font-size: 40px !important;
+      line-height: 1.25 !important;
+}
+
+body.citi-signal-theme h2 {
+  font-family: 'Adobe Clean Black', sans-serif !important;
+  font-size: 32px !important;
+      line-height: 1.25 !important;
+}
+
+body.citi-signal-theme h3 {
+  font-family: 'Adobe Clean Black', sans-serif !important;
+  font-size: 24px !important;
+     line-height: 1.25 !important;
+}
+
+body.citi-signal-theme p {
+  font-size: 14px !important;
+}
+
+body.citi-signal-theme a.button,
+body.citi-signal-theme button {
+  border-radius: 25px !important;
+  font-size: 14px !important;
+}
+
+body.citi-signal-theme a.button::after,
+body.citi-signal-theme button::after {
+  content: none !important;
+}
+
+body.citi-signal-theme .hero-wrapper .button-container.cta-button a.button:hover {
+  color: #000000 !important;
+}
+body.citi-signal-theme main > .section:not([data-sec-full-width="true"]) {
+    max-width: 90%;
+}
+body.citi-signal-theme main > .section > div {
+    max-width: 100%;
+}
 body.citi-signal-theme main > .section > div {
   padding: 0;
+}
+body.citi-signal-theme .cards > ul > li.image-right .cards-card-body{
+padding-left: 30px;
 }
 
 body.citi-signal-theme header .nav-wrapper {
@@ -167,6 +212,10 @@ body.citi-signal-theme .search.search-icon .search-trigger .icon img {
   filter: invert(0);
 }
 
+body.citi-signal-theme .cards > ul > li.image-right img{
+min-height: 350px;
+
+}
 @media (width < 900px) {
   body.citi-signal-theme header nav .nav-sections ul > li > a {
     color: #000000;

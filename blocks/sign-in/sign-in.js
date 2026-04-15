@@ -30,6 +30,19 @@ export default async function decorate(block) {
 
   const isAuthor = isAuthorEnvironment();
 
+  // Render logo image if authored
+  const logoImage = config.logoImage ?? config['logo-image'];
+  const logoAlt = config.logoImageAlt ?? config['logo-image-alt'] ?? '';
+  if (logoImage) {
+    const logoWrapper = document.createElement('div');
+    logoWrapper.className = 'sign-in-logo';
+    const img = document.createElement('img');
+    img.src = logoImage;
+    img.alt = logoAlt;
+    logoWrapper.append(img);
+    block.prepend(logoWrapper);
+  }
+
   // Set authorable redirect URLs
   const signInRedirectUrl = config.signInRedirectUrl ?? config['sign-in-redirect-url'] ?? "/";
   block.dataset.signInRedirectUrl = signInRedirectUrl;

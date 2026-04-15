@@ -24,6 +24,16 @@ main .sign-in .sign-in-form {
   --form-field-horz-gap: 24px;
 }
 
+main .sign-in .sign-in-logo {
+  margin-bottom: 24px;
+}
+
+main .sign-in .sign-in-logo img {
+  max-height: 48px;
+  width: auto;
+  display: block;
+}
+
 /* Ensure form element is block */
 main .sign-in form {
   display: block;
