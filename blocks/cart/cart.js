@@ -10,9 +10,9 @@ import {
   syncFallbackCart,
 } from "../../scripts/cart-store.js";
 
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/luma3/lumaProductListByPath;";
-const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/luma-fetch";
-const PUBLISH_PRODUCTS_ENDPOINT_KEY = "lumaProductListByPath";
+const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
+const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
+const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
 let cartAuthorBasePromise;
 let cartPublishEnvironmentPromise;
 
@@ -30,6 +30,10 @@ async function getCartPublishEnvironment() {
     cartPublishEnvironmentPromise = getEnvironmentValue().catch(() => undefined);
   }
   return cartPublishEnvironmentPromise;
+}
+
+function isTruthy(value) {
+  return value === true || String(value || "").trim().toLowerCase() === "true";
 }
 
 /**
@@ -442,7 +446,7 @@ async function fetchAllProducts(path, isAuthor) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.lumaProductsModelList?.items || [];
+    const items = json?.data?.productModelList?.items || [];
     const filtered = items.filter((item) => item && item.sku);
     return filtered;
   } catch (e) {
@@ -599,7 +603,13 @@ function buildRecommendations(allProducts, cartData, isAuthor) {
  * @param {boolean} isAuthor - Is author environment
  * @param {Array} allProducts - Cached products list
  */
-function setupDataLayerListener(block, folderHref, isAuthor, allProducts) {
+function setupDataLayerListener(
+  block,
+  folderHref,
+  isAuthor,
+  allProducts,
+  showYouMayAlsoLikeSection
+) {
   document.addEventListener("dataLayerUpdated", async (event) => {
     const { dataLayer } = event.detail;
     if (dataLayer && dataLayer.cart) {
@@ -608,7 +618,12 @@ function setupDataLayerListener(block, folderHref, isAuthor, allProducts) {
       updateCartTotals(block, dataLayer.cart);
 
       // Rebuild recommendations if folder is provided
-      if (folderHref && allProducts && allProducts.length > 0) {
+      if (
+        showYouMayAlsoLikeSection &&
+        folderHref &&
+        allProducts &&
+        allProducts.length > 0
+      ) {
         const container = block.querySelector(".cart-container");
         if (container) {
           // Remove existing recommendations
@@ -638,6 +653,15 @@ function setupDataLayerListener(block, folderHref, isAuthor, allProducts) {
  */
 export default async function decorate(block) {
   const isAuthor = isAuthorEnvironment();
+  const config = readBlockConfig(block) || {};
+  const showYouMayAlsoLikeSection =
+    config.showyoumayalsolikesection === undefined &&
+    config["show-you-may-also-like-section"] === undefined
+      ? true
+      : isTruthy(
+          config.showyoumayalsolikesection ??
+            config["show-you-may-also-like-section"]
+        );
 
   // Extract folder path from block config
   let folderHref = "";
@@ -645,7 +669,6 @@ export default async function decorate(block) {
   if (link) {
     folderHref = link.getAttribute("href");
   } else {
-    const config = readBlockConfig(block);
     folderHref = config.folder || "";
   }
 
@@ -697,7 +720,7 @@ export default async function decorate(block) {
 
   // Fetch products and build recommendations if folder is provided
   let allProducts = [];
-  if (folderHref) {
+  if (folderHref && showYouMayAlsoLikeSection) {
     allProducts = await fetchAllProducts(folderHref, isAuthor);
     const recommendations = buildRecommendations(
       allProducts,
@@ -710,5 +733,11 @@ export default async function decorate(block) {
   }
 
   // Setup dataLayer listener for real-time updates
-  setupDataLayerListener(block, folderHref, isAuthor, allProducts);
+  setupDataLayerListener(
+    block,
+    folderHref,
+    isAuthor,
+    allProducts,
+    showYouMayAlsoLikeSection
+  );
 }
