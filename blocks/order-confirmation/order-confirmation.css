@@ -5,7 +5,7 @@ main .order-confirmation {
   margin: 0 auto;
   padding: var(--oc-spacing);
   background: #fff;
-  min-height: 60vh;
+  min-height: 35vh;
   display: flex;
   align-items: center;
   justify-content: center;
