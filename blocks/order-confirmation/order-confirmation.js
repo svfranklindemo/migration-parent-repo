@@ -20,13 +20,6 @@ function getPurchaseOrderNumber() {
 }
 
 /**
- * Navigate to home page
- */
-function navigateToHome() {
-  window.location.href = "/";
-}
-
-/**
  * Reset cart and commerce data in dataLayer
  * Note: Does NOT clear checkout form data (personal/address info)
  * User's personal information is preserved for future orders
@@ -75,31 +68,8 @@ function buildConfirmationContent(orderNumber) {
   orderInfo.className = "order-confirmation-number";
   orderInfo.innerHTML = `Order No. <strong>${orderNumber}</strong>`;
 
-  const details = document.createElement("p");
-  details.className = "order-confirmation-details";
-  details.textContent =
-    "We are processing your order and a confirmation email has been sent to your email address.";
-
-  const shippingInfo = document.createElement("p");
-  shippingInfo.className = "order-confirmation-details";
-  shippingInfo.textContent =
-    "Please check your inbox for further details on shipping and contacts.";
-
-  const support = document.createElement("p");
-  support.className = "order-confirmation-support";
-  support.textContent =
-    "If you experience any problems or just have a question, you can email us and we will get back to you shortly.";
-
-  const homeBtn = document.createElement("button");
-  homeBtn.className = "order-confirmation-btn";
-  homeBtn.textContent = "RETURN TO HOME PAGE";
-  homeBtn.addEventListener("click", () => {
-    // Cart already cleared in order-summary page - just navigate home
-    navigateToHome();
-  });
-
-  message.append(thankYou, subtitle, orderInfo, details, shippingInfo, support);
-  content.append(message, homeBtn);
+  message.append(thankYou, subtitle, orderInfo);
+  content.append(message);
 
   return content;
 }
