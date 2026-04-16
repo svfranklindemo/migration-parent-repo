@@ -106,6 +106,50 @@ async function fetchProducts(path) {
   }
 }
 
+/**
+ * Cards per row from UE (data-aue-prop), block dataset, or readBlockConfig table rows.
+ * Model field name is `cards-per-row`; labels may appear as "Cards per view" → `cards-per-view`.
+ */
+function readCardsPerRow(block, cfg) {
+  const aueProps = [
+    'cards-per-row',
+    'cardsPerRow',
+    'cards-per-view',
+    'cardsPerView',
+  ];
+  let raw = '';
+  for (const prop of aueProps) {
+    const el =
+      block.querySelector(`p[data-aue-prop="${prop}"]`)
+      || block.querySelector(`[data-aue-prop="${prop}"]`);
+    if (!el) continue;
+    const t = (el.textContent ?? '').trim();
+    if (t) {
+      raw = t;
+      break;
+    }
+    const opt = el.querySelector?.('option[selected]');
+    if (opt?.value) {
+      raw = opt.value;
+      break;
+    }
+  }
+  if (!raw) {
+    raw = String(
+      cfg?.['cards-per-row']
+        || cfg?.['cards-per-view']
+        || cfg?.cardsperrow
+        || cfg?.cardsperview
+        || block.dataset?.cardsPerRow
+        || block.dataset?.cardsPerView
+        || '',
+    ).trim();
+  }
+  const n = parseInt(raw, 10);
+  if (!Number.isFinite(n) || n < 1) return 5;
+  return Math.min(6, Math.max(1, n));
+}
+
 function renderHeader(container, selectedTags) {
   if (!selectedTags || selectedTags.length === 0) return;
   const wrap = document.createElement("div");
@@ -159,8 +203,8 @@ export default async function decorate(block) {
   // Extract tags - for Universal Editor they'll be in data attributes
   const tags = block.dataset?.["cqTags"] || cfg?.tags || cfg?.["cq:tags"] || "";
 
-  // Extract cards-per-row setting
-  const cardsPerRow = parseInt(block.dataset?.["cardsPerRow"] || cfg?.["cards-per-row"] || cfg?.cardsPerRow || "5", 10);
+  // Cards per row (must read before innerHTML clear — UE uses data-aue-prop on model fields)
+  const cardsPerRow = readCardsPerRow(block, cfg);
 
   // Clear author table
   block.innerHTML = "";
