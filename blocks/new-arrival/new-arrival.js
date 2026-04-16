@@ -2,9 +2,9 @@ import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/ae
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/luma3/lumaProductListByPath;";
-const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/luma-fetch";
-const PUBLISH_PRODUCTS_ENDPOINT_KEY = "lumaProductListByPath";
+const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
+const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
+const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
 let newArrivalAuthorBasePromise;
 let newArrivalPublishEnvironmentPromise;
 
@@ -102,11 +102,9 @@ function buildCard(item, isAuthor) {
   return card;
 }
 
-async function fetchProducts(path) {
+async function fetchProducts(path, isAuthor) {
   try {
     if (!path) return [];
-    // For AEM parameterized queries, use semicolon syntax: ;_path=value
-    const isAuthor = isAuthorEnvironment();
     const authorBase = await getNewArrivalAuthorBase();
     const environment = await getNewArrivalPublishEnvironment();
     const url = isAuthor
@@ -120,7 +118,7 @@ async function fetchProducts(path) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.lumaProductsModelList?.items || [];
+    const items = json?.data?.productModelList?.items || [];
     // Filter out null/invalid products
     return items.filter((item) => item && item.sku);
   } catch (e) {
@@ -494,7 +492,7 @@ export default async function decorate(block) {
   block.innerHTML = "";
 
   // Fetch all products
-  const allProducts = await fetchProducts(folderHref);
+  const allProducts = await fetchProducts(folderHref, isAuthor);
 
   // eslint-disable-next-line no-console
   console.log("New Arrival - All products fetched:", allProducts.length);
