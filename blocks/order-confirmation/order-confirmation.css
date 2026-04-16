@@ -19,11 +19,7 @@ main .order-confirmation .order-confirmation-container {
 /* Content */
 main .order-confirmation .order-confirmation-content {
   text-align: center;
-  padding: 60px 40px;
-}
-
-main .order-confirmation .order-confirmation-message {
-  margin-bottom: 48px;
+  padding: 0px 40px;
 }
 
 /* Title */
