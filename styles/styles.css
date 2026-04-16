@@ -2020,3 +2020,10 @@ body.securbank-theme main :is(ul, menu) ul {
 .product-card-wrapper.show {
   min-height: 0;
 }
+.no-border-shadow .cards-card-body {
+padding-left: 0 !important;
+}
+.no-border-shadow .cards > ul > li{
+  border: none !important;
+  box-shadow: none !important;
+}
