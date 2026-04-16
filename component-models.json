@@ -8724,6 +8724,14 @@
         "valueType": "string",
         "required": false,
         "rootPath": "/content/dam"
+      },
+      {
+        "component": "boolean",
+        "name": "showyoumayalsolikesection",
+        "label": "Show Related Products Section",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, the You May Also Like recommendations section is not rendered."
       }
     ]
   },

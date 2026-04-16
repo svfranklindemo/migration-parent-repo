@@ -472,10 +472,12 @@ export default async function decorate(block) {
   loader.textContent = "Loading product details...";
   block.appendChild(loader);
 
-  // Fetch product and all products in parallel
+  // Fetch product and (optionally) recommendations source data in parallel
   const [product, allProducts] = await Promise.all([
     fetchProductDetail(folderHref, sku, isAuthor),
-    fetchAllProducts(folderHref, isAuthor),
+    eventConfig.showYouMayAlsoLikeSection
+      ? fetchAllProducts(folderHref, isAuthor)
+      : Promise.resolve([]),
   ]);
 
   block.textContent = "";
