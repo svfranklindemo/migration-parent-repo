@@ -129,17 +129,22 @@ function readDataAueFieldValue(el) {
   if (fromAttr != null && String(fromAttr).trim() !== '') {
     return String(fromAttr).trim();
   }
-  const nestedP = el.querySelector('p[data-aue-prop], p');
-  if (nestedP) {
-    const t = (nestedP.textContent || '').trim();
-    if (t) return t;
+  // wrapTextNodes() moves data-aue-* onto an inner <p>; value is often only data-aue-value (no text).
+  const nestedInstrumented = el.querySelector('[data-aue-value], [data-aue-prop]');
+  if (nestedInstrumented && nestedInstrumented !== el) {
+    const nestedVal = readDataAueFieldValue(nestedInstrumented);
+    if (nestedVal) return nestedVal;
   }
   const sel = el.querySelector('select');
   if (sel?.value) return String(sel.value).trim();
   const opt = el.querySelector('option[selected]');
   if (opt?.value) return String(opt.value).trim();
-  const t = (el.textContent || '').trim();
-  return t;
+  const plainP = el.querySelector('p');
+  if (plainP) {
+    const t = (plainP.textContent || '').trim();
+    if (t) return t;
+  }
+  return (el.textContent || '').trim();
 }
 
 function coerceConfigScalar(v) {
