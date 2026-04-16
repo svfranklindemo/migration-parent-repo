@@ -1,4 +1,4 @@
-import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/aem.js";
+import { readBlockConfig, createLumaProductImagePicture, toClassName } from "../../scripts/aem.js";
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
@@ -106,48 +106,176 @@ async function fetchProducts(path) {
   }
 }
 
+/** Normalize block config / data-aue-prop names for comparison */
+function normalizeCardsConfigKey(key) {
+  return String(key || '')
+    .toLowerCase()
+    .replace(/_/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
 /**
- * Cards per row from UE (data-aue-prop), block dataset, or readBlockConfig table rows.
- * Model field name is `cards-per-row`; labels may appear as "Cards per view" → `cards-per-view`.
+ * Read authored value from a UE field node (select often uses data-aue-value, not text).
+ * Same idea as columns (itemAlignment) and scripts decorateTitleAlignment (alignment).
+ */
+function readDataAueFieldValue(el) {
+  if (!el) return '';
+  const fromAttr =
+    el.getAttribute('data-aue-value')
+    || el.getAttribute('value')
+    || el.getAttribute('data-value')
+    || el.dataset?.value
+    || el.dataset?.aueValue;
+  if (fromAttr != null && String(fromAttr).trim() !== '') {
+    return String(fromAttr).trim();
+  }
+  const nestedP = el.querySelector('p[data-aue-prop], p');
+  if (nestedP) {
+    const t = (nestedP.textContent || '').trim();
+    if (t) return t;
+  }
+  const sel = el.querySelector('select');
+  if (sel?.value) return String(sel.value).trim();
+  const opt = el.querySelector('option[selected]');
+  if (opt?.value) return String(opt.value).trim();
+  const t = (el.textContent || '').trim();
+  return t;
+}
+
+function coerceConfigScalar(v) {
+  if (v == null) return '';
+  if (Array.isArray(v)) return coerceConfigScalar(v[0]);
+  return String(v).trim();
+}
+
+/**
+ * Cards per row: data-aue-prop + data-aue-value (UE), readBlockConfig table, dataset.
  */
 function readCardsPerRow(block, cfg) {
-  const aueProps = [
+  const knownProps = new Set([
     'cards-per-row',
-    'cardsPerRow',
+    'cardsperrow',
     'cards-per-view',
-    'cardsPerView',
-  ];
+    'cardsperview',
+  ]);
+
   let raw = '';
-  for (const prop of aueProps) {
-    const el =
-      block.querySelector(`p[data-aue-prop="${prop}"]`)
-      || block.querySelector(`[data-aue-prop="${prop}"]`);
-    if (!el) continue;
-    const t = (el.textContent ?? '').trim();
-    if (t) {
-      raw = t;
-      break;
-    }
-    const opt = el.querySelector?.('option[selected]');
-    if (opt?.value) {
-      raw = opt.value;
-      break;
-    }
-  }
+
+  const scanAueProps = (root) => {
+    if (!root) return;
+    root.querySelectorAll('[data-aue-prop]').forEach((el) => {
+      if (raw) return;
+      const prop = normalizeCardsConfigKey(el.getAttribute('data-aue-prop'));
+      const isCardsPer =
+        knownProps.has(prop)
+        || (prop.startsWith('cards') && (prop.includes('row') || prop.includes('view') || prop.includes('column')));
+      if (!isCardsPer) return;
+      const v = readDataAueFieldValue(el);
+      if (v) raw = v;
+    });
+  };
+  scanAueProps(block);
+  if (!raw) scanAueProps(block.closest('.section'));
+
   if (!raw) {
-    raw = String(
-      cfg?.['cards-per-row']
-        || cfg?.['cards-per-view']
-        || cfg?.cardsperrow
-        || cfg?.cardsperview
-        || block.dataset?.cardsPerRow
-        || block.dataset?.cardsPerView
-        || '',
-    ).trim();
+    const explicitSelectors = [
+      'p[data-aue-prop="cards-per-row"]',
+      '[data-aue-prop="cards-per-row"]',
+      'p[data-aue-prop="cardsPerRow"]',
+      '[data-aue-prop="cardsPerRow"]',
+      'p[data-aue-prop="cards-per-view"]',
+      '[data-aue-prop="cards-per-view"]',
+    ];
+    for (const sel of explicitSelectors) {
+      const el = block.querySelector(sel);
+      const v = readDataAueFieldValue(el);
+      if (v) {
+        raw = v;
+        break;
+      }
+    }
   }
+
+  if (!raw && cfg && typeof cfg === 'object') {
+    Object.keys(cfg).forEach((k) => {
+      if (raw) return;
+      const nk = normalizeCardsConfigKey(k);
+      if (
+        nk === 'cardsperrow'
+        || nk === 'cards-per-row'
+        || nk === 'cardsperview'
+        || nk === 'cards-per-view'
+      ) {
+        raw = coerceConfigScalar(cfg[k]);
+      }
+    });
+  }
+
+  if (!raw) {
+    raw = coerceConfigScalar(
+      block.dataset?.cardsPerRow
+        || block.dataset?.cardsPerView
+        || block.getAttribute('data-cards-per-row')
+        || block.getAttribute('data-cards-per-view'),
+    );
+  }
+
   const n = parseInt(raw, 10);
   if (!Number.isFinite(n) || n < 1) return 5;
   return Math.min(6, Math.max(1, n));
+}
+
+/** Key/value rows: direct children of block, or all rows inside a single wrapper div (UE pattern). */
+function getKeyValueRows(block) {
+  const direct = [...block.querySelectorAll(':scope > div')];
+  if (direct.length === 1) {
+    const inner = [...direct[0].querySelectorAll(':scope > div')];
+    if (inner.length >= 2) return inner;
+  }
+  return direct;
+}
+
+/**
+ * Same value rules as readBlockConfig, plus UE select / data-aue-value (readBlockConfig skips native select).
+ */
+function readRowConfigValue(col) {
+  if (!col) return '';
+  if (col.querySelector('a')) {
+    const as = [...col.querySelectorAll('a')];
+    if (as.length === 1) return as[0].href;
+    return as.map((a) => a.href);
+  }
+  if (col.querySelector('img')) {
+    const imgs = [...col.querySelectorAll('img')];
+    if (imgs.length === 1) return imgs[0].src;
+    return imgs.map((img) => img.src);
+  }
+  const ue = readDataAueFieldValue(col);
+  if (ue) return ue;
+  if (col.querySelector('p')) {
+    const ps = [...col.querySelectorAll('p')];
+    if (ps.length === 1) return ps[0].textContent;
+    return ps.map((p) => p.textContent);
+  }
+  return (col.textContent || '').trim();
+}
+
+/**
+ * readBlockConfig only uses :scope > div and does not read native `select` or data-aue-value on the value cell.
+ * Re-scan key/value rows (including single-wrapper layout) so cards-per-row and folder resolve on publish.
+ */
+function readCategoryProductsListerBlockConfig(block) {
+  const base = readBlockConfig(block);
+  const rows = getKeyValueRows(block);
+  const enriched = { ...base };
+  rows.forEach((row) => {
+    const cols = [...row.children];
+    if (cols.length < 2) return;
+    const name = toClassName(cols[0].textContent);
+    if (!name) return;
+    enriched[name] = readRowConfigValue(cols[1]);
+  });
+  return enriched;
 }
 
 function renderHeader(container, selectedTags) {
@@ -179,8 +307,8 @@ export default async function decorate(block) {
     block.querySelector("a[href]")?.textContent?.trim() ||
     "";
 
-  // Also try readBlockConfig as fallback for document-based authoring
-  const cfg = readBlockConfig(block);
+  // Table + wrapper layouts (see readCategoryProductsListerBlockConfig)
+  const cfg = readCategoryProductsListerBlockConfig(block);
   if (!folderHref) {
     folderHref = cfg?.folder || cfg?.reference || cfg?.path || "";
   }
