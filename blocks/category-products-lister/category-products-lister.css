@@ -20,7 +20,7 @@ main .category-products-lister .cpl-tag {
 
 main .category-products-lister .cpl-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--cpl-columns, 5), minmax(0, 1fr));
   gap: var(--cpl-gap);
 }
 

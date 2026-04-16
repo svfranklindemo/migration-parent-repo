@@ -10,6 +10,9 @@ body.citi-signal-theme {
   min-height: 100vh;
 }
 
+body.citi-signal-theme li {
+    font-size: 16px;
+}
 body.citi-signal-theme main {
   flex: 1;
 }
@@ -28,7 +31,7 @@ body.citi-signal-theme h2 {
 
 body.citi-signal-theme h3 {
   font-family: 'Adobe Clean Black', sans-serif !important;
-  font-size: 24px !important;
+  font-size: 18px !important;
      line-height: 1.25 !important;
 }
 
@@ -217,6 +220,80 @@ body.citi-signal-theme .cards > ul > li.image-right img,
 body.citi-signal-theme .cards > ul > li.image-left img{
 min-height: 350px;
 
+}
+/* Find Your Store section */
+.find-your-store .columns-wrapper {
+    border-radius: 16px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 7%);
+    border: 1px solid lightgrey;
+}
+
+.find-your-store .columns {
+  padding: 0;
+}
+
+.find-your-store .columns-row:first-child {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 28px;
+      background: #f5f5f5;
+}
+
+.find-your-store .columns-row:last-child {
+  padding: 28px 28px;
+  align-items: center;
+}
+
+.find-your-store .columns-row:first-child h3{
+  color: #8821f4 !important;
+  font-family: 'Adobe Clean', sans-serif !important;
+  margin: 0;
+}
+.find-your-store .columns-row:first-child p {
+  color: #8821f4 !important;
+      font-size: 16px !important;
+}
+
+
+.find-your-store .columns-row:last-child h1,
+.find-your-store .columns-row:last-child h2 {
+  margin: 0 0 4px;
+  padding: 0;
+}
+
+.find-your-store .action-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-your-store .action-button .button {
+  background-color: #000000;
+  color: #ffffff !important;
+  border-radius: 25px !important;
+  padding: 12px 24px;
+  font-size: 14px !important;
+  white-space: nowrap;
+}
+
+.find-your-store .action-button .button::after {
+  content: none !important;
+}
+
+.find-your-store .action-button .button:hover {
+  background-color: #333333;
+  color: #ffffff !important;
+}
+.section.find-your-store.columns-container.action-button-container {
+    max-width: 1200px;
+}
+/*product card*/
+ body.citi-signal-theme .category-products-lister .cpl-card-media {
+    background: none;
+}
+body.citi-signal-theme .category-products-lister .cpl-card-media img {
+    filter: brightness(1);
 }
 @media (width < 900px) {
   body.citi-signal-theme header nav .nav-sections ul > li > a {

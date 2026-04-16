@@ -159,6 +159,9 @@ export default async function decorate(block) {
   // Extract tags - for Universal Editor they'll be in data attributes
   const tags = block.dataset?.["cqTags"] || cfg?.tags || cfg?.["cq:tags"] || "";
 
+  // Extract cards-per-row setting
+  const cardsPerRow = parseInt(block.dataset?.["cardsPerRow"] || cfg?.["cards-per-row"] || cfg?.cardsPerRow || "5", 10);
+
   // Clear author table
   block.innerHTML = "";
 
@@ -166,6 +169,7 @@ export default async function decorate(block) {
 
   const grid = document.createElement("div");
   grid.className = "cpl-grid";
+  grid.style.setProperty("--cpl-columns", cardsPerRow);
   block.append(grid);
 
   const items = await fetchProducts(folderHref);
