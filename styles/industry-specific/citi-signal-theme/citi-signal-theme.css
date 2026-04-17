@@ -302,7 +302,9 @@ min-height: 350px;
     max-width: 1200px;
 }
 /* product card: honor block-authored cards-per-row value from JS */
-
+body.citi-signal-theme .checkbox-wrapper.field-lumaloyalty {
+    display: none !important;
+}
 body.citi-signal-theme .category-products-lister .cpl-card-media {
   background: none;
 }
