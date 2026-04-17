@@ -68,7 +68,7 @@ body.citi-signal-theme main > .section > div {
     max-width: 100%;
 }
 body.citi-signal-theme header nav {
-    max-width: 90%;
+    max-width: 90% !important;
     padding-left: 0;
     padding-right: 0;
 }
@@ -342,6 +342,23 @@ body.citi-signal-theme .category-products-lister .cpl-card-title{
 
 body.citi-signal-theme .category-products-lister .cpl-card-media img {
   filter: brightness(1);
+}
+
+/* Product detail - natural image size, capped at 500px */
+body.citi-signal-theme .product-detail .pd-container {
+  grid-template-columns: minmax(250px, 500px) 1fr;
+}
+
+body.citi-signal-theme .product-detail .pd-image {
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+body.citi-signal-theme .product-detail .pd-image picture,
+body.citi-signal-theme .product-detail .pd-image img {
+  width: 100% !important;
+  height: auto;
 }
 @media (width < 900px) {
   body.citi-signal-theme header nav .nav-sections ul > li > a {
