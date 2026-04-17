@@ -301,11 +301,7 @@ min-height: 350px;
 .section.find-your-store.columns-container.action-button-container {
     max-width: 1200px;
 }
-/*product card*/
-body.citi-signal-theme .category-products-lister .cpl-grid {
-  /* JS sets inline --cpl-columns; !important wins so Citi Signal always uses 3 columns above block breakpoints */
-  --cpl-columns: 3 !important;
-}
+/* product card: honor block-authored cards-per-row value from JS */
 
 body.citi-signal-theme .category-products-lister .cpl-card-media {
   background: none;

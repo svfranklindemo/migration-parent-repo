@@ -113,16 +113,7 @@ function coerceConfigScalar(v) {
 }
 
 function readCardsPerRow(cfg, block) {
-  const raw = coerceConfigScalar(
-    cfg?.["cards-per-row"]
-      || cfg?.cardsPerRow
-      || cfg?.["cards-per-view"]
-      || cfg?.cardsPerView
-      || block.dataset?.cardsPerRow
-      || block.dataset?.cardsPerView
-      || block.getAttribute("data-cards-per-row")
-      || block.getAttribute("data-cards-per-view")
-  );
+  const raw = coerceConfigScalar(cfg?.["cards-per-row"]);
   const n = parseInt(raw, 10);
   if (!Number.isFinite(n) || n < 1) return 5;
   return Math.min(6, Math.max(1, n));

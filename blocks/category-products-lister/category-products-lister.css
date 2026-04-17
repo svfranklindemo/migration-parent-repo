@@ -25,10 +25,14 @@ main .category-products-lister .cpl-grid {
 }
 
 @media (width <= 1024px) {
-  main .category-products-lister .cpl-grid { grid-template-columns: repeat(3, 1fr); }
+  main .category-products-lister .cpl-grid {
+    grid-template-columns: repeat(min(var(--cpl-columns, 5), 3), 1fr);
+  }
 }
 @media (width <= 768px) {
-  main .category-products-lister .cpl-grid { grid-template-columns: repeat(2, 1fr); }
+  main .category-products-lister .cpl-grid {
+    grid-template-columns: repeat(min(var(--cpl-columns, 5), 2), 1fr);
+  }
 }
 @media (width <= 480px) {
   main .category-products-lister .cpl-grid { grid-template-columns: 1fr; }
