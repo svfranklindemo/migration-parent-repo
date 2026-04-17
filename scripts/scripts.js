@@ -80,6 +80,16 @@ export function isAuthorEnvironment() {
   //return false;
 }
 
+export function normalizeCategoryValue(value) {
+  const normalized = String(value || '')
+    .replace(/^(?:(?:citi-signal|luma|lumaproducts):)+/gi, '')
+    .replace(/-/g, ' ')
+    .trim();
+
+  if (!normalized) return '';
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
 /**
  * Move instrumentation attributes from a given element to another given element.
  * @param {Element} from the element to copy attributes from

@@ -1,5 +1,5 @@
 import { createLumaProductImagePicture, readBlockConfig } from "../../scripts/aem.js";
-import { isAuthorEnvironment } from "../../scripts/scripts.js";
+import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { addProductToCart } from "../../scripts/cart-store.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
@@ -36,16 +36,6 @@ async function getProductDetailPublishEnvironment() {
 function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
-}
-
-function normalizeCategoryValue(value) {
-  const normalized = String(value || "")
-    .replace(/^(?:(?:citi-signal|luma|lumaproducts):)+/gi, "")
-    .replace(/-/g, " ")
-    .trim();
-
-  if (!normalized) return "";
-  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 }
 
 /**
