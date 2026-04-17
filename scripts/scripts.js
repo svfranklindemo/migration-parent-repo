@@ -81,8 +81,10 @@ export function isAuthorEnvironment() {
 }
 
 export function normalizeCategoryValue(value) {
-  const normalized = String(value || '')
-    .replace(/^(?:(?:citi-signal|luma|lumaproducts):)+/gi, '')
+  const rawValue = String(value || '').trim();
+  const normalized = rawValue
+    .split(':')
+    .pop()
     .replace(/-/g, ' ')
     .trim();
 
