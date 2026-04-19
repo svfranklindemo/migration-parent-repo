@@ -8724,6 +8724,23 @@
         "label": "Product SKUs",
         "valueType": "string[]",
         "multi": true
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "label": "Layout",
+        "valueType": "string",
+        "value": "horizontal",
+        "options": [
+          {
+            "name": "Horizontal (Carousel)",
+            "value": "horizontal"
+          },
+          {
+            "name": "Vertical (Grid)",
+            "value": "vertical"
+          }
+        ]
       }
     ]
   },

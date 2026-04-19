@@ -451,6 +451,13 @@ function createCarousel(block, cards) {
   }
 }
 
+function createVerticalLayout(block, cards) {
+  const list = document.createElement("div");
+  list.className = "na-vertical";
+  cards.forEach((card) => list.append(card));
+  block.append(list);
+}
+
 export default async function decorate(block) {
   // Check if we're in author environment
   const isAuthor = isAuthorEnvironment();
@@ -481,6 +488,8 @@ export default async function decorate(block) {
   if (folderHref && folderHref.endsWith(".html")) {
     folderHref = folderHref.replace(/\.html$/, "");
   }
+
+  const isVertical = (cfg?.layout || '').trim().toLowerCase() === 'vertical';
 
   // Extract SKUs from multifield
   const skuList = extractSKUs(block, cfg);
@@ -528,9 +537,11 @@ export default async function decorate(block) {
     return;
   }
 
-  // Build cards
   const cards = filteredProducts.map((item) => buildCard(item, isAuthor));
 
-  // Create carousel
-  createCarousel(block, cards);
+  if (isVertical) {
+    createVerticalLayout(block, cards);
+  } else {
+    createCarousel(block, cards);
+  }
 }
