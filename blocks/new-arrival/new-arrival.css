@@ -274,9 +274,6 @@
 
 /* Vertical Layout */
 .na-vertical {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
   padding: 0 1rem;
   width: 100%;
 }
@@ -284,8 +281,12 @@
 .na-vertical .na-card {
   flex: none;
   width: 100%;
-  min-width: 0;
   max-width: 320px;
+  margin-bottom: 1.5rem;
+}
+
+.na-vertical .na-card:last-child {
+  margin-bottom: 0;
 }
 
 .na-vertical .na-card-meta {
@@ -296,23 +297,4 @@
 .na-vertical .na-card-category,
 .na-vertical .na-card-title {
   text-align: left;
-}
-
-@media (max-width: 900px) {
-  .na-vertical {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .na-vertical {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 400px) {
-  .na-vertical {
-    grid-template-columns: 1fr;
-  }
 }
