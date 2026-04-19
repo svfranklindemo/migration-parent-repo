@@ -77,8 +77,8 @@ function formatShippingMethod(method) {
 }
 
 function loadCheckoutMeta() {
-  const shippingMethod = getDataLayerValue('shipping.shippingMethod') || '';
-  const shippingAmountRaw = Number(getDataLayerValue('shipping.shippingAmount'));
+  const shippingMethod = getDataLayerValue('commerce.shipping.shippingMethod') || '';
+  const shippingAmountRaw = Number(getDataLayerValue('commerce.shipping.shippingAmount'));
   const shippingAmount = Number.isFinite(shippingAmountRaw) ? shippingAmountRaw : 0;
   const paymentType = getDataLayerValue('paymentType') || '';
 

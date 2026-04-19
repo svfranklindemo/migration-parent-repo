@@ -176,7 +176,9 @@ function attachSubmitHandler(block, config) {
         window.updateDataLayer(
           {
             ...baseFormUpdates,
-            shipping,
+            commerce: {
+              shipping,
+            },
             paymentType,
             createAccountConsent,
             joinLumaLoyaltyConsent,

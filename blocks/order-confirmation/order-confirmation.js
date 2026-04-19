@@ -1,5 +1,6 @@
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { readBlockConfig } from "../../scripts/aem.js";
+import { syncFallbackCart, getEmptyCart } from "../../scripts/cart-store.js";
 
 /**
  * Get purchase order number from URL query param.
@@ -32,6 +33,9 @@ function resetCart() {
     total: 0,
   };
 
+  syncFallbackCart(getEmptyCart());
+
+
   if (window.updateDataLayer) {
     // Clear both cart and commerce objects
     window.updateDataLayer({ 
@@ -42,6 +46,31 @@ function resetCart() {
     console.log("Cart and commerce data reset in dataLayer");
   }
   
+}
+
+/**
+ * Schedule cart reset:
+ * 1) on page abandon (pagehide/beforeunload), or
+ * 2) after a fallback delay if user stays on the page.
+ */
+function scheduleCartReset(delayMs = 5000) {
+  let hasReset = false;
+
+  const runResetOnce = () => {
+    if (hasReset) return;
+    hasReset = true;
+    resetCart();
+  };
+
+  const timer = window.setTimeout(runResetOnce, delayMs);
+
+  const handlePageAbandon = () => {
+    window.clearTimeout(timer);
+    runResetOnce();
+  };
+
+  window.addEventListener("pagehide", handlePageAbandon, { once: true });
+  window.addEventListener("beforeunload", handlePageAbandon, { once: true });
 }
 
 /**
@@ -91,15 +120,12 @@ export default function decorate(block) {
   const content = buildConfirmationContent(orderNumber);
 
   // Fire purchase order event on page load before cart reset.
-  const purchaseOrderEventType = (config["purchase-order-event-type"] || config.purchaseordereventtype || "").trim();
-  if (purchaseOrderEventType) {
-    dispatchCustomEvent(purchaseOrderEventType);
-  }
+  const purchaseOrderEventType = (config["purchase-order-event-type"] || config.purchaseordereventtype || "").trim() || "purchaseOrder";
+  dispatchCustomEvent(purchaseOrderEventType);
 
-  // Reset cart and commerce data after a small delay
-  setTimeout(() => {
-    resetCart();
-  }, 1000); // Small delay to ensure dataLayer is updated and cart badge is cleared
+  // Reset cart data on page abandon, or after 5s as a fallback.
+  // This gives purchase tracking enough time to read full cart payload.
+  scheduleCartReset(5000);
   
   container.appendChild(content);
   block.appendChild(container);
