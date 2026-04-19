@@ -147,13 +147,10 @@ function attachFormSubmitHandler(block) {
     return;
   }
 
-  // Use capture phase so we run first; stopImmediatePropagation prevents the Adaptive Form
-  // runtime from doing a POST to the page URL (which returns 405 Method Not Allowed).
   form.addEventListener(
     "submit",
     async (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
 
       // Validate required fields
     const requiredFields = ["firstName", "lastName", "email"];
@@ -293,8 +290,7 @@ function attachFormSubmitHandler(block) {
       console.error("Registration error:", error);
       showErrorMessage(form, "Registration failed. Please try again.");
     }
-  },
-    true
+  }
   );
 }
 

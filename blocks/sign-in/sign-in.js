@@ -236,7 +236,7 @@ function attachSignInHandler(block) {
 
   // Now attach our custom submit handler to the clean form
   form.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
     // Get form values
     const emailInput = form.querySelector('input[name="email"]');

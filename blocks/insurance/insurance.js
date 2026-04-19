@@ -132,7 +132,6 @@ export default async function decorate(block) {
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        e.stopPropagation();
         const data = collectInsuranceFormData(form);
         // eslint-disable-next-line no-console
         console.log('Insurance form data:', data);

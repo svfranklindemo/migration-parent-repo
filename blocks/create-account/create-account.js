@@ -267,7 +267,6 @@ function attachCreateAccountSubmitHandler(block) {
     "submit",
     async (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
 
       const formData = {};
 
@@ -365,8 +364,7 @@ function attachCreateAccountSubmitHandler(block) {
         console.error("Create account error:", error);
         showErrorMessage(form, "Account creation failed. Please try again.");
       }
-    },
-    true
+    }
   );
 }
 

@@ -193,7 +193,6 @@ export default async function decorate(block) {
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        e.stopPropagation();
         const data = collectFormData(form);
         // eslint-disable-next-line no-console
         console.log('Add external form data:', data);

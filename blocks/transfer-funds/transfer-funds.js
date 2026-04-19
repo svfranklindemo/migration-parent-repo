@@ -114,7 +114,6 @@ export default async function decorate(block) {
   applyButtonConfigToSubmitButton(block, config, 'transfer-funds-form-submit');
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    event.stopPropagation();
     const submitButton = form.querySelector('button[type="submit"]');
     const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'transfer-funds-form-submit';
     dispatchCustomEvent(authoredEventType);

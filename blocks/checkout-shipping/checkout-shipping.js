@@ -142,7 +142,6 @@ function attachSubmitHandler(block, config) {
     'submit',
     async (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
 
       const required = [
         { name: 'firstName', id: 'firstName' },
@@ -197,8 +196,7 @@ function attachSubmitHandler(block, config) {
       } else {
         window.location.href = getOrderSummaryFallbackPath(continuePath || 'order-summary');
       }
-    },
-    true
+    }
   );
 }
 

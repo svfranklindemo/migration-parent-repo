@@ -164,7 +164,6 @@ function attachSubmitHandler(block) {
     "submit",
     async (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
 
       const formData = {};
       const allFields = form.querySelectorAll("input, select, textarea");
@@ -199,8 +198,7 @@ function attachSubmitHandler(block) {
         console.error("Child account application error:", error);
         showErrorMessage(form, "Submission failed. Please try again.");
       }
-    },
-    true
+    }
   );
 }
 

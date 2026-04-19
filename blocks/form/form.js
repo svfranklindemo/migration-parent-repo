@@ -377,7 +377,8 @@ export async function createForm(formDef, data, source = 'aem') {
   });
 
   form.addEventListener('submit', (e) => {
-    handleSubmit(e, form, captcha);
+    e.preventDefault();
+    // handleSubmit(e, form, captcha);
   });
 
   return {

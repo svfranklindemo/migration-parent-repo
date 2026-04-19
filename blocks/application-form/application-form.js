@@ -258,7 +258,6 @@ function attachApplicationFormSubmitHandler(block) {
   const submitSection = form.querySelector('#step-details')?.closest('fieldset') || form.querySelector('.panel-wrapper:last-of-type');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    e.stopPropagation();
     formSubmitting = true;
     const data = collectApplicationFormData(form);
     // eslint-disable-next-line no-console

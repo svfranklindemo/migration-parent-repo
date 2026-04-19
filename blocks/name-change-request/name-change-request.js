@@ -136,7 +136,6 @@ function attachSubmitHandler(block) {
     "submit",
     async (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
 
       const formData = {};
       form.querySelectorAll("input, select, textarea").forEach((field) => {
@@ -181,8 +180,7 @@ function attachSubmitHandler(block) {
         console.error("Name change request error:", error);
         showErrorMessage(form, "Submission failed. Please try again.");
       }
-    },
-    true
+    }
   );
 }
 

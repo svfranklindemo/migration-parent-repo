@@ -284,7 +284,6 @@ function attachLoanPreapprovalFormSubmitHandler(block) {
   const submitSection = form.querySelector('#step-documents')?.closest('fieldset') || form.querySelector('.panel-wrapper:last-of-type');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    e.stopPropagation();
     loanFormSubmitting = true;
     const data = collectLoanPreapprovalFormData(form);
     // eslint-disable-next-line no-console

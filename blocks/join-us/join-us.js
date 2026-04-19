@@ -167,8 +167,6 @@ export default async function decorate(block) {
 
 /**
  * Attaches form submission handler.
- * Uses capture phase so we run first; stopImmediatePropagation prevents the Adaptive Form
- * runtime from doing a POST to the page URL (which returns 405 / "Error invoking a rest API").
  * @param {HTMLElement} block - The join-us block
  */
 function attachFormSubmitHandler(block, formActionId = '', successToastMessage = DEFAULT_SUCCESS_TOAST_MESSAGE) {
@@ -182,7 +180,6 @@ function attachFormSubmitHandler(block, formActionId = '', successToastMessage =
     'submit',
     (event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
 
       const email = form.querySelector('input[name="email"]')?.value?.trim() || '';
       const firstName = form.querySelector('input[name="firstName"]')?.value?.trim() || '';
@@ -226,7 +223,6 @@ function attachFormSubmitHandler(block, formActionId = '', successToastMessage =
       if (authoredEventType) {
         dispatchCustomEvent(authoredEventType);
       }
-    },
-    true
+    }
   );
 }

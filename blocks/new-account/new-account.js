@@ -219,7 +219,6 @@ function attachSubmitHandler(block) {
   const submitSection = form.querySelector('#step-details')?.closest('fieldset') || form.querySelector('.panel-wrapper:last-of-type');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    e.stopPropagation();
     const data = collectFormData(form);
     // eslint-disable-next-line no-console
     console.log('New account form data:', data);
