@@ -179,6 +179,19 @@ function buildCreateAccountFormDef(config = {}) {
             },
           },
           {
+            id: "prefWhatsapp",
+            name: "prefWhatsapp",
+            fieldType: "checkbox",
+            label: { value: "WhatsApp" },
+            enum: ["true"],
+            type: "string",
+            properties: {
+              variant: "switch",
+              alignment: "horizontal",
+              colspan: 4,
+            },
+          },
+          {
             id: "heading-know-you-better",
             fieldType: "heading",
             label: { value: "LET US KNOW YOU BETTER" },
@@ -299,6 +312,7 @@ function attachCreateAccountSubmitHandler(block) {
             email: formData.prefEmail === "true" ? "y" : "n",
             phone: formData.prefPhone === "true" ? "y" : "n",
             sms: formData.prefSms === "true" ? "y" : "n",
+            whatsapp: formData.prefWhatsapp === "true" ? "y" : "n",
           },
           registeredAt: new Date().toISOString(),
           userId: generateUserId(),

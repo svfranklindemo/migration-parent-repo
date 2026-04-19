@@ -152,6 +152,27 @@ main .sign-in .submit-wrapper button:active {
   box-shadow: 0 1px 4px rgba(40, 116, 240, 0.2);
 }
 
+body.citi-signal-theme main .sign-in .submit-wrapper button {
+  background: var(--main-accent-color) !important;
+  color: var(--text-light, #fff) !important;
+  border-color: var(--main-accent-color) !important;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
+  width: auto;
+  min-width: 220px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+body.citi-signal-theme main .sign-in .submit-wrapper button:hover {
+  background: var(--main-accent-hover, var(--link-hover-color)) !important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 24%);
+}
+
+body.citi-signal-theme main .sign-in .submit-wrapper button:active {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 18%);
+}
+
 /* Required field indicator */
 main .sign-in [data-required="true"] > label::after {
   content: " *";
@@ -220,6 +241,25 @@ main .sign-in .create-account-link:hover {
 
 main .sign-in .create-account-link:active {
   transform: translateY(0);
+}
+
+body.citi-signal-theme main .sign-in .create-account-link {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  text-align: center;
+  width: auto;
+  min-width: 220px;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+}
+
+body.citi-signal-theme main .sign-in .create-account-link:hover {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
 }
 
 /* Responsive: Mobile */

@@ -2027,3 +2027,6 @@ padding-left: 0 !important;
   border: none !important;
   box-shadow: none !important;
 }
+.light-color > *{
+  color: #fff !important;
+}

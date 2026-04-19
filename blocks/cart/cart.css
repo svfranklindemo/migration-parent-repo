@@ -337,6 +337,50 @@ main .cart .cart-checkout-btn:active {
     transform: scale(0.98);
 }
 
+body.citi-signal-theme main .cart .cart-checkout-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+}
+
+body.citi-signal-theme main .cart .cart-checkout-actions .cart-checkout-btn {
+    width: 100%;
+    flex: 0 0 auto;
+    min-height: 52px;
+    border-radius: 999px;
+    padding: 10px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+    text-align: center;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+body.citi-signal-theme main .cart .cart-checkout-btn {
+    background: #000000;
+    color: #ffffff;
+}
+
+body.citi-signal-theme main .cart .cart-checkout-btn:hover {
+    background: #111111;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 18%);
+}
+
+body.citi-signal-theme main .cart .cart-checkout-guest-btn {
+    background: #ffffff;
+    color: #2a2a2a;
+    border: 4px solid #d7d7d7;
+}
+
+body.citi-signal-theme main .cart .cart-checkout-guest-btn:hover {
+    background: #f8f8f8;
+    box-shadow: none;
+}
+
 /* Recommendations Section */
 main .cart .cart-recommendations {
     margin-top: 80px;
@@ -626,6 +670,10 @@ main .cart .cart-rec-card-title {
 
     main .cart .cart-checkout-btn {
         padding: 16px 32px;
+    }
+
+    body.citi-signal-theme main .cart .cart-checkout-actions .cart-checkout-btn {
+        width: 100%;
     }
 
     main .cart .cart-rec-grid {

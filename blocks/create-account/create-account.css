@@ -79,6 +79,11 @@ main .create-account h2#heading-know-you-better {
   line-height: 1.1;
 }
 
+body.citi-signal-theme main .create-account h2 {
+  font-size: 28px !important;
+  font-family: 'Adobe Clean Bold', sans-serif !important;
+}
+
 main .create-account .panel-wrapper > .heading-wrapper {
   grid-column: span 12 !important;
 }
@@ -118,6 +123,14 @@ main .create-account input[type="text"]:hover,
 main .create-account input[type="email"]:hover,
 main .create-account select:hover {
   border-color: #94a3b8;
+}
+
+body.citi-signal-theme main .create-account input[type="text"],
+body.citi-signal-theme main .create-account input[type="email"],
+body.citi-signal-theme main .create-account select {
+  height: 32px;
+  min-height: 32px;
+  padding: 0.25rem 0.75rem;
 }
 
 main .create-account input::placeholder {
@@ -236,6 +249,26 @@ main .create-account .submit-wrapper button:hover {
 main .create-account .submit-wrapper button:active {
   transform: translateY(0);
   box-shadow: 0 1px 4px rgba(40, 116, 240, 0.2);
+}
+
+body.citi-signal-theme main .create-account .submit-wrapper button {
+  background: var(--main-accent-color) !important;
+  color: var(--text-light, #fff) !important;
+  border-color: var(--main-accent-color) !important;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
+  width: auto;
+  min-width: 220px;
+  margin: 0 auto;
+  display: block;
+}
+
+body.citi-signal-theme main .create-account .submit-wrapper button:hover {
+  background: var(--main-accent-hover, var(--link-hover-color)) !important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 24%);
+}
+
+body.citi-signal-theme main .create-account .submit-wrapper button:active {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 18%);
 }
 
 main .create-account [data-required="true"] > label::after {

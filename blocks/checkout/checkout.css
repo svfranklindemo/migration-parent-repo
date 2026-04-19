@@ -273,6 +273,17 @@ main > .section:has(.checkout-block) > div {
   padding-right: 2rem;
 }
 
+body.citi-signal-theme .checkout-form input[type="text"],
+body.citi-signal-theme .checkout-form input[type="email"],
+body.citi-signal-theme .checkout-form input[type="tel"],
+body.citi-signal-theme .checkout-form select,
+body.citi-signal-theme .checkout-prefs select {
+  height: 32px;
+  min-height: 32px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 /* Sidebar – Trip Total (proportional width, aligned with main content) */
 .checkout-sidebar {
   position: sticky;

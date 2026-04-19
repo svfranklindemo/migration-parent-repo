@@ -96,6 +96,19 @@ export default async function decorate(block) {
             },
           },
           {
+            id: "whatsAppComm",
+            name: "whatsAppComm",
+            fieldType: "checkbox",
+            label: { value: "I want to receive personalized communication by WhatsApp" },
+            enum: ["true"],
+            type: "string",
+            properties: {
+              variant: "switch",
+              alignment: "horizontal",
+              colspan: 12,
+            },
+          },
+          {
             id: "submit-btn",
             name: "submitButton",
             fieldType: "button",
@@ -317,6 +330,9 @@ function updateAllDataLayerFields(formData) {
       marketing: {
         email: {
           val: formData.emailComm === "true" || formData.emailComm === true,
+        },
+        whatsapp: {
+          val: formData.whatsAppComm === "true" || formData.whatsAppComm === true,
         },
       },
     },

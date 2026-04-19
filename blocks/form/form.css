@@ -78,6 +78,14 @@ body.securbank-theme {
     --form-button-background-hover-color: var(--main-accent-hover, var(--link-hover-color));
 }
 
+body.citi-signal-theme {
+    --button-primary-color: var(--main-accent-color);
+    --button-primary-hover-color: var(--main-accent-hover, var(--link-hover-color));
+    --form-button-background-color: var(--main-accent-color);
+    --form-button-background-hover-color: var(--main-accent-hover, var(--link-hover-color));
+    --form-input-padding: 0.35rem 0.6rem;
+}
+
 body.securbank-theme main .form button[type='submit'],
 body.securbank-theme main .form .button,
 body.securbank-theme main .sign-in .submit-wrapper button,
@@ -97,7 +105,27 @@ body.securbank-theme main .new-account-block .new-account-wizard .wizard-button-
 body.securbank-theme main .new-account-block .new-account-wizard .submit-wrapper button,
 body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-next button,
 body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .submit-wrapper button,
-body.securbank-theme main .loan-calculator button[type='submit'] {
+body.securbank-theme main .loan-calculator button[type='submit'],
+body.citi-signal-theme main .form button[type='submit'],
+body.citi-signal-theme main .form .button,
+body.citi-signal-theme main .sign-in .submit-wrapper button,
+body.citi-signal-theme main .membership button[type='submit'],
+body.citi-signal-theme main .create-account .submit-wrapper button,
+body.citi-signal-theme main .user-registration .submit-wrapper button,
+body.citi-signal-theme main .child-account-application .submit-wrapper button,
+body.citi-signal-theme main .name-change-request .submit-wrapper button,
+body.citi-signal-theme main .set-up-auto-save .submit-wrapper button,
+body.citi-signal-theme main .transfer-funds .submit-wrapper button,
+body.citi-signal-theme main .join-us .submit-wrapper button,
+body.citi-signal-theme main .insurance-block .insurance-form .submit-wrapper button,
+body.citi-signal-theme main .add-external-block .add-external-form .submit-wrapper button,
+body.citi-signal-theme main .application-form-block .application-form-wizard .wizard-button-next button,
+body.citi-signal-theme main .application-form-block .application-form-wizard .submit-wrapper button,
+body.citi-signal-theme main .new-account-block .new-account-wizard .wizard-button-next button,
+body.citi-signal-theme main .new-account-block .new-account-wizard .submit-wrapper button,
+body.citi-signal-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-next button,
+body.citi-signal-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .submit-wrapper button,
+body.citi-signal-theme main .loan-calculator button[type='submit'] {
     background: var(--main-accent-color) !important;
     background-color: var(--main-accent-color) !important;
     border-color: var(--main-accent-color) !important;
@@ -123,7 +151,27 @@ body.securbank-theme main .new-account-block .new-account-wizard .wizard-button-
 body.securbank-theme main .new-account-block .new-account-wizard .submit-wrapper button:hover,
 body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-next button:hover,
 body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .submit-wrapper button:hover,
-body.securbank-theme main .loan-calculator button[type='submit']:hover {
+body.securbank-theme main .loan-calculator button[type='submit']:hover,
+body.citi-signal-theme main .form button[type='submit']:hover,
+body.citi-signal-theme main .form .button:hover,
+body.citi-signal-theme main .sign-in .submit-wrapper button:hover,
+body.citi-signal-theme main .membership button[type='submit']:hover,
+body.citi-signal-theme main .create-account .submit-wrapper button:hover,
+body.citi-signal-theme main .user-registration .submit-wrapper button:hover,
+body.citi-signal-theme main .child-account-application .submit-wrapper button:hover,
+body.citi-signal-theme main .name-change-request .submit-wrapper button:hover,
+body.citi-signal-theme main .set-up-auto-save .submit-wrapper button:hover,
+body.citi-signal-theme main .transfer-funds .submit-wrapper button:hover,
+body.citi-signal-theme main .join-us .submit-wrapper button:hover,
+body.citi-signal-theme main .insurance-block .insurance-form .submit-wrapper button:hover,
+body.citi-signal-theme main .add-external-block .add-external-form .submit-wrapper button:hover,
+body.citi-signal-theme main .application-form-block .application-form-wizard .wizard-button-next button:hover,
+body.citi-signal-theme main .application-form-block .application-form-wizard .submit-wrapper button:hover,
+body.citi-signal-theme main .new-account-block .new-account-wizard .wizard-button-next button:hover,
+body.citi-signal-theme main .new-account-block .new-account-wizard .submit-wrapper button:hover,
+body.citi-signal-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-next button:hover,
+body.citi-signal-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .submit-wrapper button:hover,
+body.citi-signal-theme main .loan-calculator button[type='submit']:hover {
     background: var(--main-accent-hover, var(--link-hover-color)) !important;
     background-color: var(--main-accent-hover, var(--link-hover-color)) !important;
     border-color: var(--main-accent-hover, var(--link-hover-color)) !important;
@@ -131,7 +179,10 @@ body.securbank-theme main .loan-calculator button[type='submit']:hover {
 
 body.securbank-theme main .application-form-block .application-form-wizard .wizard-button-wrapper > .submit-wrapper,
 body.securbank-theme main .new-account-block .new-account-wizard .wizard-button-wrapper > .submit-wrapper,
-body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-wrapper > .submit-wrapper {
+body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-wrapper > .submit-wrapper,
+body.citi-signal-theme main .application-form-block .application-form-wizard .wizard-button-wrapper > .submit-wrapper,
+body.citi-signal-theme main .new-account-block .new-account-wizard .wizard-button-wrapper > .submit-wrapper,
+body.citi-signal-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-wrapper > .submit-wrapper {
     width: auto !important;
     max-width: none !important;
     min-width: auto !important;
@@ -140,7 +191,10 @@ body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wi
 
 body.securbank-theme main .application-form-block .application-form-wizard .wizard-button-wrapper > .submit-wrapper button,
 body.securbank-theme main .new-account-block .new-account-wizard .wizard-button-wrapper > .submit-wrapper button,
-body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-wrapper > .submit-wrapper button {
+body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-wrapper > .submit-wrapper button,
+body.citi-signal-theme main .application-form-block .application-form-wizard .wizard-button-wrapper > .submit-wrapper button,
+body.citi-signal-theme main .new-account-block .new-account-wizard .wizard-button-wrapper > .submit-wrapper button,
+body.citi-signal-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-wrapper > .submit-wrapper button {
     width: auto !important;
     max-width: none !important;
     min-width: auto !important;
@@ -150,9 +204,18 @@ body.securbank-theme main .loan-preapproval-form-block .loan-preapproval-form-wi
 
 body.securbank-theme main .new-account-block .wizard-menu-active-item,
 body.securbank-theme main .application-form-block .wizard-menu-active-item,
-body.securbank-theme main .loan-preapproval-form-block .wizard-menu-active-item {
+body.securbank-theme main .loan-preapproval-form-block .wizard-menu-active-item,
+body.citi-signal-theme main .new-account-block .wizard-menu-active-item,
+body.citi-signal-theme main .application-form-block .wizard-menu-active-item,
+body.citi-signal-theme main .loan-preapproval-form-block .wizard-menu-active-item {
     background: var(--main-accent-color) !important;
     border-color: var(--main-accent-color) !important;
+}
+
+body.citi-signal-theme main .form input:not([type='checkbox']):not([type='radio']):not([type='file']),
+body.citi-signal-theme main .form select {
+    height: 32px;
+    min-height: 32px;
 }
 
 * {

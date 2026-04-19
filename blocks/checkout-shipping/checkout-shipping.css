@@ -137,6 +137,15 @@ main > .section:has(.checkout-shipping-block) > div {
   outline: none;
 }
 
+body.citi-signal-theme .checkout-shipping-block input:not([type='radio']):not([type='checkbox']),
+body.citi-signal-theme .checkout-shipping-block select,
+body.citi-signal-theme .checkout-shipping-block textarea {
+  height: 32px;
+  min-height: 32px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .checkout-shipping-block .radio-group-wrapper {
   border: 0;
   margin: 0;
@@ -169,8 +178,8 @@ main > .section:has(.checkout-shipping-block) > div {
 }
 
 .checkout-shipping-block .radio-group-wrapper input[type='radio'] {
-  width: 21px;
-  height: 21px;
+  width: 15px;
+  height: 15px;
   margin: 0;
   accent-color: #444;
 }

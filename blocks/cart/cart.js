@@ -36,6 +36,10 @@ function isTruthy(value) {
   return value === true || String(value || "").trim().toLowerCase() === "true";
 }
 
+function isCitiSignalThemePage() {
+  return document.body.classList.contains("citi-signal-theme");
+}
+
 /**
  * Format price as currency
  * @param {number} amount - Amount to format
@@ -415,10 +419,23 @@ function buildCartSummary(cartData) {
   // Checkout button
   const checkoutBtn = document.createElement("button");
   checkoutBtn.className = "cart-checkout-btn";
-  checkoutBtn.textContent = "CHECKOUT";
+  checkoutBtn.textContent = isCitiSignalThemePage() ? "Proceed to checkout" : "CHECKOUT";
   checkoutBtn.addEventListener("click", handleCheckout);
 
-  summary.append(discountSection, totalsSection, checkoutBtn);
+  if (isCitiSignalThemePage()) {
+    const checkoutActions = document.createElement("div");
+    checkoutActions.className = "cart-checkout-actions";
+
+    const guestCheckoutBtn = document.createElement("button");
+    guestCheckoutBtn.className = "cart-checkout-btn cart-checkout-guest-btn";
+    guestCheckoutBtn.textContent = "Checkout without registration";
+    guestCheckoutBtn.addEventListener("click", handleCheckout);
+
+    checkoutActions.append(guestCheckoutBtn, checkoutBtn);
+    summary.append(discountSection, totalsSection, checkoutActions);
+  } else {
+    summary.append(discountSection, totalsSection, checkoutBtn);
+  }
   return summary;
 }
 

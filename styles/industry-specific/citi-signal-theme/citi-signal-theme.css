@@ -1,10 +1,11 @@
 body.citi-signal-theme {
   --main-accent-color: #06010e;
-  --link-hover-color: #824685;
+  --main-accent-hover: #111111;
+  --link-hover-color: #111111;
   --nav-text-color: #000000;
   --footer-text-color: #ffffff;
   --light-color: #f6f6f6;
-  --spacing-xhuge: 9rem;
+  --spacing-xhuge: 10rem;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -375,4 +376,9 @@ body.citi-signal-theme .product-detail .pd-image img {
   body.citi-signal-theme header nav[aria-expanded='true'] .nav-sections {
     justify-content: left;
   }
+}
+div#brand-concierge-container {
+    width: 100% !important;
+    padding: 0 !important;
+    margin-left: 0 !important;
 }
