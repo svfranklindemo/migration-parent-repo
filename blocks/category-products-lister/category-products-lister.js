@@ -104,6 +104,20 @@ async function fetchProducts(path) {
   }
 }
 
+function filterByCategories(items, tags) {
+  if (!tags) return items;
+  const filterList = (Array.isArray(tags) ? tags : `${tags}`.split(','))
+    .map((t) => normalizeCategoryValue(`${t}`.trim()).toLowerCase())
+    .filter(Boolean);
+  if (!filterList.length) return items;
+  return items.filter((item) =>
+    (item.category || []).some((cat) => {
+      const normalized = normalizeCategoryValue(cat).toLowerCase();
+      return filterList.some((tag) => normalized.includes(tag) || tag.includes(normalized));
+    })
+  );
+}
+
 function coerceConfigScalar(v) {
   if (v == null) return '';
   if (Array.isArray(v)) return coerceConfigScalar(v[0]);
@@ -185,7 +199,8 @@ export default async function decorate(block) {
   grid.style.setProperty("--cpl-columns", cardsPerRow);
   block.append(grid);
 
-  const items = await fetchProducts(folderHref);
+  const allItems = await fetchProducts(folderHref);
+  const items = filterByCategories(allItems, tags);
   if (!items || items.length === 0) {
     const empty = document.createElement("p");
     empty.className = "cpl-empty";
