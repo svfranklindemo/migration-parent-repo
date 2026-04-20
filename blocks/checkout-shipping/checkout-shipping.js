@@ -220,11 +220,13 @@ function attachSubmitHandler(block, config) {
       if (authoredEvent) dispatchCustomEvent(authoredEvent);
 
       const continuePath = (config['continue-path'] || config.continuepath || '').toString().trim();
-      if (continuePath && continuePath.includes('/')) {
-        window.location.href = continuePath;
-      } else {
-        window.location.href = getOrderSummaryFallbackPath(continuePath || 'order-summary');
-      }
+      setTimeout(() => {
+        if (continuePath && continuePath.includes('/')) {
+          window.location.href = continuePath;
+        } else {
+          window.location.href = getOrderSummaryFallbackPath(continuePath || 'order-summary');
+        }
+      }, 1000);
     }
   );
 }

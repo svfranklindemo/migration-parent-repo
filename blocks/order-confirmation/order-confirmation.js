@@ -108,8 +108,9 @@ function buildConfirmationContent(orderNumber) {
  * @param {HTMLElement} block - The block element
  */
 export default function decorate(block) {
-  block.textContent = "";
   const config = readBlockConfig(block) || {};
+  
+  block.textContent = "";
 
   // Get purchase order number from URL (set by order-summary)
   const orderNumber = getPurchaseOrderNumber();
@@ -120,8 +121,8 @@ export default function decorate(block) {
   const content = buildConfirmationContent(orderNumber);
 
   // Fire purchase order event on page load before cart reset.
-  const purchaseOrderEventType = (config["purchase-order-event-type"] || config.purchaseordereventtype || "").trim() || "purchaseOrder";
-  dispatchCustomEvent(purchaseOrderEventType);
+  const purchaseOrderEventType = config["purchase-order-event-type"]?.trim();
+  if (purchaseOrderEventType) dispatchCustomEvent(purchaseOrderEventType);
 
   // Reset cart data on page abandon, or after 5s as a fallback.
   // This gives purchase tracking enough time to read full cart payload.
