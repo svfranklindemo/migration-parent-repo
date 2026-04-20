@@ -138,6 +138,23 @@
 .cards > ul > li.cards-card--custom-bg .cards-card-body {
   background-color: transparent;
 }
+
+.cards > ul > li.cards-card--custom-text-color,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body h1,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body h2,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body h3,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body h4,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body h5,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body h6,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body p,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body li,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body a,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body span,
+.cards > ul > li.cards-card--custom-text-color .cards-card-body strong {
+  color: var(--cards-text-color);
+}
+
 .cards > ul > li .cards-card-body h1 {
   margin: 0;
   font-size: 26px;

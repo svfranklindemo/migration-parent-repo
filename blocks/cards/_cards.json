@@ -179,6 +179,14 @@
           "value": "true",
           "valueType": "boolean",
           "description": "Keep the teaser overlay background at 50% opacity. Turn off for a solid black overlay."
+        },
+        {
+          "component": "text",
+          "name": "textcolor",
+          "label": "Text color",
+          "value": "",
+          "valueType": "string",
+          "description": "Optional hex color for card text (e.g. #fff, #000000, or 333). Leave empty for default."
         }
       ]
     }

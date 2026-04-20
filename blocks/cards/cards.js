@@ -93,6 +93,16 @@ export default function decorate(block) {
       li.classList.add('cards-card--custom-bg');
     }
 
+    let textColorRaw = getConfigValue('textcolor', -1);
+    if (!textColorRaw) {
+      textColorRaw = (row.querySelector('p[data-aue-prop="textcolor"]')
+        || row.querySelector('[data-aue-prop="textcolor"]'))?.textContent?.trim() || '';
+    }
+    if (textColorRaw && isHexColor(textColorRaw)) {
+      li.style.setProperty('--cards-text-color', toHex(textColorRaw));
+      li.classList.add('cards-card--custom-text-color');
+    }
+
     const link = getCell(5);
     const selectable = getCell(6);
     const alignment = (getCell(7) || 'left').toLowerCase();
