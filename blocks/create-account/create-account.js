@@ -365,8 +365,8 @@ function attachCreateAccountSubmitHandler(block) {
         clearProductObject();
 
         const submitBtn = form.querySelector("button[type='submit']");
-        const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim() || 'form-submit';
-        dispatchCustomEvent(authoredEventType);
+        const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim();
+        if (authoredEventType) dispatchCustomEvent(authoredEventType);
 
         showSuccessMessage(form, "Account created successfully! Redirecting to sign-in...");
 
