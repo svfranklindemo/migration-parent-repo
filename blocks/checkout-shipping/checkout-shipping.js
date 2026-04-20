@@ -3,6 +3,10 @@ import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { getCartSnapshot } from '../../scripts/cart-store.js';
 import { buildFormDataLayerUpdates, DEFAULT_FORM_FIELD_MAP } from '../../scripts/form-data-layer.js';
 
+function isTruthy(value) {
+  return value === true || String(value || '').trim().toLowerCase() === 'true';
+}
+
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
   if (!submitButton) return;
@@ -118,6 +122,31 @@ function attachBackButton(block) {
   });
 }
 
+function attachCardNumberVisibility(block) {
+  const form = block.querySelector('form');
+  if (!form) return;
+
+  const cardNumberInput = form.querySelector('[name="cardNumber"]');
+  const cardNumberWrapper = cardNumberInput?.closest('.field-wrapper');
+  if (!cardNumberInput || !cardNumberWrapper) return;
+
+  const syncVisibility = () => {
+    const paymentMethod = getRadioValue(form, 'paymentMethod', 'paymentMethod');
+    const showCardNumber = String(paymentMethod).toLowerCase() === 'card';
+    cardNumberWrapper.style.display = showCardNumber ? '' : 'none';
+    if (!showCardNumber) {
+      cardNumberInput.value = '';
+      cardNumberInput.classList.remove('field-invalid');
+    }
+  };
+
+  form.querySelectorAll('input[type="radio"][name="paymentMethod_paymentMethod"]').forEach((radio) => {
+    radio.addEventListener('change', syncVisibility);
+  });
+
+  syncVisibility();
+}
+
 function persistShippingStep(data) {
   try {
     sessionStorage.setItem('checkout_shipping_step', JSON.stringify({ ...data, savedAt: new Date().toISOString() }));
@@ -202,6 +231,7 @@ function attachSubmitHandler(block, config) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
+  const showCardNumberField = isTruthy(config.showcardnumberfield ?? config['show-card-number-field']);
   [...block.children].forEach((row) => {
     row.style.display = 'none';
   });
@@ -322,6 +352,18 @@ export default async function decorate(block) {
                 properties: { 'afs:layout': { orientation: 'vertical' } },
                 appliedCssClassNames: 'col-12',
               },
+              ...(showCardNumberField
+                ? [
+                    {
+                      id: 'cardNumber',
+                      name: 'cardNumber',
+                      fieldType: 'text-input',
+                      label: { value: 'Card number' },
+                      properties: { colspan: 12 },
+                      appliedCssClassNames: 'col-12 checkout-shipping-card-number',
+                    },
+                  ]
+                : []),
               {
                 id: 'shippingMethod',
                 name: 'shippingMethod',
@@ -435,6 +477,7 @@ export default async function decorate(block) {
     applyButtonConfigToSubmitButton(block, config);
     prefillFromRegistration(block);
     attachBackButton(block);
+    attachCardNumberVisibility(block);
     refreshSummary(block);
     attachSubmitHandler(block, config);
   }, 120);
