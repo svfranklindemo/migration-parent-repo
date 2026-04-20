@@ -106,11 +106,11 @@ body.citi-signal-theme header .nav-brand {
 }
 
 body.citi-signal-theme header nav .nav-brand picture {
-  width: 156px;
+  width: 190px;
 }
 
 body.citi-signal-theme header nav .nav-brand img {
-  width: 156px;
+  width: 190px;
   height: auto;
 }
 
@@ -135,9 +135,12 @@ body.citi-signal-theme .TopRibbon__content {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 18px;
+  font-family: 'Adobe Clean Bold';
 }
-
+body.citi-signal-theme header nav {
+    padding-top: 0;
+}
 body.citi-signal-theme header nav .nav-sections ul > li > a::before {
   background: var(--main-accent-color);
 }
@@ -413,6 +416,7 @@ body.citi-signal-theme .product-detail .pd-image img {
   }
   body.citi-signal-theme header nav[aria-expanded='true'] .nav-sections {
     justify-content: left;
+    padding-top: 10px;
   }
 }
 div#brand-concierge-container {
