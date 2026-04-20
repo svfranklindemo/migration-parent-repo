@@ -63,16 +63,24 @@ body.citi-signal-theme .hero-wrapper .button-container.cta-button a.button:hover
   color: #000000 !important;
 }
 body.citi-signal-theme main > .section:not([data-sec-full-width="true"]) {
-    max-width: 90%;
+    max-width: 1400px;
+    width: 90%;
 }
 body.citi-signal-theme main > .section > div {
     max-width: 100%;
 }
 body.citi-signal-theme header nav {
-    max-width: 90% !important;
+   max-width: 1400px !important;
+    width: 90%;
     padding-left: 0;
     padding-right: 0;
 }
+body.citi-signal-theme footer .footer > div {
+    max-width: 1400px;
+    width: 90%;
+}
+
+
 body.citi-signal-theme main > .section > div {
   padding: 0;
 }
@@ -511,7 +519,12 @@ body.citi-signal-theme main .contact-us .form-wrapper .field-wrapper {
 body.citi-signal-theme main .contact-us .form-wrapper input:not([type='radio']):not([type='checkbox']) {
     height: 56px !important;
 }
-
+body.citi-signal-theme .fixed-width-section{
+  max-width: 1300px !important;
+}
+body.citi-signal-theme .fixed-width-section.no-border-shadow .cards > ul {
+   gap: 70px;
+}
 @media (width <= 768px) {
   body.citi-signal-theme main .contact-us .form-wrapper h1,
   body.citi-signal-theme main .contact-us .form-wrapper h2,
