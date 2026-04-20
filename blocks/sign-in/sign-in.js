@@ -30,17 +30,17 @@ export default async function decorate(block) {
 
   const isAuthor = isAuthorEnvironment();
 
-  // Render logo image if authored
+  // Prepare logo image if authored
   const logoImage = config.logoImage ?? config['logo-image'];
   const logoAlt = config.logoImageAlt ?? config['logo-image-alt'] ?? '';
+  let logoWrapper = null;
   if (logoImage) {
-    const logoWrapper = document.createElement('div');
+    logoWrapper = document.createElement('div');
     logoWrapper.className = 'sign-in-logo';
     const img = document.createElement('img');
     img.src = logoImage;
     img.alt = logoAlt;
     logoWrapper.append(img);
-    block.prepend(logoWrapper);
   }
 
   // Set authorable redirect URLs
@@ -109,6 +109,9 @@ export default async function decorate(block) {
   pre.append(code);
   formContainer.append(pre);
   block.replaceChildren(formContainer);
+  if (logoWrapper) {
+    block.prepend(logoWrapper);
+  }
 
   const formModule = await import("../form/form.js");
   await formModule.default(formContainer);
