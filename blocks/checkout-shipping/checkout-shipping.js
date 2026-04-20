@@ -226,7 +226,7 @@ function attachSubmitHandler(block, config) {
         } else {
           window.location.href = getOrderSummaryFallbackPath(continuePath || 'order-summary');
         }
-      }, 5000);
+      }, 1000);
     }
   );
 }
