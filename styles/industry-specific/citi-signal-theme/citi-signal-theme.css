@@ -101,6 +101,19 @@ body.citi-signal-theme header nav .nav-brand picture {
   align-items: center;
 }
 
+body.citi-signal-theme header .nav-brand {
+  flex-basis: unset;
+}
+
+body.citi-signal-theme header nav .nav-brand picture {
+  width: 156px;
+}
+
+body.citi-signal-theme header nav .nav-brand img {
+  width: 156px;
+  height: auto;
+}
+
 body.citi-signal-theme header nav .nav-sections ul > li > a {
   color: #000000;
   font-family: 'Adobe Clean Bold';
