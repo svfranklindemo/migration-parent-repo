@@ -704,18 +704,25 @@ function applyBlockCustomClass(block, value) {
 }
 
 function applySectionTextColor(section, colorValue) {
+  const normalizeColor = (s) => {
+    const t = String(s ?? '').trim();
+    if (!t) return '';
+    const hashMatch = t.match(/#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+    if (hashMatch) return `#${hashMatch[1]}`;
+    return t;
+  };
   const isHexColor = (s) => {
-    const t = String(s).trim();
+    const t = normalizeColor(s);
     if (!t) return false;
     if (t.startsWith('#')) return /^#[0-9a-fA-F]{3}$|^#[0-9a-fA-F]{6}$/.test(t);
     return /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(t);
   };
   const toHex = (s) => {
-    const t = String(s).trim();
+    const t = normalizeColor(s);
     if (t.startsWith('#')) return t;
     return /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(t) ? `#${t}` : t;
   };
-  const raw = (colorValue ?? section.dataset.secColor ?? section.dataset.sectionTextColor ?? '').toString().trim();
+  const raw = normalizeColor(colorValue ?? section.dataset.secColor ?? section.dataset.sectionTextColor ?? '');
   section.classList.remove('section--custom-text-color');
   section.style.removeProperty('--section-text-color');
   if (raw && isHexColor(raw)) {
@@ -897,7 +904,7 @@ function setupSectionItemWidthsUE() {
       if (patch?.name === 'sec-bg-image' || patch?.name === 'image') {
         applySectionBackgroundImage(section, patch.value ?? '');
       }
-      if (patch?.name === 'sec-color') {
+      if (patch?.name === 'sec-color' || patch?.name === 'section-text-color') {
         applySectionTextColor(section, patch.value ?? '');
       }
       if (patch?.name === 'sec-custom-styles') {

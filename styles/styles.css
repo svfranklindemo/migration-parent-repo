@@ -1200,6 +1200,10 @@ main .section.bg-light {
 }
 
 /* Section text color (UE field, same pattern as hero) */
+main .section.section--custom-text-color {
+  color: var(--section-text-color);
+}
+
 main .section.section--custom-text-color h1,
 main .section.section--custom-text-color h2,
 main .section.section--custom-text-color h3,
@@ -1208,7 +1212,13 @@ main .section.section--custom-text-color h5,
 main .section.section--custom-text-color h6,
 main .section.section--custom-text-color p,
 main .section.section--custom-text-color a,
-main .section.section--custom-text-color li {
+main .section.section--custom-text-color li,
+main .section.section--custom-text-color span,
+main .section.section--custom-text-color label,
+main .section.section--custom-text-color .text,
+main .section.section--custom-text-color .title,
+main .section.section--custom-text-color .default-content-wrapper,
+main .section.section--custom-text-color .default-content-wrapper * {
   color: var(--section-text-color);
 }
 
