@@ -343,21 +343,46 @@ body.citi-signal-theme .category-products-lister .cpl-card-media img {
   filter: brightness(1);
 }
 
-/* Product detail - natural image size, capped at 500px */
+/* Product detail - fixed visual area with contained product image */
 body.citi-signal-theme .product-detail .pd-container {
-  grid-template-columns: minmax(250px, 500px) 1fr;
+  grid-template-columns: minmax(280px, 35%) 1fr;
+}
+
+body.citi-signal-theme .product-detail .pd-actions {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+body.citi-signal-theme .product-detail .pd-btn {
+  flex: 0 0 auto;
+  padding: 12px 24px;
+  font-size: 13px !important;
 }
 
 body.citi-signal-theme .product-detail .pd-image {
   background: none;
   box-shadow: none;
-  overflow: visible;
+  overflow: hidden;
+  min-height: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body.citi-signal-theme .product-detail .pd-image picture,
 body.citi-signal-theme .product-detail .pd-image img {
   width: 100% !important;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (width <= 768px) {
+  body.citi-signal-theme .product-detail .pd-image {
+    min-height: 320px;
+    height: 320px;
+  }
 }
 @media (width < 900px) {
   body.citi-signal-theme header nav .nav-sections ul > li > a {
