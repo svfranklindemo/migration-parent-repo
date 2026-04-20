@@ -287,60 +287,60 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     contentSection.appendChild(descEl);
   }
 
-  if (eventConfig.showAddToWishlistButton) {
-    // Action buttons
-    const actionsEl = document.createElement("div");
-    actionsEl.className = "pd-actions";
+  // Action buttons
+  const actionsEl = document.createElement("div");
+  actionsEl.className = "pd-actions";
 
-    const addToCartBtn = document.createElement("button");
-    addToCartBtn.className = "pd-btn pd-btn-primary";
-    addToCartBtn.textContent = "Add to Cart";
-    addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
-    addToCartBtn.addEventListener("click", () => {
-      const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
-        const formattedCategory =
-          category.length > 0
-            ? category
-                .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
-                .join(", ")
-            : "";
+  const addToCartBtn = document.createElement("button");
+  addToCartBtn.className = "pd-btn pd-btn-primary";
+  addToCartBtn.textContent = "Add to Cart";
+  addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
+  addToCartBtn.addEventListener("click", () => {
+    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+    const formattedCategory =
+      category.length > 0
+        ? category
+            .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+            .join(", ")
+        : "";
 
-      addProductToCart({
-        id: id || sku || "",
-        name: name || "",
-        image: cartImageUrl || "",
-        thumbnail: cartImageUrl || "",
-        category: formattedCategory,
-        description: description?.html || description?.markdown || "",
-        price: price || 0,
-        quantity: 1,
-      });
-      if (eventConfig.addToCart) {
-        dispatchCustomEvent(eventConfig.addToCart);
-      }
-
-      // Show visual feedback
-      addToCartBtn.textContent = "Added to Cart ✓";
-      setTimeout(() => {
-        addToCartBtn.textContent = "Add to Cart";
-      }, 2000);
+    addProductToCart({
+      id: id || sku || "",
+      name: name || "",
+      image: cartImageUrl || "",
+      thumbnail: cartImageUrl || "",
+      category: formattedCategory,
+      description: description?.html || description?.markdown || "",
+      price: price || 0,
+      quantity: 1,
     });
+    if (eventConfig.addToCart) {
+      dispatchCustomEvent(eventConfig.addToCart);
+    }
 
+    // Show visual feedback
+    addToCartBtn.textContent = "Added to Cart ✓";
+    setTimeout(() => {
+      addToCartBtn.textContent = "Add to Cart";
+    }, 2000);
+  });
+
+  actionsEl.append(addToCartBtn);
+
+  if (eventConfig.showAddToWishlistButton) {
     const addToWishlistBtn = document.createElement("button");
     addToWishlistBtn.className = "pd-btn pd-btn-secondary";
     addToWishlistBtn.textContent = "Add to Wishlist";
     addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
     addToWishlistBtn.addEventListener("click", () => {
-      // TODO: Implement wishlist functionality
       if (eventConfig.addToWishlist) {
         dispatchCustomEvent(eventConfig.addToWishlist);
       }
     });
-
-    actionsEl.append(addToCartBtn, addToWishlistBtn);
-
-    contentSection.appendChild(actionsEl);
+    actionsEl.append(addToWishlistBtn);
   }
+
+  contentSection.appendChild(actionsEl);
 
   container.append(imageSection, contentSection);
   return container;
