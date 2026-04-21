@@ -243,15 +243,15 @@ body.luma-theme main .membership .submit-wrapper {
     height: 300px !important;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer,
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer > div,
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner {
+body.luma-theme .section.ContentCardContainer,
+body.luma-theme .section.ContentCardContainer > div,
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner {
   min-height: 300px;
   height: 300px !important;
   overflow: hidden;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -261,19 +261,19 @@ body.luma-theme main .membership .submit-wrapper {
   box-sizing: border-box;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Image,
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Image img {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Image,
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Image img {
   width: 100%;
   height: 300px !important;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Image img {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Image img {
   display: block;
   object-fit: cover;
   filter: brightness(.65);
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Banner__content {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Banner__content {
   position: absolute;
   inset: 0;
   display: flex;
@@ -288,14 +288,14 @@ body.luma-theme main .membership .submit-wrapper {
   background: transparent;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title,
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title__content {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title,
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title__content {
   width: 100%;
   text-align: left;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title__pretitle,
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title__pretitle,
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
   display: block;
   width: 100%;
   max-width: none;
@@ -304,26 +304,26 @@ body.luma-theme main .membership .submit-wrapper {
   color: var(--text-light, #fff);
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title__pretitle {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title__pretitle {
   font-family: 'Adobe Clean Bold';
   font-size: 1rem;
   line-height: 1.4;
   font-weight: 700;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
   font-family: var(--black-font-family);
   font-size: 28px;
   line-height: 1.2;
   font-weight: 700;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Button {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Button {
   margin-top: 30px;
   text-align: left;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Button button {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Button button {
   display: none;
   min-height: 0;
   padding: 0.875rem 1.5rem;
@@ -337,23 +337,23 @@ body.luma-theme main .membership .submit-wrapper {
   cursor: pointer;
 }
 
-:is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Button button:hover {
+body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Button button:hover {
   background-color: rgb(255 255 255 / 10%);
   border-color: var(--text-light, #fff);
 }
 
 @media (width <= 768px) {
-  :is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner {
+  body.luma-theme .section.ContentCardContainer .Banner.hero-banner {
     padding: 30px 20px;
   }
 
-  :is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Banner__content {
+  body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Banner__content {
     max-width: calc(100% - 40px);
     margin-left: 0;
     padding: 16px 20px;
   }
 
-  :is(body.luma-theme, body.citi-signal-theme) .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+  body.luma-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
     font-size: 24px;
   }
 }
