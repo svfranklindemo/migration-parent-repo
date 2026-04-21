@@ -163,6 +163,14 @@ function getOrderSummaryFallbackPath(pageName = 'order-summary') {
   return `${basePath}/${targetPage}`;
 }
 
+function isElementAvailableAndVisible(el) {
+  if (!el || !el.isConnected || el.hidden) return false;
+  const wrapper = el.closest('.checkbox-wrapper, .field-wrapper') || el;
+  const style = window.getComputedStyle(wrapper);
+  if (style.display === 'none' || style.visibility === 'hidden' || style.visibility === 'collapse') return false;
+  return wrapper.getClientRects().length > 0;
+}
+
 function attachSubmitHandler(block, config) {
   const form = block.querySelector('form');
   if (!form) return;
@@ -197,6 +205,8 @@ function attachSubmitHandler(block, config) {
       const shipping = mapShippingSelection(data.shippingMethod);
       const paymentType = mapPaymentType(data.paymentMethod);
       const createAccountConsent = Boolean(data.createAccount);
+      const lumaLoyaltyControl = form.querySelector('[name="lumaLoyalty"]');
+      const shouldSendJoinLumaLoyaltyConsent = isElementAvailableAndVisible(lumaLoyaltyControl);
       const joinLumaLoyaltyConsent = Boolean(data.lumaLoyalty);
       const baseFormUpdates = buildFormDataLayerUpdates(form, DEFAULT_FORM_FIELD_MAP) || {};
 
@@ -209,7 +219,7 @@ function attachSubmitHandler(block, config) {
             },
             paymentType,
             createAccountConsent,
-            joinLumaLoyaltyConsent,
+            ...(shouldSendJoinLumaLoyaltyConsent ? { joinLumaLoyaltyConsent } : {}),
           },
           true
         );
