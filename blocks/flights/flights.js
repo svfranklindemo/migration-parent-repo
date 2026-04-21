@@ -678,7 +678,7 @@ export default async function decorate(block) {
   const urlDate = urlParams.get('date');
   const resolved = resolveFromAndTo();
 
-  block.className = 'flights';
+  block.classList.add('flights');
 
   // Destination page: path contains /en/destinations/ — no from/to; GraphQL expects airport code(s)
   if (isDestinationPage()) {

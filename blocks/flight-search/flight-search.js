@@ -481,7 +481,7 @@ export default async function decorate(block) {
 
   // Clear block
   block.innerHTML = '';
-  block.className = 'flight-search';
+  block.classList.add('flight-search');
 
   const customStyles = config.customstyles;
   if (customStyles && String(customStyles).trim()) {

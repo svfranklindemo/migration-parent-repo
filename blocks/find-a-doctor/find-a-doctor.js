@@ -725,7 +725,11 @@ export default async function decorate(block) {
   });
 
   // Set layout class
-  block.className = `find-doctor ${layout}`;
+  block.classList.add('find-doctor');
+  String(layout || '')
+    .split(/\s+/)
+    .filter(Boolean)
+    .forEach((cls) => block.classList.add(cls));
   
   // Create config object for compatibility
   const config = {
