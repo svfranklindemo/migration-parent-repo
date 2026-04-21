@@ -551,6 +551,12 @@ header nav .nav-tools .user-profile-host {
 body.citi-signal-theme .lang-switcher .lang-button {
     border-radius: 2px !important;
 }
+body.citi-signal-theme .user-profile {
+    display: flex;
+}
+body.citi-signal-theme span.user-name {
+    font-size: 16px;
+}
 @media (width <= 768px) {
   body.citi-signal-theme .product-detail .pd-image {
     min-height: 320px;
