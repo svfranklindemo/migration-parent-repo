@@ -201,6 +201,9 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     sku,
     id,
   } = product;
+  const isPlansCategory = (category || [])
+    .map((catValue) => normalizeCategoryValue(catValue).toLowerCase().trim())
+    .some((catValue) => catValue === "plans" || catValue.endsWith("/plans"));
 
   // Update dataLayer with product information
   // If dataLayer is not ready, the update will be queued automatically
@@ -326,6 +329,17 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   });
 
   actionsEl.append(addToCartBtn);
+
+  if (isPlansCategory) {
+    const selectDeviceBtn = document.createElement("button");
+    selectDeviceBtn.className = "pd-btn pd-btn-secondary";
+    selectDeviceBtn.textContent = "Select a device";
+    selectDeviceBtn.setAttribute("aria-label", "Select a device");
+    selectDeviceBtn.addEventListener("click", () => {
+      window.location.href = "/en/phones";
+    });
+    actionsEl.append(selectDeviceBtn);
+  }
 
   if (eventConfig.showAddToWishlistButton) {
     const addToWishlistBtn = document.createElement("button");
