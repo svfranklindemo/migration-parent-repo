@@ -263,13 +263,13 @@ min-height: 350px;
 /* Content card hero treatment */
 body.citi-signal-theme .section.ContentCardContainer,
 body.citi-signal-theme .section.ContentCardContainer > div,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
+body.citi-signal-theme .section.ContentCardContainer .Banner {
   min-height: 300px;
   height: 300px !important;
   overflow: hidden;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
+body.citi-signal-theme .section.ContentCardContainer .Banner {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -278,19 +278,19 @@ body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
   box-sizing: border-box;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Image,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Image img {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Image,
+body.citi-signal-theme .section.ContentCardContainer .Banner .Image img {
   width: 100%;
   height: 300px !important;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Image img {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Image img {
   display: block;
   object-fit: cover;
   filter: brightness(.65);
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Banner__content {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Banner__content {
   position: absolute;
   inset: 0;
   display: flex;
@@ -305,15 +305,15 @@ body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Banner
   background: transparent;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__content {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title,
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title__content {
   width: 100%;
   text-align: left;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__pretitle,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h1,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title__pretitle,
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title h1,
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title h2 {
   display: block;
   width: 100%;
   max-width: none;
@@ -322,15 +322,15 @@ body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title 
   color: var(--text-light, #fff);
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__pretitle {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title__pretitle {
   font-family: 'Adobe Clean Bold';
   font-size: 1rem;
   line-height: 1.4;
   font-weight: 700;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h1,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title h1,
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title h2 {
   font-family: var(--black-font-family, 'Adobe Clean Black', sans-serif);
   font-size: 28px !important;
   line-height: 1.2;
@@ -338,20 +338,20 @@ body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title 
   margin-bottom: 20px;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__subtitle p,
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Text__content p {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Title__subtitle p,
+body.citi-signal-theme .section.ContentCardContainer .Banner .Text__content p {
   color: var(--text-light, #fff) !important;
   font-size: 1rem !important;
   line-height: 1.5;
   margin: 0;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Button {
   margin-top: 30px;
   text-align: left;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button button {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Button button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -367,33 +367,33 @@ body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button
   cursor: pointer;
 }
 
-body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button button:hover {
+body.citi-signal-theme .section.ContentCardContainer .Banner .Button button:hover {
   background-color: rgb(255 255 255 / 10%);
   border-color: var(--text-light, #fff);
 }
 
 @media (width <= 768px) {
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
+  body.citi-signal-theme .section.ContentCardContainer .Banner {
     padding: 30px 20px;
   }
 
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Banner__content {
+  body.citi-signal-theme .section.ContentCardContainer .Banner .Banner__content {
     max-width: calc(100% - 40px);
     margin-left: 0;
     padding: 16px 20px;
   }
 
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h1,
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+  body.citi-signal-theme .section.ContentCardContainer .Banner .Title h1,
+  body.citi-signal-theme .section.ContentCardContainer .Banner .Title h2 {
     font-size: 24px !important;
   }
 
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__subtitle p,
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Text__content p {
+  body.citi-signal-theme .section.ContentCardContainer .Banner .Title__subtitle p,
+  body.citi-signal-theme .section.ContentCardContainer .Banner .Text__content p {
     font-size: 1rem !important;
   }
 
-  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button button {
+  body.citi-signal-theme .section.ContentCardContainer .Banner .Button button {
     font-size: 1rem !important;
   }
 }
