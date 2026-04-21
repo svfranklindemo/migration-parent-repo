@@ -259,6 +259,145 @@ body.citi-signal-theme .cards > ul > li.image-left img{
 min-height: 350px;
 
 }
+
+/* Content card hero treatment */
+body.citi-signal-theme .section.ContentCardContainer,
+body.citi-signal-theme .section.ContentCardContainer > div,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
+  min-height: 300px;
+  height: 300px !important;
+  overflow: hidden;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Image,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Image img {
+  width: 100%;
+  height: 300px !important;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Image img {
+  display: block;
+  object-fit: cover;
+  filter: brightness(.65);
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Banner__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 600px;
+  margin-left: 5%;
+  padding: 20px;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__content {
+  width: 100%;
+  text-align: left;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__pretitle,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h1,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 20px;
+  text-align: left;
+  color: var(--text-light, #fff);
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__pretitle {
+  font-family: 'Adobe Clean Bold';
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h1,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+  font-family: var(--black-font-family, 'Adobe Clean Black', sans-serif);
+  font-size: 28px !important;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__subtitle p,
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Text__content p {
+  color: var(--text-light, #fff) !important;
+  font-size: 1rem !important;
+  line-height: 1.5;
+  margin: 0;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button {
+  margin-top: 30px;
+  text-align: left;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.875rem 1.5rem;
+  border: 2px solid #06010e;
+  background: #06010e;
+  color: var(--text-light, #fff);
+  font-family: 'Adobe Clean Bold';
+  font-size: 1rem !important;
+  line-height: 1;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button button:hover {
+  background-color: rgb(255 255 255 / 10%);
+  border-color: var(--text-light, #fff);
+}
+
+@media (width <= 768px) {
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner {
+    padding: 30px 20px;
+  }
+
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Banner__content {
+    max-width: calc(100% - 40px);
+    margin-left: 0;
+    padding: 16px 20px;
+  }
+
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h1,
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title h2 {
+    font-size: 24px !important;
+  }
+
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Title__subtitle p,
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Text__content p {
+    font-size: 1rem !important;
+  }
+
+  body.citi-signal-theme .section.ContentCardContainer .Banner.hero-banner .Button button {
+    font-size: 1rem !important;
+  }
+}
+
 /* Find Your Store section */
 .find-your-store .columns-wrapper {
     border-radius: 16px;
