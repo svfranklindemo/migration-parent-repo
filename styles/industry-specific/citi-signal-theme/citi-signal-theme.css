@@ -540,7 +540,17 @@ body.citi-signal-theme .product-detail .pd-image img {
   object-fit: contain;
   object-position: center;
 }
-
+body.citi-signal-theme header nav .nav-tools .user-profile-btn .user-icon {
+    width: 30px;
+    height: 30px;
+}
+header nav .nav-tools .user-profile-host {
+    display: flex;
+    align-items: center;
+}
+body.citi-signal-theme .lang-switcher .lang-button {
+    border-radius: 2px !important;
+}
 @media (width <= 768px) {
   body.citi-signal-theme .product-detail .pd-image {
     min-height: 320px;
