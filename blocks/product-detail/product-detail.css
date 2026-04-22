@@ -49,6 +49,7 @@ main .product-detail .pd-image img {
 main .product-detail .pd-content {
     padding-top: 8px;
     text-align: left;
+    min-width: 0;
 }
 
 main .product-detail .pd-category {
@@ -73,6 +74,8 @@ main .product-detail .pd-name {
     color: #212529;
     letter-spacing: -0.02em;
     text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 main .product-detail .pd-price {
@@ -93,6 +96,8 @@ main .product-detail .pd-description {
     font-size: 1rem;
     line-height: 1.75;
     color: #495057;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 main .product-detail .pd-description p {
@@ -163,7 +168,9 @@ main .product-detail .pd-btn {
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 main .product-detail .pd-btn-primary {
@@ -409,6 +416,7 @@ main .product-detail .pd-rec-card-meta {
     gap: 0.5rem;
     text-align: center;
     align-items: center;
+    min-width: 0;
 }
 
 main .product-detail .pd-rec-card-category {
@@ -426,6 +434,8 @@ main .product-detail .pd-rec-card-title {
     line-height: 1.4;
     color: #2c2c2c;
     text-align: center;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 /* Responsive Grid Adjustments */
