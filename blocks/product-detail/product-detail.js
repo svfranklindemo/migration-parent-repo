@@ -39,6 +39,17 @@ function getQueryParam(param) {
 }
 
 /**
+ * Update the page title with the selected product name
+ * @param {Object} product - Product data
+ */
+function updatePageTitle(product) {
+  const productTitle = (product?.name || "").trim();
+  if (productTitle) {
+    document.title = productTitle;
+  }
+}
+
+/**
  * Fetch product details from GraphQL
  * @param {string} path - Content fragment folder path
  * @param {string} sku - Product SKU
@@ -493,6 +504,8 @@ export default async function decorate(block) {
     block.appendChild(errorMsg);
     return;
   }
+
+  updatePageTitle(product);
 
   // Display product detail
   const productDetail = buildProductDetail(product, isAuthor, eventConfig);
