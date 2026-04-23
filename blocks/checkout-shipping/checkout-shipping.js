@@ -179,26 +179,6 @@ function attachSubmitHandler(block, config) {
     'submit',
     async (event) => {
       event.preventDefault();
-
-      const required = [
-        { name: 'firstName', id: 'firstName' },
-        { name: 'lastName', id: 'lastName' },
-        { name: 'email', id: 'email' },
-      ];
-      let ok = true;
-      required.forEach(({ name }) => {
-        const field = form.querySelector(`[name="${name}"]`);
-        if (!field) return;
-        if (!field.value || !String(field.value).trim()) {
-          ok = false;
-          field.classList.add('field-invalid');
-        } else {
-          field.classList.remove('field-invalid');
-        }
-      });
-
-      if (!ok) return;
-
       const data = collectCheckoutShippingData(form);
       persistShippingStep(data);
 
