@@ -45,7 +45,7 @@
           "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",
-          "value": "flight.selected",
+          "value": "",
           "valueType": "string"
         },
         {

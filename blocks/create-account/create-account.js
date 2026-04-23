@@ -14,11 +14,11 @@ function withConditionalClasses(baseClassName, isVisible) {
   return isVisible ? baseClassName : `${baseClassName} is-hidden`;
 }
 
-function applyButtonConfigToSubmitButton(block, config, defaultEventType = 'form-submit') {
+function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
   if (!submitButton) return;
   const eventType = config.buttoneventtype;
-  const normalizedEvent = (eventType && String(eventType).trim()) || defaultEventType;
+  const normalizedEvent = eventType && String(eventType).trim();
   if (normalizedEvent) submitButton.dataset.buttonEventType = normalizedEvent;
   const webhookUrl = config.buttonwebhookurl;
   if (webhookUrl && String(webhookUrl).trim()) submitButton.dataset.buttonWebhookUrl = String(webhookUrl).trim();
