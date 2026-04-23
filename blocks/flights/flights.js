@@ -12,8 +12,6 @@ const PUBLISH_GRAPHQL_BASE_For_Destination = 'https://275323-918sangriatortoise.
 
 const AUTHOR_GRAPHQL_BASE_For_Dropdown = '/graphql/execute.json/wknd-fly/flight-source-dropdown';
 const PUBLISH_GRAPHQL_BASE_For_Dropdown = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/flight-source-dropdown';
-const DEFAULT_PUBLISH_ENVIRONMENT = 'p189874-e1977911';
-
 const DEFAULT_FLIGHT_LIST_CONTENT_FRAGMENT_PATH = '/content/dam/wknd-fly/en/fragments/flight-details';
 
 let selectButtonDataAttributes = {};
@@ -27,7 +25,7 @@ async function getFlightApiConfig() {
       const placeholderEnv = await getEnvironmentValue();
       return {
         authorBase: (placeholderHost || '').replace(/\/$/, ''),
-        environment: placeholderEnv || DEFAULT_PUBLISH_ENVIRONMENT,
+        environment: placeholderEnv,
       };
     })();
   }

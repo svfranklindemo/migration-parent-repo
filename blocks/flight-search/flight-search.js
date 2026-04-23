@@ -6,7 +6,6 @@ import { getEnvironmentValue, getHostname, getPathDetails } from '../../scripts/
 
 const AUTHOR_GRAPHQL_BASE_For_Dropdown = '/graphql/execute.json/wknd-fly/flight-source-dropdown';
 const PUBLISH_GRAPHQL_BASE_For_Dropdown = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/flight-source-dropdown';
-const DEFAULT_PUBLISH_ENVIRONMENT = 'p189874-e1977911';
 let flightSearchApiConfigPromise;
 
 async function getFlightSearchApiConfig() {
@@ -16,7 +15,7 @@ async function getFlightSearchApiConfig() {
       const placeholderEnv = await getEnvironmentValue();
       return {
         authorBase: (placeholderHost || '').replace(/\/$/, ''),
-        environment: placeholderEnv || DEFAULT_PUBLISH_ENVIRONMENT,
+        environment: placeholderEnv,
       };
     })();
   }
