@@ -52,11 +52,11 @@
         },
         {
           "component": "text",
-          "name": "customstyles",
-          "label": "Custom Styles",
+          "name": "custom-class",
+          "label": "Custom class",
           "value": "",
           "valueType": "string",
-          "description": "Custom styles for the preapproval form"
+          "description": "Space-separated class names to add to the block"
         }
       ]
     }

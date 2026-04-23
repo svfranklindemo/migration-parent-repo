@@ -1127,11 +1127,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the application form"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -1169,11 +1169,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the preapproval form"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -1238,11 +1238,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the new account form"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -1395,11 +1395,11 @@
       },
       {
         "component": "text",
-        "name": "customStyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the calculator"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -1630,11 +1630,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the transfer funds form"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -1683,11 +1683,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the auto-save form"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },

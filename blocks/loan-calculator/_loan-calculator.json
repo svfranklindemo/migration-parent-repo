@@ -115,11 +115,11 @@
         },
         {
           "component": "text",
-          "name": "customStyles",
-          "label": "Custom Styles",
+          "name": "custom-class",
+          "label": "Custom class",
           "value": "",
           "valueType": "string",
-          "description": "Custom styles for the calculator"
+          "description": "Space-separated class names to add to the block"
         }
       ]
     }

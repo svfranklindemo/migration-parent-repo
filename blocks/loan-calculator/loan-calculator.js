@@ -72,7 +72,6 @@ function normalizeConfig(cfg) {
   const descriptionRaw = cfg.description;
   const buttonEventTypeRaw = cfg.buttoneventtype;
   const buttonWebhookUrlRaw = cfg.buttonwebhookurl;
-  const customStylesRaw = cfg.customstyles;
 
   const minPriceValue = parseNumber(minPriceRaw, MIN_PRICE);
   const maxPriceValue = parseNumber(maxPriceRaw, MAX_PRICE);
@@ -94,7 +93,6 @@ function normalizeConfig(cfg) {
     maxDownPayment: Math.max(minDownValue, maxDownValue),
     buttonEventType: (buttonEventTypeRaw ?? '').toString().trim(),
     buttonWebhookUrl: (buttonWebhookUrlRaw ?? '').toString().trim(),
-    customStyles: (customStylesRaw ?? '').toString().trim(),
   };
 }
 
@@ -106,12 +104,6 @@ function fireButtonCustomEventIfConfigured(eventType) {
 export default async function decorate(block) {
   const config = normalizeConfig(readBlockConfig(block) || {});
   block.classList.add('loan-calculator-block', 'loan-calculator-block--loading');
-  if (config.customStyles) {
-    config.customStyles
-      .split(/\s+/)
-      .filter(Boolean)
-      .forEach((cls) => block.classList.add(cls));
-  }
 
   /** Builds calculator UI using config for rate/CTA/description. Call after UE replaces block content. */
   function buildCalculatorRoot() {
