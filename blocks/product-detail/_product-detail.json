@@ -76,6 +76,14 @@
           "value": "true",
           "valueType": "boolean",
           "description": "When disabled, the Related Products section is not rendered."
+        },
+        {
+          "component": "text",
+          "name": "custom-class",
+          "label": "Custom class",
+          "value": "",
+          "valueType": "string",
+          "description": "Space-separated class names to add to the block"
         }
       ]
     }

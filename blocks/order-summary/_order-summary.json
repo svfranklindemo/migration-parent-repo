@@ -44,6 +44,14 @@
           "value": "order-confirmation",
           "valueType": "string",
           "description": "Where to navigate on CONFIRM ORDER. Use a full path (e.g. /en/order-confirmation) or just a page name (e.g. order-confirmation). Order number appended as ?order=. .html is added automatically on author."
+        },
+        {
+          "component": "text",
+          "name": "custom-class",
+          "label": "Custom class",
+          "value": "",
+          "valueType": "string",
+          "description": "Space-separated class names to add to the block"
         }
       ]
     }

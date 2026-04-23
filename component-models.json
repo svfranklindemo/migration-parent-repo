@@ -8658,6 +8658,14 @@
           { "name": "4", "value": "4" },
           { "name": "5", "value": "5" }
         ]
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -8719,6 +8727,14 @@
         "value": "true",
         "valueType": "boolean",
         "description": "When disabled, the Related Products section is not rendered."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -8757,6 +8773,14 @@
             "value": "vertical"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -8778,6 +8802,14 @@
         "value": "true",
         "valueType": "boolean",
         "description": "When disabled, the You May Also Like recommendations section is not rendered."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -8807,6 +8839,14 @@
         "value": "order-confirmation",
         "valueType": "string",
         "description": "Where to navigate on CONFIRM ORDER. Use a full path (e.g. /en/order-confirmation) or just a page name (e.g. order-confirmation). Order number appended as ?order=. .html is added automatically on author."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -8820,6 +8860,14 @@
         "value": "",
         "valueType": "string",
         "description": "Optional Launch event fired when order confirmation loads."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },

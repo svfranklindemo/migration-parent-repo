@@ -47,6 +47,14 @@
             { "name": "4", "value": "4" },
             { "name": "5", "value": "5" }
           ]
+        },
+        {
+          "component": "text",
+          "name": "custom-class",
+          "label": "Custom class",
+          "value": "",
+          "valueType": "string",
+          "description": "Space-separated class names to add to the block"
         }
       ]
     }

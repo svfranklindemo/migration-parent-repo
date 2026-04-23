@@ -11,6 +11,7 @@
               "name": "New Arrival",
               "model": "new-arrival",
               "key-value": true
+            }
           }
         }
       }
@@ -50,6 +51,14 @@
               "value": "vertical"
             }
           ]
+        },
+        {
+          "component": "text",
+          "name": "custom-class",
+          "label": "Custom class",
+          "value": "",
+          "valueType": "string",
+          "description": "Space-separated class names to add to the block"
         }
       ]
     }
