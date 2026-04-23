@@ -483,11 +483,6 @@ export default async function decorate(block) {
   block.innerHTML = '';
   block.classList.add('flight-search');
 
-  const customStyles = config.customstyles;
-  if (customStyles && String(customStyles).trim()) {
-    block.classList.add(String(customStyles).trim());
-  }
-  
   let flightDropdownContentFragmentPath = null;
   if(config.flightdropdowncontentfragment || config['flightdropdowncontentfragment']) {
     flightDropdownContentFragmentPath = config.flightdropdowncontentfragment ?? config['flightdropdowncontentfragment'];

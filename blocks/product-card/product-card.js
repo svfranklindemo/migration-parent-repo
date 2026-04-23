@@ -281,12 +281,6 @@ function createButtonFromConfig(config) {
   };
   const mappedStyle = styleMap[config.style] || config.style;
   if (mappedStyle) container.classList.add(mappedStyle);
-  if (config.customStyles) {
-    config.customStyles.split(/[\s,]+/).forEach((part) => {
-      const cls = part.trim();
-      if (cls) container.classList.add(cls);
-    });
-  }
   const anchor = document.createElement('a');
   anchor.classList.add('button');
   anchor.textContent = config.text || 'Learn more';
@@ -329,7 +323,6 @@ export default async function decorate(block) {
       formId: config.buttonformid,
       buttonData: config.buttondata,
       style: config.ctastyle ?? 'default',
-      customStyles: config.customstyles ?? config.customStyles,
     });
     [...block.children].forEach((row) => row.remove());
     block.innerHTML = '';

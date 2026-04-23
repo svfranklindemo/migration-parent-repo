@@ -1085,11 +1085,11 @@
       },
       {
         "component": "text",
-        "name": "customStyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the card"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -2004,11 +2004,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the hero section"
+        "description": "Space-separated class names to add to the block"
       },
       {
         "component": "boolean",
@@ -8544,11 +8544,11 @@
       },
       {
         "component": "text",
-        "name": "customstyles",
-        "label": "Custom Styles",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Custom styles for the flight search block"
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },

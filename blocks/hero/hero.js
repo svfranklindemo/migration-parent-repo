@@ -156,8 +156,4 @@ export default function decorate(block) {
     if (buttonData && String(buttonData).trim()) ctaLink.dataset.buttonData = String(buttonData).trim();
   }
 
-  const customStyles = (config.customStyles ?? rowVal(17)) && String(config.customStyles ?? rowVal(17)).trim();
-  if (customStyles) {
-    block.classList.add(customStyles);
-  }
 }
