@@ -624,15 +624,11 @@ function handleFlightSelect(flight) {
   addFlightToTrip(fullFlight);
   // Set minimal dataLayer so Launch builds working flight.selection XDM (only from, to, cart; no extra reservation/reservationSearch fields)
   updateDataLayerMinimalForFlightSelection(fullFlight);
-  if(selectButtonDataAttributes.buttonEventType) {
+  if (selectButtonDataAttributes.buttonEventType) {
     dispatchCustomEvent(selectButtonDataAttributes.buttonEventType);
-    updateDataLayerWithSelectedFlights(fullFlight);
-    setTimeout(() => { window.location.href = getCheckoutPath(); }, 2000);
-  } else {
-    dispatchCustomEvent('flight.selected');
-    updateDataLayerWithSelectedFlights(fullFlight);
-    setTimeout(() => { window.location.href = getCheckoutPath(); }, 2000);
   }
+  updateDataLayerWithSelectedFlights(fullFlight);
+  setTimeout(() => { window.location.href = getCheckoutPath(); }, 2000);
 }
 
 // Main decorate function
