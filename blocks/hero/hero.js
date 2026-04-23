@@ -31,7 +31,7 @@ export default function decorate(block) {
   const layoutStyle = config.herolayout ?? rowVal(4) ?? 'overlay';
   const ctaStyle = config.ctastyle ?? rowVal(5) ?? 'default';
   const backgroundStyle = config.backgroundstyle ?? rowVal(6) ?? 'default';
-  const textOverlayValue = (config.textoverlay ?? block.querySelector('[data-aue-prop="textoverlay"]')?.textContent?.trim() ?? rowVal(19) ?? 'true').toString().toLowerCase();
+  const textOverlayValue = (config.textoverlay ?? block.querySelector('[data-aue-prop="textoverlay"]')?.textContent?.trim() ?? rowVal(16) ?? 'true').toString().toLowerCase();
   const textOverlayEnabled = textOverlayValue !== 'false';
   const backgroundColor = (config.backgroundcolor ?? block.querySelector('[data-aue-prop="backgroundcolor"]')?.textContent?.trim() ?? '').toString().trim();
   if (backgroundColor) {
@@ -148,12 +148,6 @@ export default function decorate(block) {
   if (ctaLink) {
     const eventType = config.buttoneventtype ?? rowVal(13);
     if (eventType && String(eventType).trim()) ctaLink.dataset.buttonEventType = String(eventType).trim();
-    const webhookUrl = config.buttonwebhookurl ?? rowVal(14);
-    if (webhookUrl && String(webhookUrl).trim()) ctaLink.dataset.buttonWebhookUrl = String(webhookUrl).trim();
-    const formId = config.buttonformid ?? rowVal(15);
-    if (formId && String(formId).trim()) ctaLink.dataset.buttonFormId = String(formId).trim();
-    const buttonData = config.buttondata ?? rowVal(16);
-    if (buttonData && String(buttonData).trim()) ctaLink.dataset.buttonData = String(buttonData).trim();
   }
 
 }

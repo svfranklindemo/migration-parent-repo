@@ -107,16 +107,13 @@ export default function decorate(block) {
     const selectable = getCell(6);
     const alignment = (getCell(7) || 'left').toLowerCase();
     let buttonEventType = getCell(8);
-    const buttonWebhookUrl = getCell(9);
-    const buttonFormId = getCell(10);
-    const buttonData = getCell(11);
     // Read custom styles by data-aue-prop so it works regardless of column order (UE authoring)
-    let customStylesRaw = getConfigValue('customstyles', 12) || getCell(12) || '';
+    let customStylesRaw = getConfigValue('customstyles', 9) || getCell(9) || '';
     if (!customStylesRaw) {
       customStylesRaw = lastConfigIsBoolean ? prevConfigValue : lastConfigValue;
     }
 
-    const overlayBackgroundValue = getConfigValue('overlaybackground', 14)
+    const overlayBackgroundValue = getConfigValue('overlaybackground', 11)
       || (lastConfigIsBoolean ? lastConfigValue : '');
 
     if (customStylesRaw) {
@@ -197,9 +194,6 @@ export default function decorate(block) {
     if (ctaLink) {
       if (ctaLink.dataset.buttonEventType && isHexColor(ctaLink.dataset.buttonEventType)) delete ctaLink.dataset.buttonEventType;
       if (buttonEventType && !isHexColor(buttonEventType)) ctaLink.dataset.buttonEventType = buttonEventType;
-      if (buttonWebhookUrl) ctaLink.dataset.buttonWebhookUrl = buttonWebhookUrl;
-      if (buttonFormId) ctaLink.dataset.buttonFormId = buttonFormId;
-      if (buttonData) ctaLink.dataset.buttonData = buttonData;
     }
 
     // Final cleanup: ensure compact-style is ONLY on the image container

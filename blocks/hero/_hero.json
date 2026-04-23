@@ -202,28 +202,6 @@
         },
         {
           "component": "text",
-          "name": "buttonwebhookurl",
-          "label": "Button Webhook URL",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "buttonformid",
-          "label": "Button Form ID",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "buttondata",
-          "label": "Button Data",
-          "value": "",
-          "valueType": "string",
-          "description": "Comma-separated key,value pairs e.g. key1,value1,key2,value2"
-        },
-        {
-          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",
