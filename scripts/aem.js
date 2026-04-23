@@ -1014,13 +1014,6 @@ async function fetchPlaceholders(prefix = 'default') {
 }
 */
 
-function applyFormCustomStyles(form, config) {
-  if (!form || !config) return;
-  const styles = (config.customstyles ?? config['custom-styles'])?.toString().trim();
-  if (!styles) return;
-  form.classList.add(...styles.split(/\s+/));
-}
-
 /**
  * Builds a block DOM Element from a two dimensional array, string, or object
  * @param {string} blockName name of the block
@@ -1265,7 +1258,6 @@ export {
   loadSections,
   updateSectionsStatus,
   readBlockConfig,
-  applyFormCustomStyles,
   sampleRUM,
   setup,
   toCamelCase,

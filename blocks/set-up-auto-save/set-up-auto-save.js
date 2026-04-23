@@ -1,4 +1,4 @@
-import { readBlockConfig, applyFormCustomStyles } from '../../scripts/aem.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 
 const REDIRECT_PATH_AFTER_AUTO_SAVE = '/en/dashboard/submitted-successfully';
@@ -119,7 +119,6 @@ export default async function decorate(block) {
   await formModule.default(formContainer);
 
   const form = formContainer.querySelector("form");
-  if (form) applyFormCustomStyles(form, config);
   function redirectAfterTransferSubmit() {
     setTimeout(() => {
       window.location.href = REDIRECT_PATH_AFTER_AUTO_SAVE;
