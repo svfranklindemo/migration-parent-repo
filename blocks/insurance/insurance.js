@@ -5,7 +5,7 @@
  * Uses same adaptive form runtime as application-form.
  */
 
-import { readBlockConfig, loadCSS, toClassName } from '../../scripts/aem.js';
+import { readBlockConfig, toClassName } from '../../scripts/aem.js';
 
 /** Read config: UE structure (data-aue-prop) or table (readBlockConfig). */
 function readConfigFromBlock(blockOrContainer) {
@@ -68,9 +68,6 @@ function collectInsuranceFormData(form) {
 }
 
 export default async function decorate(block) {
-  const codeBasePath = window.hlx?.codeBasePath || '';
-  await loadCSS(`${codeBasePath}/blocks/form/form.css`);
-
   block.classList.add('insurance-block');
 
   const hasUEStructure = block.querySelector('[data-aue-prop="title"]');

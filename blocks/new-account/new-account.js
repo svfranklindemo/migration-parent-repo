@@ -6,7 +6,7 @@
  * Back visible on all steps (including step 1); dots + "n/3 step"; Submit only on last step.
  */
 
-import { readBlockConfig, loadCSS, applyFormCustomStyles } from '../../scripts/aem.js';
+import { readBlockConfig, applyFormCustomStyles } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
 
@@ -343,9 +343,6 @@ export default async function decorate(block) {
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
   block.classList.add('new-account-block');
-
-  const codeBasePath = window.hlx?.codeBasePath || '';
-  await loadCSS(`${codeBasePath}/blocks/form/form.css`);
 
   const formDef = buildNewAccountFormDef();
   const formContainer = document.createElement('div');
