@@ -1063,28 +1063,6 @@
       },
       {
         "component": "text",
-        "name": "buttonwebhookurl",
-        "label": "Button Webhook URL",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonformid",
-        "label": "Button Form ID",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
-        "valueType": "string",
-        "description": "Comma-separated key,value pairs"
-      },
-      {
-        "component": "text",
         "name": "custom-class",
         "label": "Custom class",
         "value": "",
@@ -1384,13 +1362,6 @@
         "name": "buttoneventtype",
         "label": "Button Event Type",
         "value": "calculation-finish",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonwebhookurl",
-        "label": "Button Webhook URL",
-        "value": "",
         "valueType": "string"
       },
       {
@@ -8522,28 +8493,6 @@
       },
       {
         "component": "text",
-        "name": "buttonwebhookurl",
-        "label": "Button Webhook URL",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonformid",
-        "label": "Button Form ID",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
-        "valueType": "string",
-        "description": "Comma-separated key,value pairs"
-      },
-      {
-        "component": "text",
         "name": "custom-class",
         "label": "Custom class",
         "value": "",
@@ -8581,28 +8530,6 @@
         "label": "Button Event Type",
         "value": "",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonwebhookurl",
-        "label": "Button Webhook URL",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonformid",
-        "label": "Button Form ID",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
-        "valueType": "string",
-        "description": "Comma-separated key,value pairs"
       },
       {
         "component": "text",
@@ -8654,9 +8581,18 @@
         "value": "5",
         "description": "Number of cards to display per row on desktop",
         "options": [
-          { "name": "3", "value": "3" },
-          { "name": "4", "value": "4" },
-          { "name": "5", "value": "5" }
+          {
+            "name": "3",
+            "value": "3"
+          },
+          {
+            "name": "4",
+            "value": "4"
+          },
+          {
+            "name": "5",
+            "value": "5"
+          }
         ]
       },
       {

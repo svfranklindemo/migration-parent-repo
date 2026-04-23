@@ -286,9 +286,6 @@ function createButtonFromConfig(config) {
   anchor.textContent = config.text || 'Learn more';
   if (config.link) anchor.href = config.link;
   if (config.eventType) anchor.dataset.buttonEventType = config.eventType;
-  if (config.webhook) anchor.dataset.buttonWebhookUrl = config.webhook;
-  if (config.formId) anchor.dataset.buttonFormId = config.formId;
-  if (config.buttonData) anchor.dataset.buttonData = config.buttonData;
   if (config.openInNewTab) anchor.rel = 'noreferrer noopener';
   if (config.customAttributes) {
     Object.entries(config.customAttributes).forEach(([key, value]) => {
@@ -319,9 +316,6 @@ export default async function decorate(block) {
       text: config.buttontext,
       link: config.link,
       eventType: config.buttoneventtype,
-      webhook: config.buttonwebhookurl,
-      formId: config.buttonformid,
-      buttonData: config.buttondata,
       style: config.ctastyle ?? 'default',
     });
     [...block.children].forEach((row) => row.remove());

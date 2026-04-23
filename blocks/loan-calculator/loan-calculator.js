@@ -71,8 +71,6 @@ function normalizeConfig(cfg) {
   const applyNowTextRaw = cfg['apply-now-text'];
   const descriptionRaw = cfg.description;
   const buttonEventTypeRaw = cfg.buttoneventtype;
-  const buttonWebhookUrlRaw = cfg.buttonwebhookurl;
-
   const minPriceValue = parseNumber(minPriceRaw, MIN_PRICE);
   const maxPriceValue = parseNumber(maxPriceRaw, MAX_PRICE);
   const minTermValue = parseNumber(minTermRaw, MIN_TERM);
@@ -92,7 +90,6 @@ function normalizeConfig(cfg) {
     minDownPayment: Math.min(minDownValue, maxDownValue),
     maxDownPayment: Math.max(minDownValue, maxDownValue),
     buttonEventType: (buttonEventTypeRaw ?? '').toString().trim(),
-    buttonWebhookUrl: (buttonWebhookUrlRaw ?? '').toString().trim(),
   };
 }
 
@@ -196,12 +193,6 @@ export default async function decorate(block) {
     cta.className = 'loan-calculator-apply-button';
     cta.href = config.applyNowLink || '#';
     cta.textContent = config.applyNowText;
-    if (config.buttonWebhookUrl) {
-      cta.dataset.buttonWebhookUrl = config.buttonWebhookUrl;
-    } else {
-      delete cta.dataset.buttonWebhookUrl;
-    }
-
     function pushCalculationFinishEvent() {
       const monthlyPaymentFromDisplay = Math.round(parseNumber(amountEl.textContent, 0));
       const payload = {

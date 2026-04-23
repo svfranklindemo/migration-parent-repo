@@ -108,13 +108,6 @@
         },
         {
           "component": "text",
-          "name": "buttonwebhookurl",
-          "label": "Button Webhook URL",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",

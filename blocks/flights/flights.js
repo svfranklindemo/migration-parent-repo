@@ -667,12 +667,6 @@ export default async function decorate(block) {
   // Apply button config as data attributes for analytics/webhooks
   if (config.buttoneventtype && String(config.buttoneventtype).trim()) 
     selectButtonDataAttributes.buttonEventType = String(config.buttoneventtype).trim();
-  if (config.buttonwebhookurl && String(config.buttonwebhookurl).trim()) 
-    selectButtonDataAttributes.buttonWebhookUrl = String(config.buttonwebhookurl).trim();
-  if (config.buttonformid && String(config.buttonformid).trim()) 
-    selectButtonDataAttributes.buttonFormId = String(config.buttonformid).trim();
-  if (config.buttondata && String(config.buttondata).trim()) 
-    selectButtonDataAttributes.buttonData = String(config.buttondata).trim();
 
   const urlParams = new URLSearchParams(window.location.search);
   const urlDate = urlParams.get('date');

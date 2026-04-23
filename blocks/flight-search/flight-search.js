@@ -514,12 +514,6 @@ export default async function decorate(block) {
   if (searchButton) {
     const eventType = config.buttoneventtype ?? config['button-event-type'];
     if (eventType && String(eventType).trim()) searchButton.dataset.buttonEventType = String(eventType).trim();
-    const webhookUrl = config.buttonwebhookurl ?? config['button-webhook-url'];
-    if (webhookUrl && String(webhookUrl).trim()) searchButton.dataset.buttonWebhookUrl = String(webhookUrl).trim();
-    const formId = config.buttonformid ?? config['button-form-id'];
-    if (formId && String(formId).trim()) searchButton.dataset.buttonFormId = String(formId).trim();
-    const buttonData = config.buttondata ?? config['button-data'];
-    if (buttonData && String(buttonData).trim()) searchButton.dataset.buttonData = String(buttonData).trim();
   }
 
   // Setup click outside handler
