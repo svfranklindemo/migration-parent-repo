@@ -2222,27 +2222,6 @@
     ]
   },
   {
-    "id": "membership",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "title",
-        "label": "Title",
-        "value": "BECOME A MEMBER",
-        "description": "Main heading for the membership form"
-      },
-      {
-        "component": "text",
-        "name": "custom-class",
-        "label": "Custom class",
-        "value": "",
-        "valueType": "string",
-        "description": "Space-separated class names to add to the block"
-      }
-    ]
-  },
-  {
     "id": "dynamic-media-image",
     "fields": [
       {
