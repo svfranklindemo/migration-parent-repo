@@ -4,11 +4,11 @@ import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from ".
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
 import { getPathDetails } from "../../scripts/utils.js";
 
-function applyButtonConfigToSubmitButton(block, config, defaultEventType = "form.childAccountUpgrade.submitted") {
+function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
   if (!submitButton) return;
   const eventType = config.buttoneventtype ?? config["button-event-type"];
-  const normalizedEvent = (eventType && String(eventType).trim()) || defaultEventType;
+  const normalizedEvent = eventType && String(eventType).trim();
   if (normalizedEvent) submitButton.dataset.buttonEventType = normalizedEvent;
   const webhookUrl = config.buttonwebhookurl ?? config["button-webhook-url"];
   if (webhookUrl && String(webhookUrl).trim()) submitButton.dataset.buttonWebhookUrl = String(webhookUrl).trim();

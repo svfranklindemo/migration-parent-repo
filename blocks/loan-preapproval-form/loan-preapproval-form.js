@@ -104,11 +104,11 @@ function updateLoanPreapprovalWizardDataLayer(wizard, stepIndex) {
   });
 }
 
-function applyButtonConfigToSubmitButton(block, config, defaultEventType = 'home-loan-application-submit') {
+function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
   if (!submitButton) return;
   const eventType = config.buttoneventtype;
-  const normalizedEvent = (eventType && String(eventType).trim()) || defaultEventType;
+  const normalizedEvent = eventType && String(eventType).trim();
   if (normalizedEvent) submitButton.dataset.buttonEventType = normalizedEvent;
   const webhookUrl = config.buttonwebhookurl;
   if (webhookUrl && String(webhookUrl).trim()) submitButton.dataset.buttonWebhookUrl = String(webhookUrl).trim();
