@@ -24,8 +24,8 @@ async function getCategoryProductsPublishEnvironment() {
   return categoryProductsPublishEnvironmentPromise;
 }
 
-function buildCard(item, isAuthor) {
-  const { id, sku, name, damImageURL = {}, category = [] } = item || {};
+function buildCard(item, isAuthor, enableAddToCart = false) {
+  const { id, sku, name, damImageURL = {}, category = [], price, description = {} } = item || {};
   const productId = sku || id || "";
 
   const card = document.createElement("article");
@@ -34,17 +34,14 @@ function buildCard(item, isAuthor) {
   // Make card clickable and redirect to product page
   if (productId) {
     card.style.cursor = "pointer";
-    card.addEventListener("click", () => {
+    card.addEventListener("click", (e) => {
+      if (e.target.closest(".cpl-card-add-to-cart")) return;
       const currentPath = window.location.pathname;
-      // Replace the last segment (e.g., 'men-products') with 'product'
       const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-      // On author add .html extension, on publish don't
       const productPath = isAuthor
         ? `${basePath}/product.html`
         : `${basePath}/product`;
-      window.location.href = `${productPath}?productId=${encodeURIComponent(
-        productId
-      )}`;
+      window.location.href = `${productPath}?productId=${encodeURIComponent(productId)}`;
     });
   }
 
@@ -72,6 +69,38 @@ function buildCard(item, isAuthor) {
   title.className = "cpl-card-title";
   title.textContent = name || "";
   meta.append(cat, title);
+
+  if (enableAddToCart && productId) {
+    const formattedCategory = category
+      .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+      .join(", ");
+    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "cpl-card-add-to-cart";
+    addToCartBtn.textContent = "Add to Cart";
+    addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
+    addToCartBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.addToCart({
+        id: id || sku || "",
+        name: name || "",
+        image: cartImageUrl || "",
+        thumbnail: cartImageUrl || "",
+        category: formattedCategory,
+        description: description?.html || description?.markdown || "",
+        price: price || 0,
+        quantity: 1,
+      });
+      addToCartBtn.textContent = "Added to Cart ✓";
+      addToCartBtn.classList.add("cpl-card-add-to-cart--added");
+      setTimeout(() => {
+        addToCartBtn.textContent = "Add to Cart";
+        addToCartBtn.classList.remove("cpl-card-add-to-cart--added");
+      }, 2000);
+    });
+    meta.append(addToCartBtn);
+  }
 
   card.append(imgWrap, meta);
   return card;
@@ -189,6 +218,13 @@ export default async function decorate(block) {
 
   const cardsPerRow = readCardsPerRow(cfg, block);
 
+  const enableAddToCart = (() => {
+    const raw = coerceConfigScalar(
+      cfg?.["enableAddToCartAtTileView"]
+    );
+    return raw.toLowerCase() === "true";
+  })();
+
   // Clear author table
   block.innerHTML = "";
 
@@ -209,6 +245,6 @@ export default async function decorate(block) {
     return;
   }
 
-  const cards = items.map((item) => buildCard(item, isAuthor));
+  const cards = items.map((item) => buildCard(item, isAuthor, enableAddToCart));
   grid.append(...cards);
 }

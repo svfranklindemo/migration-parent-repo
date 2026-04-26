@@ -1,6 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
-import { getCartSnapshot } from '../../scripts/cart-store.js';
 import { buildFormDataLayerUpdates, DEFAULT_FORM_FIELD_MAP } from '../../scripts/form-data-layer.js';
 
 function isTruthy(value) {
@@ -87,7 +86,7 @@ function mountSummaryBox(block) {
 function refreshSummary(block) {
   const box = mountSummaryBox(block);
   if (!box) return;
-  const cart = getCartSnapshot();
+  const cart = (typeof window.getDataLayerProperty === 'function' && window.getDataLayerProperty('cart')) || { productCount: 0, products: {}, subTotal: 0, total: 0 };
   const subtotal = cart.subTotal ?? cart.total ?? 0;
   box.innerHTML = `
     <div class="checkout-shipping-summary-row"><span>Subtotal</span><span>${formatMoney(subtotal)}</span></div>

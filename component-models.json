@@ -8356,6 +8356,14 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "enableAddToCartAtTileView",
+        "label": "Enable Add to Cart at Tile View",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, each product card shows an Add to Cart button directly in the listing view."
+      },
+      {
         "component": "text",
         "name": "custom-class",
         "label": "Custom class",

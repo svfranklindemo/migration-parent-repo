@@ -1,7 +1,6 @@
 import { createLumaProductImagePicture, readBlockConfig } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
-import { addProductToCart } from "../../scripts/cart-store.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
 const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productDescriptionByPathAndSKU;";
@@ -318,7 +317,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
             .join(", ")
         : "";
 
-    addProductToCart({
+    window.addToCart({
       id: id || sku || "",
       name: name || "",
       image: cartImageUrl || "",

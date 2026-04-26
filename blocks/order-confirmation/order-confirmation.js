@@ -1,6 +1,5 @@
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { readBlockConfig } from "../../scripts/aem.js";
-import { syncFallbackCart, getEmptyCart } from "../../scripts/cart-store.js";
 
 /**
  * Get purchase order number from URL query param.
@@ -32,9 +31,6 @@ function resetCart() {
     subTotal: 0,
     total: 0,
   };
-
-  syncFallbackCart(getEmptyCart());
-
 
   if (window.updateDataLayer) {
     // Clear both cart and commerce objects

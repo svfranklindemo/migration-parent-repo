@@ -104,3 +104,29 @@ main .category-products-lister .cpl-empty {
   grid-column: 1 / -1;
   color: #666;
 }
+
+main .category-products-lister .cpl-card-add-to-cart {
+  margin-top: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  background: #1473e6;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+main .category-products-lister .cpl-card-add-to-cart:hover {
+  background: #0d66d0;
+}
+
+main .category-products-lister .cpl-card-add-to-cart--added {
+  background: #2d9d78;
+}
+
+main .category-products-lister .cpl-card-add-to-cart--added:hover {
+  background: #268e6c;
+}

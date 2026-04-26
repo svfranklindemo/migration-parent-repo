@@ -1,14 +1,52 @@
 import { createLumaProductImagePicture, createOptimizedPicture, readBlockConfig } from "../../scripts/aem.js";
 import { isAuthorEnvironment } from "../../scripts/scripts.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
-import {
-  getCartSnapshot,
-  getEmptyCart,
-  saveCartSnapshot,
-  removeProductFromCart,
-  setCartItemQuantity,
-  syncFallbackCart,
-} from "../../scripts/cart-store.js";
+
+function getEmptyCart() {
+  return { productCount: 0, products: {}, subTotal: 0, total: 0 };
+}
+
+function getCartSnapshot() {
+  const cart = typeof window.getDataLayerProperty === 'function'
+    ? window.getDataLayerProperty('cart')
+    : null;
+  return (cart && typeof cart === 'object' && cart.products) ? cart : getEmptyCart();
+}
+
+function saveCartSnapshot(cart) {
+  if (typeof window.updateDataLayer === 'function') {
+    window.updateDataLayer({ cart }, false);
+  }
+}
+
+function removeProductFromCart(cart, productId) {
+  const products = { ...(cart.products || {}) };
+  delete products[productId];
+  const vals = Object.values(products);
+  return {
+    ...cart,
+    products,
+    productCount: vals.reduce((s, p) => s + (p.quantity || 0), 0),
+    subTotal: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
+    total: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
+  };
+}
+
+function setCartItemQuantity(cart, productId, quantity) {
+  const products = { ...(cart.products || {}) };
+  if (!products[productId]) return { ...cart, products };
+  const safeQty = Math.max(1, parseInt(quantity, 10) || 1);
+  const price = products[productId].price || 0;
+  products[productId] = { ...products[productId], quantity: safeQty, subTotal: safeQty * price, total: safeQty * price };
+  const vals = Object.values(products);
+  return {
+    ...cart,
+    products,
+    productCount: vals.reduce((s, p) => s + (p.quantity || 0), 0),
+    subTotal: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
+    total: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
+  };
+}
 
 const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
@@ -630,7 +668,6 @@ function setupDataLayerListener(
   document.addEventListener("dataLayerUpdated", async (event) => {
     const { dataLayer } = event.detail;
     if (dataLayer && dataLayer.cart) {
-      syncFallbackCart(dataLayer.cart);
       renderCartItems(block, dataLayer.cart);
       updateCartTotals(block, dataLayer.cart);
 
