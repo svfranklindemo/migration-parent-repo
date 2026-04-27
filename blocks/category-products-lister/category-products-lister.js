@@ -28,8 +28,23 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
   const { id, sku, name, damImageURL = {}, category = [], price, description = {} } = item || {};
   const productId = sku || id || "";
 
+  const wrapper = document.createElement("div");
+  wrapper.className = "cpl-card-wrapper";
+
   const card = document.createElement("article");
   card.className = "cpl-card";
+
+  if (productId) {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => {
+      const currentPath = window.location.pathname;
+      const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
+      const productPath = isAuthor
+        ? `${basePath}/product.html`
+        : `${basePath}/product`;
+      window.location.href = `${productPath}?productId=${encodeURIComponent(productId)}`;
+    });
+  }
 
   let picture = null;
   if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
@@ -56,18 +71,8 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
   title.textContent = name || "";
   meta.append(cat, title);
 
-  if (productId) {
-    const currentPath = window.location.pathname;
-    const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-    const productPath = isAuthor ? `${basePath}/product.html` : `${basePath}/product`;
-    const link = document.createElement("a");
-    link.className = "cpl-card-link";
-    link.href = `${productPath}?productId=${encodeURIComponent(productId)}`;
-    link.append(imgWrap, meta);
-    card.append(link);
-  } else {
-    card.append(imgWrap, meta);
-  }
+  card.append(imgWrap, meta);
+  wrapper.append(card);
 
   if (enableAddToCart && productId) {
     const formattedCategory = category
@@ -97,10 +102,10 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
         addToCartBtn.classList.remove("cpl-card-add-to-cart--added");
       }, 2000);
     });
-    card.append(addToCartBtn);
+    wrapper.append(addToCartBtn);
   }
 
-  return card;
+  return wrapper;
 }
 
 async function fetchProducts(path) {
