@@ -1,0 +1,300 @@
+body.frescopa-theme {
+  --main-accent-color: #27647d;
+  --main-accent-hover: #1f5368;
+  --link-hover-color: #27647d;
+  --nav-text-color: #58181d;
+  --footer-text-color: #58181d;
+  --light-color: #f0e0d2;
+  --background-color: #ffffff;
+  --text-color: #58181d;
+  --body-font-family: roboto, roboto-fallback, sans-serif;
+  --heading-font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif;
+  --heading-font-size-xxl: 3.5rem;
+  --heading-font-size-xl: 3rem;
+  --heading-font-size-l: 2.35rem;
+  --heading-font-size-m: 1.9rem;
+  --heading-font-size-s: 1.5rem;
+  --nav-height: 72px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.frescopa-theme main {
+  flex: 1;
+}
+
+body.frescopa-theme main > .section:not([data-sec-full-width="true"]) {
+  max-width: 1280px;
+  width: 90%;
+}
+
+body.frescopa-theme main > .section > div {
+  max-width: 100%;
+  padding: 0;
+}
+
+body.frescopa-theme h1,
+body.frescopa-theme h2,
+body.frescopa-theme h3,
+body.frescopa-theme h4,
+body.frescopa-theme h5,
+body.frescopa-theme h6 {
+  color: #58181d;
+  font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif !important;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+body.frescopa-theme h1 {
+  font-size: 3.35rem !important;
+}
+
+body.frescopa-theme h2 {
+  font-size: 2.55rem !important;
+}
+
+body.frescopa-theme h3 {
+  font-size: 1.75rem !important;
+}
+
+body.frescopa-theme p,
+body.frescopa-theme li {
+  color: #58181d;
+  font-family: roboto, roboto-fallback, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+body.frescopa-theme a.button,
+body.frescopa-theme button {
+  border-radius: 999px !important;
+  font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif;
+  font-size: 1rem !important;
+  padding: 0.9rem 2rem;
+}
+
+body.frescopa-theme a.button::after,
+body.frescopa-theme button::after {
+  content: none !important;
+  display: none !important;
+}
+
+body.frescopa-theme .button-container.cta-button a.button,
+body.frescopa-theme .cta-button a.button,
+body.frescopa-theme .cta-button-dark a.button {
+  background: #27647d;
+  border-color: #27647d;
+  color: #ffffff !important;
+}
+
+body.frescopa-theme .button-container.cta-button a.button:hover,
+body.frescopa-theme .cta-button a.button:hover,
+body.frescopa-theme .cta-button-dark a.button:hover {
+  background: #1f5368;
+  border-color: #1f5368;
+}
+
+body.frescopa-theme .cta-button-secondary a.button,
+body.frescopa-theme a.button.secondary,
+body.frescopa-theme button.secondary {
+  background: #ffffff;
+  border: 2px solid #58181d;
+  color: #58181d !important;
+}
+
+body.frescopa-theme header .nav-wrapper {
+  background-color: #ffffff;
+  color: #58181d;
+  box-shadow: 0 1px 8px rgb(88 24 29 / 8%);
+}
+
+body.frescopa-theme header nav {
+  max-width: 1280px !important;
+  width: 90%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.frescopa-theme header .nav-brand,
+body.frescopa-theme header nav .nav-brand a,
+body.frescopa-theme header nav .nav-brand picture {
+  display: flex;
+  align-items: center;
+}
+
+body.frescopa-theme header .nav-brand {
+  flex-basis: unset;
+}
+
+body.frescopa-theme header nav .nav-brand picture {
+  width: 150px;
+}
+
+body.frescopa-theme header nav .nav-brand img {
+  width: 150px;
+  height: auto;
+}
+
+body.frescopa-theme .TopRibbon {
+  background: #000000;
+  color: #ffffff;
+}
+
+body.frescopa-theme .TopRibbon__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 42px;
+  font-family: roboto, roboto-fallback, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+body.frescopa-theme .TopRibbon__image {
+  width: 40px;
+  height: 24px;
+  object-fit: cover;
+}
+
+body.frescopa-theme header nav .nav-sections ul > li > a,
+body.frescopa-theme footer .footer,
+body.frescopa-theme footer .footer p,
+body.frescopa-theme footer .footer a {
+  color: #58181d;
+}
+
+body.frescopa-theme header nav .nav-sections ul > li > a {
+  font-family: roboto, roboto-fallback, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+body.frescopa-theme header nav .nav-sections ul > li > a::before {
+  background: #d9aa59;
+}
+
+body.frescopa-theme header nav .nav-sections ul > li > a:hover,
+body.frescopa-theme footer .footer a:hover {
+  color: #27647d;
+}
+
+body.frescopa-theme .lang-switcher .lang-button,
+body.frescopa-theme a.sign-in-btn,
+body.frescopa-theme header nav .nav-tools a[href*="sign"] {
+  color: #58181d;
+  border: 2px solid #4f4b47;
+  background: #ffffff;
+  border-radius: 999px !important;
+}
+
+body.frescopa-theme a.sign-in-btn,
+body.frescopa-theme header nav .nav-tools a[href*="sign"] {
+  text-align: center;
+  align-items: center;
+  min-width: 108px;
+  padding: 0.75rem 1.6rem;
+  font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif;
+}
+
+body.frescopa-theme header nav .nav-tools {
+  gap: 18px;
+}
+
+body.frescopa-theme header nav .nav-tools .cart-icon,
+body.frescopa-theme header nav .nav-tools a[href*="cart"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%2358181d"><ellipse fill-rule="evenodd" cx="10.445" cy="31.143" rx="2.667" ry="2.917"/><ellipse fill-rule="evenodd" cx="25.778" cy="31.143" rx="2.667" ry="2.917"/><path fill-rule="evenodd" d="M29.326,24H10.469l.762-2.6H28a1.331,1.331,0,0,0,1.307-1.071L33.974,7.66a1.334,1.334,0,0,0-1.308-1.595H32.54v-.03H6.5l-1.289-3.5A1.335,1.335,0,0,0,3.889,1.4H1.333a1.334,1.334,0,0,0,0,2.667H2.739L8.667,20,7.373,25.075A1.569,1.569,0,0,0,8.667,27H29.333a1.589,1.589,0,0,0,1.334-1.6A1.4,1.4,0,0,0,29.326,24ZM7.529,8.835H30.6l-3.693,9.9H11.174Z" transform="translate(0)"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
+  background-color: transparent;
+  overflow: visible;
+}
+
+body.frescopa-theme header nav .nav-tools .cart-icon::after,
+body.frescopa-theme header nav .nav-tools a[href*="cart"]::after,
+body.frescopa-theme footer .footer a::after {
+  content: none !important;
+}
+
+body.frescopa-theme header nav .nav-tools .cart-icon .cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 16px;
+  height: 16px;
+  background-color: #58181d;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+body.frescopa-theme footer {
+  background-color: #f0e0d2;
+  color: #58181d;
+}
+
+body.frescopa-theme footer .footer > div {
+  max-width: 1280px;
+  width: 90%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.frescopa-theme footer .footer p:has(> a) {
+  font-size: 0.9rem;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+body.frescopa-theme .search.search-icon .search-box .icon img,
+body.frescopa-theme .search.search-icon .search-trigger .icon img {
+  filter: invert(16%) sepia(37%) saturate(1886%) hue-rotate(329deg) brightness(92%) contrast(96%);
+}
+
+@media (width < 900px) {
+  body.frescopa-theme header nav .nav-sections ul > li > a {
+    color: #58181d;
+  }
+}
+
+@media (width <= 768px) {
+  body.frescopa-theme h1 {
+    font-size: 2.6rem !important;
+  }
+
+  body.frescopa-theme h2 {
+    font-size: 2.05rem !important;
+  }
+
+  body.frescopa-theme header nav .nav-brand picture,
+  body.frescopa-theme header nav .nav-brand img {
+    width: 132px;
+  }
+
+  body.frescopa-theme .TopRibbon__content {
+    padding: 0 12px;
+    text-align: center;
+  }
+}

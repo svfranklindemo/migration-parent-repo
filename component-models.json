@@ -74,6 +74,10 @@
           {
             "name": "Citi Signal",
             "value": "citi-signal-theme"
+          },
+        {
+            "name": "Frescopa Theme",
+            "value": "frescopa-theme"
           }
         ]
       },

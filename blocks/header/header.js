@@ -572,7 +572,8 @@ function handleSignOut(langCode) {
 
 function usesLumaStyleHeader() {
   return document.body.classList.contains('luma-theme')
-    || document.body.classList.contains('citi-signal-theme');
+    || document.body.classList.contains('citi-signal-theme')
+    || document.body.classList.contains('frescopa-theme');
 }
 
 function addLumaCartIcon(container, langCode) {
