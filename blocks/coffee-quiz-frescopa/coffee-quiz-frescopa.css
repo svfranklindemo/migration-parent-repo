@@ -1,0 +1,225 @@
+/* Coffee Quiz Frescopa Block */
+/* Mirrors the Oxygen2 Wizard + Progress + CardSelection component layout */
+
+.coffee-quiz-frescopa-wrapper .coffee-quiz-frescopa {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+/* Step content */
+.coffee-quiz-frescopa__step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.coffee-quiz-frescopa__question {
+  text-align: center;
+}
+
+.coffee-quiz-frescopa__question h2 {
+  font-size: var(--heading-font-size-m, 1.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-color, #58181d);
+  margin: 0 0 0.25rem;
+}
+
+/* Card grid — 2 or 3 columns */
+.coffee-quiz-frescopa__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.coffee-quiz-frescopa__cards--cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Individual selectable card */
+.coffee-quiz-frescopa__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ffffff;
+  padding: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  position: relative;
+  text-align: center;
+  /* override global frescopa button pill shape for cards */
+  border-radius: 8px !important;
+}
+
+.coffee-quiz-frescopa__card:hover {
+  border-color: var(--main-accent-color, #27647d);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
+}
+
+.coffee-quiz-frescopa__card.is-selected {
+  border-color: var(--main-accent-color, #27647d);
+  box-shadow: 0 0 0 2px var(--main-accent-color, #27647d);
+}
+
+.coffee-quiz-frescopa__card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="bold"]),
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="mild"]),
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="sweet"]),
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="fruity"]) {
+  display: flex;
+  flex-direction: column;
+}
+
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="bold"]) .coffee-quiz-frescopa__card img,
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="mild"]) .coffee-quiz-frescopa__card img,
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="sweet"]) .coffee-quiz-frescopa__card img,
+.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="fruity"]) .coffee-quiz-frescopa__card img {
+  aspect-ratio: auto;
+}
+
+.coffee-quiz-frescopa__card-label {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--body-font-family, roboto, sans-serif);
+  font-size: 0.9rem;
+  color: var(--text-color, #58181d);
+  pointer-events: none;
+}
+
+/* Navigation buttons row — Next/Submit on left (via row-reverse), Back on right */
+.coffee-quiz-frescopa__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  margin-top: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.coffee-quiz-frescopa__btn {
+  padding: 0.85rem 2.25rem;
+  border-radius: 999px !important;
+  font-family: var(--heading-font-family, baskerville-display-pt, Baskerville, serif);
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+  /* undo any global button::after decoration */
+}
+
+.coffee-quiz-frescopa__btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+.coffee-quiz-frescopa__btn--primary {
+  background-color: var(--main-accent-color, #27647d);
+  border: 2px solid var(--main-accent-color, #27647d);
+  color: #ffffff;
+}
+
+.coffee-quiz-frescopa__btn--primary:hover:not(:disabled) {
+  background-color: var(--main-accent-hover, #1f5368);
+  border-color: var(--main-accent-hover, #1f5368);
+}
+
+.coffee-quiz-frescopa__btn--secondary {
+  background-color: transparent;
+  border: 2px solid var(--text-color, #58181d);
+  color: var(--text-color, #58181d);
+}
+
+.coffee-quiz-frescopa__btn--secondary:hover:not(:disabled) {
+  background-color: var(--light-color, #f0e0d2);
+}
+
+.coffee-quiz-frescopa__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Progress dots — centered between the nav buttons */
+.coffee-quiz-frescopa__progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.coffee-quiz-frescopa__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.coffee-quiz-frescopa__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #acacac;
+  opacity: 0.35;
+  transition: background-color 0.25s ease, opacity 0.25s ease;
+  display: inline-block;
+}
+
+.coffee-quiz-frescopa__dot.is-active {
+  background-color: var(--main-accent-color, #27647d);
+  opacity: 1;
+}
+
+.coffee-quiz-frescopa__progress-label {
+  font-family: var(--body-font-family, roboto, sans-serif);
+  font-size: 0.8rem;
+  color: var(--text-color, #58181d);
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (width <= 768px) {
+  .coffee-quiz-frescopa__cards--cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coffee-quiz-frescopa__question h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (width <= 480px) {
+  .coffee-quiz-frescopa__cards,
+  .coffee-quiz-frescopa__cards--cols-3 {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .coffee-quiz-frescopa__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .coffee-quiz-frescopa__btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .coffee-quiz-frescopa__progress {
+    order: -1;
+    flex: unset;
+  }
+}

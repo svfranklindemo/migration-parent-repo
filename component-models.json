@@ -8591,5 +8591,73 @@
         "description": "Space-separated class names to add to the block"
       }
     ]
+  },
+  {
+    "id": "coffee-quiz-frescopa",
+    "fields": [
+      {
+        "component": "text",
+        "name": "completion-url",
+        "label": "Completion URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to navigate to after quiz is submitted"
+      },
+      {
+        "component": "number",
+        "name": "completion-delay",
+        "label": "Completion Delay (ms)",
+        "value": 0,
+        "valueType": "number",
+        "description": "Milliseconds to wait before redirecting on submit"
+      },
+      {
+        "component": "boolean",
+        "name": "show-progress",
+        "label": "Show Progress Dots",
+        "value": true,
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "started-event-type",
+        "label": "Started Event Type",
+        "value": "quiz-started",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when quiz starts"
+      },
+      {
+        "component": "text",
+        "name": "step-event-type",
+        "label": "Step Event Type",
+        "value": "quiz-step",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired on each step advance"
+      },
+      {
+        "component": "text",
+        "name": "ended-event-type",
+        "label": "Ended Event Type",
+        "value": "quiz-ended",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when quiz is submitted"
+      },
+      {
+        "component": "text",
+        "name": "abandoned-event-type",
+        "label": "Abandoned Event Type",
+        "value": "quiz-abandoned",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when user leaves without completing"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
   }
 ]
