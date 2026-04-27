@@ -1,56 +1,75 @@
-// Default quiz steps matching the Frescopa MyBarista Coffee Quiz
-const IMAGE_BASE_PATH = '/content/dam/frescopa/en/images/coffee-quiz-frescopa';
+// AEM DAM base path for quiz images — relative path works on author, needs
+// imageBaseUrl prefix (e.g. AEM publish host) to work on live EDS delivery.
+const DAM_IMAGE_PATH = '/content/dam/frescopa/en/images/coffee-quiz-frescopa';
 
-const DEFAULT_STEPS = [
-  {
-    question: 'Where would you choose to enjoy your favorite coffee?',
-    columns: 2,
-    options: [
-      { image: `${IMAGE_BASE_PATH}/quiz-option-1-1.jpg`, label: '', value: 'home' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-1-2.jpg`, label: '', value: 'work' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-1-3.jpg`, label: '', value: 'on-the-go' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-1-4.jpg`, label: '', value: 'outdoors' },
-    ],
-  },
-  {
-    question: 'How many cups of coffee do you make a day?',
-    columns: 2,
-    options: [
-      { image: `${IMAGE_BASE_PATH}/quiz-option-2-1.jpg`, label: '', value: '1-cup' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-2-2.jpg`, label: '', value: '2-3-cups' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-2-3.jpg`, label: '', value: '4-5-cups' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-2-4.jpg`, label: '', value: '6-plus' },
-    ],
-  },
-  {
-    question: 'How do you like to make your coffee?',
-    columns: 3,
-    options: [
-      { image: `${IMAGE_BASE_PATH}/quiz-option-3-1.jpg`, label: '', value: 'espresso' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-3-2.jpg`, label: '', value: 'drip' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-3-3.jpg`, label: '', value: 'french-press' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-3-4.jpg`, label: '', value: 'pour-over' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-3-5.jpg`, label: '', value: 'capsule' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-3-6.jpg`, label: '', value: 'cold-brew' },
-    ],
-  },
-  {
-    question: 'What flavor profile describes your perfect cup?',
-    columns: 2,
-    options: [
-      { image: `${IMAGE_BASE_PATH}/quiz-option-4-1.jpg`, label: '', value: 'bold' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-4-2.jpg`, label: '', value: 'mild' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-4-3.jpg`, label: '', value: 'sweet' },
-      { image: `${IMAGE_BASE_PATH}/quiz-option-4-4.jpg`, label: '', value: 'fruity' },
-    ],
-  },
-];
+function buildDefaultSteps(base) {
+  const p = (name) => `${base}${DAM_IMAGE_PATH}/${name}`;
+  return [
+    {
+      question: 'Where would you choose to enjoy your favorite coffee?',
+      columns: 2,
+      options: [
+        { image: p('quiz-option-1-1.jpg'), label: '', value: 'home' },
+        { image: p('quiz-option-1-2.jpg'), label: '', value: 'work' },
+        { image: p('quiz-option-1-3.jpg'), label: '', value: 'on-the-go' },
+        { image: p('quiz-option-1-4.jpg'), label: '', value: 'outdoors' },
+      ],
+    },
+    {
+      question: 'How many cups of coffee do you make a day?',
+      columns: 2,
+      options: [
+        { image: p('quiz-option-2-1.jpg'), label: '', value: '1-cup' },
+        { image: p('quiz-option-2-2.jpg'), label: '', value: '2-3-cups' },
+        { image: p('quiz-option-2-3.jpg'), label: '', value: '4-5-cups' },
+        { image: p('quiz-option-2-4.jpg'), label: '', value: '6-plus' },
+      ],
+    },
+    {
+      question: 'How do you like to make your coffee?',
+      columns: 3,
+      options: [
+        { image: p('quiz-option-3-1.jpg'), label: '', value: 'espresso' },
+        { image: p('quiz-option-3-2.jpg'), label: '', value: 'drip' },
+        { image: p('quiz-option-3-3.jpg'), label: '', value: 'french-press' },
+        { image: p('quiz-option-3-4.jpg'), label: '', value: 'pour-over' },
+        { image: p('quiz-option-3-5.jpg'), label: '', value: 'capsule' },
+        { image: p('quiz-option-3-6.jpg'), label: '', value: 'cold-brew' },
+      ],
+    },
+    {
+      // Step 4: display-only horizontal row (Container in Oxygen2, not CardSelection)
+      // Image order matches reference: 1, 3, 2, 4
+      question: 'What flavor profile describes your perfect cup?',
+      columns: 4,
+      displayOnly: true,
+      options: [
+        { image: p('quiz-option-4-1.jpg'), label: '', value: 'bold' },
+        { image: p('quiz-option-4-3.jpg'), label: '', value: 'sweet' },
+        { image: p('quiz-option-4-2.jpg'), label: '', value: 'mild' },
+        { image: p('quiz-option-4-4.jpg'), label: '', value: 'fruity' },
+      ],
+    },
+  ];
+}
+
+// Prepend imageBaseUrl to any relative /content/dam/ path so the same
+// authored path works on both author (no prefix needed) and live EDS delivery.
+function resolveImageSrc(src, imageBaseUrl) {
+  if (!src) return src;
+  if (!imageBaseUrl) return src;
+  // Already absolute — leave as-is
+  if (/^https?:\/\//i.test(src)) return src;
+  // Relative DAM path — prepend the publish host
+  return `${imageBaseUrl.replace(/\/$/, '')}${src}`;
+}
 
 function parseConfig(block) {
   const config = {
     completionUrl: '',
     completionDelay: 0,
     showProgress: true,
+    imageBaseUrl: '',
     startedEvent: 'quiz-started',
     stepEvent: 'quiz-step',
     endedEvent: 'quiz-ended',
@@ -66,9 +85,11 @@ function parseConfig(block) {
     const key = cells[0].textContent.trim().toLowerCase();
 
     if (key === 'step') {
+      const typeRaw = cells[3]?.textContent?.trim().toLowerCase();
       currentStep = {
         question: cells[1]?.textContent?.trim() || '',
         columns: parseInt(cells[2]?.textContent?.trim(), 10) || 2,
+        displayOnly: typeRaw === 'display',
         options: [],
       };
       steps.push(currentStep);
@@ -76,11 +97,13 @@ function parseConfig(block) {
     }
 
     if (currentStep) {
+      // img element src is already browser-resolved; getAttribute gives the raw authored value
       const imgEl = cells[0].querySelector('img');
-      const src = imgEl?.src || cells[0].textContent.trim();
-      if (imgEl || src.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?|$)/i)) {
+      const rawSrc = imgEl?.getAttribute('src') || cells[0].textContent.trim();
+      if (imgEl || rawSrc.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?|$)/i)) {
         currentStep.options.push({
-          image: src,
+          // store raw src — resolveImageSrc() is applied at render time once imageBaseUrl is known
+          image: rawSrc,
           label: cells[1]?.textContent?.trim() || '',
           value:
             cells[2]?.textContent?.trim() ||
@@ -92,6 +115,9 @@ function parseConfig(block) {
     }
 
     switch (key) {
+      case 'image-base-url':
+        config.imageBaseUrl = cells[1]?.textContent?.trim() || '';
+        break;
       case 'completion-url':
         config.completionUrl = cells[1]?.textContent?.trim() || '';
         break;
@@ -118,7 +144,17 @@ function parseConfig(block) {
     }
   });
 
-  return { config, steps: steps.length ? steps : DEFAULT_STEPS };
+  const steps_ = steps.length ? steps : buildDefaultSteps(config.imageBaseUrl);
+  // For authored steps, apply imageBaseUrl to any relative DAM paths now
+  if (steps.length && config.imageBaseUrl) {
+    steps_.forEach((step) => {
+      step.options.forEach((opt) => {
+        opt.image = resolveImageSrc(opt.image, config.imageBaseUrl);
+      });
+    });
+  }
+
+  return { config, steps: steps_ };
 }
 
 function fireEvent(type) {
@@ -217,7 +253,8 @@ export default function decorate(block) {
 
     const cols = step.columns || (step.options.length > 4 ? 3 : 2);
     const grid = document.createElement('div');
-    grid.className = `coffee-quiz-frescopa__cards coffee-quiz-frescopa__cards--cols-${cols}`;
+    const isLastStep = index === steps.length - 1;
+    grid.className = `coffee-quiz-frescopa__cards coffee-quiz-frescopa__cards--cols-${cols}${isLastStep ? ' step-4' : ''}`;
 
     step.options.forEach((option, optIndex) => {
       const card = document.createElement('button');

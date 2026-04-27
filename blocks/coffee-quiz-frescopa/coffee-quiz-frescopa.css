@@ -1,5 +1,4 @@
 /* Coffee Quiz Frescopa Block */
-/* Mirrors the Oxygen2 Wizard + Progress + CardSelection component layout */
 
 .coffee-quiz-frescopa-wrapper .coffee-quiz-frescopa {
   max-width: 900px;
@@ -26,7 +25,7 @@
   margin: 0 0 0.25rem;
 }
 
-/* Card grid — 2 or 3 columns */
+/* ── Card grids ─────────────────────────────────────────────────────── */
 .coffee-quiz-frescopa__cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -37,22 +36,41 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* Individual selectable card */
+.coffee-quiz-frescopa__cards--cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ── Selectable card ────────────────────────────────────────────────── */
 .coffee-quiz-frescopa__card {
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 2px solid transparent;
-  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   background: #ffffff;
-  padding: 0;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
   position: relative;
   text-align: center;
-  /* override global frescopa button pill shape for cards */
+}
+
+/*
+  The Frescopa theme rule:
+    body.frescopa-theme button { border-radius: 999px !important; padding: 0.9rem 2rem; ... }
+  has specificity (0,1,2). Our single-class rule (0,1,0) loses even with !important.
+  Fix: prefix with body.frescopa-theme to reach (0,2,1) — beats (0,1,2) at equal !important weight.
+*/
+body.frescopa-theme .coffee-quiz-frescopa__card {
   border-radius: 8px !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
+
+/* Fallback for non-frescopa pages */
+.coffee-quiz-frescopa__card {
+  border-radius: 8px;
+  padding: 0;
 }
 
 .coffee-quiz-frescopa__card:hover {
@@ -74,21 +92,6 @@
   pointer-events: none;
 }
 
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="bold"]),
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="mild"]),
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="sweet"]),
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="fruity"]) {
-  display: flex;
-  flex-direction: column;
-}
-
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="bold"]) .coffee-quiz-frescopa__card img,
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="mild"]) .coffee-quiz-frescopa__card img,
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="sweet"]) .coffee-quiz-frescopa__card img,
-.coffee-quiz-frescopa__cards:has(.coffee-quiz-frescopa__card[data-value="fruity"]) .coffee-quiz-frescopa__card img {
-  aspect-ratio: auto;
-}
-
 .coffee-quiz-frescopa__card-label {
   display: block;
   padding: 0.5rem 0.75rem;
@@ -98,7 +101,28 @@
   pointer-events: none;
 }
 
-/* Navigation buttons row — Next/Submit on left (via row-reverse), Back on right */
+/* ── Step 4 cards ───────────────────────────────────────────────────── */
+.coffee-quiz-frescopa__cards.step-4 {
+  display: flex;
+  flex-direction: column;
+}
+
+.coffee-quiz-frescopa__cards.step-4 .coffee-quiz-frescopa__card img {
+  aspect-ratio: auto;
+}
+
+.coffee-quiz-frescopa__cards.step-4 .coffee-quiz-frescopa__card {
+  cursor: default;
+  pointer-events: none;
+}
+
+.coffee-quiz-frescopa__cards.step-4 .coffee-quiz-frescopa__card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* ── Buttons row ────────────────────────────────────────────────────── */
 .coffee-quiz-frescopa__buttons {
   display: flex;
   align-items: center;
@@ -109,16 +133,20 @@
   flex-wrap: wrap;
 }
 
+/*
+  Nav buttons (.coffee-quiz-frescopa__btn):
+  The Frescopa theme already supplies:
+    border-radius: 999px   (via !important)
+    font-family: baskerville-display-pt
+    font-size: 1rem        (via !important)
+    padding: 0.9rem 2rem
+  Block CSS only owns: colors, transition, cursor, disabled state.
+  No need to fight the theme here — let it apply naturally.
+*/
 .coffee-quiz-frescopa__btn {
-  padding: 0.85rem 2.25rem;
-  border-radius: 999px !important;
-  font-family: var(--heading-font-family, baskerville-display-pt, Baskerville, serif);
-  font-size: 1rem;
-  font-weight: 400;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
   white-space: nowrap;
-  /* undo any global button::after decoration */
 }
 
 .coffee-quiz-frescopa__btn::after {
@@ -126,23 +154,31 @@
   display: none !important;
 }
 
+/*
+  Color rules use body.frescopa-theme prefix (specificity 0,2,1) to safely
+  override any theme color rules for <button> (0,1,2) without needing !important.
+*/
+body.frescopa-theme .coffee-quiz-frescopa__btn--primary,
 .coffee-quiz-frescopa__btn--primary {
   background-color: var(--main-accent-color, #27647d);
   border: 2px solid var(--main-accent-color, #27647d);
   color: #ffffff;
 }
 
+body.frescopa-theme .coffee-quiz-frescopa__btn--primary:hover:not(:disabled),
 .coffee-quiz-frescopa__btn--primary:hover:not(:disabled) {
   background-color: var(--main-accent-hover, #1f5368);
   border-color: var(--main-accent-hover, #1f5368);
 }
 
+body.frescopa-theme .coffee-quiz-frescopa__btn--secondary,
 .coffee-quiz-frescopa__btn--secondary {
   background-color: transparent;
   border: 2px solid var(--text-color, #58181d);
   color: var(--text-color, #58181d);
 }
 
+body.frescopa-theme .coffee-quiz-frescopa__btn--secondary:hover:not(:disabled),
 .coffee-quiz-frescopa__btn--secondary:hover:not(:disabled) {
   background-color: var(--light-color, #f0e0d2);
 }
@@ -152,7 +188,7 @@
   cursor: not-allowed;
 }
 
-/* Progress dots — centered between the nav buttons */
+/* ── Progress dots ──────────────────────────────────────────────────── */
 .coffee-quiz-frescopa__progress {
   display: flex;
   flex-direction: column;
@@ -190,9 +226,10 @@
   opacity: 0.6;
 }
 
-/* Responsive */
+/* ── Responsive ─────────────────────────────────────────────────────── */
 @media (width <= 768px) {
-  .coffee-quiz-frescopa__cards--cols-3 {
+  .coffee-quiz-frescopa__cards--cols-3,
+  .coffee-quiz-frescopa__cards--cols-4 {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -203,7 +240,8 @@
 
 @media (width <= 480px) {
   .coffee-quiz-frescopa__cards,
-  .coffee-quiz-frescopa__cards--cols-3 {
+  .coffee-quiz-frescopa__cards--cols-3,
+  .coffee-quiz-frescopa__cards--cols-4 {
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
   }

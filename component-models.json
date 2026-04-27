@@ -8597,6 +8597,14 @@
     "fields": [
       {
         "component": "text",
+        "name": "image-base-url",
+        "label": "Image Base URL",
+        "value": "",
+        "valueType": "string",
+        "description": "AEM publish hostname (e.g. https://publish-xxx.adobeaemcloud.com). Leave blank on author. Required on live EDS delivery so /content/dam/ image paths resolve correctly."
+      },
+      {
+        "component": "text",
         "name": "completion-url",
         "label": "Completion URL",
         "value": "",
