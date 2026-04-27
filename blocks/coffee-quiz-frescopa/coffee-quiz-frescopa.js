@@ -205,12 +205,12 @@ export default function decorate(block) {
   buttonsEl.className = 'coffee-quiz-frescopa__buttons';
 
   const nextBtn = document.createElement('button');
-  nextBtn.className = 'coffee-quiz-frescopa__btn coffee-quiz-frescopa__btn--primary';
+  nextBtn.className = 'coffee-quiz-frescopa__btn coffee-quiz-frescopa__btn--primary coffee-next';
   nextBtn.textContent = 'Next';
   nextBtn.type = 'button';
 
   const submitBtn = document.createElement('button');
-  submitBtn.className = 'coffee-quiz-frescopa__btn coffee-quiz-frescopa__btn--primary';
+  submitBtn.className = 'coffee-quiz-frescopa__btn coffee-quiz-frescopa__btn--primary coffee-submit';
   submitBtn.textContent = 'Submit';
   submitBtn.type = 'button';
 
@@ -230,13 +230,14 @@ export default function decorate(block) {
   }
 
   function updateButtons(index) {
-    const hasSelection = selections[index] !== null;
+    const step = steps[index];
     const isLast = index === steps.length - 1;
+    const canProceed = step.displayOnly || selections[index] !== null;
 
-    nextBtn.hidden = isLast;
-    nextBtn.disabled = !hasSelection;
-    submitBtn.hidden = !isLast;
-    submitBtn.disabled = !hasSelection;
+    nextBtn.classList.toggle('hide', isLast);
+    nextBtn.disabled = !canProceed;
+    submitBtn.classList.toggle('show', isLast);
+    submitBtn.disabled = !canProceed;
     backBtn.disabled = index === 0;
   }
 

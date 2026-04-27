@@ -149,6 +149,18 @@ body.frescopa-theme .coffee-quiz-frescopa__card {
   white-space: nowrap;
 }
 
+.coffee-submit {
+  display: none;
+}
+
+.coffee-submit.show {
+  display: inline-block;
+}
+
+.coffee-next.hide {
+  display: none;
+}
+
 .coffee-quiz-frescopa__btn::after {
   content: none !important;
   display: none !important;
@@ -173,14 +185,15 @@ body.frescopa-theme .coffee-quiz-frescopa__btn--primary:hover:not(:disabled),
 
 body.frescopa-theme .coffee-quiz-frescopa__btn--secondary,
 .coffee-quiz-frescopa__btn--secondary {
-  background-color: transparent;
-  border: 2px solid var(--text-color, #58181d);
-  color: var(--text-color, #58181d);
+  background-color: #c4553a;
+  border: 2px solid #c4553a;
+  color: #ffffff;
 }
 
 body.frescopa-theme .coffee-quiz-frescopa__btn--secondary:hover:not(:disabled),
 .coffee-quiz-frescopa__btn--secondary:hover:not(:disabled) {
-  background-color: var(--light-color, #f0e0d2);
+  background-color: #a84430;
+  border-color: #a84430;
 }
 
 .coffee-quiz-frescopa__btn:disabled {
