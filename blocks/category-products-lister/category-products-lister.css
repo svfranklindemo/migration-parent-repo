@@ -45,11 +45,21 @@ main .category-products-lister .cpl-card {
   overflow: hidden;
   box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 16px;
 }
 main .category-products-lister .cpl-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+main .category-products-lister .cpl-card-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
 }
 
 main .category-products-lister .cpl-card-media {
@@ -107,20 +117,21 @@ main .category-products-lister .cpl-empty {
 
 main .category-products-lister .cpl-card-add-to-cart {
   margin-top: 12px;
-  width: 100%;
-  padding: 8px 16px;
-  background: #1473e6;
+  padding: 12px 32px;
+  background: #3d6b87;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  font-size: 0.875rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
 main .category-products-lister .cpl-card-add-to-cart:hover {
-  background: #0d66d0;
+  background: #305a73;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
 }
 
 main .category-products-lister .cpl-card-add-to-cart--added {

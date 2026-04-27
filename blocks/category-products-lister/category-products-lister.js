@@ -31,20 +31,6 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
   const card = document.createElement("article");
   card.className = "cpl-card";
 
-  // Make card clickable and redirect to product page
-  if (productId) {
-    card.style.cursor = "pointer";
-    card.addEventListener("click", (e) => {
-      if (e.target.closest(".cpl-card-add-to-cart")) return;
-      const currentPath = window.location.pathname;
-      const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-      const productPath = isAuthor
-        ? `${basePath}/product.html`
-        : `${basePath}/product`;
-      window.location.href = `${productPath}?productId=${encodeURIComponent(productId)}`;
-    });
-  }
-
   let picture = null;
   if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
     picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
@@ -70,6 +56,19 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
   title.textContent = name || "";
   meta.append(cat, title);
 
+  if (productId) {
+    const currentPath = window.location.pathname;
+    const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
+    const productPath = isAuthor ? `${basePath}/product.html` : `${basePath}/product`;
+    const link = document.createElement("a");
+    link.className = "cpl-card-link";
+    link.href = `${productPath}?productId=${encodeURIComponent(productId)}`;
+    link.append(imgWrap, meta);
+    card.append(link);
+  } else {
+    card.append(imgWrap, meta);
+  }
+
   if (enableAddToCart && productId) {
     const formattedCategory = category
       .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
@@ -80,8 +79,7 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
     addToCartBtn.className = "cpl-card-add-to-cart";
     addToCartBtn.textContent = "Add to Cart";
     addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
-    addToCartBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
+    addToCartBtn.addEventListener("click", () => {
       window.addToCart({
         id: id || sku || "",
         name: name || "",
@@ -99,10 +97,9 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
         addToCartBtn.classList.remove("cpl-card-add-to-cart--added");
       }, 2000);
     });
-    meta.append(addToCartBtn);
+    card.append(addToCartBtn);
   }
 
-  card.append(imgWrap, meta);
   return card;
 }
 
