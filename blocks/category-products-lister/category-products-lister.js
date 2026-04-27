@@ -220,7 +220,7 @@ export default async function decorate(block) {
 
   const enableAddToCart = (() => {
     const raw = coerceConfigScalar(
-      cfg?.["enableAddToCartAtTileView"]
+      cfg?.["enableaddtocartattileview"]
     );
     return raw.toLowerCase() === "true";
   })();

@@ -8361,7 +8361,7 @@
       },
       {
         "component": "boolean",
-        "name": "enableAddToCartAtTileView",
+        "name": "enableaddtocartattileview",
         "label": "Enable Add to Cart at Tile View",
         "value": "false",
         "valueType": "boolean",
