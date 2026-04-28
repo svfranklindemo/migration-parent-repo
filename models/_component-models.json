@@ -105,6 +105,32 @@
         "label": "Tags",
         "valueType": "string",
         "rootPath": "/content/cq:tags/lumaproducts"
+      },
+      {
+        "component": "select",
+        "name": "style",
+        "label": "Style Variant",
+        "valueType": "string",
+        "value": "",
+        "description": "Visual style variant for the product listing",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "No Border",
+            "value": "no-border"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "name": "no-background",
+        "label": "No Background",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Remove media overlay and image brightness filter when enabled."
       }
     ]
   },
