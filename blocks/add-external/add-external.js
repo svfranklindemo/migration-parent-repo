@@ -4,7 +4,7 @@
  * Variant "credit-card": Add external credit card – Type (Credit Card), Origin, Card number, Authorization / Authorized user name, Submit.
  */
 
-import { readBlockConfig, toClassName } from '../../scripts/aem.js';
+import { readBlockConfig, loadCSS, toClassName } from '../../scripts/aem.js';
 
 /** Read config: UE structure (data-aue-prop) or table (readBlockConfig). */
 function readConfigFromBlock(blockOrContainer) {
@@ -134,6 +134,9 @@ function collectFormData(form) {
 }
 
 export default async function decorate(block) {
+  const codeBasePath = window.hlx?.codeBasePath || '';
+  await loadCSS(`${codeBasePath}/blocks/form/form.css`);
+
   block.classList.add('add-external-block');
 
   const hasUEStructure = block.querySelector('[data-aue-prop="variant"]');

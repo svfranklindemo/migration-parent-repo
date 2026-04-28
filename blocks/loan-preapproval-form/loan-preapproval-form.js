@@ -6,7 +6,7 @@
  * No fields are mandatory. Back / step indicator / Next or Submit.
  */
 
-import { readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
@@ -369,6 +369,9 @@ function attachLoanPreapprovalFormStepEvents(wizard, form) {
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   [...block.children].forEach((row) => { row.style.display = 'none'; });
+
+  const codeBasePath = window.hlx?.codeBasePath || '';
+  await loadCSS(`${codeBasePath}/blocks/form/form.css`);
 
   block.classList.add('loan-preapproval-form-block');
 
