@@ -27,8 +27,8 @@ function removeProductFromCart(cart, productId) {
     ...cart,
     products,
     productCount: vals.reduce((s, p) => s + (p.quantity || 0), 0),
-    subTotal: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
-    total: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
+    subTotal: vals.reduce((s, p) => s + ((p.price || 0) * (p.quantity || 0)), 0),
+    total: vals.reduce((s, p) => s + ((p.price || 0) * (p.quantity || 0)), 0),
   };
 }
 
@@ -36,15 +36,14 @@ function setCartItemQuantity(cart, productId, quantity) {
   const products = { ...(cart.products || {}) };
   if (!products[productId]) return { ...cart, products };
   const safeQty = Math.max(1, parseInt(quantity, 10) || 1);
-  const price = products[productId].price || 0;
-  products[productId] = { ...products[productId], quantity: safeQty, subTotal: safeQty * price, total: safeQty * price };
+  products[productId] = { ...products[productId], quantity: safeQty };
   const vals = Object.values(products);
   return {
     ...cart,
     products,
     productCount: vals.reduce((s, p) => s + (p.quantity || 0), 0),
-    subTotal: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
-    total: vals.reduce((s, p) => s + (p.subTotal || 0), 0),
+    subTotal: vals.reduce((s, p) => s + ((p.price || 0) * (p.quantity || 0)), 0),
+    total: vals.reduce((s, p) => s + ((p.price || 0) * (p.quantity || 0)), 0),
   };
 }
 
@@ -153,7 +152,8 @@ function updateQuantity(productId, newQuantity, block) {
     if (productRow) {
       const priceEl = productRow.querySelector(".cart-item-price");
       if (priceEl) {
-        priceEl.textContent = formatPrice(nextCart.products[productId].subTotal);
+        const p = nextCart.products[productId];
+        priceEl.textContent = formatPrice((p.price || 0) * (p.quantity || 0));
       }
     }
   }
@@ -167,7 +167,7 @@ function updateQuantity(productId, newQuantity, block) {
  * @returns {HTMLElement} Cart item row
  */
 function buildCartItem(product, block, isAuthor) {
-  const { id, name, image, quantity, price, subTotal } = product;
+  const { id, name, image, quantity, price } = product;
 
   const row = document.createElement("div");
   row.className = "cart-item";
@@ -222,7 +222,7 @@ function buildCartItem(product, block, isAuthor) {
   // Price
   const priceCell = document.createElement("div");
   priceCell.className = "cart-item-price";
-  priceCell.textContent = formatPrice(subTotal || price * quantity);
+  priceCell.textContent = formatPrice((price || 0) * (quantity || 0));
 
   // Remove button
   const removeCell = document.createElement("div");

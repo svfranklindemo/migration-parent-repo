@@ -145,8 +145,6 @@ function executeAddToCart(productData) {
     const existingUnitPrice = Number(currentCart.products[productKey].price) || unitPrice;
     const nextQty = currentQty + quantityToAdd;
     currentCart.products[productKey].quantity = nextQty;
-    currentCart.products[productKey].subTotal = nextQty * existingUnitPrice;
-    currentCart.products[productKey].total = currentCart.products[productKey].subTotal;
   } else {
     currentCart.products[productKey] = {
       id: productData.id,
@@ -158,8 +156,6 @@ function executeAddToCart(productData) {
       description: productData.description,
       quantity: quantityToAdd,
       price: unitPrice,
-      subTotal: unitPrice * quantityToAdd,
-      total: unitPrice * quantityToAdd,
     };
   }
 
@@ -168,11 +164,10 @@ function executeAddToCart(productData) {
     (sum, p) => sum + (parseInt(p.quantity, 10) || 0),
     0,
   );
-  currentCart.subTotal = productValues.reduce((sum, p) => {
-    const subTotal = Number(p.subTotal);
-    if (!Number.isNaN(subTotal)) return sum + subTotal;
-    return sum + ((Number(p.price) || 0) * (parseInt(p.quantity, 10) || 0));
-  }, 0);
+  currentCart.subTotal = productValues.reduce(
+    (sum, p) => sum + ((Number(p.price) || 0) * (parseInt(p.quantity, 10) || 0)),
+    0,
+  );
   currentCart.total = currentCart.subTotal;
 
   if (typeof window.updateDataLayer === 'function') {
