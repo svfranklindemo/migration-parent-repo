@@ -196,6 +196,12 @@ export default async function decorate(block) {
     folderHref = cfg?.folder || cfg?.reference || cfg?.path || "";
   }
 
+  const styleVariant = coerceConfigScalar(cfg?.style);
+  if (styleVariant) block.classList.add(styleVariant);
+
+  const noBackground = coerceConfigScalar(cfg?.["no-background"]);
+  if (noBackground === "true") block.classList.add("no-background");
+
   // Normalize folder path to pathname if an absolute URL is provided
   try {
     if (folderHref && folderHref.startsWith("http")) {

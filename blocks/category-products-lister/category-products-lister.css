@@ -141,3 +141,23 @@ main .category-products-lister .cpl-card-add-to-cart--added {
 main .category-products-lister .cpl-card-add-to-cart--added:hover {
   background: #268e6c;
 }
+
+/* ── no-border variant ───────────────────────────────────────────────── */
+main .category-products-lister.no-border .cpl-card {
+  border: none;
+  box-shadow: none;
+}
+
+main .category-products-lister.no-border .cpl-card:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+/* ── no-background variant ───────────────────────────────────────────────── */
+main .category-products-lister.no-background .cpl-card-media {
+  background-color: transparent;
+}
+
+main .category-products-lister.no-background .cpl-card-media img {
+  filter: none;
+}
