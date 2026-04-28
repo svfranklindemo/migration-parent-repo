@@ -690,7 +690,12 @@ export default async function decorate(block) {
     }
   }
 
-  const navTools = nav.querySelector('.nav-tools');
+  let navTools = nav.querySelector('.nav-tools');
+  if (!navTools && usesLumaStyleHeader()) {
+    navTools = document.createElement('div');
+    navTools.className = 'nav-tools';
+    nav.append(navTools);
+  }
   if (navTools) {
     const contentWrapper = nav.querySelector('.nav-tools > div[class = "default-content-wrapper"]');
     const targetContainer = contentWrapper || navTools;

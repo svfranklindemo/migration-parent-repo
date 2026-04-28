@@ -51,6 +51,11 @@ body.frescopa-theme h1 {
 }
 
 body.frescopa-theme h2 {
+  font-size: 28px !important;
+}
+
+body.frescopa-theme .hero h2,
+body.frescopa-theme .hero-wrapper h2 {
   font-size: 2.55rem !important;
 }
 
@@ -285,6 +290,11 @@ body.frescopa-theme .search.search-icon .search-trigger .icon img {
   }
 
   body.frescopa-theme h2 {
+    font-size: 28px !important;
+  }
+
+  body.frescopa-theme .hero h2,
+  body.frescopa-theme .hero-wrapper h2 {
     font-size: 2.05rem !important;
   }
 
