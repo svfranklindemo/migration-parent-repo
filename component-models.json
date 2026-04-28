@@ -1028,6 +1028,13 @@
     "id": "application-form",
     "fields": [
       {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
+      },
+      {
         "component": "text",
         "name": "buttoneventtype",
         "label": "Button Event Type",
@@ -1069,6 +1076,13 @@
   {
     "id": "loan-preapproval-form",
     "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
+      },
       {
         "component": "text",
         "name": "buttoneventtype",
@@ -1138,6 +1152,13 @@
   {
     "id": "new-account",
     "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
+      },
       {
         "component": "text",
         "name": "buttoneventtype",
@@ -1515,13 +1536,9 @@
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "submitLink",
-        "label": "Submit button link",
-        "description": "URL to redirect to after form submit (e.g. thank-you page)",
-        "multi": false,
-        "validation": {
-          "rootPath": "/content"
-        }
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
       },
       {
         "component": "text",
@@ -1568,13 +1585,9 @@
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "submitLink",
-        "label": "Submit button link",
-        "description": "URL to redirect to after form submit (e.g. thank-you page)",
-        "multi": false,
-        "validation": {
-          "rootPath": "/content"
-        }
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
       },
       {
         "component": "text",
@@ -1926,12 +1939,11 @@
     "id": "user-registration",
     "fields": [
       {
-        "component": "text",
+        "component": "aem-content",
+        "valueType": "string",
         "name": "sign-in-redirect-url",
         "label": "Sign-In Redirect URL",
-        "value": "/en/sign-in",
-        "valueType": "string",
-        "description": "URL to redirect to after successful registration (default: /en/sign-in)"
+        "description": "Page to redirect to after successful registration. Leave empty for no redirect."
       },
       {
         "component": "text",
@@ -2000,6 +2012,13 @@
         "valueType": "boolean"
       },
       {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful account creation. Leave empty for no redirect."
+      },
+      {
         "component": "text",
         "name": "buttoneventtype",
         "label": "Button Event Type",
@@ -2042,6 +2061,13 @@
     "id": "child-account-application",
     "fields": [
       {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
+      },
+      {
         "component": "text",
         "name": "buttoneventtype",
         "label": "Button Event Type",
@@ -2083,6 +2109,13 @@
   {
     "id": "name-change-request",
     "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
+      },
       {
         "component": "text",
         "name": "buttoneventtype",
@@ -2142,20 +2175,18 @@
         "description": "Alt text for the logo image"
       },
       {
-        "component": "text",
+        "component": "aem-content",
+        "valueType": "string",
         "name": "sign-in-redirect-url",
         "label": "Sign-In Redirect URL",
-        "value": "/",
-        "valueType": "string",
-        "description": "URL to redirect to after successful sign-in (default: /)"
+        "description": "Page to redirect to after successful sign-in. Leave empty to stay on the home page."
       },
       {
-        "component": "text",
+        "component": "aem-content",
+        "valueType": "string",
         "name": "create-account-url",
         "label": "Create Account URL",
-        "value": "",
-        "valueType": "string",
-        "description": "URL for the 'Create an account' link (if empty, uses smart path construction)"
+        "description": "Page for the 'Create an account' link. Leave empty to use smart path construction."
       },
       {
         "component": "text",
