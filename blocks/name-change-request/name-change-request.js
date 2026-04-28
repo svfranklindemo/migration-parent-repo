@@ -1,7 +1,7 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
-import { isAuthorEnvironment } from "../../scripts/scripts.js";
+import { isAuthorEnvironment, normalizeAemPath } from "../../scripts/scripts.js";
 import { getPathDetails } from "../../scripts/utils.js";
 
 function applyButtonConfigToSubmitButton(block, config) {
@@ -119,7 +119,7 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, "form-submit");
-    attachSubmitHandler(block);
+    attachSubmitHandler(block, config.redirecturl);
     const form = block.querySelector("form");
     if (form) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
@@ -128,7 +128,7 @@ export default async function decorate(block) {
   }, 100);
 }
 
-function attachSubmitHandler(block) {
+function attachSubmitHandler(block, redirectUrl) {
   const form = block.querySelector("form");
   if (!form) return;
 
@@ -172,9 +172,8 @@ function attachSubmitHandler(block) {
         const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim() || "form-submit";
         dispatchCustomEvent(authoredEventType);
 
-        setTimeout(() => {
-          window.location.href = getSuccessRedirectPath();
-        }, 0);
+        const url = normalizeAemPath(redirectUrl);
+        if (url) setTimeout(() => { window.location.href = url; }, 0);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("Name change request error:", error);

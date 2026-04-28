@@ -1,13 +1,12 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
+import { normalizeAemPath } from '../../scripts/scripts.js';
 
-const REDIRECT_PATH_AFTER_AUTO_SAVE = '/en/dashboard/submitted-successfully';
 
-function getSubmitLink(block, config) {
-  const fromConfig = (config.submitlink ?? '').toString().trim();
+function getRedirectUrl(block, config) {
+  const fromConfig = (config.redirecturl ?? '').toString().trim();
   if (fromConfig) return fromConfig;
-  // UE may use data-aue-prop="submitLink" or "submit-link"
-  const propEl = block.querySelector('[data-aue-prop="submitLink"]') || block.querySelector('[data-aue-prop="submit-link"]');
+  const propEl = block.querySelector('[data-aue-prop="redirectUrl"]');
   if (propEl) {
     const a = propEl.querySelector('a[href]');
     const href = a?.getAttribute('href')?.trim();
@@ -34,13 +33,13 @@ function applyButtonConfigToSubmitButton(block, config) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
-  const submitLink = getSubmitLink(block, config);
+  const redirectUrl = normalizeAemPath(getRedirectUrl(block, config));
 
   const formDef = {
     id: "set-up-auto-save",
     fieldType: "form",
     appliedCssClassNames: "set-up-auto-save-form",
-    ...(submitLink && { redirectUrl: submitLink }),
+    ...(redirectUrl && { redirectUrl }),
     items: [
       {
         id: "heading-set-up-auto-save",
@@ -119,18 +118,15 @@ export default async function decorate(block) {
   await formModule.default(formContainer);
 
   const form = formContainer.querySelector("form");
-  function redirectAfterTransferSubmit() {
-    setTimeout(() => {
-      window.location.href = REDIRECT_PATH_AFTER_AUTO_SAVE;
-    }, 2000);
-  }
   if (form) {
     applyButtonConfigToSubmitButton(block, config, 'auto-save-form-submit');
     const submitButton = form.querySelector('button[type="submit"]');
     submitButton?.addEventListener("click", () => {
       const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'auto-save-form-submit';
       dispatchCustomEvent(authoredEventType);
-      redirectAfterTransferSubmit();
+      if (redirectUrl) {
+        setTimeout(() => { window.location.href = redirectUrl; }, 2000);
+      }
     });
   }
 }

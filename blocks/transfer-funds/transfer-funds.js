@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
+import { normalizeAemPath } from '../../scripts/scripts.js';
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -15,11 +16,10 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function getSubmitLink(block, config) {
-  const fromConfig = (config.submitlink ?? '').toString().trim();
+function getRedirectUrl(block, config) {
+  const fromConfig = (config.redirecturl ?? '').toString().trim();
   if (fromConfig) return fromConfig;
-  // UE may use data-aue-prop="submitLink" or "submit-link"
-  const propEl = block.querySelector('[data-aue-prop="submitLink"]') || block.querySelector('[data-aue-prop="submit-link"]');
+  const propEl = block.querySelector('[data-aue-prop="redirectUrl"]');
   if (propEl) {
     const a = propEl.querySelector('a[href]');
     const href = a?.getAttribute('href')?.trim();
@@ -32,13 +32,13 @@ function getSubmitLink(block, config) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
-  const submitLink = getSubmitLink(block, config);
+  const redirectUrl = normalizeAemPath(getRedirectUrl(block, config));
 
   const formDef = {
     id: "transfer-funds",
     fieldType: "form",
     appliedCssClassNames: "transfer-funds-form",
-    ...(submitLink && { redirectUrl: submitLink }),
+    ...(redirectUrl && { redirectUrl }),
     items: [
       {
         id: "heading-transfer-funds",
@@ -104,18 +104,14 @@ export default async function decorate(block) {
   await formModule.default(formContainer);
   const form = formContainer.querySelector('form');
   if (!form) return;
-  const REDIRECT_PATH_AFTER_TRANSFER = '/en/dashboard/submitted-successfully';
-  function redirectAfterTransferSubmit() {
-    setTimeout(() => {
-      window.location.href = REDIRECT_PATH_AFTER_TRANSFER;
-    }, 2000);
-  }
   applyButtonConfigToSubmitButton(block, config, 'transfer-funds-form-submit');
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const submitButton = form.querySelector('button[type="submit"]');
     const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'transfer-funds-form-submit';
     dispatchCustomEvent(authoredEventType);
-    redirectAfterTransferSubmit();
+    if (redirectUrl) {
+      setTimeout(() => { window.location.href = redirectUrl; }, 2000);
+    }
   });
 }

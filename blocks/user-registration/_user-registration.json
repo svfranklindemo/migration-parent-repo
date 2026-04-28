@@ -22,12 +22,11 @@
       "id": "user-registration",
       "fields": [
         {
-          "component": "text",
+          "component": "aem-content",
+          "valueType": "string",
           "name": "sign-in-redirect-url",
           "label": "Sign-In Redirect URL",
-          "value": "/en/sign-in",
-          "valueType": "string",
-          "description": "URL to redirect to after successful registration (default: /en/sign-in)"
+          "description": "Page to redirect to after successful registration. Leave empty for no redirect."
         },
         {
           "component": "text",

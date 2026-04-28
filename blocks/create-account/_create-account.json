@@ -46,6 +46,13 @@
           "valueType": "boolean"
         },
         {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "redirectUrl",
+          "label": "Redirect URL",
+          "description": "Page to redirect to after successful account creation. Leave empty for no redirect."
+        },
+        {
           "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",

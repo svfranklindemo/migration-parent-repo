@@ -1,6 +1,7 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
+import { normalizeAemPath } from "../../scripts/scripts.js";
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -21,7 +22,7 @@ export default async function decorate(block) {
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
   // Set authorable redirect URL for sign-in page
-  const signInRedirectUrl = config.signInRedirectUrl ?? config['sign-in-redirect-url'] ?? "/en/sign-in";
+  const signInRedirectUrl = normalizeAemPath(config['sign-in-redirect-url']);
   block.dataset.signInRedirectUrl = signInRedirectUrl;
 
   // Build Adaptive Form definition for User Registration (fields per design)
@@ -295,10 +296,8 @@ function attachFormSubmitHandler(block) {
       );
 
       // Redirect to authored sign-in URL or default after delay (allows custom/analytics calls to complete)
-      const signInUrl = block.dataset.signInRedirectUrl || "/en/sign-in";
-      setTimeout(() => {
-        window.location.href = signInUrl;
-      }, 2000);
+      const signInUrl = block.dataset.signInRedirectUrl;
+      if (signInUrl) setTimeout(() => { window.location.href = signInUrl; }, 2000);
     } catch (error) {
       console.error("Registration error:", error);
       showErrorMessage(form, "Registration failed. Please try again.");
@@ -437,7 +436,7 @@ function addSignInLink(block) {
   signInDiv.style.cssText = "margin-top: 1rem; text-align: center;";
   const signInAnchor = document.createElement("a");
   // Use authored sign-in URL or default
-  signInAnchor.href = block.dataset.signInRedirectUrl || "/en/sign-in";
+  signInAnchor.href = block.dataset.signInRedirectUrl;
   signInAnchor.textContent = "Sign In";
   signInAnchor.style.color = "#2874F0";
   signInDiv.append(document.createTextNode("Already have an account? "), signInAnchor);

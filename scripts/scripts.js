@@ -80,6 +80,14 @@ export function isAuthorEnvironment() {
   //return false;
 }
 
+export function normalizeAemPath(path) {
+  if (!path || !path.startsWith('/content/')) return path;
+  if (isAuthorEnvironment()) {
+    return path.endsWith('.html') ? path : `${path}.html`;
+  }
+  return path.replace(/^\/content\/[^/]+\/language-masters/, '').replace(/\.html$/, '');
+}
+
 export function normalizeCategoryValue(value) {
   const rawValue = String(value || '').trim();
   const normalized = rawValue

@@ -9,6 +9,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
+import { normalizeAemPath } from '../../scripts/scripts.js';
 
 const LOAN_PREAPPROVAL_FORM_WIZARD_TITLE = 'Home Loan Application Form';
 const LOAN_PREAPPROVAL_FORM_WIZARD_NAME = 'home-loan-application';
@@ -264,12 +265,7 @@ function collectLoanPreapprovalFormData(form) {
   return data;
 }
 
-const REDIRECT_PATH_AFTER_PREAPPROVAL = '/en/loans/home-loan-form-submitted';
-function redirectAfterPreapprovalSubmit() {
-  setTimeout(() => {
-    window.location.href = REDIRECT_PATH_AFTER_PREAPPROVAL;
-  }, 2000);
-}
+
 
 function clearProductObject() {
   if (typeof window.updateDataLayer === 'function') {
@@ -277,7 +273,7 @@ function clearProductObject() {
   }
 }
 
-function attachLoanPreapprovalFormSubmitHandler(block) {
+function attachLoanPreapprovalFormSubmitHandler(block, redirectUrl) {
   const form = block.querySelector('form');
   if (!form) return;
 
@@ -293,7 +289,8 @@ function attachLoanPreapprovalFormSubmitHandler(block) {
     const submitButton = form.querySelector('button[type=\"submit\"]');
     const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'home-loan-application-submit';
     dispatchCustomEvent(authoredEventType);
-    redirectAfterPreapprovalSubmit();
+    const url = normalizeAemPath(redirectUrl);
+    if (url) setTimeout(() => { window.location.href = url; }, 2000);
   });
 }
 
@@ -391,7 +388,7 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'home-loan-application-submit');
-    attachLoanPreapprovalFormSubmitHandler(block);
+    attachLoanPreapprovalFormSubmitHandler(block, config.redirecturl);
     const form = block.querySelector('form');
     if (form) {
       setupLoanPreapprovalFormPrefill(form);

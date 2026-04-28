@@ -38,20 +38,18 @@
           "description": "Alt text for the logo image"
         },
         {
-          "component": "text",
+          "component": "aem-content",
+          "valueType": "string",
           "name": "sign-in-redirect-url",
           "label": "Sign-In Redirect URL",
-          "value": "/",
-          "valueType": "string",
-          "description": "URL to redirect to after successful sign-in (default: /)"
+          "description": "Page to redirect to after successful sign-in. Leave empty to stay on the home page."
         },
         {
-          "component": "text",
+          "component": "aem-content",
+          "valueType": "string",
           "name": "create-account-url",
           "label": "Create Account URL",
-          "value": "",
-          "valueType": "string",
-          "description": "URL for the 'Create an account' link (if empty, uses smart path construction)"
+          "description": "Page for the 'Create an account' link. Leave empty to use smart path construction."
         },
         {
           "component": "text",

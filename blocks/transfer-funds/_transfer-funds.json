@@ -24,9 +24,9 @@
         {
           "component": "aem-content",
           "valueType": "string",
-          "name": "submitLink",
-          "label": "Submit button link",
-          "description": "URL to redirect to after form submit (e.g. thank-you page)"
+          "name": "redirectUrl",
+          "label": "Redirect URL",
+          "description": "Page to redirect to after successful form submission. Leave empty for no redirect."
         },
         {
           "component": "text",

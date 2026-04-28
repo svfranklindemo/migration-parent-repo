@@ -1,4 +1,4 @@
-import { isAuthorEnvironment } from "../../scripts/scripts.js";
+import { isAuthorEnvironment, normalizeAemPath } from "../../scripts/scripts.js";
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
@@ -44,11 +44,11 @@ export default async function decorate(block) {
   }
 
   // Set authorable redirect URLs
-  const signInRedirectUrl = config.signInRedirectUrl ?? config['sign-in-redirect-url'] ?? "/";
+  const signInRedirectUrl = normalizeAemPath(config['sign-in-redirect-url']);
   block.dataset.signInRedirectUrl = signInRedirectUrl;
-  
+
   // Set authorable create account URL
-  const createAccountUrl = config.createAccountUrl ?? config['create-account-url'];
+  const createAccountUrl = normalizeAemPath(config['create-account-url']);
   block.dataset.createAccountUrl = createAccountUrl;
 
   // Build Adaptive Form definition for Sign In
@@ -381,10 +381,8 @@ function attachSignInHandler(block) {
       showSuccessMessage(form, "Sign-in successful! Redirecting...");
 
       // Redirect to authored URL or default to home page after delay (allows custom/analytics calls to complete)
-      const redirectUrl = block.dataset.signInRedirectUrl || "/";
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, 2000);
+      const redirectUrl = block.dataset.signInRedirectUrl;
+      if (redirectUrl) setTimeout(() => { window.location.href = redirectUrl; }, 2000);
     } catch (error) {
       console.error("Sign-in error:", error);
       showErrorMessage(form, "Sign-in failed. Please try again.");
@@ -481,7 +479,7 @@ function addCreateAccountLink(block, isAuthor, config = {}) {
   createAccountLink.textContent = "Create an account";
 
   // Determine registration path: use authored config if available, otherwise smart path construction
-  let registrationPath = config.createAccountUrl ?? config['create-account-url'] ?? block.dataset.createAccountUrl;
+  let registrationPath = config['create-account-url'] ?? block.dataset.createAccountUrl;
   
   if (!registrationPath) {
     // Fallback to smart path construction

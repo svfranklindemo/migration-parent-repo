@@ -9,6 +9,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
+import { normalizeAemPath } from '../../scripts/scripts.js';
 
 function getNestedProperty(obj, path) {
   if (!obj || !path) return undefined;
@@ -200,12 +201,7 @@ function formatDateOfBirthInput(form) {
   });
 }
 
-const REDIRECT_PATH_AFTER_SUBMIT = '/en/submitted-successfully';
-function redirectAfterSubmit() {
-  setTimeout(() => {
-    window.location.href = REDIRECT_PATH_AFTER_SUBMIT;
-  }, 2000);
-}
+
 
 function clearProductObject() {
   if (typeof window.updateDataLayer === 'function') {
@@ -213,7 +209,7 @@ function clearProductObject() {
   }
 }
 
-function attachSubmitHandler(block) {
+function attachSubmitHandler(block, redirectUrl) {
   const form = block.querySelector('form');
   if (!form) return;
   const submitSection = form.querySelector('#step-details')?.closest('fieldset') || form.querySelector('.panel-wrapper:last-of-type');
@@ -226,7 +222,8 @@ function attachSubmitHandler(block) {
     const submitBtn = form.querySelector("button[type='submit']");
     const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim() || 'new-account-form-submit';
     dispatchCustomEvent(authoredEventType);
-    redirectAfterSubmit();
+    const url = normalizeAemPath(redirectUrl);
+    if (url) setTimeout(() => { window.location.href = url; }, 2000);
   });
 }
 
@@ -360,7 +357,7 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'new-account-form-submit');
-    attachSubmitHandler(block);
+    attachSubmitHandler(block, config.redirecturl);
     const form = block.querySelector('form');
     if (form) {
       setupNewAccountFormPrefill(form);

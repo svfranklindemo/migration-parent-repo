@@ -9,6 +9,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
+import { normalizeAemPath } from '../../scripts/scripts.js';
 
 const APPLICATION_FORM_WIZARD_NAME = 'Credit Card Application';
 const APPLICATION_FORM_WIZARD_TITLE = 'Credit Card Application';
@@ -102,13 +103,7 @@ function updateApplicationFormWizardDataLayer(wizard, stepIndex) {
   });
 }
 
-const REDIRECT_PATH_AFTER_APPLICATION = '/en/credit-cards/credit-card-application/credit-card-application-submitted';
 
-function redirectAfterApplicationSubmit() {
-  setTimeout(() => {
-    window.location.href = REDIRECT_PATH_AFTER_APPLICATION;
-  }, 2000);
-}
 
 const APPLICATION_FORM_TEAL = '#0d9488';
 const APPLICATION_FORM_GREY = '#e5e7eb';
@@ -251,7 +246,7 @@ function formatDateOfBirthInput(form) {
   });
 }
 
-function attachApplicationFormSubmitHandler(block) {
+function attachApplicationFormSubmitHandler(block, redirectUrl) {
   const form = block.querySelector('form');
   if (!form) return;
 
@@ -266,7 +261,8 @@ function attachApplicationFormSubmitHandler(block) {
     const submitButton = form.querySelector("button[type='submit']");
     const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'form-submit';
     dispatchCustomEvent(authoredEventType);
-    redirectAfterApplicationSubmit();
+    const url = normalizeAemPath(redirectUrl);
+    if (url) setTimeout(() => { window.location.href = url; }, 2000);
   });
 }
 
@@ -292,7 +288,7 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'form-submit');
-    attachApplicationFormSubmitHandler(block);
+    attachApplicationFormSubmitHandler(block, config.redirecturl);
     const form = block.querySelector('form');
     if (form) {
       setupApplicationFormPrefill(form);

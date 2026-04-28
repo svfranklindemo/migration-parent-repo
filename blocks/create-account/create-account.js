@@ -1,6 +1,7 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
+import { normalizeAemPath } from "../../scripts/scripts.js";
 
 function isTruthy(value) {
   return value === true || String(value).trim().toLowerCase() === "true";
@@ -262,7 +263,7 @@ export default async function decorate(block) {
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'form-submit');
     prePopulateFormFromDataLayer(block);
-    attachCreateAccountSubmitHandler(block);
+    attachCreateAccountSubmitHandler(block, config.redirecturl);
     const form = block.querySelector("form");
     if (form) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
@@ -271,7 +272,7 @@ export default async function decorate(block) {
   }, 100);
 }
 
-function attachCreateAccountSubmitHandler(block) {
+function attachCreateAccountSubmitHandler(block, redirectUrl) {
   const form = block.querySelector("form");
   if (!form) return;
 
@@ -369,9 +370,8 @@ function attachCreateAccountSubmitHandler(block) {
 
         showSuccessMessage(form, "Account created successfully! Redirecting to sign-in...");
 
-        setTimeout(() => {
-          window.location.href = "/en/sign-in";
-        }, 2000);
+        const redirectTo = normalizeAemPath(redirectUrl);
+        if (redirectTo) setTimeout(() => { window.location.href = redirectTo; }, 2000);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("Create account error:", error);
