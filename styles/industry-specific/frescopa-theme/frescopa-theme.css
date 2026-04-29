@@ -298,6 +298,9 @@ body.frescopa-theme .cards > ul > li.cards-card--alignment-left .cards-card-body
 body.frescopa-theme .section.bg-light.section-has-bg.section--custom-text-color.cards-container {
     border-radius: 10px;
 }
+body.frescopa-theme .section.section-has-bg {
+    border-radius: 10px;
+}
 @media (width <= 768px) {
   body.frescopa-theme h1 {
     font-size: 2.6rem !important;
