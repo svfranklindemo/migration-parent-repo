@@ -283,7 +283,21 @@ body.frescopa-theme .search.search-icon .search-trigger .icon img {
     color: #58181d;
   }
 }
-
+body.frescopa-theme .image-right {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+body.frescopa-theme .cards-card-body {
+  background: transparent !important;
+  color:#fff !important;
+}
+body.frescopa-theme .cards > ul > li.cards-card--alignment-left .cards-card-body {
+    padding-left: 40px;
+}
+body.frescopa-theme .section.bg-light.section-has-bg.section--custom-text-color.cards-container {
+    border-radius: 10px;
+}
 @media (width <= 768px) {
   body.frescopa-theme h1 {
     font-size: 2.6rem !important;
