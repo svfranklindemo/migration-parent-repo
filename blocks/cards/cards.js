@@ -76,8 +76,9 @@ export default function decorate(block) {
       return /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(t) ? `#${t}` : t;
     };
 
-    // Background color: from data-aue-prop, or from any cell/link that contains only a hex value (UE may store it in link or button field)
-    let bgColorRaw = getConfigValue('backgroundcolor', -1);
+    // Background color: model field at index 9 (after buttoneventtype at 8).
+    // Also checked via data-aue-prop on author, and via hex-link/hex-cell fallbacks.
+    let bgColorRaw = getConfigValue('backgroundcolor', 9);
     if (!bgColorRaw) {
       bgColorRaw = (row.querySelector('p[data-aue-prop="backgroundcolor"]')
         || row.querySelector('[data-aue-prop="backgroundcolor"]'))?.textContent?.trim() || '';
@@ -85,7 +86,7 @@ export default function decorate(block) {
     if (!bgColorRaw) {
       const hexLink = row.querySelector('a[href^="#"]');
       if (hexLink && isHexColor(hexLink.getAttribute('href') || '')) bgColorRaw = (hexLink.getAttribute('href') || '').replace(/^#/, '');
-      if (!bgColorRaw && isHexColor(getCell(8))) bgColorRaw = getCell(8).trim();
+      if (!bgColorRaw && isHexColor(getCell(9))) bgColorRaw = getCell(9).trim();
       if (!bgColorRaw && isHexColor(getCell(5))) bgColorRaw = getCell(5).trim().replace(/^#/, '');
     }
     if (bgColorRaw) {
@@ -93,7 +94,7 @@ export default function decorate(block) {
       li.classList.add('cards-card--custom-bg');
     }
 
-    let textColorRaw = getConfigValue('textcolor', -1);
+    let textColorRaw = getConfigValue('textcolor', 12);
     if (!textColorRaw) {
       textColorRaw = (row.querySelector('p[data-aue-prop="textcolor"]')
         || row.querySelector('[data-aue-prop="textcolor"]'))?.textContent?.trim() || '';
@@ -108,7 +109,8 @@ export default function decorate(block) {
     const alignment = (getCell(7) || 'left').toLowerCase();
     let buttonEventType = getCell(8);
     // Read custom styles by data-aue-prop so it works regardless of column order (UE authoring)
-    let customStylesRaw = getConfigValue('customstyles', 9) || getCell(9) || '';
+    // customStyles is at index 10 (backgroundcolor occupies index 9)
+    let customStylesRaw = getConfigValue('customstyles', 10) || getCell(10) || '';
     if (!customStylesRaw) {
       customStylesRaw = lastConfigIsBoolean ? prevConfigValue : lastConfigValue;
     }

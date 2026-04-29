@@ -301,6 +301,214 @@ body.frescopa-theme .section.bg-light.section-has-bg.section--custom-text-color.
 body.frescopa-theme .section.section-has-bg {
     border-radius: 10px;
 }
+
+/* ─── Form Block Styling ─────────────────────────────────────────────── */
+body.frescopa-theme :root {
+  --button-primary-color: #27647d;
+  --button-primary-hover-color: #1f5368;
+  --button-secondary-color: #58181d;
+  --form-label-color: #58181d;
+  --form-paragraph-color: #58181d;
+  --form-input-border-color: #58181d;
+  --label-color: #58181d;
+  --border-color: #58181d;
+}
+body.frescopa-theme  main .sign-in h2#heading-sign-in{
+ color: #58181d;
+
+}
+body.frescopa-theme main .form form input,
+body.frescopa-theme main .form form textarea,
+body.frescopa-theme main .form form select {
+  color: #58181d;
+  border: 2px solid #eaa33a;
+      border-radius: 50px;
+}
+
+body.frescopa-theme main .form form input::placeholder,
+body.frescopa-theme main .form form textarea::placeholder {
+  color: #999;
+}
+
+body.frescopa-theme main .form form label,
+body.frescopa-theme main .form fieldset legend {
+  color: #58181d;
+  font-family: roboto, roboto-fallback, sans-serif;
+}
+
+body.frescopa-theme main .form form p {
+  color: #58181d;
+  font-family: roboto, roboto-fallback, sans-serif;
+}
+
+body.frescopa-theme main .form .field-description {
+  color: #58181d;
+}
+
+body.frescopa-theme main .form button[type='submit'],
+body.frescopa-theme main .form .button,
+body.frescopa-theme main .sign-in .submit-wrapper button,
+body.frescopa-theme main .membership button[type='submit'],
+body.frescopa-theme main .create-account .submit-wrapper button,
+body.frescopa-theme main .user-registration .submit-wrapper button,
+body.frescopa-theme main .child-account-application .submit-wrapper button,
+body.frescopa-theme main .name-change-request .submit-wrapper button,
+body.frescopa-theme main .set-up-auto-save .submit-wrapper button,
+body.frescopa-theme main .transfer-funds .submit-wrapper button,
+body.frescopa-theme main .join-us .submit-wrapper button,
+body.frescopa-theme main .insurance-block .insurance-form .submit-wrapper button,
+body.frescopa-theme main .add-external-block .add-external-form .submit-wrapper button,
+body.frescopa-theme main .application-form-block .application-form-wizard .wizard-button-next button,
+body.frescopa-theme main .application-form-block .application-form-wizard .submit-wrapper button,
+body.frescopa-theme main .new-account-block .new-account-wizard .wizard-button-next button,
+body.frescopa-theme main .new-account-block .new-account-wizard .submit-wrapper button,
+body.frescopa-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-next button,
+body.frescopa-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .submit-wrapper button,
+body.frescopa-theme main .loan-calculator button[type='submit'],
+body.frescopa-theme main .checkout .submit-wrapper button,
+body.frescopa-theme main .checkout-shipping .submit-wrapper button,
+body.frescopa-theme main .confirmation .submit-wrapper button {
+  background: #27647d !important;
+  background-color: #27647d !important;
+  border-color: #27647d !important;
+  color: #ffffff !important;
+  font-family: roboto, roboto-fallback, sans-serif;
+  border-radius: 999px;
+}
+
+body.frescopa-theme main .form button[type='submit']:hover,
+body.frescopa-theme main .form .button:hover,
+body.frescopa-theme main .sign-in .submit-wrapper button:hover,
+body.frescopa-theme main .membership button[type='submit']:hover,
+body.frescopa-theme main .create-account .submit-wrapper button:hover,
+body.frescopa-theme main .user-registration .submit-wrapper button:hover,
+body.frescopa-theme main .child-account-application .submit-wrapper button:hover,
+body.frescopa-theme main .name-change-request .submit-wrapper button:hover,
+body.frescopa-theme main .set-up-auto-save .submit-wrapper button:hover,
+body.frescopa-theme main .transfer-funds .submit-wrapper button:hover,
+body.frescopa-theme main .join-us .submit-wrapper button:hover,
+body.frescopa-theme main .insurance-block .insurance-form .submit-wrapper button:hover,
+body.frescopa-theme main .add-external-block .add-external-form .submit-wrapper button:hover,
+body.frescopa-theme main .application-form-block .application-form-wizard .wizard-button-next button:hover,
+body.frescopa-theme main .application-form-block .application-form-wizard .submit-wrapper button:hover,
+body.frescopa-theme main .new-account-block .new-account-wizard .wizard-button-next button:hover,
+body.frescopa-theme main .new-account-block .new-account-wizard .submit-wrapper button:hover,
+body.frescopa-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .wizard-button-next button:hover,
+body.frescopa-theme main .loan-preapproval-form-block .loan-preapproval-form-wizard .submit-wrapper button:hover,
+body.frescopa-theme main .loan-calculator button[type='submit']:hover,
+body.frescopa-theme main .checkout .submit-wrapper button:hover,
+body.frescopa-theme main .checkout-shipping .submit-wrapper button:hover,
+body.frescopa-theme main .confirmation .submit-wrapper button:hover {
+  background: #1f5368 !important;
+  background-color: #1f5368 !important;
+  border-color: #1f5368 !important;
+}
+
+body.frescopa-theme main .application-form-block .application-form-wizard .wizard-menu-active-item,
+body.frescopa-theme main .new-account-block .wizard-menu-active-item,
+body.frescopa-theme main .loan-preapproval-form-block .wizard-menu-active-item {
+  background: #27647d !important;
+  border-color: #27647d !important;
+}
+
+body.frescopa-theme main .form form .wizard .wizard-menu-item::before {
+  border-color: #27647d;
+  color: #27647d;
+}
+
+body.frescopa-theme main .form form .wizard .wizard-menu-active-item::before {
+  background: #27647d;
+  border-color: #27647d;
+  color: #ffffff;
+}
+
+/* Sign-in Block */
+body.frescopa-theme main .sign-in .form-container,
+body.frescopa-theme main .sign-in form {
+  background-color: transparent;
+}
+
+body.frescopa-theme main .sign-in form label,
+body.frescopa-theme main .sign-in form p {
+  color: #58181d;
+}
+
+/* Registration Block */
+body.frescopa-theme main .create-account .form-container,
+body.frescopa-theme main .user-registration .form-container {
+  background-color: transparent;
+}
+
+body.frescopa-theme main .create-account form label,
+body.frescopa-theme main .user-registration form label {
+  color: #58181d;
+}
+
+/* Checkout Blocks */
+body.frescopa-theme main .checkout .form-container,
+body.frescopa-theme main .checkout-shipping .form-container {
+  background-color: transparent;
+}
+
+body.frescopa-theme main .checkout form label,
+body.frescopa-theme main .checkout-shipping form label,
+body.frescopa-theme main .checkout form p,
+body.frescopa-theme main .checkout-shipping form p {
+  color: #58181d;
+}
+
+/* Application Form Wizards */
+body.frescopa-theme main .application-form-block .form-container,
+body.frescopa-theme main .new-account-block .form-container,
+body.frescopa-theme main .loan-preapproval-form-block .form-container {
+  background-color: transparent;
+}
+
+body.frescopa-theme main .application-form-block form label,
+body.frescopa-theme main .new-account-block form label,
+body.frescopa-theme main .loan-preapproval-form-block form label {
+  color: #58181d;
+  font-family: roboto, roboto-fallback, sans-serif;
+}
+
+/* Form Card Styling */
+body.frescopa-theme main .form form fieldset.cards > .radio-wrapper > label,
+body.frescopa-theme main .form form fieldset.cards > .checkbox-wrapper > label {
+  border-color: #ccc;
+  background-color: #ffffff;
+  color: #58181d;
+}
+
+body.frescopa-theme main .form form fieldset.cards > .radio-wrapper > input:checked ~ label,
+body.frescopa-theme main .form form fieldset.cards > .checkbox-wrapper > input:checked ~ label {
+  border-color: #27647d;
+  background-color: #f0f8fb;
+  box-shadow: 0 0 0 1px #27647d;
+}
+body.frescopa-theme main .sign-in {
+    background: transparent;
+    box-shadow: none;
+}
+body.frescopa-theme main .sign-in .create-account-link{
+    color: #8b593d;
+    border: 2px solid #8b593d;
+    text-align: center;
+}
+body.frescopa-theme main .sign-in  a::after{
+   color: #8b593d;
+}
+body.frescopa-theme main .sign-in .create-account-link:hover {
+    background: #8b593d !important;
+    color: #fff !important;
+}
+body.frescopa-theme a:hover::after {
+    color: #ffffff !important;
+}
+.card-border {
+    box-shadow: 0 10px 20px #0000001a !important;
+    border-radius: 10px !important;
+    padding: 2rem 0 1rem !important;
+}
 @media (width <= 768px) {
   body.frescopa-theme h1 {
     font-size: 2.6rem !important;
