@@ -530,6 +530,16 @@ body.frescopa-theme a:hover::after {
 body.frescopa-theme main .order-summary .order-summary-title {
     color: #58181d;
 }
+body.frescopa-theme main .join-us .field-wrapper.switch input[type="checkbox"]::before{
+      top: 0;
+}
+body.frescopa-theme main .category-products-lister .cpl-grid {
+    row-gap: 50px;
+}
+
+body.frescopa-theme main .category-products-lister .cpl-card-wrapper {
+    gap: 0px;
+}
 body.frescopa-theme main .cta-button a.button:hover {
     background-color: transparent !important;
     color: var(--main-accent-color) !important;
@@ -655,7 +665,9 @@ body.frescopa-theme main .cart .cart-discount-label {
   color: #58181d;
   font-family: roboto, roboto-fallback, sans-serif;
 }
-
+body.frescopa-theme main .checkout-shipping-block .checkbox-wrapper.switch.horizontal input[type='checkbox']::after {
+    top: 0;
+}
 body.frescopa-theme main .cart .cart-checkout-btn {
   background: #27647d !important;
   background-color: #27647d !important;

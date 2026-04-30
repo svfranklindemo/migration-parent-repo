@@ -326,6 +326,7 @@ main .cart .cart-checkout-btn {
     border-radius: 2px;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
 }
 
 main .cart .cart-checkout-btn:hover {
