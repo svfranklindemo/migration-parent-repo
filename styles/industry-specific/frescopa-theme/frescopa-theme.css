@@ -502,6 +502,11 @@ body.frescopa-theme main .form form fieldset.cards > .checkbox-wrapper > input:c
   background-color: #f0f8fb;
   box-shadow: 0 0 0 1px #27647d;
 }
+.card-border {
+    box-shadow: 0 10px 20px #0000001a !important;
+    border-radius: 10px !important;
+    padding: 2rem 0 1rem !important;
+}
 body.frescopa-theme main .sign-in {
     background: transparent;
     box-shadow: none;
