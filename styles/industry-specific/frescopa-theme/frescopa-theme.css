@@ -526,8 +526,26 @@ body.frescopa-theme main .sign-in .create-account-link:hover {
 body.frescopa-theme a:hover::after {
     color: #ffffff !important;
 }
+
 body.frescopa-theme main .order-summary .order-summary-title {
     color: #58181d;
+}
+body.frescopa-theme main .cta-button a.button:hover {
+    background-color: transparent !important;
+    color: var(--main-accent-color) !important;
+    border-color: var(--main-accent-color) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+body.frescopa-theme .cta-button-secondary a.button, body.frescopa-theme a.button.secondary, body.frescopa-theme button.secondary {
+    background: #dc6e52;
+    border: 2px solid #dc6e52 !important;
+    color: #ffffff !important;
+}
+body.frescopa-theme .cta-button-secondary a.button:hover {
+    text-decoration: none;
+    background: #ffffff !important;
+    color: #dc6e52 !important;
 }
 body.frescopa-theme main .join-us {
     width: 100%;
