@@ -8415,6 +8415,20 @@
         "description": "When enabled, each product card shows an Add to Cart button directly in the listing view."
       },
       {
+        "component": "text",
+        "name": "addtocarteventtype",
+        "label": "Add to Cart Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Custom event name to dispatch when the Add to Cart button is clicked.",
+        "condition": {
+          "==": [
+            { "var": "enableaddtocartattileview" },
+            true
+          ]
+        }
+      },
+      {
         "component": "select",
         "name": "style",
         "label": "Style Variant",

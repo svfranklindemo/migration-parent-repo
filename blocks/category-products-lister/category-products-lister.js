@@ -1,5 +1,6 @@
 import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
+import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
 const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
@@ -24,7 +25,7 @@ async function getCategoryProductsPublishEnvironment() {
   return categoryProductsPublishEnvironmentPromise;
 }
 
-function buildCard(item, isAuthor, enableAddToCart = false) {
+function buildCard(item, isAuthor, enableAddToCart = false, addToCartEventType = '') {
   const { id, sku, name, damImageURL = {}, category = [], price, description = {} } = item || {};
   const productId = sku || id || "";
 
@@ -95,6 +96,7 @@ function buildCard(item, isAuthor, enableAddToCart = false) {
         price: price || 0,
         quantity: 1,
       });
+      if (addToCartEventType) dispatchCustomEvent(addToCartEventType);
       addToCartBtn.textContent = "Added to Cart ✓";
       addToCartBtn.classList.add("cpl-card-add-to-cart--added");
       setTimeout(() => {
@@ -227,11 +229,11 @@ export default async function decorate(block) {
   const cardsPerRow = readCardsPerRow(cfg, block);
 
   const enableAddToCart = (() => {
-    const raw = coerceConfigScalar(
-      cfg?.["enableaddtocartattileview"]
-    );
+    const raw = coerceConfigScalar(cfg?.["enableaddtocartattileview"]);
     return raw.toLowerCase() === "true";
   })();
+
+  const addToCartEventType = enableAddToCart ? (coerceConfigScalar(cfg?.["addtocarteventtype"])) : '';
 
   // Clear author table
   block.innerHTML = "";
@@ -253,6 +255,6 @@ export default async function decorate(block) {
     return;
   }
 
-  const cards = items.map((item) => buildCard(item, isAuthor, enableAddToCart));
+  const cards = items.map((item) => buildCard(item, isAuthor, enableAddToCart, addToCartEventType));
   grid.append(...cards);
 }
