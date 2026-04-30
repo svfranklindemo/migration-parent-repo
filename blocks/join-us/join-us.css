@@ -243,6 +243,51 @@ main .join-us form {
   padding: 20px;
 }
 
+/* Delivery section headings */
+main .join-us .delivery-section-item h2,
+main .join-us .delivery-section-item h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 16px 0 4px;
+  padding: 0;
+}
+
+/* Hide label for delivery section headings (only show the h2/h3) */
+main .join-us .delivery-section-item.heading-wrapper label {
+  display: none !important;
+}
+
+/* Call Before Delivery as a switch */
+main .join-us .delivery-section-item.field-wrapper.switch {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 2px 0 12px 0;
+}
+
+/* Delivery frequency select */
+main .join-us .delivery-section-item select {
+  width: 100%;
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #1a1a1a;
+  background: #fff;
+  margin-top: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+main .join-us .delivery-section-item select:focus {
+  outline: none;
+  border-color: var(--link-color, #0563c1);
+  box-shadow: 0 0 0 2px rgba(5, 99, 193, 0.15);
+}
+
 /* Hide button config fields so they don't appear in HTML (same as user-registration/sign-in) */
 .join-us [data-aue-prop="buttoneventtype"],
 .join-us [data-aue-prop="buttonwebhookurl"],

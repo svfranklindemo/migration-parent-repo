@@ -58,6 +58,8 @@ export default async function decorate(block) {
     ? isTruthy(config.showconsentcheckbox)
     : normalizeVariant(config.variant) !== 'no-checkbox';
   const hideCheckbox = !showConsentCheckbox;
+  const showDeliverySection = isTruthy(config.showdeliverysection);
+  const callBeforeDeliveryDefault = isTruthy(config.callbeforedelivery);
   const formActionId = (config.buttonformid ?? config['button-form-id'] ?? '').toString().trim();
   const formTitle = (config.formtitle ?? config['form-title'] ?? '').toString().trim() || DEFAULT_FORM_TITLE;
   const successToastMessage = (config.successmessage ?? config['success-message'] ?? '').toString().trim() || DEFAULT_SUCCESS_TOAST_MESSAGE;
@@ -106,6 +108,80 @@ export default async function decorate(block) {
             fieldType: 'text-input',
             label: { value: 'Phone number' },
             properties: { colspan: 12 },
+          },
+          {
+            id: 'heading-delivery-address',
+            fieldType: 'heading',
+            label: { value: 'DELIVERY ADDRESS' },
+            appliedCssClassNames: 'col-12 delivery-section-item',
+          },
+          {
+            id: 'streetLine1',
+            name: 'streetLine1',
+            fieldType: 'text-input',
+            label: { value: 'Street Address Line 1' },
+            properties: { colspan: 12 },
+            appliedCssClassNames: 'delivery-section-item',
+          },
+          {
+            id: 'streetLine2',
+            name: 'streetLine2',
+            fieldType: 'text-input',
+            label: { value: 'Street Address Line 2' },
+            properties: { colspan: 12 },
+            appliedCssClassNames: 'delivery-section-item',
+          },
+          {
+            id: 'city',
+            name: 'city',
+            fieldType: 'text-input',
+            label: { value: 'City' },
+            properties: { colspan: 12 },
+            appliedCssClassNames: 'delivery-section-item',
+          },
+          {
+            id: 'postalCode',
+            name: 'postalCode',
+            fieldType: 'text-input',
+            label: { value: 'Postal Code' },
+            properties: { colspan: 12 },
+            appliedCssClassNames: 'delivery-section-item',
+          },
+          {
+            id: 'heading-delivery-instruction',
+            fieldType: 'heading',
+            label: { value: 'SPECIAL DELIVERY INSTRUCTION' },
+            appliedCssClassNames: 'col-12 delivery-section-item',
+          },
+          {
+            id: 'callBeforeDelivery',
+            name: 'callBeforeDelivery',
+            fieldType: 'checkbox',
+            label: { value: 'Call Before Delivery' },
+            enum: ['true'],
+            type: 'string',
+            properties: {
+              variant: 'switch',
+              alignment: 'horizontal',
+              colspan: 12,
+            },
+            appliedCssClassNames: 'delivery-section-item',
+          },
+          {
+            id: 'heading-delivery-frequency',
+            fieldType: 'heading',
+            label: { value: 'DELIVERY FREQUENCY' },
+            appliedCssClassNames: 'col-12 delivery-section-item',
+          },
+          {
+            id: 'deliveryFrequency',
+            name: 'deliveryFrequency',
+            fieldType: 'drop-down',
+            label: { value: 'Delivery Frequency' },
+            enum: ['once', 'twice', 'thrice', 'daily'],
+            enumNames: ['Once a week', 'Twice a week', 'Thrice a week', 'Daily'],
+            properties: { colspan: 12 },
+            appliedCssClassNames: 'delivery-section-item',
           },
           ...(!hideCheckbox
             ? [
@@ -162,6 +238,16 @@ export default async function decorate(block) {
       attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
     }
     attachFormSubmitHandler(block, formActionId, successToastMessage);
+
+    // Delivery section: visibility controlled by UE config (showdeliverysection)
+    const deliverySectionItems = block.querySelectorAll('.delivery-section-item');
+    deliverySectionItems.forEach((el) => { el.style.display = showDeliverySection ? '' : 'none'; });
+
+    // Call Before Delivery: initial checked state from UE config
+    const callBeforeDeliveryInput = block.querySelector('input[name="callBeforeDelivery"]');
+    if (callBeforeDeliveryInput) {
+      callBeforeDeliveryInput.checked = callBeforeDeliveryDefault;
+    }
   }, 100);
 }
 

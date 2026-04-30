@@ -43,6 +43,22 @@
           "valueType": "boolean"
         },
         {
+          "component": "boolean",
+          "name": "showdeliverysection",
+          "label": "Show Delivery Address Section",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Toggle on to show delivery address and frequency fields by default"
+        },
+        {
+          "component": "boolean",
+          "name": "callbeforedelivery",
+          "label": "Call Before Delivery",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Pre-check the Call Before Delivery option"
+        },
+        {
           "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",
