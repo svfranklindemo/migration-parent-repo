@@ -801,3 +801,12 @@ body.frescopa-theme main .confirmation .confirmation-detail-value {
   color: #58181d;
   font-family: roboto, roboto-fallback, sans-serif;
 }
+
+.frescopa-theme #alloy-messaging-container {
+  position: fixed !important;
+  width: 100% !important;
+  max-width: 40% !important;
+  min-height: 150px !important;
+  top: 8% !important;
+  z-index: 111;
+}
