@@ -160,7 +160,7 @@ body.frescopa-theme .TopRibbon__content {
   gap: 12px;
   min-height: 42px;
   font-family: roboto, roboto-fallback, sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -168,6 +168,10 @@ body.frescopa-theme .TopRibbon__image {
   width: 40px;
   height: 24px;
   object-fit: cover;
+}
+
+body.frescopa-theme header nav {
+    padding-top: 0;
 }
 
 body.frescopa-theme header nav .nav-sections ul > li > a,
