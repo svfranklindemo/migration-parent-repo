@@ -153,15 +153,12 @@ body.frescopa-theme .TopRibbon {
   color: #ffffff;
 }
 
-body.frescopa-theme .TopRibbon__content {
+body.citi-signal-theme .TopRibbon__content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-height: 42px;
-  font-family: roboto, roboto-fallback, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-family: 'Adobe Clean Bold';
 }
 
 body.frescopa-theme .TopRibbon__image {
@@ -587,11 +584,6 @@ body.frescopa-theme main .order-summary .order-summary-item-name{
   body.frescopa-theme header nav .nav-brand picture,
   body.frescopa-theme header nav .nav-brand img {
     width: 132px;
-  }
-
-  body.frescopa-theme .TopRibbon__content {
-    padding: 0 12px;
-    text-align: center;
   }
 }
 
