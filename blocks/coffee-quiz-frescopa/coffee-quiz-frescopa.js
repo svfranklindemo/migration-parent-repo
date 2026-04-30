@@ -1,5 +1,8 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+import { getHostname } from '../../scripts/utils.js';
+
 // AEM DAM base path for quiz images — relative path works on author, needs
-// imageBaseUrl prefix (e.g. AEM publish host) to work on live EDS delivery.
+// image-base-url prefix (e.g. AEM publish host) to work on live EDS delivery.
 const DAM_IMAGE_PATH = '/content/dam/frescopa/en/images/coffee-quiz-frescopa';
 
 function buildDefaultSteps(base) {
@@ -53,117 +56,24 @@ function buildDefaultSteps(base) {
   ];
 }
 
-// Prepend imageBaseUrl to any relative /content/dam/ path so the same
-// authored path works on both author (no prefix needed) and live EDS delivery.
-function resolveImageSrc(src, imageBaseUrl) {
-  if (!src) return src;
-  if (!imageBaseUrl) return src;
-  // Already absolute — leave as-is
-  if (/^https?:\/\//i.test(src)) return src;
-  // Relative DAM path — prepend the publish host
-  return `${imageBaseUrl.replace(/\/$/, '')}${src}`;
-}
-
-function parseConfig(block) {
-  const config = {
-    completionUrl: '',
-    completionDelay: 0,
-    showProgress: true,
-    imageBaseUrl: '',
-    startedEvent: 'quiz-started',
-    stepEvent: 'quiz-step',
-    endedEvent: 'quiz-ended',
-    abandonedEvent: 'quiz-abandoned',
-  };
-  const steps = [];
-  let currentStep = null;
-
-  [...block.children].forEach((row) => {
-    const cells = [...row.children];
-    if (!cells.length) return;
-
-    const key = cells[0].textContent.trim().toLowerCase();
-
-    if (key === 'step') {
-      const typeRaw = cells[3]?.textContent?.trim().toLowerCase();
-      currentStep = {
-        question: cells[1]?.textContent?.trim() || '',
-        columns: parseInt(cells[2]?.textContent?.trim(), 10) || 2,
-        displayOnly: typeRaw === 'display',
-        options: [],
-      };
-      steps.push(currentStep);
-      return;
-    }
-
-    if (currentStep) {
-      // img element src is already browser-resolved; getAttribute gives the raw authored value
-      const imgEl = cells[0].querySelector('img');
-      const rawSrc = imgEl?.getAttribute('src') || cells[0].textContent.trim();
-      if (imgEl || rawSrc.match(/\.(jpg|jpeg|png|webp|gif|svg)(\?|$)/i)) {
-        currentStep.options.push({
-          // store raw src — resolveImageSrc() is applied at render time once imageBaseUrl is known
-          image: rawSrc,
-          label: cells[1]?.textContent?.trim() || '',
-          value:
-            cells[2]?.textContent?.trim() ||
-            cells[1]?.textContent?.trim().toLowerCase().replace(/\s+/g, '-') ||
-            String(currentStep.options.length + 1),
-        });
-        return;
-      }
-    }
-
-    switch (key) {
-      case 'image-base-url':
-        config.imageBaseUrl = cells[1]?.textContent?.trim() || '';
-        break;
-      case 'completion-url':
-        config.completionUrl = cells[1]?.textContent?.trim() || '';
-        break;
-      case 'completion-delay':
-        config.completionDelay = parseInt(cells[1]?.textContent?.trim(), 10) || 0;
-        break;
-      case 'show-progress':
-        config.showProgress = cells[1]?.textContent?.trim().toLowerCase() !== 'false';
-        break;
-      case 'started-event-type':
-        config.startedEvent = cells[1]?.textContent?.trim() || config.startedEvent;
-        break;
-      case 'step-event-type':
-        config.stepEvent = cells[1]?.textContent?.trim() || config.stepEvent;
-        break;
-      case 'ended-event-type':
-        config.endedEvent = cells[1]?.textContent?.trim() || config.endedEvent;
-        break;
-      case 'abandoned-event-type':
-        config.abandonedEvent = cells[1]?.textContent?.trim() || config.abandonedEvent;
-        break;
-      default:
-        break;
-    }
-  });
-
-  const steps_ = steps.length ? steps : buildDefaultSteps(config.imageBaseUrl);
-  // For authored steps, apply imageBaseUrl to any relative DAM paths now
-  if (steps.length && config.imageBaseUrl) {
-    steps_.forEach((step) => {
-      step.options.forEach((opt) => {
-        opt.image = resolveImageSrc(opt.image, config.imageBaseUrl);
-      });
-    });
-  }
-
-  return { config, steps: steps_ };
-}
-
 function fireEvent(type) {
   if (!type) return;
   document.dispatchEvent(new CustomEvent(type, { bubbles: true }));
 }
 
-export default function decorate(block) {
-  const { config, steps } = parseConfig(block);
+export default async function decorate(block) {
+  const cfg = readBlockConfig(block);
+
+  const imageBaseUrl = (await getHostname()).replace(/\/$/, '');
+  const completionUrl = cfg['completion-url'] || '';
+  const completionDelay = parseInt(cfg['completion-delay'], 10) || 0;
+  const showProgress = cfg['show-progress']?.toLowerCase() !== 'false';
+  const startedEvent = cfg['started-event-type'] || '';
+  const stepEvent = cfg['step-event-type'] || '';
+  const endedEvent = cfg['ended-event-type'] || '';
+  const abandonedEvent = cfg['abandoned-event-type'] || '';
+
+  const steps = buildDefaultSteps(imageBaseUrl);
 
   let currentStepIndex = 0;
   const selections = new Array(steps.length).fill(null);
@@ -171,18 +81,20 @@ export default function decorate(block) {
 
   block.textContent = '';
 
-  fireEvent(config.startedEvent);
+  fireEvent(startedEvent);
 
-  window.addEventListener('visibilitychange', () => {
-    if (document.hidden && !completed && currentStepIndex < steps.length - 1) {
-      fireEvent(config.abandonedEvent);
-    }
-  });
+  if (abandonedEvent) {
+    window.addEventListener('visibilitychange', () => {
+      if (document.hidden && !completed && currentStepIndex < steps.length - 1) {
+        fireEvent(abandonedEvent);
+      }
+    });
+  }
 
   // Progress indicator
   const progressEl = document.createElement('div');
   progressEl.className = 'coffee-quiz-frescopa__progress';
-  if (!config.showProgress) progressEl.hidden = true;
+  if (!showProgress) progressEl.hidden = true;
 
   const dotsEl = document.createElement('div');
   dotsEl.className = 'coffee-quiz-frescopa__dots';
@@ -298,7 +210,7 @@ export default function decorate(block) {
   nextBtn.addEventListener('click', () => {
     if (currentStepIndex < steps.length - 1) {
       currentStepIndex += 1;
-      fireEvent(config.stepEvent);
+      fireEvent(stepEvent);
       renderStep(currentStepIndex);
     }
   });
@@ -312,16 +224,16 @@ export default function decorate(block) {
 
   submitBtn.addEventListener('click', () => {
     completed = true;
-    fireEvent(config.endedEvent);
+    fireEvent(endedEvent);
 
     submitBtn.textContent = 'Submitting…';
     submitBtn.disabled = true;
     backBtn.disabled = true;
 
-    if (config.completionUrl) {
+    if (completionUrl) {
       setTimeout(
-        () => window.location.assign(config.completionUrl),
-        config.completionDelay || 0
+        () => window.location.assign(completionUrl),
+        completionDelay || 0
       );
     }
   });

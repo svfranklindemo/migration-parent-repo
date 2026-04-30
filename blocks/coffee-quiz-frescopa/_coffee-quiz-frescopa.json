@@ -23,14 +23,6 @@
       "fields": [
         {
           "component": "text",
-          "name": "image-base-url",
-          "label": "Image Base URL",
-          "value": "",
-          "valueType": "string",
-          "description": "AEM publish hostname (e.g. https://publish-xxx.adobeaemcloud.com). Leave blank on author. Required on live EDS delivery so /content/dam/ image paths resolve correctly."
-        },
-        {
-          "component": "text",
           "name": "completion-url",
           "label": "Completion URL",
           "value": "",
@@ -38,11 +30,11 @@
           "description": "Page to navigate to after quiz is submitted"
         },
         {
-          "component": "number",
+          "component": "text",
           "name": "completion-delay",
           "label": "Completion Delay (ms)",
-          "value": 0,
-          "valueType": "number",
+          "value": "",
+          "valueType": "string",
           "description": "Milliseconds to wait before redirecting on submit"
         },
         {
@@ -56,7 +48,7 @@
           "component": "text",
           "name": "started-event-type",
           "label": "Started Event Type",
-          "value": "quiz-started",
+          "value": "",
           "valueType": "string",
           "description": "Launch/Analytics event fired when quiz starts"
         },
@@ -64,7 +56,7 @@
           "component": "text",
           "name": "step-event-type",
           "label": "Step Event Type",
-          "value": "quiz-step",
+          "value": "",
           "valueType": "string",
           "description": "Launch/Analytics event fired on each step advance"
         },
@@ -72,7 +64,7 @@
           "component": "text",
           "name": "ended-event-type",
           "label": "Ended Event Type",
-          "value": "quiz-ended",
+          "value": "",
           "valueType": "string",
           "description": "Launch/Analytics event fired when quiz is submitted"
         },
@@ -80,7 +72,7 @@
           "component": "text",
           "name": "abandoned-event-type",
           "label": "Abandoned Event Type",
-          "value": "quiz-abandoned",
+          "value": "",
           "valueType": "string",
           "description": "Launch/Analytics event fired when user leaves without completing"
         },
