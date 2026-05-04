@@ -24,6 +24,8 @@ export default async function decorate(block) {
   // Set authorable redirect URL for sign-in page
   const signInRedirectUrl = normalizeAemPath(config['sign-in-redirect-url']);
   block.dataset.signInRedirectUrl = signInRedirectUrl;
+  const isFrescopaVariant = String(config.variant || '').trim().toLowerCase() === 'frescopa'
+    || document.body.classList.contains('frescopa-theme');
 
   // Build Adaptive Form definition for User Registration (fields per design)
   const formDef = {
@@ -109,6 +111,17 @@ export default async function decorate(block) {
               colspan: 12,
             },
           },
+          ...(isFrescopaVariant ? [{
+            id: "frescopaOwner",
+            name: "frescopaOwner",
+            fieldType: "drop-down",
+            label: { value: "Do you already have a Frescopa machine?" },
+            enum: ["", "yes", "no"],
+            enumNames: ["Do you already have a Frescopa machine?", "Yes", "No"],
+            type: "string",
+            properties: { colspan: 12 },
+            appliedCssClassNames: "frescopa-machine-field",
+          }] : []),
           {
             id: "submit-btn",
             name: "submitButton",

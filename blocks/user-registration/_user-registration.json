@@ -29,6 +29,17 @@
           "description": "Page to redirect to after successful registration. Leave empty for no redirect."
         },
         {
+          "component": "select",
+          "name": "variant",
+          "label": "Variant",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Frescopa", "value": "frescopa" }
+          ]
+        },
+        {
           "component": "text",
           "name": "buttoneventtype",
           "label": "Button Event Type",

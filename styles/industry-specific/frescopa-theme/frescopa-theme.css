@@ -465,6 +465,36 @@ body.frescopa-theme main .user-registration form label {
   color: #58181d;
 }
 
+/* User Registration – Frescopa machine dropdown */
+body.frescopa-theme main .user-registration .frescopa-machine-field select {
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid #c9ae75;
+  border-radius: 50px;
+  font-size: 1rem;
+  color: #999;
+  background: #ffffff;
+  box-sizing: border-box;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  cursor: pointer;
+}
+
+body.frescopa-theme main .user-registration .frescopa-machine-field select:focus {
+  outline: none;
+  border-color: #b89450;
+}
+
+body.frescopa-theme main .user-registration .frescopa-machine-field select option:not([value=""]) {
+  color: #333;
+}
+
+body.frescopa-theme main .user-registration .frescopa-machine-field label {
+  display: none;
+}
+
 /* Checkout Blocks */
 body.frescopa-theme main .checkout .form-container,
 body.frescopa-theme main .checkout-shipping .form-container {
@@ -809,4 +839,10 @@ body.frescopa-theme main .confirmation .confirmation-detail-value {
   min-height: 150px !important;
   top: 8% !important;
   z-index: 111;
+}
+.frescopa-theme .hero.image-background-text-left h1, .frescopa-theme .hero.image-background-text-left h2, .frescopa-theme .hero.image-background-text-left h3, .frescopa-theme .hero.image-background-text-left h4, .frescopa-theme .hero.image-background-text-left h5, .frescopa-theme .hero.image-background-text-left h6, .frescopa-theme .hero.image-background-text-left p{
+   margin:0;
+}
+.frescopa-theme  .hero.block.overlay.hero--text-overlay-off picture, .frescopa-theme .hero.image-background-text-left.hero--text-overlay-off picture, .frescopa-theme .hero.image-background-text-right.hero--text-overlay-off picture {
+    filter: brightness(1);
 }
