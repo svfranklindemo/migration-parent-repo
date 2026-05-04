@@ -572,6 +572,10 @@ body.frescopa-theme a:hover::after {
 body.frescopa-theme main .order-summary .order-summary-title {
     color: #58181d;
 }
+.frescopa-theme .hero.image-background-text-left div:nth-child(2) {
+    margin-left: 5%;
+}
+
 body.frescopa-theme main .join-us h2#heading-join-us{
     display: block;
     font-size: 2em;

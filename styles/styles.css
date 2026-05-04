@@ -2141,3 +2141,7 @@ padding-left: 0 !important;
 .light-color > *{
   color: #fff !important;
 }
+ .left-right-spacing{
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
