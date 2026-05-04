@@ -183,7 +183,9 @@ body.citi-signal-theme .checkout-shipping-block textarea {
   margin: 0;
   accent-color: #444;
 }
-
+input#cardNumber {
+   margin-bottom: 20px;
+}
 .checkout-shipping-block .checkbox-wrapper.switch.horizontal {
   display: flex;
   align-items: center;
