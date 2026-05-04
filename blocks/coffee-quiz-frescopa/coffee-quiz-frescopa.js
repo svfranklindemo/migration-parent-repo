@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { getHostname } from '../../scripts/utils.js';
+import { isAuthorEnvironment } from '../../scripts/scripts.js';
 
 // AEM DAM base path for quiz images — relative path works on author, needs
 // image-base-url prefix (e.g. AEM publish host) to work on live EDS delivery.
@@ -65,7 +66,10 @@ export default async function decorate(block) {
   const cfg = readBlockConfig(block);
 
   const imageBaseUrl = (await getHostname()).replace(/\/$/, '');
-  const completionUrl = cfg['completion-url'] || '';
+  const rawCompletionUrl = cfg['completion-url'] || '/en/quiz-results';
+  const completionUrl = isAuthorEnvironment()
+    ? (rawCompletionUrl.endsWith('.html') ? rawCompletionUrl : `${rawCompletionUrl}.html`)
+    : rawCompletionUrl;
   const completionDelay = parseInt(cfg['completion-delay'], 10) || 0;
   const showProgress = cfg['show-progress']?.toLowerCase() !== 'false';
   const startedEvent = cfg['started-event-type'] || '';

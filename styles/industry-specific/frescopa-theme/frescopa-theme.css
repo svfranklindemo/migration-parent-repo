@@ -18,6 +18,7 @@ body.frescopa-theme {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  --spacing-xhuge:8rem;
 }
 
 body.frescopa-theme main {
@@ -25,8 +26,8 @@ body.frescopa-theme main {
 }
 
 body.frescopa-theme main > .section:not([data-sec-full-width="true"]) {
-  max-width: 1280px;
-  width: 90%;
+  max-width: 1200px;
+  width: 100%;
 }
 
 body.frescopa-theme main > .section > div {
@@ -51,11 +52,15 @@ body.frescopa-theme .hero h1 {
 }
 body.frescopa-theme h1 {
   font-size: 28px !important;
+  
 }
 body.frescopa-theme h2 {
   font-size: 24px !important;
+  
 }
-
+body.frescopa-theme main .join-us{
+  background:none;
+}
 body.frescopa-theme .hero h2,
 body.frescopa-theme .hero-wrapper h2 {
   font-size: 2.55rem !important;
@@ -122,8 +127,8 @@ body.frescopa-theme header .nav-wrapper {
 }
 
 body.frescopa-theme header nav {
-  max-width: 1280px !important;
-  width: 90%;
+  max-width: 1200px !important;
+  width: 100%;
   padding-left: 0;
   padding-right: 0;
 }
@@ -266,8 +271,8 @@ body.frescopa-theme footer {
 }
 
 body.frescopa-theme footer .footer > div {
-  max-width: 1280px;
-  width: 90%;
+  max-width: 1200px;
+  width: 100%;
   padding-left: 0;
   padding-right: 0;
 }
@@ -308,6 +313,9 @@ body.frescopa-theme .cards > ul > li.cards-card--alignment-left .cards-card-body
 }
 body.frescopa-theme .section.bg-light.section-has-bg.section--custom-text-color.cards-container {
     border-radius: 10px;
+}
+.quiz-results-recommend{
+padding: 20px 60px;
 }
 body.frescopa-theme .section.section-has-bg {
     border-radius: 10px;
@@ -564,6 +572,18 @@ body.frescopa-theme a:hover::after {
 body.frescopa-theme main .order-summary .order-summary-title {
     color: #58181d;
 }
+body.frescopa-theme main .join-us h2#heading-join-us{
+    display: block;
+    font-size: 2em;
+    color: #58181d;
+}
+body.frescopa-theme main .join-us .delivery-section-item h2, main .join-us .delivery-section-item h3 {
+    color: #58181d;
+    display: block;
+    font-size: 1.17em !important;
+    font-weight: 100;
+    padding: 10px;
+}
 body.frescopa-theme main .join-us .field-wrapper.switch input[type="checkbox"]::before{
       top: 0;
 }
@@ -581,15 +601,20 @@ body.frescopa-theme main .cta-button a.button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
 }
-body.frescopa-theme .cta-button-secondary a.button, body.frescopa-theme a.button.secondary, body.frescopa-theme button.secondary {
+body.frescopa-theme .cta-button-secondary a.button,
+body.frescopa-theme .default-button-secondary a.button,
+body.frescopa-theme a.button.secondary,
+body.frescopa-theme button.secondary {
     background: #dc6e52;
     border: 2px solid #dc6e52 !important;
     color: #ffffff !important;
 }
-body.frescopa-theme .cta-button-secondary a.button:hover {
+body.frescopa-theme .cta-button-secondary a.button:hover,
+body.frescopa-theme .default-button-secondary a.button:hover {
     text-decoration: none;
     background: #ffffff !important;
     color: #dc6e52 !important;
+    border-color: #dc6e52 !important;
 }
 body.frescopa-theme main .join-us {
     width: 100%;
@@ -611,6 +636,7 @@ body.frescopa-theme main .order-summary .order-summary-item-name{
 
   body.frescopa-theme h2 {
     font-size: 28px !important;
+   
   }
 
   body.frescopa-theme .hero h2,
