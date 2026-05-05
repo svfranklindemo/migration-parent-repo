@@ -39,6 +39,22 @@
         },
         {
           "component": "boolean",
+          "name": "show-loyalty",
+          "label": "Show Loyalty Field",
+          "value": "true",
+          "valueType": "boolean",
+          "description": "Shows the loyalty program opt-in checkbox in the account section."
+        },
+        {
+          "component": "text",
+          "name": "loyalty-label",
+          "label": "Loyalty Label",
+          "value": "I want to join Luma+ Loyalty Program",
+          "valueType": "string",
+          "description": "Label text for the loyalty program checkbox."
+        },
+        {
+          "component": "boolean",
           "name": "showcardnumberfield",
           "label": "Show Card Number Field",
           "value": "false",

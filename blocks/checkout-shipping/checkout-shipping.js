@@ -234,6 +234,8 @@ function attachSubmitHandler(block, config) {
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   const showCardNumberField = isTruthy(config.showcardnumberfield ?? config['show-card-number-field']);
+  const showLoyalty = isTruthy(config['show-loyalty'] ?? config.showloyalty);
+  const loyaltyLabel = (config['loyalty-label'] || config.loyaltylabel || 'I want to join Luma+ Loyalty Program').toString().trim();
   [...block.children].forEach((row) => {
     row.style.display = 'none';
   });
@@ -396,19 +398,23 @@ export default async function decorate(block) {
                 label: { value: 'Account' },
                 appliedCssClassNames: 'col-12 checkout-shipping-subheading',
               },
-              {
-                id: 'lumaLoyalty',
-                name: 'lumaLoyalty',
-                fieldType: 'checkbox',
-                label: { value: 'I want to join Luma+ Loyalty Program' },
-                enum: ['true'],
-                type: 'string',
-                properties: {
-                  variant: 'switch',
-                  alignment: 'horizontal',
-                  colspan: 12,
-                },
-              },
+              ...(showLoyalty
+                ? [
+                    {
+                      id: 'lumaLoyalty',
+                      name: 'lumaLoyalty',
+                      fieldType: 'checkbox',
+                      label: { value: loyaltyLabel },
+                      enum: ['true'],
+                      type: 'string',
+                      properties: {
+                        variant: 'switch',
+                        alignment: 'horizontal',
+                        colspan: 12,
+                      },
+                    },
+                  ]
+                : []),
               {
                 id: 'createAccount',
                 name: 'createAccount',
