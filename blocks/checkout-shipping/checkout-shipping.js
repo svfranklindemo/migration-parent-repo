@@ -112,12 +112,23 @@ function prefillFromRegistration(block) {
   }
 }
 
-function attachBackButton(block) {
+function getBackPath(config) {
+  const raw = (config['back-path'] || config.backpath || '').toString().trim();
+  if (!raw) return null;
+  if (raw.includes('/')) return raw;
+  const currentPath = (window.location.pathname || '/').replace(/\/$/, '');
+  const lastSlash = currentPath.lastIndexOf('/');
+  const basePath = lastSlash > 0 ? currentPath.substring(0, lastSlash) : '';
+  const targetPage = currentPath.endsWith('.html') ? `${raw}.html` : raw;
+  return `${basePath}/${targetPage}`;
+}
+
+function attachBackButton(block, config) {
   const backBtn = block.querySelector('#btn-back');
   if (!backBtn || backBtn.tagName !== 'BUTTON') return;
   backBtn.type = 'button';
   backBtn.addEventListener('click', () => {
-    if (window.history.length > 1) window.history.back();
+    window.location.href = getBackPath(config) || '/en/cart';
   });
 }
 
@@ -464,7 +475,7 @@ export default async function decorate(block) {
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config);
     prefillFromRegistration(block);
-    attachBackButton(block);
+    attachBackButton(block, config);
     attachCardNumberVisibility(block);
     refreshSummary(block);
     attachSubmitHandler(block, config);

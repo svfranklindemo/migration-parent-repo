@@ -23,6 +23,14 @@
       "fields": [
         {
           "component": "text",
+          "name": "back-path",
+          "label": "Back Path",
+          "value": "",
+          "valueType": "string",
+          "description": "Where to navigate when BACK is clicked. Use a full path (e.g. /en/cart) or just a page name (e.g. cart). Defaults to /en/cart."
+        },
+        {
+          "component": "text",
           "name": "continue-path",
           "label": "Continue Path",
           "value": "order-summary",
