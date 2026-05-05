@@ -8734,7 +8734,15 @@
         "label": "Completion URL",
         "value": "",
         "valueType": "string",
-        "description": "Page to navigate to after quiz is submitted"
+        "description": "Page to navigate to after quiz is submitted (requires user to be logged in)"
+      },
+      {
+        "component": "text",
+        "name": "sign-in-url",
+        "label": "Sign-In URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to redirect to when user is not logged in and clicks Submit"
       },
       {
         "component": "text",
