@@ -595,6 +595,21 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* Prevent hero FOUC: reserve space until loaded. */
+.hero.block[data-block-status="initialized"],
+.hero.block[data-block-status="loading"] {
+  min-height: 400px;
+}
+
+.hero.block[data-block-status="initialized"] > *,
+.hero.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.hero.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
 /* Prevent cards FOUC: reserve space until loaded. */
 .cards.block[data-block-status="initialized"],
 .cards.block[data-block-status="loading"] {
