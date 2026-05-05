@@ -595,23 +595,19 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
-/* Prevent cards FOUC: collapse block while loading, reveal only when loaded. */
+/* Prevent cards FOUC: reserve space until loaded. */
 .cards.block[data-block-status="initialized"],
 .cards.block[data-block-status="loading"] {
-  height: 0;
-  min-height: 0;
-  overflow: hidden;
+  min-height: 200px;
 }
 
 .cards.block[data-block-status="initialized"] > *,
 .cards.block[data-block-status="loading"] > * {
-  display: none;
+  visibility: hidden;
 }
 
 .cards.block[data-block-status="loaded"] {
-  height: auto;
   min-height: 0;
-  overflow: visible;
 }
 
 /* Prevent new-arrival FOUC: show a loading gradient placeholder until loaded. */
@@ -866,6 +862,21 @@ footer .footer[data-block-status="loaded"] {
 }
 
 .order-summary.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
+/* Prevent checkout FOUC: reserve space until loaded. */
+.checkout.block[data-block-status="initialized"],
+.checkout.block[data-block-status="loading"] {
+  min-height: 500px;
+}
+
+.checkout.block[data-block-status="initialized"] > *,
+.checkout.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.checkout.block[data-block-status="loaded"] {
   min-height: 0;
 }
 
