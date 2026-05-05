@@ -210,7 +210,7 @@ export default async function decorate(block) {
     updateDots(index);
 
     if (typeof window.updateDataLayer === 'function') {
-      window.updateDataLayer({ wizard: { currentStep: index + 1 } });
+      window.updateDataLayer({ wizard: { currentStep: index } });
     }
   }
 
