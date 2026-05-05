@@ -121,10 +121,6 @@ export default async function decorate(block) {
     applyButtonConfigToSubmitButton(block, config);
     attachSignInHandler(block);
     addCreateAccountLink(block, isAuthor, config);
-    const wrapperElement = block.closest(".sign-in-wrapper");
-    if (wrapperElement) {
-      wrapperElement.classList.add("show");
-    }
   }, 100);
 }
 

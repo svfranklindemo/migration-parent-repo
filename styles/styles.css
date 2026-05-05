@@ -799,6 +799,66 @@ footer .footer[data-block-status="loaded"] {
   overflow: visible;
 }
 
+/* Prevent sign-in FOUC: show a skeleton until loaded. */
+.sign-in.block[data-block-status="initialized"],
+.sign-in.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.sign-in.block[data-block-status="initialized"] > *,
+.sign-in.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.sign-in.block[data-block-status="initialized"]::before,
+.sign-in.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+  z-index: 2;
+}
+
+.sign-in.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent join-us FOUC: show a skeleton until loaded. */
+.join-us.block[data-block-status="initialized"],
+.join-us.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.join-us.block[data-block-status="initialized"] > *,
+.join-us.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.join-us.block[data-block-status="initialized"]::before,
+.join-us.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+  z-index: 2;
+}
+
+.join-us.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
 h1,
 h2,
 h3,
@@ -2123,32 +2183,6 @@ body.securbank-theme main :is(ul, menu) ul {
 }
 .yellow-bg{
     background-color: rgb(255, 235, 1) !important;
-}
-
-.sign-in-wrapper {
-  position: relative;
-  min-height: 560px;
-  display: block !important;
-}
-
-.sign-in-wrapper:not(.show) .sign-in {
-  visibility: hidden;
-}
-
-.sign-in-wrapper:not(.show)::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
-  z-index: 2;
-}
-
-.sign-in-wrapper.show {
-  display: block !important;
-  min-height: 0;
 }
 
 .product-card-wrapper {
