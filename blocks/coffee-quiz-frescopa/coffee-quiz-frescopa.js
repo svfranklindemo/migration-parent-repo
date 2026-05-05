@@ -1,5 +1,4 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { getHostname } from '../../scripts/utils.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
 
 // AEM DAM base path for quiz images — relative path works on author, needs
@@ -65,7 +64,7 @@ function fireEvent(type) {
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
 
-  const imageBaseUrl = (await getHostname()).replace(/\/$/, '');
+  const imageBaseUrl = '';
   const rawCompletionUrl = cfg['completion-url'] || '/en/quiz-results';
   const completionUrl = isAuthorEnvironment()
     ? (rawCompletionUrl.endsWith('.html') ? rawCompletionUrl : `${rawCompletionUrl}.html`)
