@@ -295,7 +295,7 @@ function getActiveWizardStepIndex(wizard) {
 }
 
 /**
- * Keep the wizard metadata in sync with the dataLayer (similar to user-registration updates).
+ * Keep the wizard metadata in sync with the dataLayer.
  */
 function updateNewAccountWizardDataLayer(stepIndex) {
   if (!window.updateDataLayer) return;

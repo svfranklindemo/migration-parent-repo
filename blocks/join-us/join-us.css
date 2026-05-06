@@ -288,7 +288,7 @@ main .join-us .delivery-section-item select:focus {
   box-shadow: 0 0 0 2px rgba(5, 99, 193, 0.15);
 }
 
-/* Hide button config fields so they don't appear in HTML (same as user-registration/sign-in) */
+/* Hide button config fields so they don't appear in HTML (same as sign-in) */
 .join-us [data-aue-prop="buttoneventtype"],
 .join-us [data-aue-prop="buttonwebhookurl"],
 .join-us [data-aue-prop="buttonformid"],
