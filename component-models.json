@@ -886,14 +886,6 @@
       },
       {
         "component": "boolean",
-        "name": "showaddress",
-        "label": "Show Address Fields",
-        "value": "true",
-        "valueType": "boolean",
-        "description": "Show or hide the street address, city, and postal code fields."
-      },
-      {
-        "component": "boolean",
         "name": "showcardnumberfield",
         "label": "Show Card Number Field",
         "value": "false",
