@@ -300,7 +300,6 @@ export default async function decorate(block) {
     applyButtonConfigToSubmitButton(block, config);
     prePopulateFormFromDataLayer(block);
     attachCreateAccountSubmitHandler(block, config);
-    addSignInLink(block, config);
     const form = block.querySelector("form");
     if (form) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
@@ -315,22 +314,6 @@ export default async function decorate(block) {
   }, 100);
 }
 
-function addSignInLink(block, config) {
-  const form = block.querySelector("form");
-  if (!form) return;
-  const wrapper = form.closest(".form") || form.parentElement;
-  if (!wrapper) return;
-  if (wrapper.querySelector(".create-account-sign-in-link")) return;
-
-  const signInUrl = normalizeAemPath(config['sign-in-redirect-url']) || 'sign-in';
-  const signInDiv = document.createElement("div");
-  signInDiv.className = "create-account-sign-in-link";
-  const signInAnchor = document.createElement("a");
-  signInAnchor.href = signInUrl;
-  signInAnchor.textContent = "Sign In";
-  signInDiv.append(document.createTextNode("Already have an account? "), signInAnchor);
-  wrapper.appendChild(signInDiv);
-}
 
 function attachCreateAccountSubmitHandler(block, config) {
   const form = block.querySelector("form");

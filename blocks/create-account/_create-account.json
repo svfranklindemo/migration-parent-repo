@@ -47,13 +47,6 @@
           ]
         },
         {
-          "component": "aem-content",
-          "valueType": "string",
-          "name": "sign-in-redirect-url",
-          "label": "Sign-In Redirect URL",
-          "description": "URL for the 'Already have an account? Sign In' link. Defaults to 'sign-in'."
-        },
-        {
           "component": "boolean",
           "name": "showaddress",
           "label": "Show Address Fields",
