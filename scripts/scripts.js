@@ -81,11 +81,20 @@ export function isAuthorEnvironment() {
 }
 
 export function normalizeAemPath(path) {
-  if (!path || !path.startsWith('/content/')) return path;
-  if (isAuthorEnvironment()) {
-    return path.endsWith('.html') ? path : `${path}.html`;
+  if (!path) return path;
+  let pathname = path;
+  if (/^https?:\/\//i.test(path)) {
+    try {
+      pathname = new URL(path).pathname;
+    } catch {
+      return path;
+    }
   }
-  return path.replace(/^\/content\/[^/]+\/language-masters/, '').replace(/\.html$/, '');
+  if (!pathname.startsWith('/content/')) return pathname;
+  if (isAuthorEnvironment()) {
+    return pathname.endsWith('.html') ? pathname : `${pathname}.html`;
+  }
+  return pathname.replace(/^\/content\/[^/]+\/language-masters/, '').replace(/\.html$/, '');
 }
 
 export function normalizeCategoryValue(value) {
