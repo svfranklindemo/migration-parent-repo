@@ -34,6 +34,65 @@
           "valueType": "string"
         },
         {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableSmartCrop",
+          "label": "Enable Smart Crop",
+          "value": false
+        },
+        {
+          "component": "select",
+          "name": "preset",
+          "value": "na",
+          "label": "Preset",
+          "description": "Preset to be applied to the image. This preset needs to exist on the DM account if using any account other than DynamicMediaNA",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Border with Color",
+              "value": "border"
+            },
+            {
+              "name": "Grayscale",
+              "value": "grayscale"
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Border Settings",
+          "name": "borderSettings",
+          "valueType": "string",
+          "condition": {
+            "==": [
+              {
+                "var": "preset"
+              },
+              "border"
+            ]
+          },
+          "fields": [
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "extend",
+              "label": "Extend",
+              "description": "Provide value in Left,top,right,bottom format e.g. 10,10,10,10 to add a 10 pixel padding on all sides"
+            },
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "borderbgcolor",
+              "label": "Border Color",
+              "description": "Provide hexcode of the color without # e.g. FFFFFF"
+            }
+          ]
+        },
+        {
           "component": "select",
           "name": "rotate",
           "value": "",

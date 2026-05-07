@@ -46,23 +46,6 @@
           ]
         },
         {
-          "component": "select",
-          "name": "teaserStyle",
-          "value": "image",
-          "label": "Style",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Video",
-              "value": "video"
-            },
-            {
-              "name": "Image",
-              "value": "image"
-            }
-          ]
-        },
-        {
           "component": "container",
           "label": "Video Properties",
           "name": "videoProperties",
@@ -182,12 +165,27 @@
           ]
         },
         {
-          "component": "boolean",
-          "label": "Enable Swoosh Effect",
-          "description": "Enable Circular effect on the component",
-          "name": "useSwoosh",
-          "value": "true",
-          "valueType": "boolean"
+          "component": "select",
+          "name": "ctastyle",
+          "label": "CTA Style",
+          "options": [
+            {
+              "name": "Link",
+              "value": "link"
+            },
+            {
+              "name": "Primary Button",
+              "value": "button"
+            },
+            {
+              "name": "Secondary Button",
+              "value": "button-secondary"
+            },
+            {
+              "name": "Dark Button",
+              "value": "button-dark"
+            }
+          ]
         },
         {
           "component": "text",

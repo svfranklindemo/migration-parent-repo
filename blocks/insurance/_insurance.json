@@ -22,6 +22,14 @@
       "fields": [
         {
           "component": "text",
+          "name": "title",
+          "label": "Title",
+          "value": "Life Insurance",
+          "valueType": "string",
+          "description": "Main heading of the form"
+        },
+        {
+          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",

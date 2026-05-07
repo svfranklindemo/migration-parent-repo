@@ -83,42 +83,6 @@
         },
         {
           "component": "aem-content",
-          "name": "damJsonPath",
-          "label": "JSON File Path",
-          "description": "Select JSON file from DAM",
-          "valueType": "string",
-          "validation": {
-            "rootPath": "/content/dam"
-          },
-          "condition": {
-            "==": [
-              {
-                "var": "dataSourceType"
-              },
-              "dam-json"
-            ]
-          }
-        },
-        {
-          "component": "aem-content",
-          "name": "contentFragmentFolder",
-          "label": "Content Fragment Folder",
-          "description": "Select folder containing multiple doctor Content Fragments",
-          "valueType": "string",
-          "validation": {
-            "rootPath": "/content/dam"
-          },
-          "condition": {
-            "==": [
-              {
-                "var": "dataSourceType"
-              },
-              "content-fragments"
-            ]
-          }
-        },
-        {
-          "component": "aem-content",
           "name": "contentFragmentFolder",
           "label": "Content Fragment Folder",
           "description": "Select folder containing multiple doctor Content Fragments",
@@ -151,22 +115,6 @@
           }
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "staticJsonPath",
-          "label": "Static JSON Path",
-          "description": "Path to static JSON file",
-          "value": "/data/doctors.json",
-          "condition": {
-            "==": [
-              {
-                "var": "dataSourceType"
-              },
-              "json"
-            ]
-          }
-        },
-        {
           "component": "boolean",
           "name": "enableLocationSearch",
           "label": "Enable Location Search",
@@ -186,6 +134,28 @@
           "label": "Enable Provider Name Search",
           "value": "true",
           "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "enableSubmitAction",
+          "label": "Enable Submit Action",
+          "value": "true",
+          "valueType": "boolean"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "submitUrl",
+          "label": "Submit URL",
+          "description": "URL to redirect to when Book Appointment is clicked (if Submit Action is enabled)",
+          "condition": {
+            "==": [
+              {
+                "var": "enableSubmitAction"
+              },
+              true
+            ]
+          }
         },
         {
           "component": "text",
