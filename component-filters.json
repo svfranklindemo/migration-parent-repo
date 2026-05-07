@@ -61,7 +61,8 @@
       "order-confirmation",
       "order-summary",
       "product-detail",
-      "product-card"
+      "product-card",
+      "product-card-list"
     ]
   },
   {
@@ -103,6 +104,12 @@
     "id": "tabs",
     "components": [
       "tabs-item"
+    ]
+  },
+  {
+    "id": "product-card-list",
+    "components": [
+      "product-item"
     ]
   },
   {
