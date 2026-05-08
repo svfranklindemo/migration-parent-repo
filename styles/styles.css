@@ -786,6 +786,66 @@ footer .footer[data-block-status="loaded"] {
   overflow: visible;
 }
 
+/* Prevent application-form FOUC: show a skeleton until loaded. */
+.application-form.block[data-block-status="initialized"],
+.application-form.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.application-form.block[data-block-status="initialized"] > *,
+.application-form.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.application-form.block[data-block-status="initialized"]::before,
+.application-form.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+  z-index: 2;
+}
+
+.application-form.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent loan-preapproval-form FOUC: show a skeleton until loaded. */
+.loan-preapproval-form.block[data-block-status="initialized"],
+.loan-preapproval-form.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.loan-preapproval-form.block[data-block-status="initialized"] > *,
+.loan-preapproval-form.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.loan-preapproval-form.block[data-block-status="initialized"]::before,
+.loan-preapproval-form.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+  z-index: 2;
+}
+
+.loan-preapproval-form.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
 h1,
 h2,
 h3,
@@ -2102,4 +2162,8 @@ padding-left: 0 !important;
  .left-right-spacing{
     padding-left: 50px !important;
     padding-right: 50px !important;
+}
+
+.form-message.error-message {
+  display: none;
 }

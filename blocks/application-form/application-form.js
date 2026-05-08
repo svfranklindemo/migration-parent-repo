@@ -316,7 +316,7 @@ function setupApplicationFormStepIndicator(block) {
   stepLabel.setAttribute('aria-live', 'polite');
   function updateStepLabel() {
     const current = wizard.querySelector('.current-wizard-step');
-    const idx = current ? (parseInt(current.dataset.index, 10) + 1) : 1;
+    const idx = current ? parseInt(current.dataset.index, 10) : 1;
     stepLabel.textContent = `${idx}/${totalSteps} step`;
   }
   updateStepLabel();
