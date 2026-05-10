@@ -793,3 +793,22 @@ body.carvelo-theme .search.search-icon .search-trigger .icon img {
     text-align: center;
   }
 }
+
+/* Icon cards – let image height follow the icon's natural size */
+body.carvelo-theme .cards > ul > li.icon-cards img {
+  width: auto;
+  height: auto;
+  min-height: unset;
+  max-height: unset;
+  aspect-ratio: unset;
+  object-fit: unset;
+}
+
+body.carvelo-theme .cards > ul > li.icon-cards .cards-card-image {
+  min-height: unset;
+  max-height: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0 0;
+}
