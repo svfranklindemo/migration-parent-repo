@@ -1,5 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { isAuthorEnvironment } from '../../scripts/scripts.js';
+import { isAuthorEnvironment, normalizeCategoryValue } from '../../scripts/scripts.js';
 import { getHostname } from '../../scripts/utils.js';
 
 const AUTHOR_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/productFeatureListByPath';
@@ -42,10 +42,13 @@ function normalizeImageUrl(damObj, externalUrl, isAuthor) {
 }
 
 function normalizeItem(raw, isAuthor) {
+  const desc = raw.description;
   return {
     id: raw.id || raw.sku || '',
     name: raw.name || '',
     price: raw.price != null ? raw.price : null,
+    category: normalizeCategoryValue(Array.isArray(raw.category) ? raw.category[0] : raw.category),
+    description: !desc ? '' : (typeof desc === 'string' ? desc : (desc.html || desc.markdown || '')),
     featureImageUrl: normalizeImageUrl(raw.damFeatureImageURL, raw.externalFeatureImageURL, isAuthor),
     selectionImageUrl: normalizeImageUrl(raw.damImageUrlForSelection, raw.externalImageUrlForSelection, isAuthor),
   };
@@ -75,6 +78,30 @@ async function fetchProductFeatures(cfPath) {
   }
 }
 
+// Builds { configurator: { <category>: [selectedItem] } } for the single selected item.
+function buildSelectedItemDataLayer(item) {
+  const key = (item.category || 'uncategorized').toLowerCase().replace(/\s+/g, '-');
+  return {
+    configurator: {
+      [key]: [{
+        id: item.id,
+        name: item.name,
+        color: item.selectionImageUrl,
+        image: item.featureImageUrl,
+        price: item.price,
+        category: item.category,
+        description: item.description,
+      }],
+    },
+  };
+}
+
+function pushToDataLayer(data) {
+  if (typeof window.updateDataLayer === 'function') {
+    window.updateDataLayer(data, true);
+  }
+}
+
 function formatPrice(value) {
   if (value == null) return '';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(value);
@@ -90,11 +117,12 @@ function selectItem(index, items, previewImg, summaryLabel, summaryPrice, swatch
     btn.classList.toggle('is-selected', i === index);
     btn.setAttribute('aria-pressed', i === index ? 'true' : 'false');
   });
+  pushToDataLayer(buildSelectedItemDataLayer(item));
 }
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const exteriorTitle = config?.['block-title'] || config?.blocktitle || '';
+  const blockTitle = config?.['block-title'] || config?.blocktitle || '';
   const cfPath = config?.['product-cf-parent-path'] || config?.productcfparentpath || '';
 
   block.innerHTML = '';
@@ -123,7 +151,7 @@ export default async function decorate(block) {
 
   const heading = document.createElement('h2');
   heading.className = 'byo-section-title';
-  heading.textContent = exteriorTitle;
+  heading.textContent = blockTitle;
   optionsPane.appendChild(heading);
 
   const swatchGrid = document.createElement('div');
