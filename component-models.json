@@ -9033,10 +9033,10 @@
         "valueType": "string"
       },
       {
-        "component": "aem-content-fragment",
-        "name": "contentFragment",
+        "component": "aem-content",
+        "name": "product-cf-parent-path",
         "label": "Product Features Content Fragment",
-        "description": "Select the CF containing the color/feature options for this configurator",
+        "description": "Select the CF container containing the color/feature options for this configurator",
         "valueType": "string",
         "validation": {
           "rootPath": "/content/dam"
