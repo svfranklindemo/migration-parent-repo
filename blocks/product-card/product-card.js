@@ -286,12 +286,6 @@ function createButtonFromConfig(config) {
   anchor.textContent = config.text || 'Learn more';
   if (config.link) anchor.href = config.link;
   if (config.eventType) anchor.dataset.buttonEventType = config.eventType;
-  if (config.openInNewTab) anchor.rel = 'noreferrer noopener';
-  if (config.customAttributes) {
-    Object.entries(config.customAttributes).forEach(([key, value]) => {
-      anchor.dataset[key] = value;
-    });
-  }
   container.appendChild(anchor);
   return { node: container };
 }
