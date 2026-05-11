@@ -1,38 +1,37 @@
 import { readBlockConfig } from '../../scripts/aem.js';
+import { isAuthorEnvironment } from '../../scripts/scripts.js';
+import { getHostname } from '../../scripts/utils.js';
 
-// Static CF payload — replace with GraphQL fetch when endpoint is ready.
+const AUTHOR_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/productFeatureListByPath';
+const PUBLISH_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/productFeatureListByPath';
+
+let apiConfigPromise;
+
+async function getApiConfig() {
+  if (!apiConfigPromise) {
+    apiConfigPromise = (async () => {
+      const hostname = await getHostname();
+      return { authorBase: (hostname || '').replace(/\/$/, '') };
+    })();
+  }
+  return apiConfigPromise;
+}
+
+function normalizeContentFragmentPath(path, isAuthor) {
+  if (!path || typeof path !== 'string') return '';
+  let normalizedPath = path.trim();
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    normalizedPath = normalizedPath.replace(window.location.origin, '');
+  }
+  if (isAuthor) {
+    normalizedPath = normalizedPath.replace(/\.html$/i, '');
+  }
+  return normalizedPath;
+}
+
 // Image resolution: damFeatureImageURL takes priority over externalFeatureImageURL.
 // On author env: _authorUrl → _publishUrl → _dynamicUrl
 // On publish env: _publishUrl → _authorUrl → _dynamicUrl
-const DUMMY_DATA = {
-  data: {
-    productFeaturesModelList: {
-      items: [
-        {
-          id: 'd3HlibfkB',
-          sku: 'd3HlibfkB',
-          name: 'White Leather',
-          price: 1050,
-          category: ['frescopa:accessories'],
-          description: { markdown: null, html: null },
-          externalFeatureImageURL: 'https://demo-system-next.s3.amazonaws.com/assets/carvelo/configurator/interior-white.png',
-          externalImageUrlForSelection: 'https://demo-system-next.s3.amazonaws.com/assets/carvelo/configurator/interior-white-small.jpg',
-          damFeatureImageURL: {
-            _authorUrl: 'https://author-p121371-e1189853.adobeaemcloud.com/content/dam/aem-demo-assets/en/magazine/western-australia/adobe-waadobe-wa-mg-3094.jpg',
-            _publishUrl: 'https://publish-p121371-e1189853.adobeaemcloud.com/content/dam/aem-demo-assets/en/magazine/western-australia/adobe-waadobe-wa-mg-3094.jpg',
-            _dynamicUrl: '/adobe/dynamicmedia/deliver/dm-aid--75be01a6-9c8b-428f-98e8-f5545e2812c0/adobe_waadobe_wa_mg_3094.jpg',
-          },
-          damImageUrlForSelection: {
-            _authorUrl: 'https://author-p121371-e1189853.adobeaemcloud.com/content/dam/wknd-fly/en/images/240_F_313450534_bHkt5SoetREYpgWO5uOpceVnaDCngOX7.jpg',
-            _publishUrl: 'https://publish-p121371-e1189853.adobeaemcloud.com/content/dam/wknd-fly/en/images/240_F_313450534_bHkt5SoetREYpgWO5uOpceVnaDCngOX7.jpg',
-            _dynamicUrl: '/adobe/dynamicmedia/deliver/dm-aid--8cafcee1-32ab-46f3-be8f-4ab8fd272114/_40_F_313450534_bHkt5SoetREYpgWO5uOpceVnaDCngOX7.jpg',
-          },
-        },
-      ],
-    },
-  },
-};
-
 function normalizeImageUrl(damObj, externalUrl) {
   if (damObj) {
     return damObj._publishUrl || damObj._authorUrl || damObj._dynamicUrl;
@@ -50,10 +49,28 @@ function normalizeItem(raw) {
   };
 }
 
-function getItems() {
-  const raw = DUMMY_DATA?.data?.productFeaturesModelList?.items;
-  if (!Array.isArray(raw) || !raw.length) return [];
-  return raw.map(normalizeItem).filter(Boolean);
+async function fetchProductFeatures(cfPath) {
+  if (!cfPath) return [];
+  const isAuthor = isAuthorEnvironment();
+  try {
+    const { authorBase } = await getApiConfig();
+    const url = isAuthor
+      ? `${authorBase}${AUTHOR_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`
+      : `${PUBLISH_GRAPHQL_BASE};_path=${cfPath}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) return [];
+    const payload = await response.json();
+    if (payload?.errors?.length) return [];
+    const items = payload?.data?.productFeaturesModelList?.items;
+    if (!Array.isArray(items) || !items.length) return [];
+    return items.map(normalizeItem).filter(Boolean);
+  } catch (e) {
+    console.warn('Build Your Own GraphQL fetch failed:', e);
+    return [];
+  }
 }
 
 function formatPrice(value) {
@@ -73,13 +90,17 @@ function selectItem(index, items, previewImg, summaryLabel, summaryPrice, swatch
   });
 }
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const config = readBlockConfig(block);
   const exteriorTitle = config?.exteriortitle || config?.exteriorTitle || 'Exterior';
+  const cfPath = config?.['product-cf-parent-path'] || config?.productcfparentpath || '';
 
   block.innerHTML = '';
 
-  const items = getItems();
+  const isAuthor = isAuthorEnvironment();
+  const normalizedPath = normalizeContentFragmentPath(cfPath, isAuthor);
+  const items = await fetchProductFeatures(normalizedPath);
+
   if (!items.length) return;
 
   const wrapper = document.createElement('div');

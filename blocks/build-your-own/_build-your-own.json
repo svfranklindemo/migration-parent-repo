@@ -22,6 +22,16 @@
       "id": "build-your-own",
       "fields": [
         {
+          "component": "aem-content-fragment",
+          "name": "product-cf-parent-path",
+          "label": "Product CF Parent Path",
+          "description": "Select the Content Fragment containing the product features list (productFeaturesModelList).",
+          "valueType": "string",
+          "validation": {
+            "rootPath": "/content/dam"
+          }
+        },
+        {
           "component": "text",
           "name": "exteriortitle",
           "label": "Exterior Title",
@@ -39,5 +49,6 @@
         }
       ]
     }
-  ]
+  ],
+  "filters": []
 }
