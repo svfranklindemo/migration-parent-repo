@@ -679,11 +679,10 @@ export default async function decorate(block) {
       });
     });
 
-    // Hide all nav items after the first 4 for unauthenticated users,
-    // except on luma-themed pages where the full nav should remain visible.
+    // Hide all nav items after the first 4 for unauthenticated users on secur-financial theme only.
     const navItems = navSections.querySelectorAll(':scope .default-content-wrapper > ul > li');
     const isUserLoggedIn = localStorage.getItem('project_user_logged_in') === 'true';
-    if (!usesLumaStyleHeader() && !isUserLoggedIn && navItems.length > 4) {
+    if (document.body.classList.contains('securbank-theme') && !isUserLoggedIn && navItems.length > 4) {
       for (let i = 4; i < navItems.length; i++) {
         navItems[i].classList.add('nav-auth-hidden');
       }
