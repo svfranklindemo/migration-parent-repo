@@ -94,7 +94,7 @@ function selectItem(index, items, previewImg, summaryLabel, summaryPrice, swatch
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const exteriorTitle = config?.exteriortitle || config?.exteriorTitle || 'Exterior';
+  const exteriorTitle = config?.['block-title'] || config?.blocktitle || '';
   const cfPath = config?.['product-cf-parent-path'] || config?.productcfparentpath || '';
 
   block.innerHTML = '';

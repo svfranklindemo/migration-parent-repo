@@ -22,6 +22,14 @@
       "id": "build-your-own",
       "fields": [
         {
+          "component": "text",
+          "name": "block-title",
+          "label": "Block Title",
+          "value": "",
+          "valueType": "string",
+          "description": "Label displayed above the color swatch selector."
+        },
+        {
           "component": "aem-content-fragment",
           "name": "product-cf-parent-path",
           "label": "Product CF Parent Path",
@@ -30,14 +38,6 @@
           "validation": {
             "rootPath": "/content/dam"
           }
-        },
-        {
-          "component": "text",
-          "name": "exteriortitle",
-          "label": "Exterior Title",
-          "value": "Exterior",
-          "valueType": "string",
-          "description": "Label displayed above the exterior color swatch selector."
         },
         {
           "component": "text",

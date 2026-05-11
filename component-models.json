@@ -9027,20 +9027,29 @@
     "fields": [
       {
         "component": "text",
-        "name": "exteriorTitle",
-        "value": "Exterior",
-        "label": "Exterior Section Title",
-        "valueType": "string"
+        "name": "block-title",
+        "label": "Block Title",
+        "value": "",
+        "valueType": "string",
+        "description": "Label displayed above the color swatch selector."
       },
       {
-        "component": "aem-content",
+        "component": "aem-content-fragment",
         "name": "product-cf-parent-path",
-        "label": "Product Features Content Fragment",
-        "description": "Select the CF container containing the color/feature options for this configurator",
+        "label": "Product CF Parent Path",
+        "description": "Select the Content Fragment containing the product features list (productFeaturesModelList).",
         "valueType": "string",
         "validation": {
           "rootPath": "/content/dam"
         }
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   }
