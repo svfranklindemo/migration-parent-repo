@@ -882,3 +882,27 @@ body.frescopa-theme main .create-account .field-wrapper.switch input[type="check
     top: 0;
     left: 0;
 }
+
+/* Sign In – submit button: auto width, centered */
+body.frescopa-theme main .sign-in .submit-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+body.frescopa-theme main .sign-in .submit-wrapper button {
+  width: auto !important;
+  min-width: 160px;
+  padding: 0.75rem 2.5rem;
+}
+
+/* Add to Cart (product-detail) – auto width, centered */
+body.frescopa-theme main .product-detail .pd-actions {
+  justify-content: center;
+}
+
+body.frescopa-theme main .product-detail .pd-btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 180px;
+  padding: 0.875rem 2.5rem;
+}
