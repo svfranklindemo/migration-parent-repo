@@ -42,10 +42,6 @@ export default async function decorate(block) {
   const createAccountUrl = normalizeAemPath(config['create-account-url']);
   block.dataset.createAccountUrl = createAccountUrl;
 
-  // Authorable button / link labels
-  const signInButtonLabel = (config['sign-in-button-label'] || 'SIGN IN').trim();
-  const createAccountLabel = (config['create-account-label'] || 'Create an account').trim();
-
   // Build Adaptive Form definition for Sign In
   const formDef = {
     id: "sign-in",
@@ -86,7 +82,7 @@ export default async function decorate(block) {
             name: "signInButton",
             fieldType: "button",
             buttonType: "submit",
-            label: { value: signInButtonLabel },
+            label: { value: "SIGN IN" },
             appliedCssClassNames: "submit-wrapper col-12",
           },
         ],
@@ -356,7 +352,7 @@ function addCreateAccountLink(block, config = {}) {
   // Create account link only when a full AEM path is authored
   const createAccountLink = document.createElement("a");
   createAccountLink.className = "create-account-link";
-  createAccountLink.textContent = (config['create-account-label'] || 'Create an account').trim();
+  createAccountLink.textContent = "Create an account";
 
   const registrationPath = (config['create-account-url'] ?? block.dataset.createAccountUrl ?? '').toString().trim();
   if (!registrationPath.startsWith('/content/') && !/^https?:\/\//i.test(registrationPath)) return;
