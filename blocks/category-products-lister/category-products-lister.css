@@ -219,36 +219,44 @@ main .category-products-lister.carousel .cpl-carousel-slide img {
 
 main .category-products-lister.carousel .cpl-carousel-btn {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--main-accent-color, #e31837);
-  background: transparent;
-  color: var(--main-accent-color, #e31837);
-  display: flex;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  overflow: visible !important;
+  white-space: normal;
+  font-size: 0 !important;
+  padding: 0 20px !important;
+  transition: opacity 0.15s ease;
   z-index: 1;
+  user-select: none;
+  opacity: 0.4;
 }
 
 main .category-products-lister.carousel .cpl-carousel-btn:hover {
-  background: var(--main-accent-color, #e31837);
-  color: #fff;
+  opacity: 0.8;
 }
 
-main .category-products-lister.carousel .cpl-carousel-btn svg {
-  width: 20px;
-  height: 20px;
+main .category-products-lister.carousel .cpl-carousel-btn::before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-top: 2px solid #333;
+  border-right: 2px solid #333;
 }
 
-main .category-products-lister.carousel .cpl-carousel-btn--prev {
-  margin-right: 16px;
+main .category-products-lister.carousel .cpl-carousel-btn--prev::before {
+  transform: rotate(-135deg);
+  margin-left: 6px;
 }
 
-main .category-products-lister.carousel .cpl-carousel-btn--next {
-  margin-left: 16px;
+main .category-products-lister.carousel .cpl-carousel-btn--next::before {
+  transform: rotate(45deg);
+  margin-right: 6px;
 }
 
 main .category-products-lister.carousel .cpl-carousel-meta {
@@ -293,20 +301,11 @@ main .category-products-lister.carousel .cpl-carousel-learn-more:hover {
   }
 
   main .category-products-lister.carousel .cpl-carousel-btn {
-    width: 36px;
-    height: 36px;
+    padding: 0 10px !important;
   }
 
-  main .category-products-lister.carousel .cpl-carousel-btn svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  main .category-products-lister.carousel .cpl-carousel-btn--prev {
-    margin-right: 8px;
-  }
-
-  main .category-products-lister.carousel .cpl-carousel-btn--next {
-    margin-left: 8px;
+  main .category-products-lister.carousel .cpl-carousel-btn::before {
+    width: 14px;
+    height: 14px;
   }
 }
