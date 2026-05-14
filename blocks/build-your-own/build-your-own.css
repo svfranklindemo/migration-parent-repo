@@ -141,7 +141,7 @@
 }
 
 body.carvelo-theme .byo-swatch-grid button.byo-swatch {
-    padding: 0;
+    padding: 0px;
 }
 
 @media (max-width: 768px) {
