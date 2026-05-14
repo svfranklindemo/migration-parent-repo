@@ -358,7 +358,8 @@ function addCreateAccountLink(block, config = {}) {
   // Create account link only when a full AEM path is authored
   const createAccountLink = document.createElement("a");
   createAccountLink.className = "create-account-link";
-  createAccountLink.textContent = "Create an account";
+  const isCarveloTheme = document.body.classList.contains("carvelo-theme");
+  createAccountLink.textContent = isCarveloTheme ? "Don't have an account? Register" : "Create an account";
 
   const registrationPath = (config['create-account-url'] ?? block.dataset.createAccountUrl ?? '').toString().trim();
   if (!registrationPath.startsWith('/content/') && !/^https?:\/\//i.test(registrationPath)) return;

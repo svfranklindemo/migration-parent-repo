@@ -272,6 +272,38 @@ body.citi-signal-theme main .sign-in .create-account-link:hover {
   box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
 }
 
+body.carvelo-theme main .sign-in .sign-in-divider {
+  display: none;
+}
+
+body.carvelo-theme main .sign-in .sign-in-links {
+  margin-top: 16px;
+}
+
+body.carvelo-theme main .sign-in .create-account-link {
+  display: inline;
+  width: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  text-decoration: underline;
+  box-shadow: none;
+}
+
+body.carvelo-theme main .sign-in .create-account-link:hover {
+  background: transparent !important;
+  color: #000000 !important;
+  box-shadow: none;
+  transform: none;
+  text-decoration: underline;
+}
+
 /* Responsive: Mobile */
 @media (width <= 768px) {
   main .sign-in {
