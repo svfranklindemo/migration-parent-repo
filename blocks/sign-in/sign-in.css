@@ -125,6 +125,12 @@ main .sign-in .submit-wrapper {
   margin-top: 24px;
 }
 
+main .sign-in .form-message {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 main .sign-in .submit-wrapper button {
   width: 100%;
   background: #2874F0;

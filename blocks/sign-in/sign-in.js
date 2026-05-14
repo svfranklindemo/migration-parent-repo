@@ -296,7 +296,8 @@ function showSuccessMessage(form, message) {
 
   const submitButton = form.querySelector('button[type="submit"]');
   if (submitButton) {
-    submitButton.parentNode.insertBefore(messageEl, submitButton);
+    const submitWrapper = submitButton.closest('.submit-wrapper') || submitButton.parentNode;
+    submitWrapper.parentNode.insertBefore(messageEl, submitWrapper);
     submitButton.disabled = true;
   } else {
     form.appendChild(messageEl);
@@ -329,7 +330,8 @@ function showErrorMessage(form, message) {
 
   const submitButton = form.querySelector('button[type="submit"]');
   if (submitButton) {
-    submitButton.parentNode.insertBefore(messageEl, submitButton);
+    const submitWrapper = submitButton.closest('.submit-wrapper') || submitButton.parentNode;
+    submitWrapper.parentNode.insertBefore(messageEl, submitWrapper);
   } else {
     form.appendChild(messageEl);
   }
