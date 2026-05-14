@@ -269,9 +269,6 @@ main .test-drive .td-slot-error {
 }
 
 /* Carvelo theme ------------------------------------------------------------ */
-body.carvelo-theme main .test-drive {
-  background: #f5f5f5;
-}
 
 body.carvelo-theme main .test-drive form button[type='submit'] {
   background: #f82216;

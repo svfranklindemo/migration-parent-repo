@@ -873,3 +873,12 @@ body.carvelo-theme .cards > ul > li.teaser-card{
 body.carvelo-theme .cards > ul > li {
     border-radius: 15px !important;
 }
+body.carvelo-theme .hero.block.image-background-text-left{
+  padding: 0;
+}
+.hero.image-background-text-left div:nth-child(2){
+    margin-left: 11.5%;
+}
+main .category-products-lister.carousel .cpl-carousel-meta {
+    padding-top: 0;
+}
