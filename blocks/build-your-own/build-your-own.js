@@ -11,7 +11,9 @@ async function getApiConfig() {
   if (!apiConfigPromise) {
     apiConfigPromise = (async () => {
       const hostname = await getHostname();
-      return { authorBase: (hostname || '').replace(/\/$/, '') };
+      const authorBase = (hostname || '').replace(/\/$/, '');
+      const publishBase = authorBase.replace(/author/gi, 'publish');
+      return { authorBase, publishBase };
     })();
   }
   return apiConfigPromise;
@@ -58,10 +60,10 @@ async function fetchProductFeatures(cfPath) {
   if (!cfPath) return [];
   const isAuthor = isAuthorEnvironment();
   try {
-    const { authorBase } = await getApiConfig();
+    const { authorBase, publishBase } = await getApiConfig();
     const url = isAuthor
       ? `${authorBase}${AUTHOR_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`
-      : `${PUBLISH_GRAPHQL_BASE};_path=${cfPath}`;
+      : `${publishBase}${PUBLISH_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
