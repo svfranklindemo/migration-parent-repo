@@ -901,3 +901,8 @@ body.carvelo-theme .hero.block.overlay * {
 body.carvelo-theme .button-container.cta-button a.button:hover{
   border-color:#fff !important
 }
+body.carvelo-theme .hero h5 {
+    font-size: 36px;
+    font-family: 'Adobe Clean Light' !important;
+    margin-bottom: 10px;
+}
