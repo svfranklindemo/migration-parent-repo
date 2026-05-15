@@ -1120,8 +1120,29 @@
       },
       {
         "component": "text",
+        "name": "started-event-type",
+        "label": "Started Event Type",
+        "valueType": "string",
+        "description": "Event fired when the form wizard starts"
+      },
+      {
+        "component": "text",
+        "name": "step-event-type",
+        "label": "Step Event Type",
+        "valueType": "string",
+        "description": "Event fired on each wizard step advance"
+      },
+      {
+        "component": "text",
+        "name": "abandoned-event-type",
+        "label": "Abandoned Event Type",
+        "valueType": "string",
+        "description": "Event fired when user leaves without submitting"
+      },
+      {
+        "component": "text",
         "name": "buttoneventtype",
-        "label": "Button Event Type",
+        "label": "Form Submission Event",
         "value": "home-loan-application-submit",
         "valueType": "string"
       },
