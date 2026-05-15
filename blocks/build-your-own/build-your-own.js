@@ -63,7 +63,7 @@ async function fetchProductFeatures(cfPath) {
     const { authorBase, publishBase } = await getApiConfig();
     const url = isAuthor
       ? `${authorBase}${AUTHOR_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`
-      : `${publishBase}${PUBLISH_GRAPHQL_BASE};_path=${cfPath}`;
+      : `${publishBase}${PUBLISH_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
