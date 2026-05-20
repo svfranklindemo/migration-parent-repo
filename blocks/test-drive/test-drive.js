@@ -4,6 +4,11 @@ import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '.
 
 const DEFAULT_TIME_SLOTS = ['9 AM', '10 AM', '11 AM'];
 const DEFAULT_DAYS_SHOWN = 3;
+const NAV_ARROW_ICON = `
+  <svg viewBox="0 0 36 36" class="td-slot-picker-nav-icon" focusable="false" aria-hidden="true" role="img">
+    <path fill-rule="evenodd" d="M24,18v0a1.988,1.988,0,0,1-.585,1.409l-7.983,7.98a2,2,0,1,1-2.871-2.772l.049-.049L19.181,18l-6.572-6.57a2,2,0,0,1,2.773-2.87l.049.049,7.983,7.98A1.988,1.988,0,0,1,24,18Z"></path>
+  </svg>
+`;
 
 const SHORT_DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const SHORT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -194,9 +199,9 @@ function buildTimeSlotPicker(config = {}) {
 
   const prevBtn = document.createElement('button');
   prevBtn.type = 'button';
-  prevBtn.className = 'td-slot-picker__nav';
+  prevBtn.className = 'td-slot-picker__nav td-slot-picker-nav-prev';
   prevBtn.setAttribute('aria-label', 'Previous days');
-  prevBtn.innerHTML = '&#8249;';
+  prevBtn.innerHTML = NAV_ARROW_ICON;
 
   const columnsEl = document.createElement('div');
   columnsEl.className = 'td-slot-picker__columns';
@@ -205,7 +210,7 @@ function buildTimeSlotPicker(config = {}) {
   nextBtn.type = 'button';
   nextBtn.className = 'td-slot-picker__nav';
   nextBtn.setAttribute('aria-label', 'Next days');
-  nextBtn.innerHTML = '&#8250;';
+  nextBtn.innerHTML = NAV_ARROW_ICON;
 
   content.append(prevBtn, columnsEl, nextBtn);
   wrapper.append(labelEl, content);

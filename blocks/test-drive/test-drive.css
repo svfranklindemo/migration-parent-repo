@@ -176,25 +176,56 @@ main .test-drive .td-slot-picker__content {
 
 main .test-drive .td-slot-picker__nav {
   flex-shrink: 0;
-  background: none;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   border: none;
-  font-size: 1.6rem;
-  line-height: 1;
-  color: #555;
+  color: #4b4b4b;
   cursor: pointer;
-  padding: 4px 2px;
-  margin-top: 36px;
-  border-radius: 4px;
-  transition: color 0.15s;
+  padding: 0;
+  margin-top: 34px;
+  border-radius: 18px;
+  line-height: 0;
+  overflow: visible;
+  transition: background 0.15s, color 0.15s, opacity 0.15s;
+}
+
+main .test-drive .td-slot-picker-nav-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+main .test-drive .td-slot-picker-nav-icon path {
+  fill: currentcolor;
+}
+
+main .test-drive .td-slot-picker-nav-prev .td-slot-picker-nav-icon {
+  transform: rotate(180deg);
 }
 
 main .test-drive .td-slot-picker__nav:hover:not(:disabled) {
+  background: rgb(0 0 0 / 6%);
   color: #111;
 }
 
 main .test-drive .td-slot-picker__nav:disabled {
   opacity: 0.25;
   cursor: not-allowed;
+}
+
+body.carvelo-theme main .test-drive .td-slot-picker__nav {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px;
+  padding: 0 !important;
+  border-radius: 18px !important;
+  color: #111;
+  font-size: 0 !important;
 }
 
 main .test-drive .td-slot-picker__columns {
@@ -267,7 +298,12 @@ main .test-drive .td-slot-error {
   color: #c62828;
   margin: 4px 0 8px;
 }
-
+.section.bg-light.section-horizontal-widths.test-drive-container .test-drive {
+    padding-left: 20%;
+}
+body.carvelo-theme main .test-drive-container .default-content-wrapper {
+    padding-right: 4% !important;
+}
 /* Carvelo theme ------------------------------------------------------------ */
 
 body.carvelo-theme main .test-drive form button[type='submit'] {
