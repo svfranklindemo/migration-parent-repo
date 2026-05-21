@@ -8752,6 +8752,14 @@
         "description": "When disabled, Add to Cart and Add to Wishlist buttons are not rendered."
       },
       {
+        "component": "boolean",
+        "name": "showaddtocartbutton",
+        "label": "Show Add To Cart Button",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, the Add to Cart button is not rendered."
+      },
+      {
         "component": "text",
         "name": "addtowishlisteventtype",
         "label": "Add To Wishlist Event Type",
@@ -8786,14 +8794,7 @@
     ]
   },
 
-  {
-    "component": "boolean",
-    "name": "showaddtocartbutton",
-    "label": "Show Add To Cart Button",
-    "value": "true",
-    "valueType": "boolean",
-    "description": "When disabled, the Add to Cart button is not rendered."
-  },
+  
   {
     "id": "new-arrival",
     "fields": [
