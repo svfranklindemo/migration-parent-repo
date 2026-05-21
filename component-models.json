@@ -8785,6 +8785,15 @@
       }
     ]
   },
+
+  {
+    "component": "boolean",
+    "name": "showaddtocartbutton",
+    "label": "Show Add To Cart Button",
+    "value": "true",
+    "valueType": "boolean",
+    "description": "When disabled, the Add to Cart button is not rendered."
+  },
   {
     "id": "new-arrival",
     "fields": [

@@ -301,44 +301,47 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   }
 
   // Action buttons
+
   const actionsEl = document.createElement("div");
   actionsEl.className = "pd-actions";
 
-  const addToCartBtn = document.createElement("button");
-  addToCartBtn.className = "pd-btn pd-btn-primary";
-  addToCartBtn.textContent = "Add to Cart";
-  addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
-  addToCartBtn.addEventListener("click", () => {
-    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
-    const formattedCategory =
-      category.length > 0
-        ? category
-            .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
-            .join(", ")
-        : "";
+  // Add to Cart button (conditionally rendered)
+  if (eventConfig.showAddToCartButton !== false) {
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "pd-btn pd-btn-primary";
+    addToCartBtn.textContent = "Add to Cart";
+    addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
+    addToCartBtn.addEventListener("click", () => {
+      const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+      const formattedCategory =
+        category.length > 0
+          ? category
+              .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+              .join(", ")
+          : "";
 
-    window.addToCart({
-      id: id || sku || "",
-      name: name || "",
-      image: cartImageUrl || "",
-      thumbnail: cartImageUrl || "",
-      category: formattedCategory,
-      description: description?.html || description?.markdown || "",
-      price: price || 0,
-      quantity: 1,
+      window.addToCart({
+        id: id || sku || "",
+        name: name || "",
+        image: cartImageUrl || "",
+        thumbnail: cartImageUrl || "",
+        category: formattedCategory,
+        description: description?.html || description?.markdown || "",
+        price: price || 0,
+        quantity: 1,
+      });
+      if (eventConfig.addToCart) {
+        dispatchCustomEvent(eventConfig.addToCart);
+      }
+
+      // Show visual feedback
+      addToCartBtn.textContent = "Added to Cart ✓";
+      setTimeout(() => {
+        addToCartBtn.textContent = "Add to Cart";
+      }, 2000);
     });
-    if (eventConfig.addToCart) {
-      dispatchCustomEvent(eventConfig.addToCart);
-    }
-
-    // Show visual feedback
-    addToCartBtn.textContent = "Added to Cart ✓";
-    setTimeout(() => {
-      addToCartBtn.textContent = "Add to Cart";
-    }, 2000);
-  });
-
-  actionsEl.append(addToCartBtn);
+    actionsEl.append(addToCartBtn);
+  }
 
   if (isPlansCategory) {
     const selectDeviceBtn = document.createElement("button");
@@ -435,6 +438,9 @@ export default async function decorate(block) {
     productView: (config.productvieweventtype || config['product-view-event-type'] || '').trim(),
     addToCart: (config.addtocarteventtype || config['add-to-cart-event-type'] || '').trim(),
     addToWishlist: (config.addtowishlisteventtype || config['add-to-wishlist-event-type'] || '').trim(),
+    showAddToCartButton: (config.showaddtocartbutton === undefined && config['show-add-to-cart-button'] === undefined)
+      ? true
+      : isTruthy(config.showaddtocartbutton ?? config['show-add-to-cart-button']),
     showAddToWishlistButton: (config.showaddtowishlistbutton === undefined && config['show-add-to-wishlist-button'] === undefined)
       ? true
       : isTruthy(config.showaddtowishlistbutton ?? config['show-add-to-wishlist-button']),

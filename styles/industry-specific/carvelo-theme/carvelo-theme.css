@@ -81,8 +81,8 @@ body.carvelo-theme p,
 body.carvelo-theme li {
   color: #000000;
   font-family: adobe-clean, proxima-nova, "Proxima Nova", sans-serif;
-  font-size: 1rem !important;
-  line-height: 1.6 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
 }
 
 /* ─── Buttons ────────────────────────────────────────────────────────── */
@@ -90,7 +90,7 @@ body.carvelo-theme a.button,
 body.carvelo-theme button {
   border-radius: 10px !important;
   font-family: adobe-clean, proxima-nova, "Proxima Nova", sans-serif;
-  font-size: 1rem !important;
+  font-size: 14px !important;
   font-weight: 600;
   padding: 0.75rem 1.75rem;
 }
@@ -179,8 +179,9 @@ body.carvelo-theme footer .footer a {
 
 body.carvelo-theme header nav .nav-sections ul > li > a {
   font-family: adobe-clean, proxima-nova, "Proxima Nova", sans-serif;
-  font-size: 1rem;
+  font-size: 16px !important;
   font-weight: 700;
+  padding-top:10px;
 }
 
 body.carvelo-theme header nav .nav-sections ul > li > a::before {
@@ -190,7 +191,9 @@ body.carvelo-theme header nav .nav-sections ul > li > a::before {
 body.carvelo-theme header nav .nav-sections ul > li > a:hover {
   color: #f82216;
 }
-
+ body.carvelo-theme header nav .nav-sections ul {
+   gap: 22px;
+}
 body.carvelo-theme footer .footer a:hover {
   color: #f82216;
 }
