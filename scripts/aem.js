@@ -726,13 +726,13 @@ function decorateSections(main) {
 function applySectionCustomClass(section, value) {
   const prev = (section.dataset.secCustomStyles ?? '').trim();
   if (prev) {
-    prev.split(/\s+/).filter(Boolean).forEach((c) => section.classList.remove(c));
+    prev.split(/[\s,]+/).filter(Boolean).forEach((c) => section.classList.remove(c));
   }
   delete section.dataset.secCustomStyles;
   const next = (value ?? '').toString().trim();
   if (next) {
     section.dataset.secCustomStyles = next;
-    next.split(/\s+/).filter(Boolean).forEach((c) => section.classList.add(c));
+    next.split(/[\s,]+/).filter(Boolean).forEach((c) => section.classList.add(c));
   }
 }
 
