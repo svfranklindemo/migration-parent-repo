@@ -1200,7 +1200,7 @@
         "label": "Custom class",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
-      },
+      }
     ]
   },
   {
