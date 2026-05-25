@@ -22,6 +22,13 @@
       "id": "loan-preapproval-form",
       "fields": [
         {
+          "component": "text",
+          "name": "form-title",
+          "label": "Form Title",
+          "valueType": "string",
+          "description": "Heading displayed at the top of the form"
+        },
+        {
           "component": "aem-content",
           "valueType": "string",
           "name": "redirectUrl",
@@ -53,28 +60,24 @@
           "component": "text",
           "name": "buttoneventtype",
           "label": "Form Submission Event",
-          "value": "home-loan-application-submit",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "buttonwebhookurl",
           "label": "Button Webhook URL",
-          "value": "",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "buttonformid",
           "label": "Button Form ID",
-          "value": "",
           "valueType": "string"
         },
         {
           "component": "text",
           "name": "buttondata",
           "label": "Button Data",
-          "value": "",
           "valueType": "string",
           "description": "Comma-separated key,value pairs"
         },
@@ -82,7 +85,6 @@
           "component": "text",
           "name": "custom-class",
           "label": "Custom class",
-          "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
         }

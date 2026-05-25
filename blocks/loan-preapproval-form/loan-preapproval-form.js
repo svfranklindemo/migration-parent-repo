@@ -120,10 +120,9 @@ function applyButtonConfigToSubmitButton(block, config) {
 }
 
 function buildLoanPreapprovalFormDef(config = {}) {
-  const defaultPhoneConsentText = "By entering your phone number you're authorizing SecurFinancial to use this number to call, text and send you messages by any method. We won't charge you for any messages but your service provider may.";
-  const phoneConsentText = (config.phoneconsenttext ?? config['phone-consent-text'] ?? '').toString().trim() || defaultPhoneConsentText;
-  const defaultAuthorizeText = "I authorize SecurFinancial to verify my credit. I've read and agreed to Mortgage's Terms of Use, Privacy Policy and Consent to Receive Electronic Documents.";
-  const authorizeText = (config.authorizetext ?? config['authorize-text'] ?? '').toString().trim() || defaultAuthorizeText;
+  const formTitle = (config['form-title'] || '').toString().trim();
+  const phoneConsentText = "By entering your phone number you're authorizing SecurFinancial to use this number to call, text and send you messages by any method. We won't charge you for any messages but your service provider may.";
+  const authorizeText = "I authorize SecurFinancial to verify my credit. I've read and agreed to Mortgage's Terms of Use, Privacy Policy and Consent to Receive Electronic Documents.";
   const stateOptions = ['', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
   const stateNames = ['Select...', ...stateOptions.slice(1)];
   return {
@@ -134,7 +133,7 @@ function buildLoanPreapprovalFormDef(config = {}) {
       {
         id: 'heading-loan-preapproval',
         fieldType: 'heading',
-        label: { value: 'Preapproval Letter Application' },
+        label: { value: formTitle },
         appliedCssClassNames: 'col-12 loan-preapproval-form-heading',
       },
       {
@@ -291,7 +290,7 @@ function attachLoanPreapprovalFormSubmitHandler(block, redirectUrl) {
 
     clearProductObject();
     const submitButton = form.querySelector('button[type="submit"]');
-    const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'home-loan-application-submit';
+    const authoredEventType = submitButton?.dataset?.buttonEventType?.trim();
     dispatchCustomEvent(authoredEventType);
 
     const webhookUrl = submitButton?.dataset?.buttonWebhookUrl?.trim();
@@ -398,9 +397,9 @@ export default async function decorate(block) {
   const formModule = await import('../form/form.js');
   await formModule.default(formContainer);
 
-  const startedEvent = (config['started-event-type'] || '').toString().trim() || 'form-start';
-  const stepEvent = (config['step-event-type'] || '').toString().trim() || 'form-step';
-  const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim() || 'home-loan-application-abandoned';
+  const startedEvent = (config['started-event-type'] || '').toString().trim();
+  const stepEvent = (config['step-event-type'] || '').toString().trim();
+  const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'home-loan-application-submit');
@@ -417,7 +416,7 @@ export default async function decorate(block) {
 let loanAbandonEventsInitialized = false;
 let loanAbandonedEventDispatched = false;
 let loanFormSubmitting = false;
-let loanAbandonedEventType = 'home-loan-application-abandoned';
+let loanAbandonedEventType = '';
 
 function dispatchLoanFormAbandonedEvent() {
   if (loanAbandonedEventDispatched || loanFormSubmitting) return;

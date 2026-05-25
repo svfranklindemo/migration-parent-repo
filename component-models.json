@@ -1112,6 +1112,13 @@
     "id": "loan-preapproval-form",
     "fields": [
       {
+        "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Heading displayed at the top of the form"
+      },
+      {
         "component": "aem-content",
         "valueType": "string",
         "name": "redirectUrl",
@@ -1143,28 +1150,24 @@
         "component": "text",
         "name": "buttoneventtype",
         "label": "Form Submission Event",
-        "value": "home-loan-application-submit",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "buttonwebhookurl",
         "label": "Button Webhook URL",
-        "value": "",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "buttonformid",
         "label": "Button Form ID",
-        "value": "",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "buttondata",
         "label": "Button Data",
-        "value": "",
         "valueType": "string",
         "description": "Comma-separated key,value pairs"
       },
@@ -1172,26 +1175,9 @@
         "component": "text",
         "name": "custom-class",
         "label": "Custom class",
-        "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
       },
-      {
-          "component": "text",
-          "name": "phoneconsenttext",
-          "label": "Phone Consent Text",
-          "value": "By entering your phone number you're authorizing SecurFinancial to use this number to call, text and send you messages by any method. We won't charge you for any messages but your service provider may.",
-          "valueType": "string",
-          "description": "Consent text displayed below the phone number field on step 1."
-        },
-        {
-          "component": "text",
-          "name": "authorizetext",
-          "label": "Authorization Checkbox Text",
-          "value": "I authorize SecurFinancial to verify my credit. I've read and agreed to Mortgage's Terms of Use, Privacy Policy and Consent to Receive Electronic Documents.",
-          "valueType": "string",
-          "description": "Text displayed next to the authorization checkbox on step 2."
-        }
     ]
   },
   {
