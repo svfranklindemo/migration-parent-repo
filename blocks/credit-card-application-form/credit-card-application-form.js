@@ -11,8 +11,8 @@ import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook } from '../../scripts/form-data-layer.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
 
-const APPLICATION_FORM_WIZARD_NAME = 'Credit Card Application';
-const APPLICATION_FORM_WIZARD_TITLE = 'Credit Card Application';
+const CREDIT_CARD_APPLICATION_FORM_WIZARD_NAME = 'Credit Card Application';
+const CREDIT_CARD_APPLICATION_FORM_WIZARD_TITLE = 'Credit Card Application';
 
 function getNestedProperty(obj, path) {
   if (!obj || !path) return undefined;
@@ -54,7 +54,7 @@ function prePopulateFormFromDataLayer(form) {
   return hasPrefill;
 }
 
-function setupApplicationFormPrefill(form) {
+function setupCreditCardApplicationFormPrefill(form) {
   if (!form) return;
   const applyPrefill = () => {
     prePopulateFormFromDataLayer(form);
@@ -81,8 +81,8 @@ function buildWizardPayload(currentStepIndex, totalSteps) {
     : 0;
   const steps = Array.from({ length: totalSteps }, (_, idx) => buildStepMeta(idx));
   return {
-    name: APPLICATION_FORM_WIZARD_NAME,
-    title: APPLICATION_FORM_WIZARD_TITLE,
+    name: CREDIT_CARD_APPLICATION_FORM_WIZARD_NAME,
+    title: CREDIT_CARD_APPLICATION_FORM_WIZARD_TITLE,
     steps,
     currentStep: safeIndex + 1,
   };
@@ -93,7 +93,7 @@ function getTotalWizardSteps(wizard) {
   return wizard.querySelectorAll('.panel-wrapper').length;
 }
 
-function updateApplicationFormWizardDataLayer(wizard, stepIndex) {
+function updateCreditCardApplicationFormWizardDataLayer(wizard, stepIndex) {
   if (!window.updateDataLayer) return;
   const totalSteps = getTotalWizardSteps(wizard);
   const payload = buildWizardPayload(stepIndex, totalSteps);
@@ -105,8 +105,8 @@ function updateApplicationFormWizardDataLayer(wizard, stepIndex) {
 
 
 
-const APPLICATION_FORM_TEAL = '#0d9488';
-const APPLICATION_FORM_GREY = '#e5e7eb';
+const CREDIT_CARD_APPLICATION_FORM_TEAL = '#0d9488';
+const CREDIT_CARD_APPLICATION_FORM_GREY = '#e5e7eb';
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -122,20 +122,20 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function buildApplicationFormDef(config = {}) {
+function buildCreditCardApplicationFormDef(config = {}) {
   const formTitle = (config['form-title'] || '').toString().trim();
   const stateOptions = ['', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
   const stateNames = ['Select...', ...stateOptions.slice(1)];
   return {
-    id: 'application-form',
+    id: 'credit-card-application-form',
     fieldType: 'form',
-    appliedCssClassNames: 'application-form-form application-form-wizard',
+    appliedCssClassNames: 'credit-card-application-form-form credit-card-application-form-wizard',
     items: [
       {
-        id: 'heading-application-form',
+        id: 'heading-credit-card-application-form',
         fieldType: 'heading',
         label: { value: formTitle },
-        appliedCssClassNames: 'col-12 application-form-heading',
+        appliedCssClassNames: 'col-12 credit-card-application-form-heading',
       },
       {
         id: 'panel-wizard',
@@ -198,7 +198,7 @@ function buildApplicationFormDef(config = {}) {
                 fieldType: 'button',
                 buttonType: 'submit',
                 label: { value: 'Submit' },
-                appliedCssClassNames: 'application-form-submit-btn',
+                appliedCssClassNames: 'credit-card-application-form-submit-btn',
               },
             ],
           },
@@ -208,7 +208,7 @@ function buildApplicationFormDef(config = {}) {
   };
 }
 
-function collectApplicationFormData(form) {
+function collectCreditCardApplicationFormData(form) {
   const data = {};
   form.querySelectorAll('input, select, textarea').forEach((el) => {
     const name = el.getAttribute('name');
@@ -247,7 +247,7 @@ function formatDateOfBirthInput(form) {
   });
 }
 
-function attachApplicationFormSubmitHandler(block, redirectUrl) {
+function attachCreditCardApplicationFormSubmitHandler(block, redirectUrl) {
   const form = block.querySelector('form');
   if (!form) return;
 
@@ -255,7 +255,7 @@ function attachApplicationFormSubmitHandler(block, redirectUrl) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     formSubmitting = true;
-    const data = collectApplicationFormData(form);
+    const data = collectCreditCardApplicationFormData(form);
     // eslint-disable-next-line no-console
     console.log('Application form data:', data);
 
@@ -279,15 +279,15 @@ export default async function decorate(block) {
   const codeBasePath = window.hlx?.codeBasePath || '';
   await loadCSS(`${codeBasePath}/blocks/form/form.css`);
 
-  block.classList.add('application-form-block');
+  block.classList.add('credit-card-application-form-block');
 
   const startedEvent = (config['started-event-type'] || '').toString().trim();
   const stepEvent = (config['step-event-type'] || '').toString().trim();
   const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
 
-  const formDef = buildApplicationFormDef(config);
+  const formDef = buildCreditCardApplicationFormDef(config);
   const formContainer = document.createElement('div');
-  formContainer.className = 'application-form-wrapper form';
+  formContainer.className = 'credit-card-application-form-wrapper form';
 
   const pre = document.createElement('pre');
   const code = document.createElement('code');
@@ -301,19 +301,19 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config, 'form-submit');
-    attachApplicationFormSubmitHandler(block, config.redirecturl);
+    attachCreditCardApplicationFormSubmitHandler(block, config.redirecturl);
     const form = block.querySelector('form');
     if (form) {
-      setupApplicationFormPrefill(form);
+      setupCreditCardApplicationFormPrefill(form);
       restrictNumericFields(form);
       formatDateOfBirthInput(form);
     }
-    setupApplicationFormStepIndicator(block, stepEvent, startedEvent);
+    setupCreditCardApplicationFormStepIndicator(block, stepEvent, startedEvent);
   }, 100);
-  setupApplicationFormAbandonEvents(abandonedEvent);
+  setupCreditCardApplicationFormAbandonEvents(abandonedEvent);
 }
 
-function setupApplicationFormStepIndicator(block, stepEvent, startedEvent) {
+function setupCreditCardApplicationFormStepIndicator(block, stepEvent, startedEvent) {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
   const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
@@ -322,7 +322,7 @@ function setupApplicationFormStepIndicator(block, stepEvent, startedEvent) {
   if (!btnWrapper || totalSteps === 0) return;
 
   const stepLabel = document.createElement('span');
-  stepLabel.className = 'application-form-step-label';
+  stepLabel.className = 'credit-card-application-form-step-label';
   stepLabel.setAttribute('aria-live', 'polite');
   function updateStepLabel() {
     const current = wizard.querySelector('.current-wizard-step');
@@ -341,11 +341,11 @@ function setupApplicationFormStepIndicator(block, stepEvent, startedEvent) {
   if (submitWrapper) btnWrapper.appendChild(submitWrapper);
   const form = block.querySelector('form');
   if (window.dataLayer && typeof window.updateDataLayer === 'function') {
-    attachApplicationFormStepEvents(wizard, form, stepEvent, startedEvent);
+    attachCreditCardApplicationFormStepEvents(wizard, form, stepEvent, startedEvent);
   }
 }
 
-function getApplicationFormWizardStepIndex(wizard) {
+function getCreditCardApplicationFormWizardStepIndex(wizard) {
   const current = wizard.querySelector('.current-wizard-step');
   if (current && typeof current.dataset.index !== 'undefined') {
     const index = Number.parseInt(current.dataset.index, 10);
@@ -359,12 +359,12 @@ function getApplicationFormWizardStepIndex(wizard) {
   return 0;
 }
 
-function attachApplicationFormStepEvents(wizard, form, stepEvent, startedEvent) {
+function attachCreditCardApplicationFormStepEvents(wizard, form, stepEvent, startedEvent) {
   if (!wizard) return;
   const handleNavigation = (event) => {
     const index = Number.isFinite(event?.detail?.currStep?.index)
       ? event.detail.currStep.index
-      : getApplicationFormWizardStepIndex(wizard);
+      : getCreditCardApplicationFormWizardStepIndex(wizard);
     if (form) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
     }
@@ -372,7 +372,7 @@ function attachApplicationFormStepEvents(wizard, form, stepEvent, startedEvent) 
       ? event.detail.prevStep.index
       : index - 1;
     if (Number.isFinite(prevIndex) && index > prevIndex) {
-      updateApplicationFormWizardDataLayer(wizard, index);
+      updateCreditCardApplicationFormWizardDataLayer(wizard, index);
       dispatchCustomEvent(stepEvent);
     }
   };
@@ -381,8 +381,8 @@ function attachApplicationFormStepEvents(wizard, form, stepEvent, startedEvent) 
     syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
     attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
   }
-  const initialIndex = getApplicationFormWizardStepIndex(wizard);
-  updateApplicationFormWizardDataLayer(wizard, initialIndex);
+  const initialIndex = getCreditCardApplicationFormWizardStepIndex(wizard);
+  updateCreditCardApplicationFormWizardDataLayer(wizard, initialIndex);
   dispatchCustomEvent(startedEvent);
 }
 
@@ -409,7 +409,7 @@ function handleVisibilityChange() {
   }
 }
 
-function setupApplicationFormAbandonEvents(event) {
+function setupCreditCardApplicationFormAbandonEvents(event) {
   if (abandonEventsInitialized) return;
   abandonEventsInitialized = true;
   abandonedEventType = event;

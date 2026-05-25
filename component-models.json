@@ -1060,7 +1060,7 @@
     ]
   },
   {
-    "id": "application-form",
+    "id": "credit-card-application-form",
     "fields": [
       {
         "component": "text",
