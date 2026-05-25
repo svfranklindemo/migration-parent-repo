@@ -122,7 +122,8 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function buildApplicationFormDef() {
+function buildApplicationFormDef(config = {}) {
+  const formTitle = (config['form-title'] || '').toString().trim();
   const stateOptions = ['', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
   const stateNames = ['Select...', ...stateOptions.slice(1)];
   return {
@@ -133,7 +134,7 @@ function buildApplicationFormDef() {
       {
         id: 'heading-application-form',
         fieldType: 'heading',
-        label: { value: 'Credit Card Application' },
+        label: { value: formTitle },
         appliedCssClassNames: 'col-12 application-form-heading',
       },
       {
@@ -259,7 +260,7 @@ function attachApplicationFormSubmitHandler(block, redirectUrl) {
     console.log('Application form data:', data);
 
     const submitButton = form.querySelector("button[type='submit']");
-    const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'form-submit';
+    const authoredEventType = submitButton?.dataset?.buttonEventType?.trim();
     dispatchCustomEvent(authoredEventType);
 
     const webhookUrl = submitButton?.dataset?.buttonWebhookUrl?.trim();
@@ -280,7 +281,11 @@ export default async function decorate(block) {
 
   block.classList.add('application-form-block');
 
-  const formDef = buildApplicationFormDef();
+  const startedEvent = (config['started-event-type'] || '').toString().trim();
+  const stepEvent = (config['step-event-type'] || '').toString().trim();
+  const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
+
+  const formDef = buildApplicationFormDef(config);
   const formContainer = document.createElement('div');
   formContainer.className = 'application-form-wrapper form';
 
@@ -303,12 +308,12 @@ export default async function decorate(block) {
       restrictNumericFields(form);
       formatDateOfBirthInput(form);
     }
-    setupApplicationFormStepIndicator(block);
+    setupApplicationFormStepIndicator(block, stepEvent, startedEvent);
   }, 100);
-  setupApplicationFormAbandonEvents();
+  setupApplicationFormAbandonEvents(abandonedEvent);
 }
 
-function setupApplicationFormStepIndicator(block) {
+function setupApplicationFormStepIndicator(block, stepEvent, startedEvent) {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
   const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
@@ -336,7 +341,7 @@ function setupApplicationFormStepIndicator(block) {
   if (submitWrapper) btnWrapper.appendChild(submitWrapper);
   const form = block.querySelector('form');
   if (window.dataLayer && typeof window.updateDataLayer === 'function') {
-    attachApplicationFormStepEvents(wizard, form);
+    attachApplicationFormStepEvents(wizard, form, stepEvent, startedEvent);
   }
 }
 
@@ -354,7 +359,7 @@ function getApplicationFormWizardStepIndex(wizard) {
   return 0;
 }
 
-function attachApplicationFormStepEvents(wizard, form) {
+function attachApplicationFormStepEvents(wizard, form, stepEvent, startedEvent) {
   if (!wizard) return;
   const handleNavigation = (event) => {
     const index = Number.isFinite(event?.detail?.currStep?.index)
@@ -368,7 +373,7 @@ function attachApplicationFormStepEvents(wizard, form) {
       : index - 1;
     if (Number.isFinite(prevIndex) && index > prevIndex) {
       updateApplicationFormWizardDataLayer(wizard, index);
-      dispatchCustomEvent('form-step');
+      dispatchCustomEvent(stepEvent);
     }
   };
   wizard.addEventListener('wizard:navigate', handleNavigation);
@@ -378,17 +383,18 @@ function attachApplicationFormStepEvents(wizard, form) {
   }
   const initialIndex = getApplicationFormWizardStepIndex(wizard);
   updateApplicationFormWizardDataLayer(wizard, initialIndex);
-  dispatchCustomEvent('form-start');
+  dispatchCustomEvent(startedEvent);
 }
 
 let abandonEventsInitialized = false;
 let abandonedEventDispatched = false;
 let formSubmitting = false;
+let abandonedEventType = '';
 
 function dispatchFormAbandonedEvent() {
   if (abandonedEventDispatched || formSubmitting) return;
   abandonedEventDispatched = true;
-  dispatchCustomEvent('form-abandoned');
+  dispatchCustomEvent(abandonedEventType);
 }
 
 function handleBeforeUnload() {
@@ -403,9 +409,10 @@ function handleVisibilityChange() {
   }
 }
 
-function setupApplicationFormAbandonEvents() {
+function setupApplicationFormAbandonEvents(event) {
   if (abandonEventsInitialized) return;
   abandonEventsInitialized = true;
+  abandonedEventType = event;
   window.addEventListener('beforeunload', handleBeforeUnload);
   document.addEventListener('visibilitychange', handleVisibilityChange);
 }
