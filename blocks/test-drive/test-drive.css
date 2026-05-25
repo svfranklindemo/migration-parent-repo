@@ -298,6 +298,31 @@ main .test-drive .td-slot-error {
   color: #c62828;
   margin: 4px 0 8px;
 }
+
+/* Toast notification (shown when no redirect-url is authored) ------------- */
+.td-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #2e7d32;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 18%);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  max-width: calc(100vw - 48px);
+  text-align: center;
+}
+
+.td-toast.td-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 .section.bg-light.section-horizontal-widths.test-drive-container .test-drive {
     padding-left: 20%;
 }

@@ -304,6 +304,25 @@ function showSuccessMessage(form, message) {
   }
 }
 
+function showToast(message) {
+  const existing = document.querySelector('.td-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'td-toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => toast.classList.add('td-toast--visible'));
+
+  setTimeout(() => {
+    toast.classList.remove('td-toast--visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
 function attachSubmitHandler(block, config, variantDefaults, slotPicker) {
   const form = block.querySelector('form');
   if (!form) return;
@@ -333,8 +352,14 @@ function attachSubmitHandler(block, config, variantDefaults, slotPicker) {
     const eventType = submitBtn?.dataset?.buttonEventType?.trim();
     if (eventType) dispatchCustomEvent(eventType);
 
-    showSuccessMessage(form, successMessage);
-    if (redirectUrl) setTimeout(() => { window.location.href = redirectUrl; }, 2000);
+    if (redirectUrl) {
+      showSuccessMessage(form, successMessage);
+      setTimeout(() => { window.location.href = redirectUrl; }, 2000);
+    } else {
+      showToast(successMessage);
+      submitBtn.disabled = true;
+      setTimeout(() => { window.location.reload(); }, 4000);
+    }
   });
 }
 
