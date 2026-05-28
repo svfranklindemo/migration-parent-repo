@@ -1,7 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
-import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 
 const DEFAULT_TIME_SLOTS = ['9 AM', '10 AM', '11 AM'];
 const DEFAULT_DAYS_SHOWN = 3;
@@ -303,33 +303,6 @@ function buildTimeSlotPicker(config = {}) {
   return wrapper;
 }
 
-// ── Button data sheet helpers ─────────────────────────────────────────────────
-
-function setNestedValue(obj, dotPath, value) {
-  const keys = dotPath.split('.');
-  let curr = obj;
-  for (let i = 0; i < keys.length - 1; i++) {
-    if (!curr[keys[i]] || typeof curr[keys[i]] !== 'object') curr[keys[i]] = {};
-    curr = curr[keys[i]];
-  }
-  curr[keys[keys.length - 1]] = value;
-}
-
-async function fetchButtonData(url) {
-  try {
-    const fetchUrl = url.endsWith('.json') ? url : `${url}.json`;
-    const resp = await fetch(fetchUrl);
-    if (!resp.ok) return null;
-    const json = await resp.json();
-    if (!Array.isArray(json.data)) return null;
-    const result = {};
-    json.data.forEach(({ key, value }) => { if (key) setNestedValue(result, key, value); });
-    return result;
-  } catch {
-    return null;
-  }
-}
-
 // ── Submit handler ────────────────────────────────────────────────────────────
 
 function showSuccessMessage(form, message) {
@@ -405,7 +378,7 @@ function attachSubmitHandler(block, config, variantDefaults, slotPicker) {
 
     const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
     if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
-      const sheetData = await fetchButtonData(normalizeAemPath(buttonDataUrl));
+      const sheetData = await fetchButtonDataSheet(normalizeAemPath(buttonDataUrl));
       if (sheetData) window.updateDataLayer(sheetData);
     }
 

@@ -1,6 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
+import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -105,9 +106,14 @@ export default async function decorate(block) {
   const form = formContainer.querySelector('form');
   if (!form) return;
   applyButtonConfigToSubmitButton(block, config, 'transfer-funds-form-submit');
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const submitButton = form.querySelector('button[type="submit"]');
+    const buttonDataUrl = submitButton?.dataset?.buttonData?.trim();
+    if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+      const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+      if (sheetData) window.updateDataLayer(sheetData);
+    }
     const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'transfer-funds-form-submit';
     dispatchCustomEvent(authoredEventType);
     if (redirectUrl) {

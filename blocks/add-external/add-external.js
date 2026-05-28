@@ -5,6 +5,8 @@
  */
 
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
+import { dispatchCustomEvent } from '../../scripts/custom-events.js';
+import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 
 function buildExternalAccountFormDef() {
   return {
@@ -106,6 +108,19 @@ function buildExternalCreditCardFormDef() {
   };
 }
 
+function applyButtonConfigToSubmitButton(block, config) {
+  const submitButton = block.querySelector("form button[type='submit']");
+  if (!submitButton) return;
+  const eventType = config.buttoneventtype ?? config['button-event-type'];
+  if (eventType && String(eventType).trim()) submitButton.dataset.buttonEventType = String(eventType).trim();
+  const webhookUrl = config.buttonwebhookurl ?? config['button-webhook-url'];
+  if (webhookUrl && String(webhookUrl).trim()) submitButton.dataset.buttonWebhookUrl = String(webhookUrl).trim();
+  const formId = config.buttonformid ?? config['button-form-id'];
+  if (formId && String(formId).trim()) submitButton.dataset.buttonFormId = String(formId).trim();
+  const buttonData = config.buttondata ?? config['button-data'];
+  if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
+}
+
 function buildFormDef(variant) {
   return variant === 'credit-card' ? buildExternalCreditCardFormDef() : buildExternalAccountFormDef();
 }
@@ -149,11 +164,22 @@ export default async function decorate(block) {
   setTimeout(() => {
     const form = block.querySelector('form');
     if (form) {
-      form.addEventListener('submit', (e) => {
+      applyButtonConfigToSubmitButton(block, cfg);
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = collectFormData(form);
         // eslint-disable-next-line no-console
         console.log('Add external form data:', data);
+
+        const submitBtn = form.querySelector("button[type='submit']");
+        const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
+        if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+          const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+          if (sheetData) window.updateDataLayer(sheetData);
+        }
+        const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim();
+        if (authoredEventType) dispatchCustomEvent(authoredEventType);
+
         const msg = block.querySelector('.add-external-success-msg');
         if (msg) msg.remove();
         const success = document.createElement('p');

@@ -1,6 +1,7 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
+import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 
 
 function getRedirectUrl(block, config) {
@@ -121,7 +122,12 @@ export default async function decorate(block) {
   if (form) {
     applyButtonConfigToSubmitButton(block, config, 'auto-save-form-submit');
     const submitButton = form.querySelector('button[type="submit"]');
-    submitButton?.addEventListener("click", () => {
+    submitButton?.addEventListener("click", async () => {
+      const buttonDataUrl = submitButton?.dataset?.buttonData?.trim();
+      if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+        const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+        if (sheetData) window.updateDataLayer(sheetData);
+      }
       const authoredEventType = submitButton?.dataset?.buttonEventType?.trim() || 'auto-save-form-submit';
       dispatchCustomEvent(authoredEventType);
       if (redirectUrl) {

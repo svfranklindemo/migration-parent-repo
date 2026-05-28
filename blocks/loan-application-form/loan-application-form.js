@@ -8,7 +8,7 @@
 
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
-import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook } from '../../scripts/form-data-layer.js';
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
 
 const LOAN_APPLICATION_FORM_WIZARD_TITLE = 'Home Loan Application Form';
@@ -290,6 +290,11 @@ function attachLoanApplicationFormSubmitHandler(block, redirectUrl) {
 
     clearProductObject();
     const submitButton = form.querySelector('button[type="submit"]');
+    const buttonDataUrl = submitButton?.dataset?.buttonData?.trim();
+    if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+      const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+      if (sheetData) window.updateDataLayer(sheetData);
+    }
     const authoredEventType = submitButton?.dataset?.buttonEventType?.trim();
     dispatchCustomEvent(authoredEventType);
 

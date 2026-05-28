@@ -1,6 +1,7 @@
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { readBlockConfig } from '../../scripts/aem.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
+import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 /**
  * Checkout block – consolidates selected flights from the flights block and shows Trip Summary.
  * Selected flights are stored in localStorage (project_selected_flights) when user clicks Select on any flight.
@@ -355,7 +356,7 @@ function renderTripTotal(sidebar, total, config) {
   const confirmBtn = box.querySelector('.checkout-confirm-btn');
   if (confirmBtn) {
     const block = document.querySelector('.checkout-block');
-    confirmBtn.onclick = () => {
+    confirmBtn.onclick = async () => {
       if (flights.length === 0) {
         // eslint-disable-next-line no-alert
         alert('Please add at least one flight to your trip before confirming.');
@@ -445,6 +446,11 @@ function renderTripTotal(sidebar, total, config) {
           bookingUpdates.date = (typeof window.getDataLayerDate === 'function' ? (window.getDataLayerDate(dateVal) || todayISO) : (dateVal || todayISO)) || '';
         }
         window.updateDataLayer(bookingUpdates, true);
+        const buttonDataUrl = confirmBtn.dataset?.buttonData?.trim();
+        if (buttonDataUrl) {
+          const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+          if (sheetData) window.updateDataLayer(sheetData);
+        }
         dispatchCustomEvent(config.buttoneventtype);
       }
       setTimeout(() => { window.location.href = getConfirmationPath(config.confirmationpath) + '?order=' + orderId; }, 2000);

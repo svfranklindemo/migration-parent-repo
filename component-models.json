@@ -843,12 +843,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -925,12 +924,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1116,11 +1114,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1188,11 +1186,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1262,12 +1260,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1312,12 +1309,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1372,12 +1368,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1663,21 +1658,20 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
-          "component": "text",
-          "name": "buttontext",
-          "label": "Button Text",
-          "value": "JOIN US",
-          "valueType": "string",
-          "description": "Text shown on the form submit button"
-        },
+        "component": "text",
+        "name": "buttontext",
+        "label": "Button Text",
+        "value": "JOIN US",
+        "valueType": "string",
+        "description": "Text shown on the form submit button"
+      },
       {
         "component": "text",
         "name": "custom-class",
@@ -1826,12 +1820,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -1875,12 +1868,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -2286,12 +2278,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -2335,12 +2326,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -2384,12 +2374,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -2456,12 +2445,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
         "component": "text",
@@ -8808,8 +8796,6 @@
       }
     ]
   },
-
-  
   {
     "id": "new-arrival",
     "fields": [

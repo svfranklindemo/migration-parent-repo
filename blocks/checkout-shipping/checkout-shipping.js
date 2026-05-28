@@ -1,6 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
-import { buildFormDataLayerUpdates, DEFAULT_FORM_FIELD_MAP } from '../../scripts/form-data-layer.js';
+import { buildFormDataLayerUpdates, DEFAULT_FORM_FIELD_MAP, fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
 
 function isTruthy(value) {
@@ -206,6 +206,11 @@ function attachSubmitHandler(block, config) {
       }
 
       const submitBtn = form.querySelector("button[type='submit']");
+      const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
+      if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+        const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+        if (sheetData) window.updateDataLayer(sheetData);
+      }
       const authoredEvent = submitBtn?.dataset?.buttonEventType?.trim();
       if (authoredEvent) dispatchCustomEvent(authoredEvent);
 

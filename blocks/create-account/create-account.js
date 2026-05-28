@@ -1,6 +1,6 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
-import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook } from "../../scripts/form-data-layer.js";
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
 import { normalizeAemPath } from "../../scripts/scripts.js";
 
 function isTruthy(value) {
@@ -430,6 +430,11 @@ function attachCreateAccountSubmitHandler(block, config) {
         clearProductObject();
 
         const submitBtn = form.querySelector("button[type='submit']");
+        const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
+        if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+          const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+          if (sheetData) window.updateDataLayer(sheetData);
+        }
         const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim();
         if (authoredEventType) dispatchCustomEvent(authoredEventType);
 

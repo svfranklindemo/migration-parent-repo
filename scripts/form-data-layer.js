@@ -87,6 +87,22 @@ export async function submitToWebhook(form, webhookUrl, formId) {
   }
 }
 
+export async function fetchButtonDataSheet(url) {
+  if (!url) return null;
+  try {
+    const fetchUrl = url.endsWith('.json') ? url : `${url}.json`;
+    const resp = await fetch(fetchUrl);
+    if (!resp.ok) return null;
+    const json = await resp.json();
+    if (!Array.isArray(json.data)) return null;
+    const result = {};
+    json.data.forEach(({ key, value }) => { if (key) setNestedValue(result, key, value); });
+    return result;
+  } catch {
+    return null;
+  }
+}
+
 export function attachLiveFormSync(form, fieldMap) {
   if (!form || !fieldMap) return;
   const handler = () => syncFormDataLayer(form, fieldMap);

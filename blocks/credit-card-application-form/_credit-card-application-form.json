@@ -75,11 +75,11 @@
           "valueType": "string"
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "name": "buttondata",
-          "label": "Button Data",
+          "label": "Button Data Sheet",
           "valueType": "string",
-          "description": "Comma-separated key,value pairs"
+          "description": "AEM sheet path whose key/value rows are sent on submit"
         },
         {
           "component": "text",

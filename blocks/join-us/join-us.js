@@ -7,7 +7,7 @@
 
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
-import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook } from "../../scripts/form-data-layer.js";
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
 
 const DEFAULT_FORM_TITLE = 'JOIN WKND FLY CLUB';
 const DEFAULT_SUCCESS_TOAST_MESSAGE = 'Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!';
@@ -306,6 +306,11 @@ function attachFormSubmitHandler(block, formActionId = '', successToastMessage =
       showSuccessPopup(successToastMessage);
       // If button has an authored event type, fire it (for Launch, same pattern as flight-search)
       const submitBtn = form.querySelector("button[type='submit']");
+      const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
+      if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+        const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+        if (sheetData) window.updateDataLayer(sheetData);
+      }
       const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim();
       if (authoredEventType) {
         dispatchCustomEvent(authoredEventType);
