@@ -238,6 +238,19 @@ function buildTimeSlotPicker(config = {}) {
     return slotData[key];
   }
 
+  function pushAppointmentDataLayer(val) {
+    if (typeof window.updateDataLayer !== 'function') return;
+    window.updateDataLayer({
+      interactionDetails: {
+        automotive: {
+          appointment: {
+            dateTime: Array.isArray(val) ? val.join('; ') : val || '',
+          },
+        },
+      },
+    });
+  }
+
   function selectSlot(val) {
     if (multiple) {
       selection = selection.includes(val)
@@ -246,6 +259,7 @@ function buildTimeSlotPicker(config = {}) {
     } else {
       selection = val;
     }
+    pushAppointmentDataLayer(selection);
     render();
   }
 
@@ -348,6 +362,17 @@ function attachSubmitHandler(block, config, variantDefaults, slotPicker) {
     block.querySelector('.td-slot-error')?.remove();
 
     syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+    if (typeof window.updateDataLayer === 'function') {
+      window.updateDataLayer({
+        interactionDetails: {
+          automotive: {
+            appointment: {
+              dateTime: selectedSlot,
+            },
+          },
+        },
+      });
+    }
 
     const submitBtn = form.querySelector("button[type='submit']");
     const eventType = submitBtn?.dataset?.buttonEventType?.trim();
