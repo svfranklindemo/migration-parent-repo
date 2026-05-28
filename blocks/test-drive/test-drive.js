@@ -416,8 +416,6 @@ function attachSubmitHandler(block, config, variantDefaults, slotPicker) {
       setTimeout(() => { window.location.href = redirectUrl; }, 2000);
     } else {
       showToast(successMessage);
-      submitBtn.disabled = true;
-      setTimeout(() => { window.location.reload(); }, 4000);
     }
   });
 }
