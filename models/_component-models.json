@@ -11,66 +11,107 @@
         "component": "text",
         "valueType": "string",
         "name": "jcr:title",
-        "label": "Title",
-        "required": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "jcr:pagetitle",
-        "label": "Page Title",
-        "required": true
+        "label": "Title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:description",
-        "label": "Description",
-        "required": true
+        "label": "Description"
       },
       {
-        "component": "aem-tag",
-        "name": "cq:tags",
-        "label": "Tags",
+        "component": "aem-content-fragment",
+        "name": "theme_cf_reference",
+        "label": "Brand Theme",
+        "description": "Select the CF with authored values for the brand theme. This will be applied on the pages",
         "valueType": "string",
-        "rootPath": "/content/cq:tags/world-bank"
+        "validation": {
+          "rootPath": "/content/dam"
+        }
       },
       {
         "component": "select",
         "name": "theme",
         "label": "Theme",
+        "description": "Note: This takes priority over CF based theme.",
         "options": [
           {
             "name": "default",
             "value": ""
           },
           {
-            "name": "Mango Haze",
-            "value": "mango-haze"
+            "name": "Gray Theme",
+            "value": "gray-theme"
           },
           {
-            "name": "Lavender Chill",
-            "value": "lavender-chill"
+            "name": "Red Theme",
+            "value": "red-theme"
           },
           {
-            "name": "Meadow Light",
-            "value": "meadow-light"
+            "name": "Blue Theme",
+            "value": "blue-theme"
+          },
+          {
+            "name": "Green Theme",
+            "value": "green-theme"
+          },
+          {
+            "name": "WeHealthcare Theme",
+            "value": "wehealthcare-theme"
+          },
+          {
+            "name": "Fly Theme",
+            "value": "fly-theme"
+          },
+          {
+            "name": "SecurBank Theme",
+            "value": "securbank-theme"
+          },
+          {
+            "name": "Luma Theme",
+            "value": "luma-theme"
+          },
+          {
+            "name": "Citi Signal",
+            "value": "citi-signal-theme"
+          },
+          {
+            "name": "Frescopa Theme",
+            "value": "frescopa-theme"
+          },
+          {
+            "name": "Carvelo Theme",
+            "value": "carvelo-theme"
           }
         ]
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "pageName",
-        "label": "Page Name",
-        "required": true
+        "name": "js-files",
+        "multi": true,
+        "value": "",
+        "label": "JS Library URL(s)",
+        "description": "List of js libraries to include under head section of the page"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "jcr:pagetitle",
+        "label": "Page Title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "pageCategory",
-        "label": "Page Category",
-        "required": true
+        "label": "Page Category"
+      },
+      {
+        "component": "aem-tag",
+        "name": "cq:tags",
+        "label": "Tags",
+        "valueType": "string",
+        "rootPath": "/content/cq:tags/reference-demo"
       }
     ]
   },
@@ -100,11 +141,65 @@
         }
       },
       {
+        "component": "aem-content",
+        "name": "redirect-url",
+        "label": "Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional product details page to use for product card clicks. Leave empty to use the default product details page."
+      },
+      {
         "component": "aem-tag",
         "name": "cq:tags",
         "label": "Tags",
         "valueType": "string",
-        "rootPath": "/content/cq:tags/lumaproducts"
+        "rootPath": "/content/cq:tags"
+      },
+      {
+        "component": "select",
+        "name": "cards-per-row",
+        "label": "Cards Per Row",
+        "valueType": "string",
+        "value": "5",
+        "description": "Number of cards to display per row on desktop",
+        "options": [
+          {
+            "name": "3",
+            "value": "3"
+          },
+          {
+            "name": "4",
+            "value": "4"
+          },
+          {
+            "name": "5",
+            "value": "5"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "name": "enableaddtocartattileview",
+        "label": "Enable Add to Cart at Tile View",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, each product card shows an Add to Cart button directly in the listing view."
+      },
+      {
+        "component": "text",
+        "name": "addtocarteventtype",
+        "label": "Add to Cart Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Custom event name to dispatch when the Add to Cart button is clicked.",
+        "condition": {
+          "==": [
+            {
+              "var": "enableaddtocartattileview"
+            },
+            true
+          ]
+        }
       },
       {
         "component": "select",
@@ -121,8 +216,28 @@
           {
             "name": "No Border",
             "value": "no-border"
+          },
+          {
+            "name": "Carousel",
+            "value": "carousel"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Carousel Heading",
+        "value": "",
+        "valueType": "string",
+        "description": "Heading displayed above the carousel (e.g. 'Choose your car'). Only used in Carousel variant."
+      },
+      {
+        "component": "text",
+        "name": "learn-more-label",
+        "label": "Learn More Button Label",
+        "value": "Learn more",
+        "valueType": "string",
+        "description": "Text for the Learn more button in the Carousel variant."
       },
       {
         "component": "boolean",
@@ -130,85 +245,86 @@
         "label": "No Background",
         "value": "false",
         "valueType": "boolean",
-        "description": "Remove media overlay and image brightness filter when enabled."
+        "description": "Remove the media overlay and image brightness filter when toggled on."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
-    {
+  {
     "id": "test-drive",
     "fields": [
       {
+        "component": "select",
+        "name": "variant",
+        "label": "Variant",
+        "value": "test-drive",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Test Drive (Schedule test drive)",
+            "value": "test-drive"
+          },
+          {
+            "name": "Schedule Appointment",
+            "value": "schedule-appointment"
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "form-title",
-        "label": "Form Title",
-        "value": "Book a Test Drive",
+        "label": "Form Title (overrides variant default)",
+        "value": "",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "submit-label",
-        "label": "Submit Button Label",
-        "value": "Book Test Drive",
-        "valueType": "string"
-      },
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "Vehicle Image",
-        "valueType": "string",
-        "description": "Image of the vehicle displayed alongside the form"
-      },
-      {
-        "component": "text",
-        "name": "image-alt",
-        "label": "Vehicle Image Alt Text",
-        "value": "Test drive vehicle",
+        "label": "Submit Button Label (overrides variant default)",
+        "value": "",
         "valueType": "string"
       },
       {
         "component": "text",
-        "name": "eyebrow",
-        "label": "Eyebrow Text",
-        "value": "",
+        "name": "time-slots",
+        "label": "Time Slots (comma-separated)",
+        "value": "9 AM, 10 AM, 11 AM",
         "valueType": "string",
-        "description": "Small uppercase label shown above the headline"
+        "description": "Comma-separated list of time slots shown each day"
       },
       {
         "component": "text",
-        "name": "headline",
-        "label": "Headline",
-        "value": "",
+        "name": "days-shown",
+        "label": "Days Shown",
+        "value": "3",
         "valueType": "string",
-        "description": "Large heading shown next to the vehicle image"
+        "description": "Number of day columns to display at once (1-7)"
       },
       {
-        "component": "text",
-        "name": "subtext",
-        "label": "Subtext",
-        "value": "",
-        "valueType": "string",
-        "description": "Supporting text shown below the headline"
-      },
-      {
-        "component": "text",
-        "name": "car-models",
-        "label": "Car Models (comma-separated)",
-        "value": "Carvelo Sedan, Carvelo SUV, Carvelo Luxury, Carvelo Electric",
-        "valueType": "string",
-        "description": "Comma-separated list of car models for the dropdown"
+        "component": "boolean",
+        "name": "multiple-slots",
+        "label": "Allow Multiple Slot Selection",
+        "value": "false",
+        "valueType": "boolean"
       },
       {
         "component": "text",
         "name": "success-message",
-        "label": "Success Message",
-        "value": "Thank you! Your test drive has been booked. We will contact you shortly to confirm your appointment.",
+        "label": "Success Message (overrides variant default)",
+        "value": "",
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "redirect-url",
         "label": "Redirect URL (after submit)",
-        "value": "",
         "valueType": "string",
         "description": "Optional page to redirect to 2 seconds after successful submission"
       },
@@ -234,20 +350,11 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "name": "buttondata",
-        "label": "Button Data",
-        "value": "",
+        "label": "Button Data Sheet",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs for data layer"
-      },
-      {
-        "component": "text",
-        "name": "custom-class",
-        "label": "Custom Class",
-        "value": "",
-        "valueType": "string",
-        "description": "Space-separated CSS class names to add to the block"
+        "description": "AEM sheet path whose key/value rows are sent on submit"
       }
     ]
   },
@@ -261,6 +368,70 @@
         "valueType": "string",
         "required": true,
         "rootPath": "/content/dam"
+      },
+      {
+        "component": "text",
+        "name": "productvieweventtype",
+        "label": "Product View Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional Launch event fired when the product page loads."
+      },
+      {
+        "component": "text",
+        "name": "addtocarteventtype",
+        "label": "Add To Cart Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional Launch event fired on Add to Cart click."
+      },
+      {
+        "component": "boolean",
+        "name": "showaddtowishlistbutton",
+        "label": "Show Add To Wishlist Button",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, Add to Cart and Add to Wishlist buttons are not rendered."
+      },
+      {
+        "component": "boolean",
+        "name": "showaddtocartbutton",
+        "label": "Show Add To Cart Button",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, the Add to Cart button is not rendered."
+      },
+      {
+        "component": "text",
+        "name": "addtowishlisteventtype",
+        "label": "Add To Wishlist Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional Launch event fired on Add to Wishlist click.",
+        "condition": {
+          "==": [
+            {
+              "var": "showaddtowishlistbutton"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "name": "showyoumayalsolikesection",
+        "label": "Show Related Products Section",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, the Related Products section is not rendered."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -282,6 +453,31 @@
         "label": "Product SKUs",
         "valueType": "string[]",
         "multi": true
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "label": "Layout",
+        "valueType": "string",
+        "value": "horizontal",
+        "options": [
+          {
+            "name": "Horizontal (Carousel)",
+            "value": "horizontal"
+          },
+          {
+            "name": "Vertical (Grid)",
+            "value": "vertical"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -295,16 +491,82 @@
         "valueType": "string",
         "required": false,
         "rootPath": "/content/dam"
+      },
+      {
+        "component": "boolean",
+        "name": "showyoumayalsolikesection",
+        "label": "Show Related Products Section",
+        "value": "true",
+        "valueType": "boolean",
+        "description": "When disabled, the You May Also Like recommendations section is not rendered."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
   {
     "id": "order-summary",
-    "fields": []
+    "fields": [
+      {
+        "component": "text",
+        "name": "checkouteventtype",
+        "label": "Checkout Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional Launch event fired when order summary loads."
+      },
+      {
+        "component": "aem-content",
+        "name": "back-path",
+        "label": "Back Path",
+        "value": "",
+        "valueType": "string",
+        "description": "Where to navigate on BACK. Use a full AEM path (e.g. /content/<site-name>/language-masters/<language-node>/checkout)."
+      },
+      {
+        "component": "aem-content",
+        "name": "confirm-path",
+        "label": "Confirm Path",
+        "value": "",
+        "valueType": "string",
+        "description": "Where to navigate on CONFIRM ORDER. Use a full AEM path (e.g. /content/<site-name>/language-masters/<language-node>/order-confirmation). Order number is appended as ?order=."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
   },
   {
     "id": "order-confirmation",
-    "fields": []
+    "fields": [
+      {
+        "component": "text",
+        "name": "purchase-order-event-type",
+        "label": "Purchase Order Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional Launch event fired when order confirmation loads."
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
   },
   {
     "id": "image",
@@ -360,6 +622,25 @@
             "value": "h6"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "alignment",
+        "label": "Alignment",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
       }
     ]
   },
@@ -387,32 +668,20 @@
         "label": "Type",
         "options": [
           {
-            "name": "default",
-            "value": ""
+            "name": "Link",
+            "value": "cta-link"
           },
           {
-            "name": "primary",
-            "value": "primary"
+            "name": "Primary Button",
+            "value": "cta-button"
           },
           {
-            "name": "secondary",
-            "value": "secondary"
+            "name": "Secondary Button",
+            "value": "cta-button-secondary"
           },
           {
-            "name": "CTA",
-            "value": "cta"
-          },
-          {
-            "name": "negative",
-            "value": "negative"
-          },
-          {
-            "name": "link",
-            "value": "link"
-          },
-          {
-            "name": "custom",
-            "value": "custom"
+            "name": "Dark Button",
+            "value": "cta-button-dark"
           }
         ]
       },
@@ -523,36 +792,6 @@
     ]
   },
   {
-    "id": "section",
-    "fields": [
-      {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Background Image",
-        "description": "Optional background image for this section.",
-        "multi": false
-      },
-      {
-        "component": "multiselect",
-        "name": "style",
-        "label": "Style",
-        "options": [
-          {
-            "name": "Highlight",
-            "value": "highlight"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "card",
     "fields": [
       {
@@ -571,14 +810,67 @@
       },
       {
         "component": "select",
-        "name": "imagestyle",
-        "label": "Image Style",
-        "valueType": "string",
-        "value": "",
+        "name": "style",
+        "label": "Style",
         "options": [
           {
             "name": "default",
             "value": ""
+          },
+          {
+            "name": "Image Top",
+            "value": "image-top"
+          },
+          {
+            "name": "Image Bottom",
+            "value": "image-bottom"
+          },
+          {
+            "name": "Image Left",
+            "value": "image-left"
+          },
+          {
+            "name": "Image Right",
+            "value": "image-right"
+          },
+          {
+            "name": "Teaser Overlay",
+            "value": "teaser-overlay"
+          },
+          {
+            "name": "Teaser Card",
+            "value": "teaser-card"
+          },
+          {
+            "name": "Icon Cards",
+            "value": "icon-cards"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "imagestyle",
+        "label": "Image Style",
+        "options": [
+          {
+            "name": "Cover (default)",
+            "value": ""
+          },
+          {
+            "name": "Contain",
+            "value": "contain"
+          },
+          {
+            "name": "Fill",
+            "value": "fill"
+          },
+          {
+            "name": "None",
+            "value": "none"
+          },
+          {
+            "name": "Scale Down",
+            "value": "scale-down"
           },
           {
             "name": "Compact Style",
@@ -590,20 +882,22 @@
         "component": "select",
         "name": "ctastyle",
         "label": "CTA Style",
-        "valueType": "string",
-        "value": "button",
         "options": [
           {
+            "name": "Link",
+            "value": "cta-link"
+          },
+          {
             "name": "Primary Button",
-            "value": "button"
+            "value": "cta-button"
           },
           {
             "name": "Secondary Button",
-            "value": "button-secondary"
+            "value": "cta-button-secondary"
           },
           {
             "name": "Dark Button",
-            "value": "button-dark"
+            "value": "cta-button-dark"
           }
         ]
       },
@@ -623,7 +917,7 @@
       {
         "component": "select",
         "name": "alignment",
-        "label": "Alignment",
+        "label": "Text Alignment",
         "options": [
           {
             "name": "Left",
@@ -640,23 +934,12 @@
         ]
       },
       {
-        "component": "select",
-        "name": "verticalalignment",
-        "label": "Vertical Alignment",
-        "options": [
-          {
-            "name": "Top",
-            "value": "top"
-          },
-          {
-            "name": "Middle",
-            "value": "middle"
-          },
-          {
-            "name": "Bottom",
-            "value": "bottom"
-          }
-        ]
+        "component": "text",
+        "name": "backgroundcolor",
+        "label": "Background Color",
+        "value": "",
+        "valueType": "string",
+        "description": "Hex value, e.g. #ffffff or f5f5f5"
       },
       {
         "component": "text",
@@ -667,25 +950,11 @@
       },
       {
         "component": "text",
-        "name": "buttonwebhookurl",
-        "label": "Button Webhook URL",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonformid",
-        "label": "Button Form ID",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttondata",
-        "label": "Button Data",
+        "name": "customstyles",
+        "label": "Custom Styles",
         "value": "",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs"
+        "description": "Custom styles for the card"
       },
       {
         "component": "boolean",
@@ -694,6 +963,14 @@
         "value": "true",
         "valueType": "boolean",
         "description": "Keep the teaser overlay background at 50% opacity. Turn off for a solid black overlay."
+      },
+      {
+        "component": "text",
+        "name": "textcolor",
+        "label": "Text color",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional hex color for card text (e.g. #fff, #000000, or 333). Leave empty for default."
       }
     ]
   },
@@ -713,6 +990,22 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "columnWidths",
+        "value": "",
+        "label": "Column widths (%)",
+        "description": "Comma-separated width percentages per column, e.g. 20,80 or 33,33,34"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -723,6 +1016,14 @@
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   },
@@ -776,14 +1077,6 @@
             "value": "image-right"
           },
           {
-            "name": "Image Top",
-            "value": "image-top"
-          },
-          {
-            "name": "Image Bottom",
-            "value": "image-bottom"
-          },
-          {
             "name": "Image-Background Text-Left",
             "value": "image-background-text-left"
           },
@@ -799,8 +1092,8 @@
         "label": "CTA Style",
         "options": [
           {
-            "name": "default",
-            "value": ""
+            "name": "Link",
+            "value": "link"
           },
           {
             "name": "Button",
@@ -811,8 +1104,8 @@
             "value": "button-secondary"
           },
           {
-            "name": "Link",
-            "value": "link"
+            "name": "Dark Button",
+            "value": "button-dark"
           }
         ]
       },
@@ -834,6 +1127,14 @@
             "value": "theme-light"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "backgroundcolor",
+        "label": "Background Color",
+        "value": "",
+        "valueType": "string",
+        "description": "Hex value, e.g. #ffffff or f5f5f5"
       },
       {
         "component": "select",
@@ -911,25 +1212,11 @@
       },
       {
         "component": "text",
-        "name": "buttonwebhookurl",
-        "label": "Button Webhook URL",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttonformid",
-        "label": "Button Form ID",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "buttondata",
-        "label": "Button Data",
+        "name": "custom-class",
+        "label": "Custom class",
         "value": "",
         "valueType": "string",
-        "description": "Comma-separated key,value pairs e.g. key1,value1,key2,value2"
+        "description": "Space-separated class names to add to the block"
       },
       {
         "component": "boolean",
