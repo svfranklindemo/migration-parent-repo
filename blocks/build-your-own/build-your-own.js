@@ -1,22 +1,28 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { isAuthorEnvironment, normalizeCategoryValue } from '../../scripts/scripts.js';
-import { getHostname } from '../../scripts/utils.js';
+import { getEnvironmentValue, getHostname } from '../../scripts/utils.js';
 
 const AUTHOR_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/productFeatureListByPath';
-const PUBLISH_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/productFeatureListByPath';
+const PUBLISH_GRAPHQL_PROXY_ENDPOINT = 'https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information';
+const PUBLISH_PRODUCTS_ENDPOINT_KEY = 'productFeatureListByPath';
 
-let apiConfigPromise;
+let authorBasePromise;
+let publishEnvironmentPromise;
 
-async function getApiConfig() {
-  if (!apiConfigPromise) {
-    apiConfigPromise = (async () => {
-      const hostname = await getHostname();
-      const authorBase = (hostname || '').replace(/\/$/, '');
-      const publishBase = authorBase.replace(/author/gi, 'publish');
-      return { authorBase, publishBase };
-    })();
+async function getAuthorBase() {
+  if (!authorBasePromise) {
+    authorBasePromise = getHostname()
+      .then((hostname) => (hostname || window.location.origin || '').replace(/\/$/, ''))
+      .catch(() => (window.location.origin || '').replace(/\/$/, ''));
   }
-  return apiConfigPromise;
+  return authorBasePromise;
+}
+
+async function getPublishEnvironment() {
+  if (!publishEnvironmentPromise) {
+    publishEnvironmentPromise = getEnvironmentValue().catch(() => undefined);
+  }
+  return publishEnvironmentPromise;
 }
 
 function normalizeContentFragmentPath(path, isAuthor) {
@@ -60,13 +66,17 @@ async function fetchProductFeatures(cfPath) {
   if (!cfPath) return [];
   const isAuthor = isAuthorEnvironment();
   try {
-    const { authorBase, publishBase } = await getApiConfig();
+    const authorBase = await getAuthorBase();
+    const environment = await getPublishEnvironment();
     const url = isAuthor
       ? `${authorBase}${AUTHOR_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`
-      : `${publishBase}${PUBLISH_GRAPHQL_BASE};_path=${cfPath};ts=${Date.now()}`;
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${cfPath}`;
     const response = await fetch(url, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        Pragma: 'no-cache',
+      },
     });
     if (!response.ok) return [];
     const payload = await response.json();
