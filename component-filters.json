@@ -106,6 +106,10 @@
       "tabs-item"
     ]
   },
+    {
+    "id": "bodea-secure-antivirus",
+    "components": []
+  },
   {
     "id": "form",
     "components": [
