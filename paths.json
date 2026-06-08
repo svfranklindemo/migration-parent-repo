@@ -1,6 +1,7 @@
 {
   "mappings": [
     "/content/halliby/language-masters/en:/",
+    "/content/halliby/language-masters/en/:/en/",
     "/content/halliby/configuration:/.helix/config.json",
     "/content/halliby/metadata:/metadata.json",
     "/content/halliby/redirects:/redirects.json",
