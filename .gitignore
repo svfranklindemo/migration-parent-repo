@@ -7,8 +7,5 @@ helix-importer-ui
 .DS_Store
 *.bak
 .idea
-<<<<<<< HEAD
 /graphify-out
-=======
 .github
->>>>>>> fe69cdfe96950cf217a6a21a45b333706f749147

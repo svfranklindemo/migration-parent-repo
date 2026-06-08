@@ -182,3 +182,94 @@ body.halliby-theme .search.search-icon .search-trigger .icon img {
     color: #000000;
   }
 }
+
+/* ============================================================
+ * Design Transfer â€” 2026-06-08T14:36:07.984Z
+ * Source : https://dsn.adobe.com/web/halliby (.PageFooter)
+ * Target : https://main--halliby--milandevnath-aem.aem.page/en/components-master (.footer-wrapper)
+ * ============================================================ */
+
+body.halliby-theme .footer-wrapper {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 40px 20px;
+}
+
+body.halliby-theme .footer-wrapper .footer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+body.halliby-theme .footer-wrapper .section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+body.halliby-theme .footer-wrapper .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+body.halliby-theme .footer-wrapper .default-content-wrapper picture,
+body.halliby-theme .footer-wrapper .default-content-wrapper img {
+  display: block;
+  max-width: 200px;
+  height: auto;
+}
+
+body.halliby-theme .footer-wrapper .default-content-wrapper p {
+  margin: 0;
+  font-family: 'Adobe Clean', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #000000;
+}
+
+body.halliby-theme .footer-wrapper .default-content-wrapper a {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+body.halliby-theme .footer-wrapper .default-content-wrapper a:hover {
+  color: var(--main-accent-color);
+}
+
+body.halliby-theme .footer-wrapper .default.section {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 24px;
+  margin-top: 8px;
+}
+
+body.halliby-theme .footer-wrapper .default.section .default-content-wrapper p {
+  font-size: 0.85rem;
+  color: #555555;
+  max-width: 800px;
+}
+
+@media (min-width: 768px) {
+  body.halliby-theme .footer-wrapper .section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    gap: 40px;
+  }
+
+  body.halliby-theme .footer-wrapper .default-content-wrapper {
+    align-items: flex-start;
+  }
+
+  body.halliby-theme .footer-wrapper .default.section {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    padding-left: 40px;
+    border-left: 1px solid #e0e0e0;
+  }
+}
