@@ -183,93 +183,79 @@ body.halliby-theme .search.search-icon .search-trigger .icon img {
   }
 }
 
-/* ============================================================
- * Design Transfer â€” 2026-06-08T14:36:07.984Z
- * Source : https://dsn.adobe.com/web/halliby (.PageFooter)
- * Target : https://main--halliby--milandevnath-aem.aem.page/en/components-master (.footer-wrapper)
- * ============================================================ */
+/* [DT:START:.footer-wrapper] ========================================
+ * Design Transfer - 2026-06-08T16:34:41.999Z
+ * Section : .footer-wrapper
+ * Source  : https://dsn.adobe.com/web/halliby (.PageFooter)
+ * Target  : http://localhost:3000/en/components-master (.footer-wrapper)
+ * ======================================== */
 
 body.halliby-theme .footer-wrapper {
   background-color: #ffffff;
-  color: #000000;
-  padding: 40px 20px;
+  color: #2c2c2c;
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  padding: 32px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
-
-body.halliby-theme .footer-wrapper .footer {
+body.halliby-theme .footer-wrapper .footer.block > div {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-body.halliby-theme .footer-wrapper .section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  text-align: center;
-}
-
-body.halliby-theme .footer-wrapper .default-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 361px 1fr;
   gap: 16px;
 }
-
-body.halliby-theme .footer-wrapper .default-content-wrapper picture,
-body.halliby-theme .footer-wrapper .default-content-wrapper img {
-  display: block;
-  max-width: 200px;
-  height: auto;
-}
-
-body.halliby-theme .footer-wrapper .default-content-wrapper p {
+body.halliby-theme .footer-wrapper .section {
+  padding: 0;
   margin: 0;
-  font-family: 'Adobe Clean', sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #000000;
 }
-
-body.halliby-theme .footer-wrapper .default-content-wrapper a {
-  color: #000000;
+body.halliby-theme .footer-wrapper .section:first-of-type {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+}
+body.halliby-theme .footer-wrapper .section:first-of-type .default-content-wrapper {
+  display: contents;
+}
+body.halliby-theme .footer-wrapper .section:first-of-type p {
+  width: 361px;
+  margin: 0;
+}
+body.halliby-theme .footer-wrapper picture img {
+  width: 96.6875px;
+  display: block;
+}
+body.halliby-theme .footer-wrapper ul {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+body.halliby-theme .footer-wrapper .section:last-of-type {
+  grid-column: 1;
+  margin-top: 30px;
+}
+body.halliby-theme .footer-wrapper .section:last-of-type p {
+  margin: 0;
+  color: #c1c1c1;
+  font-size: 12px;
+  line-height: 18px;
+}
+body.halliby-theme .footer-wrapper a {
+  color: #2c2c2c;
   text-decoration: none;
-  transition: color 0.2s ease;
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+}
+body.halliby-theme .footer-wrapper a:hover {
+  color: #4a8c3f;
 }
 
-body.halliby-theme .footer-wrapper .default-content-wrapper a:hover {
-  color: var(--main-accent-color);
-}
-
-body.halliby-theme .footer-wrapper .default.section {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 24px;
-  margin-top: 8px;
-}
-
-body.halliby-theme .footer-wrapper .default.section .default-content-wrapper p {
-  font-size: 0.85rem;
-  color: #555555;
-  max-width: 800px;
-}
-
-@media (min-width: 768px) {
-  body.halliby-theme .footer-wrapper .section {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    text-align: left;
-    gap: 40px;
-  }
-
-  body.halliby-theme .footer-wrapper .default-content-wrapper {
-    align-items: flex-start;
-  }
-
-  body.halliby-theme .footer-wrapper .default.section {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-    padding-left: 40px;
-    border-left: 1px solid #e0e0e0;
-  }
-}
+/* [DT:END:.footer-wrapper] */
