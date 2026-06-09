@@ -780,3 +780,80 @@ body.halliby-theme .section.halliby-promo-banner .default-content-wrapper p.butt
     font-size: 28px;
   }
 }
+
+/* [DT:START:.footer-wrapper] ========================================
+ * Design Transfer - 2026-06-08T16:34:41.999Z
+ * Section : .footer-wrapper
+ * Source  : https://dsn.adobe.com/web/halliby (.PageFooter)
+ * Target  : http://localhost:3000/en/components-master (.footer-wrapper)
+ * ======================================== */
+
+body.halliby-theme .footer-wrapper {
+  background-color: #ffffff;
+  color: #2c2c2c;
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  padding: 32px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+body.halliby-theme .footer-wrapper .footer.block > div {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 361px 1fr;
+  gap: 16px;
+}
+body.halliby-theme .footer-wrapper .section {
+  padding: 0;
+  margin: 0;
+}
+body.halliby-theme .footer-wrapper .section:first-of-type {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+}
+body.halliby-theme .footer-wrapper .section:first-of-type .default-content-wrapper {
+  display: contents;
+}
+body.halliby-theme .footer-wrapper .section:first-of-type p {
+  width: 361px;
+  margin: 0;
+}
+body.halliby-theme .footer-wrapper picture img {
+  width: 96.6875px;
+  display: block;
+}
+body.halliby-theme .footer-wrapper ul {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+body.halliby-theme .footer-wrapper .section:last-of-type {
+  grid-column: 1;
+  margin-top: 30px;
+}
+body.halliby-theme .footer-wrapper .section:last-of-type p {
+  margin: 0;
+  color: #c1c1c1;
+  font-size: 12px;
+  line-height: 18px;
+}
+body.halliby-theme .footer-wrapper a {
+  color: #2c2c2c;
+  text-decoration: none;
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+}
+body.halliby-theme .footer-wrapper a:hover {
+  color: #4a8c3f;
+}
+
+/* [DT:END:.footer-wrapper] */
