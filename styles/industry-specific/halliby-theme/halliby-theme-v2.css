@@ -1,0 +1,102 @@
+
+
+/* [DT:START:.cards-wrapper] ========================================
+ * Design Transfer - 2026-06-09T19:47:26.377Z
+ * Section : .cards-wrapper
+ * Source  : https://dsn.adobe.com/web/halliby/grocery (.Container.productsList, .Container.productsList)
+ * Target  : https://develop--halliby--milandevnath-aem.aem.page/en/grocery (.cards-wrapper)
+ * ======================================== */
+
+body.halliby-theme .cards-wrapper {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 24px 24px 24px 24px;
+  box-sizing: border-box;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px 32px;
+  width: 100%;
+  flex-wrap: unset;
+  flex-direction: unset;
+  align-items: unset;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  min-height: 200px;
+  cursor: pointer;
+  display: block;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left p {
+  position: absolute !important;
+  bottom: 16px !important;
+  left: 50% !important;
+  top: unset !important;
+  right: unset !important;
+  transform: translateX(-50%) !important;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: rgba(0, 0, 0, 0);
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+  padding: 6px 18px;
+  white-space: nowrap;
+  width: auto;
+  max-width: 80%;
+  text-align: center;
+  pointer-events: none;
+  z-index: 2;
+  margin: 0;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left:hover picture img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 768px) {
+  body.halliby-theme .cards-wrapper .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  body.halliby-theme .cards-wrapper .cards > ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* AI enrichment */
+body.halliby-theme .cards-wrapper {
+  margin: 0px 168px 16px;
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left p {
+  color: rgb(44, 44, 44);
+}
+
+body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left p:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* [DT:END:.cards-wrapper] */
