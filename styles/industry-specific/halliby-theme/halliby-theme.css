@@ -458,12 +458,13 @@ body.halliby-theme .section.halliby-home-cards .cards > ul > li .cards-card-body
 
 body.halliby-theme .section.halliby-home-cards .cards > ul > li .cards-card-body h2 {
   font-family: var(--heading-font-family);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
   line-height: 1.4;
   margin: 0 0 8px;
   color: #2C2C2C;
   text-align: center;
+  padding: 0;
 }
 
 body.halliby-theme .section.halliby-home-cards .cards > ul > li .cards-card-body p {
@@ -633,7 +634,7 @@ body.halliby-theme .section.halliby-teaser-full-width-image .columns h1 {
   font-size: 38px;
   font-weight: 700;
   color: #2C2C2C;
-  margin: 0;
+  margin: 0 0 0.67em 0;
   padding: 0;
   line-height: 1.25;
 }
