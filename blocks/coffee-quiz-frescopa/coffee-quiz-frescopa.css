@@ -92,12 +92,6 @@ body.frescopa-theme .coffee-quiz-frescopa__card {
   pointer-events: none;
 }
 
-.coffee-quiz-frescopa__card picture {
-  width: 100%;
-  display: block;
-  pointer-events: none;
-}
-
 .coffee-quiz-frescopa__card-label {
   display: block;
   padding: 0.5rem 0.75rem;
