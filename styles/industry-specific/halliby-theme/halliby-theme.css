@@ -957,6 +957,25 @@ body.halliby-theme .footer-wrapper a:hover {
   color: #4a8c3f;
 }
 
+@media (width < 900px) {
+  body.halliby-theme .footer-wrapper {
+    padding: 1rem;
+  }
+
+  body.halliby-theme .footer-wrapper ul {
+    display: none;
+  }
+
+  body.halliby-theme .footer-wrapper .footer.block>div {
+    grid-template-columns: auto;
+    padding: 0;
+  }
+
+  body.halliby-theme .footer-wrapper .section:first-of-type p {
+    width: unset;
+  }
+}
+
 /* ==========================================================================
    About Us Banner (hero variant — centered, top-aligned, light bg)
    ========================================================================== */
@@ -1007,7 +1026,6 @@ body.halliby-theme .section.halliby-about-banner .hero p {
   max-width: none;
   width: auto;
 }
-
 
 @media (width < 768px) {
   body.halliby-theme .section.halliby-about-banner .hero.image-background-text-left {
