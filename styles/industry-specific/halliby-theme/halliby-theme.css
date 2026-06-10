@@ -879,7 +879,7 @@ body.halliby-theme .section.halliby-promo-banner .default-content-wrapper p.butt
 body.halliby-theme .footer-wrapper {
   background-color: #ffffff;
   color: #2c2c2c;
-  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-family: 'Adobe Clean', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -947,8 +947,14 @@ body.halliby-theme .footer-wrapper .section:last-of-type p {
 
 body.halliby-theme .footer-wrapper a {
   color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 600;
   text-decoration: none;
-  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-family: 'Adobe Clean', sans-serif;
+}
+
+body.halliby-theme .footer-wrapper a::after {
+  content: unset;
 }
 
 body.halliby-theme .footer-wrapper a:hover {
