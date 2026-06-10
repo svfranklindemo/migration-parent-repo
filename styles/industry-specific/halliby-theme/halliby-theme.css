@@ -248,12 +248,48 @@ body.halliby-theme header nav .nav-hamburger-icon::after {
     justify-content: space-between;
   }
 
+  body.halliby-theme header nav .nav-sections ul {
+    gap: 0;
+    margin: 0;
+  } 
+
+  body.halliby-theme header nav .nav-sections ul li a {
+    color: #646464;
+  } 
+
   body.halliby-theme header .nav-brand {
     margin: auto 0;
   }
 
   body.halliby-theme header nav .nav-tools {
     margin-left: unset;
+  }
+
+  body.halliby-theme header nav[aria-expanded='true']::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 111111;
+    background-color: var(--dark-color-opacity);
+  }
+
+  body.halliby-theme header nav[aria-expanded='true'] .nav-sections {
+    background-color: #fff;
+    padding: 1rem;
+  }
+
+  body.halliby-theme header nav[aria-expanded='true'] .nav-tools {
+    position: static;
+    width: unset;
+  }
+
+  body.halliby-theme header nav .nav-tools .lang-switcher {
+    display: none !important;
+  }
+
+  body.halliby-theme header nav .nav-tools .lang-switcher, body.halliby-theme header nav .nav-tools .sign-in-btn, body.halliby-theme header nav .nav-tools a[href*="sign"] {
+    flex: unset;
   }
 
   body.halliby-theme header nav .nav-tools .sign-in-btn,
@@ -353,7 +389,7 @@ body.halliby-theme .hero .button-container.cta-button a.button {
   font-family: var(--heading-font-family);
   font-size: 14px;
   font-weight: 700;
-  color: #000000;
+  color: #000000 !important;
   text-align: center;
   box-shadow: none;
   transform: none;
@@ -366,12 +402,12 @@ body.halliby-theme .hero .button-container.cta-button a.button::after {
 }
 
 body.halliby-theme .hero .button-container.cta-button a.button:hover {
-  filter: brightness(115%);
-  background-color: #9CDD97;
-  color: #000000;
-  border-color: #9CDD97;
-  transform: none;
-  box-shadow: none;
+  filter: brightness(115%) !important;
+  background-color: #9CDD97 !important;
+  color: #000000 !important;
+  border-color: #9CDD97 !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 @media (width >=768px) {
@@ -627,6 +663,10 @@ body.halliby-theme .section.halliby-teaser .columns .button-container a.button::
 
   body.halliby-theme .section.halliby-teaser .columns-wrapper {
     padding: 0;
+  }
+
+  body.halliby-theme .section.halliby-teaser .columns h2 {
+    text-align: center;
   }
 
   body.halliby-theme .section.halliby-teaser .columns p {
