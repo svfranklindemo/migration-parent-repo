@@ -143,3 +143,175 @@ body.halliby-theme .cards-wrapper .cards > ul > .cards-card--alignment-left:hove
 }
 
 /* [DT:END:.cards-wrapper] */
+
+/* [DT:START:.section.categoryList-.cards-wrapper] ========================================
+ * Design Transfer — 2026-06-10T21:07:45.515Z
+ * Section    : .section.categoryList .cards-wrapper
+ * Source     : https://dsn.adobe.com/web/halliby/foods (.Container.categoryList)
+ * Target     : https://foods-card--halliby--milandevnath-aem.aem.page/en/foods (.section.categoryList .cards-wrapper)
+ * Viewports  : 1440×900, 768×1024, 375×667
+ * Breakpoints: 300, 400, 425, 500, 768, 769, 800, 1200, 1680 px
+ * ======================================== */
+
+body.halliby-theme .section.categoryList {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 112.4px 16px;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards {
+  width: 100%;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul {
+  display: flex !important;
+  flex-wrap: nowrap;
+  gap: 16px 32px;
+  width: 100%;
+  max-width: 1200px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+  flex: 0 0 20%;
+  max-width: 20%;
+  min-width: 0;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left > div:first-child,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center > div:first-child {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left picture,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left picture img,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left > div:nth-child(2),
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center > div:nth-child(2) {
+  position: absolute !important;
+  bottom: 12px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  top: unset !important;
+  right: unset !important;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: rgb(44, 44, 44);
+  border-radius: 20px;
+  padding: 6px 18px;
+  white-space: nowrap;
+  width: auto;
+  max-width: 85%;
+  text-align: center;
+  z-index: 2;
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left h2,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center h2 {
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(44, 44, 44);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left > div:nth-child(2) ul,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left > div:nth-child(2) .button-container,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center > div:nth-child(2) ul,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center > div:nth-child(2) .button-container {
+  display: none;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-left:hover picture img,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > .cards-card--alignment-center:hover picture img {
+  transform: scale(1.04);
+}
+
+@media (width >= 1200px) {
+  body.halliby-theme .section.categoryList .cards-wrapper {
+    margin: 0 auto 16px;
+  }
+}
+
+@media (width >= 768px) and (width < 1200px) {
+  body.halliby-theme .section.categoryList .cards-wrapper {
+    margin: 0 24px 16px;
+  }
+  
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+    flex: 0 0 calc(33.333% - 22px);
+    max-width: calc(33.333% - 22px);
+  }
+}
+
+@media (width >= 500px) and (width < 768px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+    flex: 0 0 calc(50% - 16px);
+    max-width: calc(50% - 16px);
+  }
+}
+
+@media (width >= 300px) and (width < 500px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul {
+    flex-wrap: wrap;
+  }
+}
+
+@media (width < 300px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul {
+    flex-wrap: wrap;
+  }
+}
+
+/* [DT:END:.section.categoryList-.cards-wrapper] */
