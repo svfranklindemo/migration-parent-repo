@@ -486,8 +486,6 @@ body.halliby-theme .section.halliby-home-cards .cards>ul {
 }
 
 body.halliby-theme .section.halliby-home-cards .cards>ul>li {
-  flex: 1 1 33.3%;
-  max-width: 33.3%;
   background: transparent;
   border: none;
   box-shadow: none;
