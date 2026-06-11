@@ -10,83 +10,59 @@
     "components": [
       "accordion",
       "action-button",
-      "add-external",
-      "build-your-own",
       "button",
       "cards",
       "carousel",
-      "cart",
-      "category-products-lister",
-      "checkout",
-      "checkout-shipping",
-      "child-account-application",
-      "coffee-quiz-frescopa",
       "columns",
-      "confirmation",
       "contentfragment",
-      "create-account",
-      "credit-card-application-form",
       "dm-template",
       "dynamic-media-image",
-      "embed-adaptive-form",
-      "feedback",
-      "find-a-doctor",
-      "flight-search",
-      "flights",
-      "forex",
-      "form",
       "fragment",
-      "get-offer",
       "hero",
       "iframe",
       "image",
-      "insurance",
-      "join-us",
-      "loan-application-form",
-      "loan-calculator",
+      "quote",
+      "teaser",
+      "text",
+      "title",
+      "video",
+      "search",
+      "separator",
+      "tabs",
+      "form",
+      "forex",
+      "embed-adaptive-form",
+      "find-a-doctor",
+      "flight-search",
+      "flights",
+      "create-account",
+      "child-account-application",
       "name-change-request",
+      "sign-in",
+      "transfer-funds",
+      "set-up-auto-save",
+      "checkout",
+      "checkout-shipping",
+      "credit-card-application-form",
+      "loan-application-form",
+      "get-offer",
       "new-account",
+      "loan-calculator",
+      "insurance",
+      "add-external",
+      "confirmation",
+      "feedback",
+      "coffee-quiz-frescopa",
+      "join-us",
+      "test-drive",
+      "cart",
+      "category-products-lister",
       "new-arrival",
       "order-confirmation",
       "order-summary",
-      "product-card",
       "product-detail",
-      "quote",
-      "search",
-      "separator",
-      "set-up-auto-save",
-      "sign-in",
-      "tabs",
-      "teaser",
-      "test-drive",
-      "text",
-      "title",
-      "transfer-funds",
-      "video"
-    ]
-  },
-  {
-    "id": "cards",
-    "components": [
-      "card"
-    ]
-  },
-  {
-    "id": "columns",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "column",
-    "components": [
-      "action-button",
-      "button",
-      "dm-template",
-      "image",
-      "text",
-      "title",
-      "video"
+      "product-card",
+      "build-your-own"
     ]
   },
   {
@@ -108,14 +84,6 @@
     ]
   },
   {
-    "id": "category-products-lister",
-    "components": []
-  },
-  {
-    "id": "child-account-application",
-    "components": []
-  },
-  {
     "id": "columns",
     "components": [
       "column"
@@ -128,12 +96,18 @@
       "image",
       "button",
       "title",
-      "dm-asset",
-      "video"
+      "video",
+      "action-button"
     ]
   },
   {
-    "id": "create-account",
+    "id": "tabs",
+    "components": [
+      "tabs-item"
+    ]
+  },
+    {
+    "id": "bodea-secure-antivirus",
     "components": []
   },
   {
@@ -165,39 +139,5 @@
       "wizard",
       "range"
     ]
-  },
-  {
-    "id": "join-us",
-    "components": []
-  },
-  {
-    "id": "name-change-request",
-    "components": []
-  },
-  {
-    "id": "new-arrival",
-    "components": []
-  },
-  {
-    "id": "set-up-auto-save",
-    "components": []
-  },
-  {
-    "id": "sign-in",
-    "components": []
-  },
-  {
-    "id": "tabs",
-    "components": [
-      "tabs-item"
-    ]
-  },
-  {
-    "id": "test-drive",
-    "components": []
-  },
-  {
-    "id": "transfer-funds",
-    "components": []
   }
 ]
