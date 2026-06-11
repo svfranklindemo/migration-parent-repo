@@ -82,6 +82,10 @@
           {
             "name": "Carvelo Theme",
             "value": "carvelo-theme"
+          },
+          {
+            "name": "Halliby Theme",
+            "value": "halliby-theme"
           }
         ]
       },
@@ -2289,6 +2293,10 @@
           {
             "name": "WKND Fly",
             "value": "wknd-fly"
+          },
+          {
+            "name": "Halliby",
+            "value": "halliby"
           }
         ]
       },
@@ -2364,6 +2372,22 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo-image-ca",
+        "label": "Logo Image",
+        "multi": false,
+        "description": "Logo image to display above the create account form"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "logo-image-alt-ca",
+        "label": "Logo Image Alt Text",
+        "value": "",
+        "description": "Alt text for the logo image"
       }
     ]
   },
