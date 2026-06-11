@@ -1121,6 +1121,10 @@ body.halliby-theme:has(.sign-in-container) main .sign-in {
   border-radius: 0 !important;
 }
 
+body.halliby-theme:has(.sign-in-container) main .sign-in .form {
+  position: relative;
+}
+
 /* --------------------------------------------------------------------------
    Form UI Primitives & Brand Typography
    -------------------------------------------------------------------------- */
@@ -1133,6 +1137,7 @@ body.halliby-theme:has(.sign-in-container) main .sign-in-logo {
 body.halliby-theme:has(.sign-in-container) main .sign-in-logo img {
   max-height: 62px;
   width: auto;
+  margin-bottom: 1rem;
 }
 
 body.halliby-theme:has(.sign-in-container) main .heading-wrapper {
@@ -1156,14 +1161,14 @@ body.halliby-theme:has(.sign-in-container) main h2#heading-sign-in {
 }
 
 body.halliby-theme:has(.sign-in-container) main .field-wrapper {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 body.halliby-theme:has(.sign-in-container) main .field-wrapper label.field-label {
   display: block;
   font-family: var(--body-font-family);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 400;
   color: var(--primaryTextColor, #2C2C2C);
   margin-bottom: 0.5rem;
 }
@@ -1171,11 +1176,12 @@ body.halliby-theme:has(.sign-in-container) main .field-wrapper label.field-label
 body.halliby-theme:has(.sign-in-container) main .field-wrapper input[type="text"],
 body.halliby-theme:has(.sign-in-container) main .field-wrapper input[type="password"] {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #cbd5e1;
-  border-radius: var(--borderRadius, 10px);
+  padding: 3px 12px 5px 11px;
+  border: 1px solid #909090;
+  border-radius: 4px;
   font-family: var(--body-font-family);
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 22px;
   color: var(--primaryTextColor, #2C2C2C);
   background: #ffffff;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -1190,23 +1196,26 @@ body.halliby-theme:has(.sign-in-container) main .field-wrapper input:focus {
 
 /* Interactive Actions (Buttons & Form Links) */
 body.halliby-theme:has(.sign-in-container) main .submit-wrapper {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
 body.halliby-theme:has(.sign-in-container) main .submit-wrapper button.button {
   width: 100%;
   background-color: var(--main-accent-color, #9CDD97) !important;
   color: #000000 !important;
-  padding: 14px 24px;
+  padding: 10px 14px;
   font-family: var(--heading-font-family);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   border: 2px solid var(--main-accent-color, #9CDD97) !important;
   border-radius: var(--borderRadius, 10px);
   cursor: pointer;
   transition: filter 0.3s ease-in-out;
   box-shadow: none;
-  text-transform: none;
+  text-transform: unset;
+  max-width: 170px;
+  line-height: 18px;
 }
 
 body.halliby-theme:has(.sign-in-container) main .submit-wrapper button.button:hover {
@@ -1222,25 +1231,29 @@ body.halliby-theme:has(.sign-in-container) main .sign-in-divider {
 }
 
 body.halliby-theme:has(.sign-in-container) main .sign-in-links {
-  margin-top: 1.5rem;
   text-align: center;
+  position: absolute;
+  margin: 0;
+  bottom: 6px;
+  left: 35%;
 }
 
 body.halliby-theme:has(.sign-in-container) main .create-account-link {
   font-family: var(--body-font-family);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--primaryTextColor, #2C2C2C);
+  color: var(--primaryTextColor, #9CDD97);
   text-decoration: underline;
   transition: color 0.2s;
   display: inline-block;
   background: transparent;
   border: none;
   padding: 0;
+  text-transform: unset;
 }
 
 body.halliby-theme:has(.sign-in-container) main .create-account-link:hover {
-  color: var(--link-hover-color, #9CDD97);
+  color: var(--link-hover-color, #2c2c2c);
   text-decoration: underline;
 }
 
