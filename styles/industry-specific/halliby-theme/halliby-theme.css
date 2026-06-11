@@ -8,8 +8,8 @@ body.halliby-theme {
   --nav-text-color: #2C2C2C;
   --footer-text-color: #2C2C2C;
   --light-color: #F2F3F5;
-  --heading-font-family: adobe-garmond-pro, 'Adobe Clean', proxima-nova, sans-serif;
-  --body-font-family: adobe-garmond-pro, 'Adobe Clean', proxima-nova, sans-serif;
+  --heading-font-family: 'Adobe Clean', sans-serif;
+  --body-font-family: 'Adobe Clean', sans-serif;
   --spacing-xhuge: 9rem;
   display: flex;
   flex-direction: column;
@@ -1279,5 +1279,298 @@ body.halliby-theme:has(.sign-in-container) main .create-account-link::after {
 
   body.halliby-theme:has(.sign-in-container) main .sign-in-wrapper {
     padding: 3rem 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   Halliby Theme — Registration / Create Account Component (Split Layout)
+   ========================================================================== */
+
+/* Isolate the workflow experience by hiding the global header/footer */
+body.halliby-theme:has(.create-account-container) header,
+body.halliby-theme:has(.create-account-container) footer {
+  display: none;
+}
+
+body.halliby-theme:has(.create-account-container) main {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Left-Side Component: First Section Visual Anchor
+   -------------------------------------------------------------------------- */
+body.halliby-theme:has(.create-account-container) main > .section:first-of-type {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body.halliby-theme:has(.create-account-container) main > .section:first-of-type .default-content-wrapper,
+body.halliby-theme:has(.create-account-container) main > .section:first-of-type picture,
+body.halliby-theme:has(.create-account-container) main > .section:first-of-type img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Right-Side Component: Registration Form Workspace
+   -------------------------------------------------------------------------- */
+body.halliby-theme:has(.create-account-container) main > .create-account-container {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #ffffff;
+}
+
+/* Neutralize legacy EDS background nodes */
+body.halliby-theme:has(.create-account-container) main > .create-account-container picture.section-bg {
+  display: none;
+}
+
+body.halliby-theme:has(.create-account-container) main .create-account-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem 0;
+  max-height: 100vh;
+}
+
+body.halliby-theme:has(.create-account-container) main .create-account {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Form Grid Engine & Layout
+   -------------------------------------------------------------------------- */
+body.halliby-theme:has(.create-account-container) main fieldset.panel-wrapper {
+  gap: 0 1rem !important;
+}
+
+body.halliby-theme:has(.create-account-container) main .field-wrapper {
+  margin: 0;
+}
+
+body.halliby-theme:has(.create-account-container) main .field-wrapper.col-12,
+body.halliby-theme:has(.create-account-container) main .create-account-logo,
+body.halliby-theme:has(.create-account-container) main .heading-wrapper,
+body.halliby-theme:has(.create-account-container) main .submit-wrapper {
+  grid-column: span 12;
+}
+
+body.halliby-theme:has(.create-account-container) main .field-wrapper.col-6 {
+  grid-column: span 6;
+}
+
+/* --------------------------------------------------------------------------
+   Brand Typography & Headings
+   -------------------------------------------------------------------------- */
+body.halliby-theme:has(.create-account-container) main .create-account-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+body.halliby-theme:has(.create-account-container) main .create-account-logo img {
+  max-height: 62px;
+  width: auto;
+  margin-bottom: 1rem;
+}
+
+body.halliby-theme:has(.create-account-container) main .heading-wrapper {
+  text-align: center;
+  margin-bottom: 1rem !important;
+}
+
+body.halliby-theme:has(.create-account-container) main .heading-wrapper label {
+  display: none;
+}
+
+body.halliby-theme:has(.create-account-container) main h2#heading-create-account {
+  font-family: var(--heading-font-family);
+  font-size: 38px;
+  font-weight: 700;
+  color: #2c2c2c;
+  line-height: 1.5;
+  margin: 0.67em 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   Form UI Primitives (Inputs, Selects, Checkboxes)
+   -------------------------------------------------------------------------- */
+body.halliby-theme:has(.create-account-container) main .field-wrapper label.field-label {
+  display: block;
+  font-family: var(--body-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  color: #2c2c2c;
+  margin: 4px 0 5px;
+  text-align: left;
+}
+
+body.halliby-theme:has(.create-account-container) main .field-wrapper input[type="text"],
+body.halliby-theme:has(.create-account-container) main .field-wrapper input[type="password"],
+body.halliby-theme:has(.create-account-container) main .field-wrapper input[type="email"],
+body.halliby-theme:has(.create-account-container) main .field-wrapper select {
+  width: 100%;
+  padding: 3px 12px 5px 11px;
+  border: 1px solid #909090;
+  border-radius: 4px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  color: #2c2c2c;
+  background-color: #ffffff;
+  box-shadow: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  margin: 0;
+}
+
+/* Custom Dropdown Styling */
+body.halliby-theme:has(.create-account-container) main .field-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%23131313" d="M6 8L0 1.5 1.5 0 6 4.5 10.5 0 12 1.5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+body.halliby-theme:has(.create-account-container) main .field-wrapper input:focus,
+body.halliby-theme:has(.create-account-container) main .field-wrapper select:focus {
+  outline: none;
+  border-color: var(--main-accent-color);
+}
+
+/* Stacked Checkbox Styling */
+body.halliby-theme:has(.create-account-container) main .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 12px;
+  padding-bottom: 0.5rem;
+}
+
+body.halliby-theme:has(.create-account-container) main .checkbox-wrapper input[type="checkbox"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  margin: 9px 0;
+  background: transparent;
+  border: 1px solid #757575;
+  cursor: pointer;
+  accent-color: var(--main-accent-color);
+}
+
+/* Strip any pseudo-element switch pills applied by EDS */
+body.halliby-theme:has(.create-account-container) main .checkbox-wrapper input[type="checkbox"]::before,
+body.halliby-theme:has(.create-account-container) main .checkbox-wrapper input[type="checkbox"]::after {
+  content: none;
+  display: none;
+}
+
+body.halliby-theme:has(.create-account-container) main .checkbox-wrapper label.field-label {
+  display: block; 
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+  color: #2c2c2c;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Actions (Form Submit)
+   -------------------------------------------------------------------------- */
+body.halliby-theme:has(.create-account-container) main .submit-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+body.halliby-theme:has(.create-account-container) main .submit-wrapper button.button {
+  width: auto;
+  min-width: 180px;
+  height: 46px;
+  background-color: var(--main-accent-color, #9CDD97);
+  color: #000000;
+  padding: 0 40px;
+  font-family: var(--heading-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+}
+
+body.halliby-theme:has(.create-account-container) main .submit-wrapper button.button:hover {
+  filter: brightness(108%);
+  background-color: var(--main-accent-color, #9CDD97);
+}
+
+body.halliby-theme:has(.create-account-container) main .submit-wrapper button.button::after {
+  content: none;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Responsive Viewport Layout Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  body.halliby-theme:has(.create-account-container) main {
+    flex-direction: column;
+  }
+
+  body.halliby-theme:has(.create-account-container) main > .section:first-of-type {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    height: 250px;
+  }
+
+  body.halliby-theme:has(.create-account-container) main > .create-account-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  body.halliby-theme:has(.create-account-container) main fieldset.panel-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  body.halliby-theme:has(.create-account-container) main .submit-wrapper button.button {
+    width: 100%;
   }
 }
