@@ -82,6 +82,10 @@
           {
             "name": "Carvelo Theme",
             "value": "carvelo-theme"
+          },
+          {
+            "name": "Halliby Theme",
+            "value": "halliby-theme"
           }
         ]
       },
