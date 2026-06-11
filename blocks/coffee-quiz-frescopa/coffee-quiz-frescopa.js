@@ -1,9 +1,9 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
+import { getHostname } from '../../scripts/utils.js';
 
-// AEM DAM base path for quiz images — relative path works on author, needs
-// image-base-url prefix (e.g. AEM publish host) to work on live EDS delivery.
+// Quiz images are fixed and always live under this DAM folder.
 const DAM_IMAGE_PATH = '/content/dam/frescopa/en/images/coffee-quiz-frescopa';
 
 function buildDefaultSteps(base) {
@@ -60,11 +60,15 @@ function buildDefaultSteps(base) {
   ];
 }
 
-
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
+  const isAemHost = window.location.hostname.includes('author')
+    || window.location.hostname.includes('adobeaemcloud');
+  const placeholderHost = (await getHostname())?.replace(/\/$/, '') || '';
+  const imageBaseUrl = isAemHost
+    ? window.location.origin
+    : placeholderHost.replace('author', 'publish');
 
-  const imageBaseUrl = '';
   const rawCompletionUrl = (cfg['completion-url'] || '').toString().trim();
   const completionUrl = (rawCompletionUrl.startsWith('/content/') || /^https?:\/\//i.test(rawCompletionUrl))
     ? normalizeAemPath(rawCompletionUrl)
