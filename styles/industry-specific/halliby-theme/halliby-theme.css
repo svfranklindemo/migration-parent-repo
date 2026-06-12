@@ -1574,3 +1574,165 @@ body.halliby-theme:has(.create-account-container) main .submit-wrapper button.bu
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   Halliby Theme — Category Banner Component
+   ========================================================================== */
+
+body.halliby-theme .category-banner {
+  display: grid;
+  grid-template-columns: 1fr 467px; /* content takes remaining space */
+  grid-template-areas: "content image" "search image";
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding: 20px 0;
+  position: relative;
+}
+
+body.halliby-theme .category-banner::before, body.halliby-theme .category-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: #f2f3f5;
+}
+
+body.halliby-theme .category-banner::after {
+  top: unset;
+  bottom: 0;
+}
+
+body.halliby-theme .category-banner > .default-content-wrapper {
+  display: block;
+  grid-area: content;
+  width: 100%;
+}
+
+body.halliby-theme .category-banner > .default-content-wrapper h1 {
+  padding: 0;
+  margin: 0.67em 0 10px;
+  font-size: 38px;
+  line-height: 1.5;
+}
+
+body.halliby-theme .category-banner > .get-offer-wrapper {
+  display: block;
+  grid-area: search;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+body.halliby-theme .category-banner > .get-offer-wrapper .get-offer .get-offer-wrapper {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+body.halliby-theme .category-banner > .get-offer-wrapper .get-offer .get-offer-wrapper input {
+  border: 1px solid #909090;
+  padding: 3px 12px 5px 11px;
+  border-radius: 4px;
+}
+
+body.halliby-theme .category-banner > .get-offer-wrapper .get-offer .get-offer-wrapper .get-offer-button {
+  color: #000;
+  border-radius: 10px;
+  min-width: 170px;
+  text-align: center;
+  font-size: 14px;
+  padding: 6px 14px;
+}
+
+body.halliby-theme .category-banner > .default-content-wrapper:has(picture) {
+  grid-area: image;
+  max-width: 467px;
+}
+
+body.halliby-theme .category-banner > .default-content-wrapper:has(picture) picture {
+  font-size: 0;
+}
+
+body.halliby-theme .category-banner > .default-content-wrapper:has(picture) p {
+  margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  body.halliby-theme .category-banner {
+    grid-template-columns: 1fr;
+    grid-template-areas: "image" "content" "search";
+    padding: 20px 16px;
+  }
+
+  body.halliby-theme .categoryList {
+    padding: 0 16px;
+  }
+
+  body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-wrapper {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-grid {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Halliby Theme — Category Product Lister
+   ========================================================================== */
+
+body.halliby-theme .categoryList .default-content-wrapper h1 {
+  color: #2c2c2c;
+  font-size: 38px;
+  line-height: 1.5;
+  margin: 0.67em 0 calc(0.67em + 1rem);
+  padding: 0;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-grid {
+  gap: 1rem;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card {
+  background-color: #F2F3F5;
+  border-radius: 10px;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-media {
+  background-color: transparent;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-media img {
+  object-fit: cover;
+  margin: 0 auto;
+  border-radius: 10px 10px 0 0;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-meta {
+  padding: 0;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-meta .cpl-card-category {
+  display: none;
+}
+
+body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-meta .cpl-card-title {
+  font-size: 18px;
+  margin: 0.83em 0;
+  font-weight: 700;
+  color: #2c2c2c;
+}
