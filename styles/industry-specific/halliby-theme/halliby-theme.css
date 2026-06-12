@@ -1736,3 +1736,71 @@ body.halliby-theme .categoryList .category-products-lister-wrapper .cpl-card-met
   font-weight: 700;
   color: #2c2c2c;
 }
+
+/* ==========================================================================
+   Halliby Theme — Category Cards Alternate
+   ========================================================================== */
+
+body.halliby-theme .category-cards-alt {
+  margin: 0;
+}
+
+body.halliby-theme .category-cards-alt .default-content-wrapper h1 {
+  font-size: 38px;
+  line-height: 1.5;
+  color: #2c2c2c;
+  margin: 0.67em 0;
+  padding: 0;
+}
+
+body.halliby-theme .category-cards-alt .cards > ul {
+  gap: 1rem 2rem;
+  padding: 1rem 0 1rem;
+  flex-direction: row;
+}
+
+body.halliby-theme .category-cards-alt .cards > ul > li {
+  width: 214px;
+  flex: unset;
+  margin: 0;
+}
+
+body.halliby-theme .category-cards-alt .cards > ul > li img {
+  min-width: unset;
+  width: auto;
+  min-height: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+body.halliby-theme .category-cards-alt .cards > ul > li .cards-card-body {
+  padding: 0;
+}
+
+body.halliby-theme .category-cards-alt .cards > ul > li .cards-card-body h2 {
+  display: block;
+  padding: 0;
+  font-size: 21px;
+  margin: 0.83em 0;
+  font-weight: 700;
+  text-align: center;
+  color: #2c2c2c;
+}
+
+@media screen and (max-width: 1024px) {
+  body.halliby-theme .category-cards-alt {
+    padding: 0 16px;
+  }
+
+  body.halliby-theme .category-cards-alt .cards > ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  body.halliby-theme .category-cards-alt .cards > ul {
+    justify-content: center;
+  }
+}
