@@ -10,16 +10,24 @@
 /* === Design Transfer: .cards-wrapper === */
 /* Source: 3-column grid with full-bleed images and overlay labels */
 
+body.halliby-theme .category-cards .default-content-wrapper h1, body.halliby-theme .category-cards .default-content-wrapper h2 {
+  font-size: 38px;
+  line-height: 1.5;
+  color: #2c2c2c;
+  margin: 0.67em 0 calc(0.67em + 1rem);
+  padding: 0;
+}
+
 body.halliby-theme .category-cards .cards-wrapper {
   background-color: rgba(0, 0, 0, 0);
-  padding: 24px 24px 24px 24px;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body.halliby-theme .category-cards .cards-wrapper .cards > ul {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
-  gap: 16px 32px;
+  gap: 1rem 2rem;
   width: 100%;
   list-style: none;
   padding: 0;
@@ -33,6 +41,7 @@ body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--ali
   cursor: pointer;
   display: block;
   min-height: 0;
+  margin: 0;
 }
 
 body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--alignment-left > div:first-child {
@@ -98,9 +107,12 @@ body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--ali
 
 /* Responsive: match source design breakpoints */
 @media (max-width: 900px) {
+  body.halliby-theme .category-cards {
+    padding: 0 16px;
+  }
+
   body.halliby-theme .category-cards .cards-wrapper .cards > ul {
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 12px;
   }
 }
 
@@ -109,9 +121,12 @@ body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--ali
     grid-template-columns: repeat(2, 1fr) !important;
   }
   body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--alignment-left > div:nth-child(2) {
-    font-size: 0.8em;
-    padding: 4px 12px;
-    bottom: 8px !important;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px 14px;
+    bottom: 55px !important;
+    border-radius: 10px;
+    min-width: 170px;
   }
 }
 
@@ -135,7 +150,7 @@ body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--ali
   color: rgb(44, 44, 44);
   font-family: adobe-garmond-pro, proxima-nova, sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--alignment-left:hover {
