@@ -81,7 +81,7 @@
           "component": "boolean",
           "name": "alt-variation",
           "label": "Use Alternate Variation",
-          "value": "true",
+          "value": "false",
           "valueType": "boolean",
           "description": "When enabled, an alternate variation of the product detail component will be used."
         },
