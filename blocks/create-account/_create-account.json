@@ -75,6 +75,13 @@
         },
         {
           "component": "boolean",
+          "name": "showprivacypolicy",
+          "label": "Show Privacy Policy",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
           "name": "showcommunicationpreferences",
           "label": "Show Communication Preferences",
           "value": "true",
