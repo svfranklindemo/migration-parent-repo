@@ -1667,7 +1667,7 @@ body.halliby-theme .category-banner > .default-content-wrapper:has(picture) p {
 @media screen and (max-width: 900px) {
   body.halliby-theme .category-banner {
     grid-template-columns: 1fr;
-    grid-template-areas: "image" "content" "search";
+    grid-template-areas: "content" "search" "image";
     padding: 20px 16px;
   }
 
@@ -1802,5 +1802,260 @@ body.halliby-theme .category-cards-alt .cards > ul > li .cards-card-body h2 {
 @media screen and (max-width: 490px) {
   body.halliby-theme .category-cards-alt .cards > ul {
     justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Product Detail Page component
+   ========================================================================== */
+
+body.halliby-theme .product-detail {
+  padding: 2rem 0;
+  background: transparent;
+}
+
+body.halliby-theme .product-detail .pd-container {
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+body.halliby-theme .product-detail .pd-image {
+  background: transparent;
+  border-radius: 15px;
+  box-shadow: none;
+}
+
+body.halliby-theme .product-detail .pd-image img {
+  border-radius: 15px;
+  width: 100%;
+}
+
+body.halliby-theme .product-detail .pd-category {
+  display: none;
+}
+
+body.halliby-theme .product-detail .pd-name {
+  font-family: var(--heading-font-family);
+  font-size: 38px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+body.halliby-theme .product-detail .pd-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+/* Rating Stars */
+body.halliby-theme .product-detail .pd-rating {
+  font-size: 24px;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  gap: 4px;
+}
+
+body.halliby-theme .product-detail .pd-rating .star.filled {
+  color: #9CDD97;
+}
+
+body.halliby-theme .product-detail .pd-rating .star.empty {
+  color: #ccc;
+}
+
+/* Description */
+body.halliby-theme .product-detail .pd-description {
+  border-top: none;
+  padding-top: 0;
+  margin: 0 0 2rem 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #2C2C2C;
+}
+
+/* Extras checkbox group */
+body.halliby-theme .product-detail .pd-extras {
+  margin-bottom: 2rem;
+}
+
+body.halliby-theme .product-detail .pd-extras-title {
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+body.halliby-theme .product-detail .pd-extras-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+body.halliby-theme .product-detail .pd-extra-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  color: #2C2C2C;
+  cursor: pointer;
+  user-select: none;
+}
+
+body.halliby-theme .product-detail .pd-extra-checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #9CDD97;
+}
+
+/* Quantity selector */
+body.halliby-theme .product-detail .pd-quantity {
+  margin-bottom: 2rem;
+}
+
+body.halliby-theme .product-detail .pd-quantity-title {
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+body.halliby-theme .product-detail .pd-quantity-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+body.halliby-theme .product-detail .pd-quantity-select {
+  width: 100%;
+  height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  color: #2C2C2C;
+  background-color: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+body.halliby-theme .product-detail .pd-quantity-select:focus {
+  outline: none;
+  border-color: #9CDD97;
+}
+
+/* Add to Cart button container */
+body.halliby-theme .product-detail .pd-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+body.halliby-theme .product-detail .pd-btn-primary {
+  min-width: 240px;
+  height: 50px;
+  padding: 0 24px;
+  background-color: #9CDD97;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--heading-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.halliby-theme .product-detail .pd-btn-primary:hover {
+  background-color: #8acb85;
+  box-shadow: none;
+}
+
+/* Recommendations / Similar Products */
+body.halliby-theme .product-detail .pd-recommendations {
+  border-top: none;
+  margin-top: 4rem;
+  padding-top: 2rem;
+}
+
+body.halliby-theme .product-detail .pd-rec-title {
+  font-family: var(--heading-font-family);
+  font-size: 28px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: none;
+  color: #2C2C2C;
+  margin-bottom: 2rem;
+}
+
+body.halliby-theme .product-detail .pd-rec-grid {
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+body.halliby-theme .product-detail .pd-rec-card {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  text-align: center;
+}
+
+body.halliby-theme .product-detail .pd-rec-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+body.halliby-theme .product-detail .pd-rec-card-media {
+  background: transparent;
+  height: auto;
+}
+
+body.halliby-theme .product-detail .pd-rec-card-media img {
+  border-radius: 15px;
+  object-fit: cover;
+  width: 100%;
+  height: 150px;
+}
+
+body.halliby-theme .product-detail .pd-rec-card-meta {
+  padding: 0.75rem 0 0 0;
+  gap: 4px;
+}
+
+body.halliby-theme .product-detail .pd-rec-card-category {
+  font-family: var(--body-font-family);
+  font-size: 12px;
+  font-weight: 700;
+  color: #2C2C2C;
+  text-transform: none;
+}
+
+body.halliby-theme .product-detail .pd-rec-card-title {
+  font-family: var(--heading-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  color: #2C2C2C;
+}
+
+@media (max-width: 768px) {
+  body.halliby-theme .product-detail .pd-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }

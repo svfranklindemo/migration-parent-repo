@@ -292,12 +292,101 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     contentSection.appendChild(priceEl);
   }
 
+  const isHallibyTheme = document.body.classList.contains("halliby-theme");
+
+  // Rating stars (Halliby theme only)
+  if (isHallibyTheme) {
+    const ratingEl = document.createElement("div");
+    ratingEl.className = "pd-rating";
+    ratingEl.innerHTML = `
+      <span class="star filled">★</span>
+      <span class="star filled">★</span>
+      <span class="star filled">★</span>
+      <span class="star filled">★</span>
+      <span class="star empty">★</span>
+    `;
+    contentSection.appendChild(ratingEl);
+  }
+
   // Description (using HTML format)
   if (description?.html) {
     const descEl = document.createElement("div");
     descEl.className = "pd-description";
     descEl.innerHTML = description.html;
     contentSection.appendChild(descEl);
+  }
+
+  // Hardcoded Extras and Quantity (Halliby theme only)
+  if (isHallibyTheme) {
+    // Extras
+    const extrasEl = document.createElement("div");
+    extrasEl.className = "pd-extras";
+    const extrasTitle = document.createElement("h3");
+    extrasTitle.className = "pd-extras-title";
+    extrasTitle.textContent = "Pick Extras";
+    extrasEl.appendChild(extrasTitle);
+
+    const extrasList = document.createElement("div");
+    extrasList.className = "pd-extras-list";
+
+    const extras = [
+      { id: "extra-onion", label: "Extra onion" },
+      { id: "tabasco-sauce", label: "Tabasco souce" },
+      { id: "grilled-tofu", label: "Grilled tofu with basil" },
+      { id: "not-today", label: "Not Today" }
+    ];
+
+    extras.forEach(extra => {
+      const label = document.createElement("label");
+      label.className = "pd-extra-item";
+      
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.className = "pd-extra-checkbox";
+      input.name = "extras";
+      input.value = extra.id;
+      
+      const text = document.createElement("span");
+      text.className = "pd-extra-label";
+      text.textContent = extra.label;
+      
+      label.appendChild(input);
+      label.appendChild(text);
+      extrasList.appendChild(label);
+    });
+
+    extrasEl.appendChild(extrasList);
+    contentSection.appendChild(extrasEl);
+
+    // Quantity
+    const qtyEl = document.createElement("div");
+    qtyEl.className = "pd-quantity";
+    const qtyTitle = document.createElement("h3");
+    qtyTitle.className = "pd-quantity-title";
+    qtyTitle.textContent = "Quantity";
+    qtyEl.appendChild(qtyTitle);
+
+    const selectWrap = document.createElement("div");
+    selectWrap.className = "pd-quantity-select-wrapper";
+    
+    const select = document.createElement("select");
+    select.className = "pd-quantity-select";
+    
+    const placeholderOpt = document.createElement("option");
+    placeholderOpt.value = "";
+    placeholderOpt.textContent = "Select...";
+    select.appendChild(placeholderOpt);
+
+    for (let i = 1; i <= 10; i++) {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = i;
+      select.appendChild(opt);
+    }
+
+    selectWrap.appendChild(select);
+    qtyEl.appendChild(selectWrap);
+    contentSection.appendChild(qtyEl);
   }
 
   // Action buttons
@@ -407,9 +496,10 @@ function buildRecommendations(currentProduct, allProducts, isAuthor) {
   const section = document.createElement("div");
   section.className = "pd-recommendations";
 
+  const isHallibyTheme = document.body.classList.contains("halliby-theme");
   const title = document.createElement("h2");
   title.className = "pd-rec-title";
-  title.textContent = "YOU MAY ALSO LIKE";
+  title.textContent = isHallibyTheme ? "Similar products" : "YOU MAY ALSO LIKE";
 
   const grid = document.createElement("div");
   grid.className = "pd-rec-grid";
