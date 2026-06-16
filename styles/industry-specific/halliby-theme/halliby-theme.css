@@ -1895,6 +1895,10 @@ body.halliby-theme .product-detail .pd-extras {
   margin-bottom: 2rem;
 }
 
+body.halliby-theme .hide-extras .pd-extras {
+  display: none !important;
+}
+
 body.halliby-theme .product-detail .pd-extras-title {
   font-family: var(--body-font-family);
   font-size: 20px;
@@ -1928,6 +1932,10 @@ body.halliby-theme .product-detail .pd-extra-checkbox {
   accent-color: #9CDD97;
 }
 
+body.halliby-theme .hide-quantity .pd-extras {
+  display: none !important;
+}
+
 /* Quantity selector */
 body.halliby-theme .product-detail .pd-quantity {
   margin-bottom: 2rem;
@@ -1949,7 +1957,7 @@ body.halliby-theme .product-detail .pd-quantity-select-wrapper {
 body.halliby-theme .product-detail .pd-quantity-select {
   width: 100%;
   height: 32px;
-  padding: 0 16px;
+  padding: 0 16px 1px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: var(--body-font-family);
