@@ -157,3 +157,384 @@ body.halliby-theme .category-cards .cards-wrapper .cards > ul > .cards-card--ali
   opacity: 1;
 }
 
+/* [DT:END:.cards-wrapper] */
+
+/* [DT:START:.section.categoryList-.cards-wrapper] ========================================
+ * Design Transfer — 2026-06-10T21:07:45.515Z
+ * Section    : .section.categoryList .cards-wrapper
+ * Source     : https://dsn.adobe.com/web/halliby/foods (.Container.categoryList)
+ * Target     : https://foods-card--halliby--milandevnath-aem.aem.page/en/foods (.section.categoryList .cards-wrapper)
+ * Viewports  : 1440×900, 768×1024, 375×667
+ * Breakpoints: 300, 400, 425, 500, 768, 769, 800, 1200, 1680 px
+ * ======================================== */
+
+body.halliby-theme .section.categoryList {
+  background-color: transparent;
+  padding: 0 24px !important;
+  box-sizing: border-box;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper {
+  background-color: transparent;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 16px;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards {
+  width: 100%;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards-config {
+  display: none !important;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 24px;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  position: relative;
+  overflow: visible;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li > div:first-child {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li > div:nth-child(2) {
+  position: static !important;
+  transform: none !important;
+  background-color: transparent !important;
+  color: #1a1a1a !important;
+  border-radius: 0 !important;
+  padding: 12px 0 0 0 !important;
+  white-space: normal !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  text-align: center !important;
+  z-index: auto !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li h2 {
+  font-family: var(--heading-font-family), "Adobe Clean Bold", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1b1b1b;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li > div:nth-child(2) ul,
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li > div:nth-child(2) .button-container {
+  display: none;
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li:hover picture img {
+  transform: scale(1.05);
+}
+
+body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li:hover h2 {
+  color: #000;
+}
+
+@media (max-width: 1024px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:not(:has(> li:nth-child(7))) {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth;
+    gap: 16px !important;
+    padding: 4px 4px 16px 4px !important; /* bottom padding to clear zoom scale & scrollbar */
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul::-webkit-scrollbar {
+    display: block;
+    height: 5px;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+    flex: 0 0 150px !important;
+    max-width: none !important;
+    scroll-snap-align: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul {
+    gap: 12px !important;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul > li {
+    flex: 0 0 130px !important;
+  }
+}
+
+/* Horizontal scroll with snap feature when there are more than 6 cards on desktop (>768px) */
+@media (width > 768px) {
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:has(> li:nth-child(7)) {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth;
+    gap: 24px !important;
+    padding: 4px 4px 16px 4px !important;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:has(> li:nth-child(7))::-webkit-scrollbar {
+    display: block;
+    height: 5px;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:has(> li:nth-child(7))::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:has(> li:nth-child(7))::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:has(> li:nth-child(7))::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
+  body.halliby-theme .section.categoryList .cards-wrapper .cards > ul:has(> li:nth-child(7)) > li {
+    flex: 0 0 180px !important;
+    max-width: none !important;
+    scroll-snap-align: start !important;
+  }
+}
+
+/* [DT:END:.section.categoryList-.cards-wrapper] */
+
+/* [DT:START:.section.order-confirmation-container] ========================================
+ * Design Transfer — 2026-06-16T06:12:02.589Z
+ * Section    : .section.order-confirmation-container
+ * Source     : https://dsn.adobe.com/web/halliby/order-confirmation (main)
+ * Target     : http://localhost:3000/en/order-confirmation (.section.order-confirmation-container)
+ * Viewports  : 1440×900, 768×1024, 375×667
+ * Breakpoints: 50, 768, 769, 1680 px
+ * ======================================== */
+
+/* === Design Transfer: .section.order-confirmation-container === */
+/* Source: centered "THANK YOU!" order-confirmation message + outlined return button */
+
+body.halliby-theme .section.order-confirmation-container {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(44, 44, 44);
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  margin: 50px auto 16px;
+  padding: 0 120px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body main.halliby-theme .section.order-confirmation-container .order-confirmation-wrapper,
+body main.halliby-theme .section.order-confirmation-container .order-confirmation.block,
+body main.halliby-theme .section.order-confirmation-container .order-confirmation.block > .order-confirmation-container,
+body main.halliby-theme .section.order-confirmation-container .order-confirmation-content,
+body main.halliby-theme .section.order-confirmation-container .order-confirmation-message {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: none;
+  text-align: center;
+}
+
+/* THANK YOU! heading */
+body.halliby-theme .section.order-confirmation-container .order-confirmation-title {
+  color: rgb(44, 44, 44);
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 57px;
+  letter-spacing: normal;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 25.46px 0;
+}
+
+/* WE RECEIVED YOUR ORDER subtitle */
+body.halliby-theme .section.order-confirmation-container .order-confirmation-subtitle {
+  color: rgb(44, 44, 44);
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+
+/* Order No. line */
+body.halliby-theme .section.order-confirmation-container .order-confirmation-number {
+  color: rgb(44, 44, 44);
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  margin: 0 ;
+}
+
+body.halliby-theme .section.order-confirmation-container .order-confirmation-number strong {
+  font-weight: 700;
+}
+
+/* Body copy + button group */
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper p {
+  color: rgb(44, 44, 44);
+  font-family: adobe-garmond-pro, proxima-nova, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper .button-container {
+  margin: 28px 0 16px;
+  text-align: center;
+}
+
+/* Return to home page — secondary outline button (inline-block so ::first-letter applies) */
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper a.button {
+  display: inline-block;
+  box-sizing: border-box;
+  min-height: 32px;
+  padding: 5px 14px;
+  border: 1.6px solid rgb(213, 213, 213);
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(34, 34, 34);
+  font-family: adobe-clean, "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18.2px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: lowercase;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Source label is sentence case ("Return to home page") */
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper a.button::first-letter {
+  text-transform: uppercase;
+}
+
+/* Kill the FontAwesome chevron the base theme appends to a.button */
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper a.button::after,
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper a.button::before {
+  content: none !important;
+  display: none !important;
+}
+
+body.halliby-theme .section.order-confirmation-container .default-content-wrapper a.button:hover {
+  border-color: rgb(170, 170, 170);
+  background-color: rgba(0, 0, 0, 0.03);
+  color: rgb(34, 34, 34);
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (width < 768px) {
+  body.halliby-theme .section.order-confirmation-container {
+    margin-top: 80px;
+    padding: 0 24px;
+  }
+
+  body.halliby-theme .section.order-confirmation-container .order-confirmation-title {
+    font-size: 30px;
+    line-height: 1.3;
+    margin: 16px 0;
+  }
+}
+
+/* [DT:END:.section.order-confirmation-container] */
