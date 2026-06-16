@@ -44,6 +44,7 @@ function buildCreateAccountFormDef(config = {}) {
   const isHallibyVariant = normalizeVariant(config.variant) === "halliby" || document.body.classList.contains('halliby-theme');
   
   const showLoyaltyProgram = isTruthy(config.showloyaltyprogram);
+  const showPrivacyPolicy = isTruthy(config.showprivacypolicy);
   const showCommunicationPreferences = config.showcommunicationpreferences !== undefined
     ? isTruthy(config.showcommunicationpreferences)
     : true;
@@ -53,9 +54,6 @@ function buildCreateAccountFormDef(config = {}) {
   const shoeSizes = ["", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
   const shirtSizes = ["", "s", "m", "l", "xl", "xxl"];
   const favoriteColors = ["", "black", "blue", "green", "orange", "pink", "purple", "red", "white", "yellow"];
-
-  // Completely purge legacy communication toggles if building for Halliby
-  const actualShowCommunication = showCommunicationPreferences && !isHallibyVariant;
 
   return {
     id: "create-account",
@@ -164,7 +162,7 @@ function buildCreateAccountFormDef(config = {}) {
           }] : []),
           
           /* Legacy Communication Switches */
-          ...(actualShowCommunication ? [
+          ...(showCommunicationPreferences ? [
             {
               id: "communicationHeading",
               fieldType: "heading",
@@ -257,31 +255,16 @@ function buildCreateAccountFormDef(config = {}) {
             properties: { colspan: 12 },
             appliedCssClassNames: "frescopa-machine-field",
           }] : []),
-          
-          /* Halliby Specific Toggles block injected before Submission */
-          ...(isHallibyVariant ? [
-            {
-              id: "hallibyCommunication",
-              name: "hallibyCommunication",
-              fieldType: "checkbox",
-              label: { value: "I want to receive personalized communication by email, phone and direct email" },
-              enum: ["true"],
-              type: "string",
-              appliedCssClassNames: "col-12",
-              properties: { colspan: 12 }, /* Omitting variant="switch" prevents EDS formatting */
-            },
-            {
-              id: "privacyPolicy",
-              name: "privacyPolicy",
-              fieldType: "checkbox",
-              label: { value: "I have read and understand the Privacy and Cookies Policy" },
-              enum: ["true"],
-              type: "string",
-              appliedCssClassNames: "col-12",
-              properties: { colspan: 12 },
-            }
-          ] : []),
-          
+          {
+            id: "privacyPolicy",
+            name: "privacyPolicy",
+            fieldType: "checkbox",
+            label: { value: "I have read and understand the Privacy and Cookies Policy" },
+            enum: ["true"],
+            type: "string",
+            appliedCssClassNames: withConditionalClasses("col-12", showPrivacyPolicy),
+            properties: { colspan: 12 },
+          },
           {
             id: "joinLoyaltyProgram",
             name: "joinLoyaltyProgram",
