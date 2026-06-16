@@ -2504,3 +2504,41 @@ body.halliby-theme main .categoryList-alt .cpl-card:hover .cpl-card-title {
     height: 240px;
   }
 }
+
+body.halliby-theme main .order-summary .order-summary-btn-back {
+  border-radius: 10px;
+}
+
+body.halliby-theme main .cart .cart-empty-button {
+  border-radius: 10px;
+  background-color: #9CDD97;
+  border: 0;
+  color: #000;
+  font-weight: 700;
+}
+
+body.halliby-theme main .cart .cart-empty-button::after {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+body.halliby-theme main .cart .cart-empty-button:hover::after {
+  color: #000;
+}
+
+body.halliby-theme main .order-summary .order-summary-btn-confirm {
+  border-radius: 10px;
+  background-color: #9CDD97;
+  border: 0;
+  color: #000;
+  font-weight: 700;
+}
+
+body.halliby-theme .checkout-shipping-actions-panel #btn-back {
+  border-radius: 10px;
+}
+
+body.halliby-theme .checkout-shipping-actions-panel #btn-continue {
+  border-radius: 10px;
+  color: #000;
+}
