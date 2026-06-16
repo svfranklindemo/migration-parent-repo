@@ -125,7 +125,7 @@ async function fetchAllProducts(path, isAuthor) {
  * @param {boolean} isAuthor - Is author environment
  * @returns {HTMLElement} - Product card
  */
-function buildRecommendationCard(item, isAuthor) {
+function buildRecommendationCard(item, isAuthor, recommendedPath) {
   const { id, sku, name, damImageURL = {}, category = [] } = item || {};
   const productId = sku || id || "";
 
@@ -158,8 +158,8 @@ function buildRecommendationCard(item, isAuthor) {
 
       // On author add .html extension, on publish don't
       const productPath = isAuthor
-        ? `${basePath}/product.html`
-        : `${basePath}/product`;
+        ? `${basePath}${recommendedPath}.html`
+        : `${basePath}${recommendedPath}`;
       window.location.href = `${productPath}?productId=${encodeURIComponent(
         productId
       )}`;
@@ -377,7 +377,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     placeholderOpt.textContent = "Select...";
     select.appendChild(placeholderOpt);
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 2; i++) {
       const opt = document.createElement("option");
       opt.value = i;
       opt.textContent = i;
@@ -469,7 +469,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
  * @param {boolean} isAuthor - Is author environment
  * @returns {HTMLElement|null} - Recommendations section or null
  */
-function buildRecommendations(currentProduct, allProducts, isAuthor) {
+function buildRecommendations(currentProduct, allProducts, isAuthor, recommendedPath) {
   const { sku: currentSku, category: currentCategories = [] } = currentProduct;
 
   if (!currentCategories || currentCategories.length === 0) {
@@ -505,13 +505,144 @@ function buildRecommendations(currentProduct, allProducts, isAuthor) {
   grid.className = "pd-rec-grid";
 
   recommendations.forEach((product) => {
-    const card = buildRecommendationCard(product, isAuthor);
+    const card = buildRecommendationCard(product, isAuthor, recommendedPath);
     grid.append(card);
   });
 
   section.append(title, grid);
 
   return section;
+}
+
+/**
+ * Build the mini recommendation cards for the Recipe Sidebar using BEM
+ */
+function buildRecipeRecommendations(currentProduct, allProducts, isAuthor, recommendedPath) {
+  const { sku: currentSku, category: currentCategories = [] } = currentProduct;
+
+  if (!currentCategories || currentCategories.length === 0) return null;
+
+  const recommendations = allProducts
+    .filter((product) => {
+      if (product.sku === currentSku) return false;
+      const productCategories = product.category || [];
+      return productCategories.some((cat) => currentCategories.includes(cat));
+    })
+    .slice(0, 3); // Recipes usually show fewer recs in the sidebar
+
+  if (recommendations.length === 0) return null;
+
+  const fragment = document.createDocumentFragment();
+
+  recommendations.forEach((product) => {
+    const { sku, name, damImageURL = {} } = product;
+    const imageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+
+    const card = document.createElement("div");
+    card.className = "recipe-recommendation";
+    card.style.cursor = "pointer";
+    
+    card.innerHTML = `
+      <div class="recipe-recommendation__image">
+        <img src="${imageUrl || ''}" alt="${name}" loading="lazy">
+      </div>
+      <div class="recipe-recommendation__content">
+        <h3 class="recipe-recommendation__title">${name}</h3>
+        <button class="button recipe-recommendation__button" type="button">Try it</button>
+      </div>
+    `;
+
+    // Add click routing logic
+    card.addEventListener("click", () => {
+      let basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/"));
+      const productPath = isAuthor ? `${basePath}${recommendedPath}.html` : `${basePath}${recommendedPath}`;
+      window.location.href = `${productPath}?productId=${encodeURIComponent(sku)}`;
+    });
+
+    fragment.appendChild(card);
+  });
+
+  return fragment;
+}
+
+/**
+ * Build the Recipe Detail Layout (Split Hero + 70/30 Sidebar) using BEM
+ */
+function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, recommendedPath) {
+  const {
+    name,
+    description = {},
+    damImageURL = {},
+    authorName = "Marry Poppin", // Fallback/Mockup data
+    authorRole = "Chef de Partie" // Fallback/Mockup data
+  } = product;
+
+  const imageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "recipe-detail";
+
+  // 1. Build the Split Hero Header
+  const heroContainer = document.createElement("div");
+  heroContainer.className = "recipe-hero";
+  heroContainer.innerHTML = `
+    <div class="recipe-hero__wrapper">
+      <div class="recipe-hero__image">
+        <img src="${imageUrl || ''}" alt="${name}">
+      </div>
+      <div class="recipe-hero__content">
+        <h1 class="recipe-hero__title">${name}</h1>
+      </div>
+    </div>
+  `;
+
+  // 2. Build the 70/30 Content Area
+  const bodyContainer = document.createElement("div");
+  bodyContainer.className = "recipe-body";
+  
+  const bodyContent = document.createElement("div");
+  bodyContent.className = "recipe-body__wrapper";
+
+  // Left Column (70%)
+  const mainSection = document.createElement("div");
+  mainSection.className = "recipe-main";
+  mainSection.innerHTML = `
+    <h2 class="recipe-main__title">Ingredients</h2>
+    <div class="recipe-main__content">
+      ${description?.html || ""}
+    </div>
+  `;
+
+  // Right Column (30%)
+  const sidebarSection = document.createElement("div");
+  sidebarSection.className = "recipe-sidebar";
+  sidebarSection.innerHTML = `
+    <div class="recipe-author">
+      <div class="recipe-author__image">
+        <img src="/assets/halliby/personas/Eli.jpg" alt="${authorName}">
+      </div>
+      <div class="recipe-author__content">
+        <h2 class="recipe-author__name">${authorName}</h2>
+        <p class="recipe-author__role">${authorRole}</p>
+      </div>
+    </div>
+    <h2 class="recipe-sidebar__title">Recommended Recipes</h2>
+    <div class="recipe-sidebar__recommendations"></div>
+  `;
+
+  // Inject Recommendations directly into the right sidebar container
+  if (eventConfig.showYouMayAlsoLikeSection) {
+    const recs = buildRecipeRecommendations(product, allProducts, isAuthor, recommendedPath);
+    if (recs) {
+      sidebarSection.querySelector('.recipe-sidebar__recommendations').appendChild(recs);
+    }
+  }
+
+  bodyContent.append(mainSection, sidebarSection);
+  bodyContainer.appendChild(bodyContent);
+  wrapper.append(heroContainer, bodyContainer);
+
+  return wrapper;
 }
 
 /**
@@ -602,17 +733,25 @@ export default async function decorate(block) {
 
   updatePageTitle(product);
 
-  // Display product detail
-  const productDetail = buildProductDetail(product, isAuthor, eventConfig);
-  block.appendChild(productDetail);
+  const recommendedPath = config['pd-recommended-path'] || '/product';
 
-  // Display recommendations
-  if (eventConfig.showYouMayAlsoLikeSection) {
-    const recommendations = buildRecommendations(product, allProducts, isAuthor);
-    if (recommendations) {
-      block.appendChild(recommendations);
+  if (config['alt-variation'] && isTruthy(config['alt-variation'])) {
+    const recipeDetail = buildRecipeDetail(product, allProducts, isAuthor, eventConfig, recommendedPath);
+    block.appendChild(recipeDetail);
+  } else {
+    // Display product detail
+    const productDetail = buildProductDetail(product, isAuthor, eventConfig);
+    block.appendChild(productDetail);
+    
+    // Display recommendations
+    if (eventConfig.showYouMayAlsoLikeSection) {
+      const recommendations = buildRecommendations(product, allProducts, isAuthor, recommendedPath);
+      if (recommendations) {
+        block.appendChild(recommendations);
+      }
     }
   }
+
   if (eventConfig.productView) {
     dispatchCustomEvent(eventConfig.productView);
   }

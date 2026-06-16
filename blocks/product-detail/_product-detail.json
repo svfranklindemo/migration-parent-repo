@@ -78,6 +78,20 @@
           "description": "When disabled, the Related Products section is not rendered."
         },
         {
+          "component": "boolean",
+          "name": "alt-variation",
+          "label": "Use Alternate Variation",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "When enabled, an alternate variation of the product detail component will be used."
+        },
+        {
+          "component": "aem-content",
+          "name": "pd-recommended-path",
+          "label": "Recommended Product Detail Page Path",
+          "valueType": "string"
+        },
+        {
           "component": "text",
           "name": "custom-class",
           "label": "Custom class",
