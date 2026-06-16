@@ -22,6 +22,7 @@ body.halliby-theme main {
 
 body.halliby-theme main>.section>div {
   padding: 0;
+  max-width: 1600px;
 }
 
 body.halliby-theme .cta-button a.button::after,
@@ -2089,13 +2090,21 @@ body.halliby-theme .product-detail .pd-rec-card-title {
    Halliby Theme — Recipe Product Detail Template (BEM Standard)
    ========================================================================== */
 
+body.halliby-theme main .product-detail-container:has(.recipe-detail) {
+  max-width: 1600px;
+}
+
+body.halliby-theme main .product-detail-container:has(.recipe-detail) .product-detail {
+  max-width: 1600px;
+}
+
 /* --------------------------------------------------------------------------
    Hero Header Banner (50/50 Split)
    -------------------------------------------------------------------------- */
 body.halliby-theme main .recipe-hero {
   width: 100%;
   max-width: 100%;
-  margin: 0 0 3rem 0;
+  margin: 0 0 1rem;
   padding: 0;
   background: linear-gradient(to right, var(--main-accent-color, #9CDD97) 50%, var(--secondaryColor, #F2F3F5) 50%);
 }
@@ -2105,6 +2114,7 @@ body.halliby-theme main .recipe-hero__wrapper {
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  gap: 2rem;
   width: 100%;
 }
 
@@ -2125,16 +2135,17 @@ body.halliby-theme main .recipe-hero__content {
   flex: 0 0 50%;
   display: flex;
   align-items: center;
-  padding: 3rem 6rem;
   box-sizing: border-box;
+  padding: 16px;
 }
 
 body.halliby-theme main .recipe-hero__title {
   font-family: var(--heading-font-family);
-  font-size: 48px;
+  font-size: 38px;
   font-weight: 700;
   color: #2C2C2C;
   margin: 0;
+  padding: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -2142,29 +2153,29 @@ body.halliby-theme main .recipe-hero__title {
    -------------------------------------------------------------------------- */
 body.halliby-theme main .recipe-body {
   max-width: 1200px;
-  margin: 4rem auto;
-  padding: 0 1rem;
+  margin: 0rem auto;
+  padding: 0;
 }
 
 body.halliby-theme main .recipe-body__wrapper {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 4rem;
+  display: flex;
+  gap: 2rem;
 }
 
 /* Left Content: Ingredients & Instructions */
 body.halliby-theme main .recipe-main {
-  grid-column: span 8;
   display: flex;
   flex-direction: column;
+  max-width: 70%;
 }
 
 body.halliby-theme main .recipe-main__title {
   font-family: var(--heading-font-family);
-  font-size: 32px;
+  font-size: 38px;
   font-weight: 700;
   color: #2C2C2C;
-  margin: 0 0 2rem 0;
+  margin: 0.67em 0;
+  padding: 0;
 }
 
 body.halliby-theme main .recipe-main__content {
@@ -2176,18 +2187,17 @@ body.halliby-theme main .recipe-main__content {
 
 body.halliby-theme main .recipe-main__content ul,
 body.halliby-theme main .recipe-main__content ol {
-  padding-left: 1.5rem;
-  margin-bottom: 2rem;
+  padding-left: 40px;
+  margin: 22px 0;
 }
 
 body.halliby-theme main .recipe-main__content li {
-  margin-bottom: 0.5rem;
+  font-size: 22px;
 }
 
 body.halliby-theme main .recipe-main__content p {
-  font-weight: 700;
-  font-size: 18px;
-  margin: 2rem 0 1rem 0;
+  font-size: 16px;
+  margin: 0;
 }
 
 /* Right Content: Sidebar */
@@ -2204,8 +2214,8 @@ body.halliby-theme main .recipe-author {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
+  gap: 2rem;
+  margin-bottom: 0;
 }
 
 body.halliby-theme main .recipe-author__image {
@@ -2220,14 +2230,20 @@ body.halliby-theme main .recipe-author__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+body.halliby-theme main .recipe-author__content {
+  padding: 1rem;
 }
 
 body.halliby-theme main .recipe-author__name {
   font-family: var(--heading-font-family);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
   color: #2C2C2C;
-  margin: 0 0 4px 0;
+  margin: 0.83em 0;
+  padding: 0;
 }
 
 body.halliby-theme main .recipe-author__role {
@@ -2242,10 +2258,11 @@ body.halliby-theme main .recipe-author__role {
    -------------------------------------------------------------------------- */
 body.halliby-theme main .recipe-sidebar__title {
   font-family: var(--heading-font-family);
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 700;
   color: #2C2C2C;
-  margin: 0 0 1.5rem 0;
+  margin: 0.83em 0;
+  padding: 0;
 }
 
 body.halliby-theme main .recipe-sidebar__recommendations {
@@ -2258,14 +2275,13 @@ body.halliby-theme main .recipe-recommendation {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   width: 100%;
 }
 
 body.halliby-theme main .recipe-recommendation__image {
-  flex: 0 0 120px;
-  width: 120px;
-  height: 80px;
+  width: 175px;
+  height: auto;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -2279,27 +2295,32 @@ body.halliby-theme main .recipe-recommendation__image img {
 
 body.halliby-theme main .recipe-recommendation__content {
   flex: 1;
+  padding: 1rem;
 }
 
 body.halliby-theme main .recipe-recommendation__title {
   font-family: var(--heading-font-family);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: #2C2C2C;
-  margin: 0 0 8px 0;
+  padding: 0;
 }
 
 body.halliby-theme main .recipe-recommendation__button {
   background-color: #ffffff;
   color: #2C2C2C;
   border: 1px solid #cbd5e1;
-  border-radius: 20px;
-  padding: 4px 16px;
+  border-radius: 10px;
+  padding: 3px 14px 5px;
   font-family: var(--body-font-family);
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 600;
   cursor: pointer;
   line-height: normal;
+  display: block;
+  min-height: 32px;
+  margin: 0.5rem 0;
   transition: background-color 0.2s, border-color 0.2s;
 }
 
@@ -2338,12 +2359,14 @@ body.halliby-theme main .recipe-recommendation__button:hover {
   body.halliby-theme main .recipe-body__wrapper {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 0;
+    padding: 0 16px;
   }
 
   body.halliby-theme main .recipe-main,
   body.halliby-theme main .recipe-sidebar {
     width: 100%;
+    max-width: unset;
   }
 }
 
