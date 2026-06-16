@@ -86,6 +86,12 @@
           "description": "When enabled, an alternate variation of the product detail component will be used."
         },
         {
+          "component": "aem-content",
+          "name": "pd-recommended-path",
+          "label": "Recommended Product Detail Page Path",
+          "valueType": "string"
+        },
+        {
           "component": "text",
           "name": "custom-class",
           "label": "Custom class",
