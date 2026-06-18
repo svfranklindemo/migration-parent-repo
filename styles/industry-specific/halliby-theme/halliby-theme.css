@@ -1043,12 +1043,6 @@ body.halliby-theme .section.halliby-about-banner .hero p {
    Halliby Theme — Sign In Component (Multi-Section Flex Split Layout)
    ========================================================================== */
 
-/* Main layout setup acting as the parent flex container */
-body.halliby-theme:has(.sign-in-container) header,
-body.halliby-theme:has(.sign-in-container) footer {
-  display: none !important;
-}
-
 body.halliby-theme:has(.sign-in-container) main {
   display: flex;
   flex-direction: row;
@@ -1287,12 +1281,6 @@ body.halliby-theme:has(.sign-in-container) main .create-account-link::after {
 /* ==========================================================================
    Halliby Theme — Registration / Create Account Component (Split Layout)
    ========================================================================== */
-
-/* Isolate the workflow experience by hiding the global header/footer */
-body.halliby-theme:has(.create-account-container) header,
-body.halliby-theme:has(.create-account-container) footer {
-  display: none;
-}
 
 body.halliby-theme:has(.create-account-container) main {
   display: flex;
@@ -2507,6 +2495,14 @@ body.halliby-theme main .categoryList-alt .cpl-card:hover .cpl-card-title {
 
 body.halliby-theme main .order-summary .order-summary-btn-back {
   border-radius: 10px;
+}
+
+body.halliby-theme main .cart .cart-checkout-btn {
+  border-radius: 10px;
+  background-color: #9CDD97;
+  border: 0;
+  color: #000;
+  font-weight: 700;
 }
 
 body.halliby-theme main .cart .cart-empty-button {
