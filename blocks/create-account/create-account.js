@@ -50,6 +50,7 @@ function buildCreateAccountFormDef(config = {}) {
     : true;
   const showAddress = config.showaddress !== undefined ? isTruthy(config.showaddress) : true;
   const showDateOfBirth = config.showdateofbirth !== undefined ? isTruthy(config.showdateofbirth) : true;
+  const formHeading = config.createaccounttitle;
   
   const shoeSizes = ["", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
   const shirtSizes = ["", "s", "m", "l", "xl", "xxl"];
@@ -63,7 +64,7 @@ function buildCreateAccountFormDef(config = {}) {
       {
         id: "heading-create-account",
         fieldType: "heading",
-        label: { value: isHallibyVariant ? "Register to Halliby" : "Create an account" },
+        label: { value: formHeading || 'Create an account' },
         appliedCssClassNames: "col-12",
       },
       {
@@ -378,9 +379,9 @@ function attachCreateAccountSubmitHandler(block, config) {
         const registrationData = {
           ...formData,
           communicationPreferences: {
-            email: (formData.prefEmail === "true" || formData.hallibyCommunication === "true") ? "y" : "n",
-            phone: (formData.prefPhone === "true" || formData.hallibyCommunication === "true") ? "y" : "n",
-            sms: (formData.prefSms === "true" || formData.hallibyCommunication === "true") ? "y" : "n",
+            email: (formData.prefEmail === "true") ? "y" : "n",
+            phone: (formData.prefPhone === "true") ? "y" : "n",
+            sms: (formData.prefSms === "true") ? "y" : "n",
             whatsapp: formData.prefWhatsapp === "true" ? "y" : "n",
           },
           registeredAt: new Date().toISOString(),

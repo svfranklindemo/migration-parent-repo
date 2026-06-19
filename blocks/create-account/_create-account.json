@@ -51,6 +51,13 @@
           ]
         },
         {
+          "component": "text",
+          "name": "createaccounttitle",
+          "label": "Heading",
+          "value": "Create an account",
+          "valueType": "string"
+        },
+        {
           "component": "boolean",
           "name": "showaddress",
           "label": "Show Address Fields",
