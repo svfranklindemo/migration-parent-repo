@@ -78,12 +78,20 @@
           "description": "When disabled, the Related Products section is not rendered."
         },
         {
+          "component": "text",
+          "name": "relatedproductstitle",
+          "label": "Heading for Related Products section",
+          "value": "YOU MAY ALSO LIKE",
+          "valueType": "string",
+          "description": "Authored heading will be displayed as a title of the Related Product Section."
+        },
+        {
           "component": "boolean",
           "name": "alt-variation",
-          "label": "Use Alternate Variation",
+          "label": "Recipe Detail variation for Halliby",
           "value": "false",
           "valueType": "boolean",
-          "description": "When enabled, an alternate variation of the product detail component will be used."
+          "description": "When enabled, the recipe detail variation of Halliby willbe used."
         },
         {
           "component": "aem-content",
