@@ -1,14 +1,22 @@
 {
   "mappings": [
-    "/content/halliby/language-masters/en:/",
-    "/content/halliby/language-masters/en/:/en/",
-    "/content/halliby/configuration:/.helix/config.json",
-    "/content/halliby/metadata:/metadata.json",
-    "/content/halliby/redirects:/redirects.json",
-    "/content/halliby/placeholders:/placeholders.json"
+    "/content/public-bodea/language-masters/en:/",
+    "/content/public-bodea/language-masters/en/:/en/",
+    "/content/public-bodea/language-masters/fr/:/fr/",
+    "/content/public-bodea/language-masters/fr:/fr",
+    "/content/public-bodea/language-masters/es/:/es/",
+    "/content/public-bodea/language-masters/es:/es",
+    "/content/public-bodea/language-masters/ja/:/ja/",
+    "/content/public-bodea/language-masters/ja:/ja",
+    "/content/public-bodea/language-masters/de/:/de/",
+    "/content/public-bodea/language-masters/de:/de",
+    "/content/public-bodea/configuration:/.helix/config.json",
+    "/content/public-bodea/metadata:/metadata.json",
+    "/content/public-bodea/redirects:/redirects.json",
+    "/content/public-bodea/placeholders:/placeholders.json"
   ],
   "includes": [
-    "/content/halliby/",
-    "/content/dam/halliby/"
+    "/content/public-bodea/",
+    "/content/dam/public-bodea/"
   ]
 }
