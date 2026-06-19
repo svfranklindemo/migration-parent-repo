@@ -8938,6 +8938,45 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "boolean",
+        "name": "showextras",
+        "label": "Show Extras",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, an extras section with checkboxes will be shown based on the options authored below."
+      },
+      {
+        "component": "container",
+        "name": "extraoptions",
+        "label": "Extra Options",
+        "multi": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "extraoption",
+            "value": "",
+            "label": "Option",
+            "valueType": "string"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "name": "showquantity",
+        "label": "Show Quantity Dropdown",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, a quantity dropdown will be shown."
+      },
+      {
+        "component": "number",
+        "name": "maxquantity",
+        "label": "Quantity Options",
+        "valueType": "number",
+        "value": 0,
+        "description": "The number of quantity options to be shown from when adding to cart. The dropdown will be populated with values starting from 1 and ends on the number that is authored."
       }
     ]
   },
