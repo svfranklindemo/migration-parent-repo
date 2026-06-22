@@ -102,6 +102,10 @@
           {
             "name": "Carvelo Theme",
             "value": "carvelo-theme"
+          },
+          {
+            "name": "Binji Theme",
+            "value": "binji-theme"
           }
         ]
       },
