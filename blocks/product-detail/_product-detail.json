@@ -143,7 +143,7 @@
           "name": "maxquantity",
           "label": "Quantity Options",
           "valueType": "number",
-          "value": 0,
+          "value": 1,
           "description": "The number of quantity options to be shown from when adding to cart. The dropdown will be populated with values starting from 1 and ends on the number that is authored."
         }
       ]
