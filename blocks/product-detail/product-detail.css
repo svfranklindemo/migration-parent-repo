@@ -520,3 +520,303 @@ main .product-detail .pd-rec-card-title {
         height: 220px;
     }
 }
+
+/* --------------------------------------------------------------------------
+   Hero Header Banner (50/50 Split)
+   -------------------------------------------------------------------------- */
+  
+main .product-detail-container:has(.recipe-detail) {
+  max-width: 1600px;
+}
+
+main .product-detail-container:has(.recipe-detail) .product-detail {
+  max-width: 1600px;
+}
+
+main .product-detail .recipe-hero {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 1rem;
+  padding: 0;
+  background: linear-gradient(to right, var(--main-accent-color, #9CDD97) 50%, var(--secondaryColor, #F2F3F5) 50%);
+}
+
+main .product-detail .recipe-hero__wrapper {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+}
+
+main .product-detail .recipe-hero__image {
+  flex: 0 0 50%;
+  height: 350px;
+  overflow: hidden;
+}
+
+main .product-detail .recipe-hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+main .product-detail .recipe-hero__content {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 16px;
+}
+
+main .product-detail .recipe-hero__title {
+  font-family: var(--heading-font-family);
+  font-size: 38px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Body Container (Grid Layout)
+   -------------------------------------------------------------------------- */
+main .product-detail .recipe-body {
+  max-width: 1200px;
+  margin: 0rem auto;
+  padding: 0;
+}
+
+main .product-detail .recipe-body__wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Left Content: Ingredients & Instructions */
+main .product-detail .recipe-main {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+main .product-detail .recipe-main__title {
+  font-family: var(--heading-font-family);
+  font-size: 38px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0.67em 0;
+  padding: 0;
+}
+
+main .product-detail .recipe-main__content {
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #2C2C2C;
+}
+
+main .product-detail .recipe-main__content ul,
+main .product-detail .recipe-main__content ol {
+  padding-left: 40px;
+  margin: 22px 0;
+}
+
+main .product-detail .recipe-main__content li {
+  font-size: 22px;
+}
+
+main .product-detail .recipe-main__content p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Right Content: Sidebar */
+main .product-detail .recipe-sidebar {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   Author Profile
+   -------------------------------------------------------------------------- */
+main .product-detail .recipe-author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0;
+}
+
+main .product-detail .recipe-author__image {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+main .product-detail .recipe-author__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+main .product-detail .recipe-author__content {
+  padding: 1rem;
+}
+
+main .product-detail .recipe-author__name {
+  font-family: var(--heading-font-family);
+  font-size: 21px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0.83em 0;
+  padding: 0;
+}
+
+main .product-detail .recipe-author__role {
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Halliby Theme — Recipe Sidebar Recommendation Overrides
+   ========================================================================== */
+
+/* 1. Reset standard container spacing */
+main .product-detail .recipe-sidebar .pd-recommendations {
+  margin-top: 0;
+  padding-top: 0;
+  border: none;
+}
+
+/* 2. Match Recipe Title Typography */
+main .product-detail .recipe-sidebar .pd-rec-title {
+  font-family: var(--heading-font-family);
+  font-size: 21px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin: 0.83em 0;
+  padding: 0;
+}
+
+/* 3. Convert Grid to Vertical Stack */
+main .product-detail .recipe-sidebar .pd-rec-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* 4. Convert Vertical Card to Horizontal Layout */
+main .product-detail .recipe-sidebar .pd-rec-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  text-align: left;
+  flex: unset;
+}
+
+main .product-detail .recipe-sidebar .pd-rec-card-media {
+  flex: 0 0 175px;
+  width: 175px;
+  height: auto;
+}
+
+main .product-detail .recipe-sidebar .pd-rec-card-media img {
+  border-radius: 8px; /* Slightly sharper radius for recipes */
+  height: 100%;
+}
+
+main .product-detail .recipe-sidebar .pd-rec-card-meta {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+main .product-detail .recipe-sidebar .pd-rec-card-title {
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  text-align: left;
+}
+
+/* Hide the "Recipes" category tag in the sidebar */
+main .product-detail .recipe-sidebar .pd-rec-card-category {
+  display: none; 
+}
+
+/* 5. Inject the "Try it" button visually */
+main .product-detail .recipe-sidebar .pd-rec-card-meta::after {
+  content: "Try it";
+  display: inline-block;
+  background-color: #ffffff;
+  color: #2C2C2C;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 3px 14px 5px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Hover state for the faked button */
+main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after {
+  background-color: var(--main-accent-color, #9CDD97);
+  border-color: var(--main-accent-color, #9CDD97);
+  color: #000000;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Adaptations
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  main .product-detail .recipe-hero {
+    background: #F2F3F5;
+  }
+  
+  main .product-detail .recipe-hero__wrapper {
+    flex-direction: column;
+  }
+
+  main .product-detail .recipe-hero__image {
+    height: 250px;
+    flex: none;
+    width: 100%;
+  }
+
+  main .product-detail .recipe-hero__content {
+    flex: none;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  main .product-detail .recipe-body__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px;
+  }
+
+  main .product-detail .recipe-main,
+  main .product-detail .recipe-sidebar {
+    width: 100%;
+    max-width: unset;
+  }
+}
