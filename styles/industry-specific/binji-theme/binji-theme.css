@@ -77,7 +77,20 @@ body.binji-theme header .lang-switcher .lang-item a:hover {
   color: var(--main-accent-color);
 }
 
-/* Nav links — left-aligned (override header.css justify-content: center on ul) */
+/* Nav layout — links sit right after logo; tools pushed to far right */
+body.binji-theme header nav {
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+body.binji-theme header nav .nav-sections {
+  flex: 0 0 auto;
+}
+
+body.binji-theme header nav .nav-tools {
+  margin-left: auto;
+}
+
 body.binji-theme header nav .nav-sections ul {
   justify-content: flex-start;
 }
@@ -152,6 +165,78 @@ body.binji-theme header a.sign-in-btn:hover {
   color: #fff;
 }
 
+/* (c) Footer */
+body.binji-theme footer {
+  background-color: var(--footer-background-color);
+  color: var(--footer-text-color);
+}
+
+/* Match footer container width to header nav (1400px) */
+body.binji-theme footer .footer > div {
+  max-width: 1400px;
+}
+
+/* Reset footer.css img margin-bottom that breaks inline row */
+body.binji-theme footer .footer img {
+  margin-bottom: 0;
+  width: auto;
+  max-height: 36px;
+}
+
+/* Logo + nav links row — no divider */
+body.binji-theme footer .footer .section:not(.default) {
+  padding-bottom: 24px;
+}
+
+body.binji-theme footer .footer .section:not(.default) .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body.binji-theme footer .footer .section:not(.default) p {
+  margin: 0;
+  line-height: 1;
+}
+
+body.binji-theme footer .footer .section:not(.default) ul {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body.binji-theme footer .footer .section:not(.default) ul li {
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: var(--heading-font-family);
+  cursor: pointer;
+}
+
+body.binji-theme footer .footer .section:not(.default) ul li:hover {
+  color: var(--main-accent-color);
+}
+
+/* Copyright row */
+body.binji-theme footer .footer .default.section {
+  padding-top: 20px;
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+body.binji-theme footer .footer .default.section p {
+  color: #c1c1c1;
+  font-size: 0.8rem;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+body.binji-theme footer .footer .default.section a {
+  color: #c1c1c1;
+  text-decoration: none;
+}
+
 /* Mobile hamburger */
 body.binji-theme header .nav-hamburger button {
   color: var(--nav-text-color);
@@ -166,6 +251,22 @@ body.binji-theme header .nav-hamburger-icon::after {
 @media (width < 900px) {
   body.binji-theme header nav .nav-sections ul > li > a {
     color: var(--nav-text-color);
+  }
+
+  body.binji-theme footer .footer .section:not(.default) .default-content-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  body.binji-theme footer .footer .section:not(.default) ul {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+
+  body.binji-theme footer .footer .default.section p {
+    max-width: 100%;
   }
 }
 /* stylelint-enable no-descending-specificity */
