@@ -1,0 +1,160 @@
+/*
+ * Binji Theme — generic brand tokens + header.
+ * Scoped entirely under body.binji-theme. Modeled on luma-theme.css.
+ * Reference: https://dsn.adobe.com/web/binji2 (dark streaming UI).
+ * Color/font values are repo-derived fallbacks (Binji orange #ff8038 + neutrals);
+ * refine with exact binji2 computed-style tokens when available.
+ */
+
+/* (a) Generic base tokens — inherited by every block via var(--...) */
+body.binji-theme {
+  --brand-theme-color: #ff8038;
+  --brand-background-color: #0b0b0f;
+  --brand-text-color: #fff;
+  --brand-light-text-color: #fff;
+  --brand-link-color: #fff;
+  --brand-link-hover-color: #ff8038;
+  --brand-nav-background-color: #0b0b0f;
+  --brand-nav-text-color: #fff;
+  --brand-footer-background-color: #000;
+  --brand-footer-text-color: #a0a0a0;
+  --main-accent-color: #ff8038;
+  --link-hover-color: #ff8038;
+  --light-color: #1a1a1f;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.binji-theme main {
+  flex: 1;
+}
+
+/* (b) Header */
+/* stylelint-disable no-descending-specificity -- nav-link vs lang-switcher rules target
+   unrelated elements; cross-selector specificity ordering is a false positive here. */
+body.binji-theme header .nav-wrapper {
+  background-color: var(--nav-background-color);
+  color: var(--nav-text-color);
+}
+
+body.binji-theme header nav#nav {
+  max-width: 1400px;
+}
+
+/* Logo */
+body.binji-theme header .nav-brand,
+body.binji-theme header nav .nav-brand a,
+body.binji-theme header nav .nav-brand picture {
+  display: flex;
+  align-items: center;
+}
+
+body.binji-theme header nav .nav-brand picture img {
+  max-height: 40px;
+  width: auto;
+}
+
+/* Language switcher (declared before nav links to satisfy specificity order) */
+body.binji-theme header .lang-switcher .lang-button {
+  color: var(--nav-text-color);
+  background-color: transparent;
+  border: 1px solid rgb(255 255 255 / 40%);
+}
+
+body.binji-theme header .lang-switcher .lang-menu {
+  background-color: var(--nav-background-color);
+  color: var(--nav-text-color);
+}
+
+body.binji-theme header .lang-switcher .lang-item a {
+  color: var(--nav-text-color);
+}
+
+body.binji-theme header .lang-switcher .lang-item a:hover {
+  color: var(--main-accent-color);
+}
+
+/* Nav links */
+body.binji-theme header nav .nav-sections ul > li > a {
+  color: var(--nav-text-color);
+  font-family: var(--heading-font-family);
+  font-size: 1rem;
+}
+
+body.binji-theme header nav .nav-sections ul > li > a::before {
+  background: var(--main-accent-color);
+}
+
+body.binji-theme header nav .nav-sections ul > li > a:hover,
+body.binji-theme header nav .nav-sections ul > li[aria-expanded="true"] > a {
+  color: var(--main-accent-color);
+}
+
+/* Tools wrapper (search-container.nav-tools) */
+body.binji-theme header nav .nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Search */
+body.binji-theme header .search.search-icon .search-trigger .icon img {
+  filter: invert(1);
+}
+
+body.binji-theme header .search.search-icon .search-overlay-panel,
+body.binji-theme header .search.search-icon .search-dropdown {
+  background-color: var(--nav-background-color);
+  color: var(--nav-text-color);
+}
+
+body.binji-theme header .search.search-icon .search-input {
+  background-color: #1a1a1f;
+  color: var(--nav-text-color);
+  border: 1px solid rgb(255 255 255 / 20%);
+}
+
+body.binji-theme header .search.search-icon .search-input::placeholder {
+  color: #a0a0a0;
+}
+
+/* Sign-in — accent CTA pill */
+body.binji-theme header a.sign-in-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px 22px;
+  background-color: var(--main-accent-color);
+  color: #fff;
+  border: 1px solid var(--main-accent-color);
+  border-radius: var(--border-radius-x-large);
+  font-family: var(--heading-font-family);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.binji-theme header a.sign-in-btn:hover {
+  background-color: transparent;
+  color: var(--main-accent-color);
+}
+
+/* Mobile hamburger */
+body.binji-theme header .nav-hamburger button {
+  color: var(--nav-text-color);
+}
+
+body.binji-theme header .nav-hamburger-icon,
+body.binji-theme header .nav-hamburger-icon::before,
+body.binji-theme header .nav-hamburger-icon::after {
+  background-color: var(--nav-text-color);
+}
+
+@media (width < 900px) {
+  body.binji-theme header nav .nav-sections ul > li > a {
+    color: var(--nav-text-color);
+  }
+}
+/* stylelint-enable no-descending-specificity */
