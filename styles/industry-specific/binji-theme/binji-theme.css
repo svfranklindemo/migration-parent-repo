@@ -37,6 +37,7 @@ body.binji-theme {
 
 body.binji-theme main {
   flex: 1;
+  padding-top: 90px; /* offset fixed header (min-height: 90px in styles.css) */
 }
 
 /* =============================================================================
@@ -293,5 +294,239 @@ body.binji-theme footer .footer .default.section a {
 
   body.binji-theme footer .footer .default.section p {
     max-width: 100%;
+  }
+}
+
+/* =============================================================================
+   4. PRODUCT DETAIL PAGE (movie-preview)
+   ============================================================================= */
+
+/* 4.1 Block base — override hardcoded background: #fff and padding in product-detail.css */
+body.binji-theme .product-detail {
+  background: #000;
+  color: #fff;
+  padding: 0;
+}
+
+/* 4.2 Layout — switch from side-by-side grid to stacked (image top, content below).
+   DOM order is already image-first so single-column grid stacks correctly. */
+body.binji-theme .product-detail .pd-container {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-inline: 32px;
+}
+
+/* 4.3 Image panel — constrained height so image + title both visible in first fold */
+body.binji-theme .product-detail .pd-image {
+  position: static;
+  background: #0b0b0f;
+  border-radius: 12px;
+  box-shadow: none;
+  height: 65vh;
+  min-height: 380px;
+  max-height: 720px;
+  overflow: hidden;
+}
+
+body.binji-theme .product-detail .pd-image picture,
+body.binji-theme .product-detail .pd-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* 4.4 Content area grid:
+   row 1 = category (full width, above title)
+   row 2 = title (left) | CTA button (right) — matches source ACTION button position
+   row 3 = price (full width)
+   row 4 = description (full width) */
+body.binji-theme .product-detail .pd-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 32px;
+  align-items: center;
+}
+
+/* Category: full-width row above title */
+body.binji-theme .product-detail .pd-category {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: inline-block;
+  color: #a0a0a0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* Title: left column, row 2 */
+body.binji-theme .product-detail .pd-name {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+  color: #fff;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* CTA: right column, row 2 — inline with title (matches ACTION badge position in source) */
+body.binji-theme .product-detail .pd-actions {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0;
+}
+
+/* Buttons must not flex-grow inside the auto column */
+body.binji-theme .product-detail .pd-btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 160px;
+}
+
+/* Price: full width, row 3 */
+body.binji-theme .product-detail .pd-price {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  color: #ff8038;
+  margin-top: 16px;
+}
+
+/* Description: full width, row 4 */
+body.binji-theme .product-detail .pd-description {
+  grid-column: 1 / -1;
+  grid-row: 4;
+}
+
+/* 4.6 Description */
+body.binji-theme .product-detail .pd-description {
+  color: #c1c1c1;
+  border-top-color: rgb(255 255 255 / 10%);
+}
+
+body.binji-theme .product-detail .pd-description a {
+  color: #ff8038;
+}
+
+/* Bullets and headings inside description also use hardcoded dark colors */
+body.binji-theme .product-detail .pd-description li::before {
+  color: #a0a0a0;
+}
+
+body.binji-theme .product-detail .pd-description h2,
+body.binji-theme .product-detail .pd-description h3,
+body.binji-theme .product-detail .pd-description h4 {
+  color: #fff;
+}
+
+/* 4.7 Buttons */
+body.binji-theme .product-detail .pd-btn-primary {
+  background: #ff8038;
+  color: #fff;
+  border-color: #ff8038;
+}
+
+body.binji-theme .product-detail .pd-btn-primary:hover {
+  background: #e06520;
+  border-color: #e06520;
+  box-shadow: 0 4px 16px rgb(255 128 56 / 30%);
+}
+
+body.binji-theme .product-detail .pd-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+body.binji-theme .product-detail .pd-btn-secondary:hover {
+  background: #ff8038;
+  border-color: #ff8038;
+  color: #fff;
+}
+
+/* 4.8 Recommendations section */
+body.binji-theme .product-detail .pd-recommendations {
+  background: #0b0b0f;
+  border-top-color: rgb(255 255 255 / 10%);
+}
+
+body.binji-theme .product-detail .pd-rec-title {
+  color: #fff;
+}
+
+/* 4.9 Recommendation cards */
+body.binji-theme .product-detail .pd-rec-card {
+  background: #1a1a1f;
+  border-radius: 8px;
+}
+
+body.binji-theme .product-detail .pd-rec-card:hover {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 60%);
+}
+
+body.binji-theme .product-detail .pd-rec-card-category {
+  color: #a0a0a0;
+}
+
+body.binji-theme .product-detail .pd-rec-card-title {
+  color: #fff;
+}
+
+/* 4.10 Mobile — collapse title+button inline grid to stacked */
+@media (width <= 768px) {
+  body.binji-theme .product-detail .pd-container {
+    max-width: 100%;
+    padding-inline: 0;
+  }
+
+  /* Reset desktop height — let aspect-ratio drive mobile image height */
+  body.binji-theme .product-detail .pd-image {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    border-radius: 8px;
+    aspect-ratio: 2 / 3;
+    margin-inline: 16px;
+  }
+
+  /* Content area gets its own padding since container has none */
+  body.binji-theme .product-detail .pd-content {
+    grid-template-columns: 1fr;
+    padding-inline: 16px;
+  }
+
+  body.binji-theme .product-detail .pd-name {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  body.binji-theme .product-detail .pd-actions {
+    grid-column: 1;
+    grid-row: 3;
+    flex-direction: column;
+    margin-top: 16px;
+  }
+
+  body.binji-theme .product-detail .pd-price {
+    grid-row: 4;
+  }
+
+  body.binji-theme .product-detail .pd-description {
+    grid-row: 5;
+  }
+
+  body.binji-theme .product-detail .pd-btn {
+    width: 100%;
+    min-width: 0;
   }
 }
