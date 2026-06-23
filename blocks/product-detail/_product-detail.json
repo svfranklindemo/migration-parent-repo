@@ -116,21 +116,6 @@
           "description": "When enabled, an extras section with checkboxes will be shown based on the options authored below."
         },
         {
-          "component": "container",
-          "name": "extraoptions",
-          "label": "Extra Options",
-          "multi": true,
-          "fields": [
-            {
-              "component": "text",
-              "name": "extraoption",
-              "value": "",
-              "label": "Option",
-              "valueType": "string"
-            }
-          ]
-        },
-        {
           "component": "boolean",
           "name": "showquantity",
           "label": "Show Quantity Dropdown",
