@@ -23,6 +23,9 @@ body.binji-theme main .sign-in-wrapper .sign-in.block label {
   margin: 0;
   color: #fff;
 }
+body.binji-theme main .sign-in-wrapper .sign-in.block [data-required=true] > label::after {
+  content: unset;
+}
 body.binji-theme main .sign-in-wrapper .sign-in.block input[type=text], body.binji-theme main .sign-in-wrapper .sign-in.block input[type=email], body.binji-theme main .sign-in-wrapper .sign-in.block input[type=password] {
   margin: 0;
   height: 32px;
@@ -40,6 +43,7 @@ body.binji-theme main .sign-in-wrapper .sign-in.block .submit-wrapper button {
   padding: 3px 14px 5px;
   background-color: #ff8038;
   border-radius: 2rem;
+  text-transform: unset;
 }
 body.binji-theme main .sign-in-wrapper .sign-in.block .sign-in-divider {
   display: none;
@@ -54,6 +58,7 @@ body.binji-theme main .sign-in-wrapper .sign-in.block .sign-in-links .create-acc
   width: fit-content;
   font-weight: 400;
   font-family: "Adobe Clean", sans-serif;
+  text-transform: unset;
 }
 body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) {
   margin: 2rem auto;
@@ -61,7 +66,7 @@ body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) 
 body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .submit-wrapper {
   width: -moz-fit-content;
   width: fit-content;
-  margin-left: 40px;
+  margin-left: 55px;
 }
 @media screen and (max-width: 768px) {
   body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .submit-wrapper {
@@ -74,7 +79,7 @@ body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) 
   margin: 0;
   position: absolute;
   bottom: 12px;
-  left: 150px;
+  left: 165px;
 }
 @media screen and (max-width: 768px) {
   body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .sign-in-links {

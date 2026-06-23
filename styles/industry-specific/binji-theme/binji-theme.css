@@ -260,7 +260,6 @@ body.binji-theme footer .footer .section:not(.default) ul li:hover {
 /* Copyright row */
 body.binji-theme footer .footer .default.section {
   padding-top: 20px;
-  border-top: 1px solid rgb(255 255 255 / 10%);
 }
 
 body.binji-theme footer .footer .default.section p {
