@@ -22,6 +22,14 @@
       "id": "sign-in",
       "fields": [
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "sign-in-btn-text",
+          "label": "Sign In Button Text",
+          "value": "SIGN IN",
+          "description": "The text to be shown on the Sign in button, default is Sign In."
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "logo-image",

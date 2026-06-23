@@ -1,249 +1,334 @@
 /* ==========================================================================
-   Binji Theme — Registration Stepper Component
+   Binji Registration Stepper Block
    ========================================================================== */
+.section.binji-registration-container {
+  max-width: unset !important;
+  background-color: rgb(52, 52, 52);
+}
 
-/* --------------------------------------------------------------------------
-   Layout Workspace & Context Constraints
-   -------------------------------------------------------------------------- */
-.binji-registration-container {
+main > .section.binji-registration-container > .binji-registration-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: flex-start;
+  max-width: 360px;
   width: 100%;
-  background-color: #343434; /* Dark cinematic background */
-  padding: 4rem 1rem;
+  padding: 2rem 0;
   box-sizing: border-box;
+  font-family: "Adobe Clean", sans-serif;
+  color: #fff;
 }
 
 .binji-registration {
   width: 100%;
-  max-width: 450px; /* Constrains the active form space */
-  font-family: var(--body-font-family, 'Adobe Clean', sans-serif);
+  max-width: 460px;
+  /* ------------------------------------------------------------------------
+     Form Layout
+     ------------------------------------------------------------------------ */
 }
-
-/* --------------------------------------------------------------------------
-   Grid Architecture for Form
-   -------------------------------------------------------------------------- */
-.binji-registration__form {
+.binji-registration .form form {
   display: flex;
   flex-direction: column;
+  gap: 0;
 }
-
-.binji-registration__wizard .panel-wrapper {
+.binji-registration .form form .panel-wrapper {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 16px;
+  gap: 0;
   padding: 0;
   border: none;
   margin: 0;
+  background-color: rgb(52, 52, 52);
 }
-
-.binji-registration__wizard .field-wrapper.col-12 { grid-column: span 12; }
-.binji-registration__wizard .field-wrapper.col-6 { grid-column: span 6; }
-
-/* --------------------------------------------------------------------------
-   Typography & Labels (Dark Mode)
-   -------------------------------------------------------------------------- */
-.binji-registration__step-indicator {
-  font-size: 14px;
-  font-weight: 600;
-  color: #a0a0a0;
+.binji-registration .form form .panel-wrapper > * {
+  grid-column: span 12;
+}
+.binji-registration .form form .field-wrapper {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.binji-registration .form form .field-wrapper.field-step3.current-wizard-step {
+  display: grid;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+}
+.binji-registration .form form .field-wrapper.field-step3.current-wizard-step .text-wrapper {
+  max-width: 300px;
+}
+.binji-registration .form form .col-6 {
+  grid-column: span 6;
+}
+.binji-registration .form form .col-12 {
+  grid-column: span 12;
+}
+.binji-registration .form form {
+  /* ------------------------------------------------------------------------
+   Typography
+   ------------------------------------------------------------------------ */
+}
+.binji-registration .form form .binji-registration__step-indicator h2 {
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #fff;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-align: center;
-  margin: 0 0 8px 0;
+  margin: 0 0 1rem;
+  padding: 0;
 }
-
-.binji-registration__title {
+.binji-registration .form form .binji-registration__title h2 {
+  font-family: "Adobe Clean", sans-serif;
   font-size: 28px;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 12px 0;
+  color: #fff;
   text-align: left;
+  line-height: 42px;
+  padding: 0;
+  margin: 0.67em 0;
 }
-
-.binji-registration__subtitle {
+.binji-registration .form form .binji-registration__subtitle h2 {
+  font-family: "Adobe Clean", sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #d1d1d1;
-  line-height: 1.5;
-  margin: 0 0 24px 0;
+  color: #fff;
+  line-height: 24px;
   text-align: left;
+  margin: 0 0 1rem;
+  padding: 0;
 }
-
-.binji-registration__disclaimer {
-  font-size: 14px;
+.binji-registration .form form .binji-registration__disclaimer h2 {
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  color: #a0a0a0;
-  line-height: 1.5;
-  margin: 16px 0;
+  color: #fff;
+  line-height: 24px;
   text-align: left;
+  margin: 0 0 1rem;
+  padding: 0;
 }
-
-/* --------------------------------------------------------------------------
-   Inputs (Dark Underbelly / White Text)
-   -------------------------------------------------------------------------- */
-.binji-registration__input label {
+.binji-registration .form form .heading-wrapper > label {
+  display: none;
+}
+.binji-registration .form form {
+  /* ------------------------------------------------------------------------
+    Inputs
+    ------------------------------------------------------------------------ */
+}
+.binji-registration .form form .binji-registration__input {
+  margin: 0 0 1rem;
+}
+.binji-registration .form form .binji-registration__input label {
   display: block;
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffffff;
   margin-bottom: 6px;
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #fff;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-
-.binji-registration__input input {
+.binji-registration .form form input[type=text], .binji-registration .form form input[type=password], .binji-registration .form form input[type=email] {
+  margin: 0;
   width: 100%;
-  height: 48px;
-  padding: 0 16px;
-  background-color: transparent;
-  border: 1px solid #757575;
+  height: 32px;
+  padding: 3px 12px 5px 11px;
+  background-color: #fff;
+  border: 1px solid #fff;
   border-radius: 4px;
-  color: #ffffff;
-  font-size: 16px;
+  color: #222;
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 14px;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
-.binji-registration__input input::placeholder {
-  color: #666666;
+.binji-registration .form form input::-moz-placeholder {
+  color: #666;
+  font-style: italic;
+  font-weight: 300;
 }
-
-.binji-registration__input input:focus {
+.binji-registration .form form input::placeholder {
+  color: #666;
+  font-style: italic;
+  font-weight: 300;
+}
+.binji-registration .form form input:focus {
   outline: none;
-  border-color: #FF8038; /* Binji Orange */
+  border-color: #ff8038;
+  box-shadow: 0 0 0 2px rgba(255, 128, 56, 0.3);
 }
-
-/* --------------------------------------------------------------------------
-   Switches / Toggles (Custom CSS for Binji)
-   -------------------------------------------------------------------------- */
-.binji-registration__switch {
+.binji-registration .form form {
+  /* ------------------------------------------------------------------------
+    Switches
+    ------------------------------------------------------------------------ */
+}
+.binji-registration .form form .binji-registration__switch {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
   gap: 12px;
-  margin-top: 8px;
+  margin: 0;
 }
-
-.binji-registration__switch input[type="checkbox"] {
-  appearance: none;
+.binji-registration .form form .binji-registration__switch + .binji-registration__disclaimer {
+  margin-top: 1rem;
+}
+.binji-registration .form form .binji-registration__switch input[type=checkbox] {
+  -moz-appearance: none;
+       appearance: none;
   -webkit-appearance: none;
-  width: 44px;
-  height: 24px;
-  background-color: #757575;
-  border-radius: 12px;
+  width: 26px;
+  min-width: 26px;
+  height: 14px;
+  background-color: #666;
+  border-radius: 10px;
   position: relative;
   cursor: pointer;
-  flex-shrink: 0;
+  margin: 2px 0 0;
   transition: background-color 0.2s ease;
+  padding: 0;
 }
-
-.binji-registration__switch input[type="checkbox"]::after {
-  content: '';
+.binji-registration .form form .binji-registration__switch input[type=checkbox]::after {
+  content: "";
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 20px;
-  height: 20px;
-  background-color: #ffffff;
+  top: 0px;
+  left: 0px;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
   border-radius: 50%;
   transition: transform 0.2s ease;
 }
-
-.binji-registration__switch input[type="checkbox"]:checked {
-  background-color: #FF8038; /* Binji Orange */
+.binji-registration .form form .binji-registration__switch input[type=checkbox]:checked {
+  background-color: #ff8038;
 }
-
-.binji-registration__switch input[type="checkbox"]:checked::after {
-  transform: translateX(20px);
+.binji-registration .form form .binji-registration__switch input[type=checkbox]:checked::after {
+  transform: translateX(12px);
 }
-
-.binji-registration__switch label {
-  font-size: 14px;
-  color: #ffffff;
-  line-height: 1.4;
+.binji-registration .form form .binji-registration__switch label {
+  margin: 0;
   cursor: pointer;
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.5;
+  text-transform: none;
 }
-
-/* --------------------------------------------------------------------------
-   Wizard Navigation Controller (Bottom Bar)
-   -------------------------------------------------------------------------- */
-.wizard-button-wrapper {
+.binji-registration .form form {
+  /* ------------------------------------------------------------------------
+   Wizard Navigation
+   ------------------------------------------------------------------------ */
+}
+.binji-registration .form form .wizard > .current-wizard-step.panel-wrapper:first-of-type ~ .wizard-button-wrapper > .wizard-button-prev {
+  display: block;
+}
+.binji-registration .form form .wizard > .current-wizard-step.panel-wrapper:first-of-type ~ .wizard-button-wrapper > .wizard-button-prev button {
+  color: #909090 !important;
+}
+.binji-registration .form form .wizard .wizard-button-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 32px;
-  flex-direction: row-reverse; /* Reverses DOM to push Next right, Back left */
+  padding: 2rem;
+  width: 100%;
+  margin: 0;
 }
-
-/* Base button properties */
-.wizard-button-wrapper button {
-  height: 48px;
-  padding: 0 32px;
-  font-size: 16px;
+.binji-registration .form form .wizard .wizard-button-wrapper button {
+  min-width: 72px;
+  padding: 5px 14px 7px;
+  font-size: 14px;
   font-weight: 700;
-  border-radius: 24px;
+  font-family: "Adobe Clean", sans-serif;
+  border-radius: 20px;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
 }
-
-.wizard-button-wrapper button:hover {
-  opacity: 0.85;
+.binji-registration .form form .wizard .wizard-button-wrapper button:hover {
+  filter: brightness(1.1);
 }
-
-/* Primary "Next" & "Submit" Actions */
-.wizard-button-next button,
-.binji-registration__submit-btn button {
-  background-color: #FF8038;
-  color: #ffffff;
+.binji-registration .form form .wizard-button-next,
+.binji-registration .form form .binji-registration__submit-btn {
+  order: 3;
+}
+.binji-registration .form form .wizard-button-next button,
+.binji-registration .form form .binji-registration__submit-btn button {
+  background-color: #ff8038 !important;
+  color: #fff;
   border: none;
 }
-
-/* Secondary "Back" Action */
-.wizard-button-prev button {
-  background-color: transparent;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+.binji-registration .form form .wizard-button-next button:hover,
+.binji-registration .form form .binji-registration__submit-btn button:hover {
+  border: 0;
 }
-
-/* Hide submit wrapper until the final step (controlled natively by EDS but reinforced here) */
-.binji-registration__submit-btn {
+.binji-registration .form form .wizard-button-prev {
+  order: 1;
+}
+.binji-registration .form form .wizard-button-prev button {
+  background-color: #e6e6e6 !important;
+  color: #000 !important;
+  border: none;
+}
+.binji-registration .form form .wizard-button-prev button:hover {
+  border: 0;
+}
+.binji-registration .form form .binji-registration__submit-btn {
   display: none;
 }
-.current-wizard-step:last-of-type ~ .wizard-button-wrapper .binji-registration__submit-btn {
+.binji-registration .form form .current-wizard-step:last-of-type ~ .wizard-button-wrapper .binji-registration__submit-btn {
   display: block;
 }
-
-/* Progress Dots */
-.binji-registration__progress-wrapper {
+.binji-registration .form form {
+  /* ------------------------------------------------------------------------
+   Progress Dots
+   ------------------------------------------------------------------------ */
+}
+.binji-registration .form form .binji-registration__progress-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  order: 2;
 }
-
-.binji-registration__dots {
+.binji-registration .form form .binji-registration__dots {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
-
-.binji-registration__dot {
-  width: 10px;
-  height: 10px;
+.binji-registration .form form .binji-registration__dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: #757575;
-  opacity: 0.5;
-  transition: background-color 0.2s, opacity 0.2s;
+  background-color: #666;
+  transition: background-color 0.2s;
+}
+.binji-registration .form form .binji-registration__dot.active {
+  background-color: #ff8038;
+}
+.binji-registration {
+  /* ------------------------------------------------------------------------
+     Legacy Cleanup
+     ------------------------------------------------------------------------ */
+}
+.binji-registration .wizard-menu-items,
+.binji-registration .credit-card-application-form-step-label {
+  display: none;
 }
 
-.binji-registration__dot.active {
-  background-color: #FF8038;
-  opacity: 1;
-}
-
-/* Clean up rogue EDS injections */
-.wizard-menu-items,
-.wizard-menu-item,
-.credit-card-application-form-step-label {
-  display: none; 
-}
+/* --------------------------------------------------------------------------
+   Mobile
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .binji-registration-wrapper {
+    padding: 2rem 1rem;
+  }
+  .binji-registration .col-6 {
+    grid-column: span 12;
+  }
+  .binji-registration .wizard-button-wrapper {
+    margin-top: 32px;
+  }
+}/*# sourceMappingURL=binji-registration.css.map */

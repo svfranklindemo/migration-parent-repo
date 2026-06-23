@@ -26,22 +26,48 @@ body.binji-theme {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Adobe Clean', sans-serif;
 }
 
 body.binji-theme main {
   flex: 1;
 }
 
+body.binji-theme:has(.user-profile-host) header nav .nav-sections {
+  display: flex;
+}
+
+body.binji-theme:has(.user-profile-host) footer .footer .section:not(.default) ul {
+  display: flex;
+}
+
 /* (b) Header */
 /* stylelint-disable no-descending-specificity -- nav-link vs lang-switcher rules target
    unrelated elements; cross-selector specificity ordering is a false positive here. */
+
+body.binji-theme header {
+  position: static;
+  min-height: unset;
+  height: unset;
+}
+
+body.binji-theme header nav .nav-tools .search-wrapper {
+  display: none;
+}
+
+body.binji-theme header nav .nav-tools .lang-switcher {
+  display: none;
+}
+
 body.binji-theme header .nav-wrapper {
   background-color: var(--nav-background-color);
   color: var(--nav-text-color);
+  position: static;
 }
 
 body.binji-theme header nav#nav {
-  max-width: 1400px;
+  max-width: 1200px;
+  padding: 20px 0;
 }
 
 /* Logo */
@@ -80,15 +106,21 @@ body.binji-theme header .lang-switcher .lang-item a:hover {
 /* Nav layout — links sit right after logo; tools pushed to far right */
 body.binji-theme header nav {
   justify-content: flex-start;
+  align-items: center;
   gap: 40px;
 }
 
 body.binji-theme header nav .nav-sections {
+  display: none;
   flex: 0 0 auto;
 }
 
 body.binji-theme header nav .nav-tools {
   margin-left: auto;
+}
+
+body.binji-theme header nav .nav-tools .user-profile-btn {
+  color: #fff;
 }
 
 body.binji-theme header nav .nav-sections ul {
@@ -149,20 +181,26 @@ body.binji-theme header a.sign-in-btn {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8px 22px;
+  padding: 5px 14px;
   background-color: transparent;
   color: var(--nav-text-color);
   border: 1px solid var(--nav-text-color);
   border-radius: var(--border-radius-x-large);
   font-family: var(--heading-font-family);
   text-decoration: none;
+  font-size: 14px;
+  line-height: 1.3;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 body.binji-theme header a.sign-in-btn:hover {
-  background-color: var(--main-accent-color);
-  border-color: var(--main-accent-color);
-  color: #fff;
+  background-color: #fff;
+  border-color: #fff;
+  color: #000;
+}
+
+body.binji-theme header a.sign-in-btn::after {
+  content: unset;
 }
 
 /* (c) Footer */
@@ -173,7 +211,8 @@ body.binji-theme footer {
 
 /* Match footer container width to header nav (1400px) */
 body.binji-theme footer .footer > div {
-  max-width: 1400px;
+  max-width: 1200px;
+  padding: 32px 0;
 }
 
 /* Reset footer.css img margin-bottom that breaks inline row */
@@ -200,7 +239,7 @@ body.binji-theme footer .footer .section:not(.default) p {
 }
 
 body.binji-theme footer .footer .section:not(.default) ul {
-  display: flex;
+  display: none;
   gap: 32px;
   list-style: none;
   padding: 0;
@@ -239,18 +278,85 @@ body.binji-theme footer .footer .default.section a {
 
 /* Mobile hamburger */
 body.binji-theme header .nav-hamburger button {
-  color: var(--nav-text-color);
+  color: #2C2C2C;
+  width: 36px;
+  height: 36px;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="16"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="6"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="26"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
 }
 
 body.binji-theme header .nav-hamburger-icon,
 body.binji-theme header .nav-hamburger-icon::before,
 body.binji-theme header .nav-hamburger-icon::after {
-  background-color: var(--nav-text-color);
+  content: unset;
+  display: none;
 }
 
 @media (width < 900px) {
+  body.binji-theme header nav#nav {
+    margin: 0 1rem;
+    justify-content: space-between;
+  }
+
+  body.binji-theme header nav .nav-tools {
+    margin: 0;
+  }
+
+  body.binji-theme header nav .nav-tools .sign-in-btn,
+  body.binji-theme header nav .nav-tools a[href*="sign"] {
+    display: inline-flex !important;
+    min-width: unset;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><path fill-rule="evenodd" d="M32.949,34a.993.993,0,0,0,1-1.053c-.661-7.184-8.027-9.631-10.278-9.827C22.026,22.977,22,21.652,22,20c0,0,3.532-3.943,3.532-8.958C25.532,5.617,22.445,2,18,2s-7.532,3.617-7.532,9.042C10.468,16.057,14,20,14,20c0,1.652-.026,2.977-1.674,3.12-2.251.2-9.617,2.643-10.278,9.827a.993.993,0,0,0,1,1.053Z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    font-size: 0;
+    color: transparent;
+    border-radius: 0;
+  }
+
+  body.binji-theme header .nav-brand {
+    justify-content: center;
+  }
+
+  body.binji-theme header nav .nav-sections ul {
+    gap: 0;
+    margin: 0;
+  }
+
   body.binji-theme header nav .nav-sections ul > li > a {
     color: var(--nav-text-color);
+  }
+
+  body.binji-theme header nav[aria-expanded='true']::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 111111;
+    background-color: var(--dark-color-opacity);
+  }
+
+  body.binji-theme header nav[aria-expanded='true'] .nav-sections {
+    background-color: #fff;
+    padding: 1rem;
+  }
+
+  body.binji-theme header nav[aria-expanded='true'] .nav-tools {
+    position: static;
+    width: unset;
+    background-color: unset;
+  }
+
+  body.binji-theme header nav[aria-expanded='true'] .nav-tools .lang-switcher {
+    display: none !important;
   }
 
   body.binji-theme footer .footer .section:not(.default) .default-content-wrapper {
