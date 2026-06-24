@@ -48,81 +48,81 @@ function buildBinjiWizardFormDef(config = {}) {
   const showDateOfBirth           = config.showdateofbirth !== undefined
     ? isTruthy(config.showdateofbirth) : true;
 
-  /* ---- STEP 1: EMAIL (unchanged from binji-registration) ---- */
+  /* ---- STEP 1: EMAIL (unchanged from registration-wizard) ---- */
   const step1 = {
     id: 'step-1-email',
     name: 'step1',
     fieldType: 'panel',
     items: [
-      { id: 'step-1-ind',   fieldType: 'heading', label: { value: 'STEP 1 OF 3' }, appliedCssClassNames: 'binji-registration__step-indicator col-12' },
-      { id: 'step-1-title', fieldType: 'heading', label: { value: 'Enter your email address' }, appliedCssClassNames: 'binji-registration__title col-12' },
-      { id: 'step-1-sub',   fieldType: 'heading', label: { value: 'You will use this email and password to log into your Binji+ account to watch your favourite shows and movies.' }, appliedCssClassNames: 'binji-registration__subtitle col-12' },
-      { id: 'email', name: 'email', fieldType: 'text-input', placeholder: 'Email', properties: { colspan: 12 }, appliedCssClassNames: 'binji-registration__input col-12' },
-      { id: 'step-1-terms', fieldType: 'heading', label: { value: 'Binji+ will use your data to personalize and improve your Binji+ experience and to send you information about Binji+. You can change your communication preferences at any time. By clicking "Next" you are agreeing to our Subscriber Agreement and acknowledging that you have read our Privacy Policy.' }, appliedCssClassNames: 'binji-registration__disclaimer col-12' },
+      { id: 'step-1-ind',   fieldType: 'heading', label: { value: 'STEP 1 OF 3' }, appliedCssClassNames: 'registration-wizard__step-indicator col-12' },
+      { id: 'step-1-title', fieldType: 'heading', label: { value: 'Enter your email address' }, appliedCssClassNames: 'registration-wizard__title col-12' },
+      { id: 'step-1-sub',   fieldType: 'heading', label: { value: 'You will use this email and password to log into your Binji+ account to watch your favourite shows and movies.' }, appliedCssClassNames: 'registration-wizard__subtitle col-12' },
+      { id: 'email', name: 'email', fieldType: 'text-input', placeholder: 'Email', properties: { colspan: 12 }, appliedCssClassNames: 'registration-wizard__input col-12' },
+      { id: 'step-1-terms', fieldType: 'heading', label: { value: 'Binji+ will use your data to personalize and improve your Binji+ experience and to send you information about Binji+. You can change your communication preferences at any time. By clicking "Next" you are agreeing to our Subscriber Agreement and acknowledging that you have read our Privacy Policy.' }, appliedCssClassNames: 'registration-wizard__disclaimer col-12' },
       // Marketing consent toggle — shown/hidden based on showCommunicationPrefs
       { id: 'marketingConsent', name: 'marketingConsent', fieldType: 'checkbox',
         label: { value: 'Yes, I would like to receive special offers and updates about Binji+ and other products by email.' },
         properties: { variant: 'switch', colspan: 12 },
-        appliedCssClassNames: withConditionalClasses('binji-registration__switch col-12', showCommunicationPrefs) },
+        appliedCssClassNames: withConditionalClasses('registration-wizard__switch col-12', showCommunicationPrefs) },
     ],
   };
 
-  /* ---- STEP 2: PASSWORD (unchanged from binji-registration) ---- */
+  /* ---- STEP 2: PASSWORD (unchanged from registration-wizard) ---- */
   const step2 = {
     id: 'step-2-password',
     name: 'step2',
     fieldType: 'panel',
     items: [
-      { id: 'step-2-ind',   fieldType: 'heading', label: { value: 'STEP 2 OF 3' }, appliedCssClassNames: 'binji-registration__step-indicator col-12' },
-      { id: 'step-2-title', fieldType: 'heading', label: { value: 'Create a password' }, appliedCssClassNames: 'binji-registration__title col-12' },
-      { id: 'step-2-sub',   fieldType: 'heading', label: { value: 'You will use this email and password to log into your Binji+ account to watch your favourite shows and movies.' }, appliedCssClassNames: 'binji-registration__subtitle col-12' },
-      { id: 'password', name: 'password', fieldType: 'text-input', type: 'password', placeholder: '***', properties: { colspan: 12 }, appliedCssClassNames: 'binji-registration__input col-12' },
-      { id: 'step-2-rules', fieldType: 'heading', label: { value: 'Use a minimum of 6 characters with at least one number or special character.' }, appliedCssClassNames: 'binji-registration__disclaimer col-12' },
+      { id: 'step-2-ind',   fieldType: 'heading', label: { value: 'STEP 2 OF 3' }, appliedCssClassNames: 'registration-wizard__step-indicator col-12' },
+      { id: 'step-2-title', fieldType: 'heading', label: { value: 'Create a password' }, appliedCssClassNames: 'registration-wizard__title col-12' },
+      { id: 'step-2-sub',   fieldType: 'heading', label: { value: 'You will use this email and password to log into your Binji+ account to watch your favourite shows and movies.' }, appliedCssClassNames: 'registration-wizard__subtitle col-12' },
+      { id: 'password', name: 'password', fieldType: 'text-input', type: 'password', placeholder: '***', properties: { colspan: 12 }, appliedCssClassNames: 'registration-wizard__input col-12' },
+      { id: 'step-2-rules', fieldType: 'heading', label: { value: 'Use a minimum of 6 characters with at least one number or special character.' }, appliedCssClassNames: 'registration-wizard__disclaimer col-12' },
     ],
   };
 
   /* ---- STEP 3: DETAILS + OPTIONAL PAYMENT ---- */
   const step3Items = [
-    { id: 'step-3-title', fieldType: 'heading', label: { value: 'Complete your profile' }, appliedCssClassNames: 'binji-registration__title col-12' },
-    { id: 'step-3-sub',   fieldType: 'heading', label: { value: 'Just a few more details to get you started.' }, appliedCssClassNames: 'binji-registration__subtitle col-12' },
+    { id: 'step-3-title', fieldType: 'heading', label: { value: 'Complete your profile' }, appliedCssClassNames: 'registration-wizard__title col-12' },
+    { id: 'step-3-sub',   fieldType: 'heading', label: { value: 'Just a few more details to get you started.' }, appliedCssClassNames: 'registration-wizard__subtitle col-12' },
 
     // First name / Last name always shown
-    { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name' }, properties: { colspan: 6 }, appliedCssClassNames: 'binji-registration__input col-6' },
-    { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'  }, properties: { colspan: 6 }, appliedCssClassNames: 'binji-registration__input col-6' },
+    { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name' }, properties: { colspan: 6 }, appliedCssClassNames: 'registration-wizard__input col-6' },
+    { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'  }, properties: { colspan: 6 }, appliedCssClassNames: 'registration-wizard__input col-6' },
 
     // Address (conditional)
-    { id: 'address', name: 'streetAddress', fieldType: 'text-input', label: { value: 'Address' },   autoComplete: 'street-address', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('binji-registration__input col-12', showAddress) },
-    { id: 'zipCode', name: 'zipCode',       fieldType: 'text-input', label: { value: 'ZIP code' },  autoComplete: 'postal-code',     properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('binji-registration__input col-6', showAddress) },
-    { id: 'city',    name: 'city',          fieldType: 'text-input', label: { value: 'City' },       autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('binji-registration__input col-6', showAddress) },
+    { id: 'address', name: 'streetAddress', fieldType: 'text-input', label: { value: 'Address' },   autoComplete: 'street-address', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-12', showAddress) },
+    { id: 'zipCode', name: 'zipCode',       fieldType: 'text-input', label: { value: 'ZIP code' },  autoComplete: 'postal-code',     properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', showAddress) },
+    { id: 'city',    name: 'city',          fieldType: 'text-input', label: { value: 'City' },       autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', showAddress) },
 
     // Date of birth (conditional)
-    { id: 'dateOfBirth', name: 'dateOfBirth', fieldType: 'text-input', label: { value: 'Date of birth (YYYY-MM-DD)' }, placeholder: 'YYYY-MM-DD', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('binji-registration__input col-12', showDateOfBirth) },
+    { id: 'dateOfBirth', name: 'dateOfBirth', fieldType: 'text-input', label: { value: 'Date of birth (YYYY-MM-DD)' }, placeholder: 'YYYY-MM-DD', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-12', showDateOfBirth) },
 
     // Loyalty program (conditional)
     { id: 'joinLoyaltyProgram', name: 'joinLoyaltyProgram', fieldType: 'checkbox',
       label: { value: 'I want to join loyalty program' },
       enum: ['true'], type: 'string',
       properties: { variant: 'switch', alignment: 'horizontal', colspan: 12 },
-      appliedCssClassNames: withConditionalClasses('binji-registration__switch col-12', showLoyaltyProgram) },
+      appliedCssClassNames: withConditionalClasses('registration-wizard__switch col-12', showLoyaltyProgram) },
   ];
 
   // Credit card block — always shown when showcreditcard is true (not conditional)
   if (showCreditCard) {
     step3Items.push(
-      { id: 'payment-heading', fieldType: 'heading', label: { value: 'Start streaming today' }, appliedCssClassNames: 'binji-registration__title col-12' },
-      { id: 'payment-sub',     fieldType: 'heading', label: { value: 'Endless stories for just $10.99/month. Cancel at any time, effective at the end of the payment period.' }, appliedCssClassNames: 'binji-registration__subtitle col-12' },
-      { id: 'cardName',   name: 'cardName',   fieldType: 'text-input', label: { value: 'NAME ON CARD'     }, properties: { colspan: 12 }, appliedCssClassNames: 'binji-registration__input col-12' },
-      { id: 'cardNumber', name: 'cardNumber', fieldType: 'text-input', label: { value: 'CARD NUMBER'      }, properties: { colspan: 12 }, appliedCssClassNames: 'binji-registration__input col-12' },
-      { id: 'cardExpiry', name: 'cardExpiry', fieldType: 'text-input', label: { value: 'EXPIRATION DATE'  }, placeholder: 'MM/YY', properties: { colspan: 6 }, appliedCssClassNames: 'binji-registration__input col-6' },
-      { id: 'cardCvv',    name: 'cardCvv',    fieldType: 'text-input', label: { value: 'SECURITY CODE'    }, placeholder: 'CVV',   properties: { colspan: 6 }, appliedCssClassNames: 'binji-registration__input col-6' },
+      { id: 'payment-heading', fieldType: 'heading', label: { value: 'Start streaming today' }, appliedCssClassNames: 'registration-wizard__title col-12' },
+      { id: 'payment-sub',     fieldType: 'heading', label: { value: 'Endless stories for just $10.99/month. Cancel at any time, effective at the end of the payment period.' }, appliedCssClassNames: 'registration-wizard__subtitle col-12' },
+      { id: 'cardName',   name: 'cardName',   fieldType: 'text-input', label: { value: 'NAME ON CARD'     }, properties: { colspan: 12 }, appliedCssClassNames: 'registration-wizard__input col-12' },
+      { id: 'cardNumber', name: 'cardNumber', fieldType: 'text-input', label: { value: 'CARD NUMBER'      }, properties: { colspan: 12 }, appliedCssClassNames: 'registration-wizard__input col-12' },
+      { id: 'cardExpiry', name: 'cardExpiry', fieldType: 'text-input', label: { value: 'EXPIRATION DATE'  }, placeholder: 'MM/YY', properties: { colspan: 6 }, appliedCssClassNames: 'registration-wizard__input col-6' },
+      { id: 'cardCvv',    name: 'cardCvv',    fieldType: 'text-input', label: { value: 'SECURITY CODE'    }, placeholder: 'CVV',   properties: { colspan: 6 }, appliedCssClassNames: 'registration-wizard__input col-6' },
       // Trial consent toggle — always shown when credit card is shown (not conditional)
       { id: 'trialConsent', name: 'trialConsent', fieldType: 'checkbox',
         label: { value: "I want to start with a free 30 days trial. I won't be charged for my first month of use." },
         properties: { variant: 'switch', colspan: 12 },
-        appliedCssClassNames: 'binji-registration__switch col-12' },
+        appliedCssClassNames: 'registration-wizard__switch col-12' },
       { id: 'step-3-terms', fieldType: 'heading',
         label: { value: 'Binji+ will use your data to personalize and improve your Binji+ experience and to send you information about Binji+. You can change your communication preferences at any time. By clicking "Submit" you are agreeing to our Subscriber Agreement and acknowledging that you have read our Privacy Policy.' },
-        appliedCssClassNames: 'binji-registration__disclaimer col-12' },
+        appliedCssClassNames: 'registration-wizard__disclaimer col-12' },
     );
   }
 
@@ -131,7 +131,7 @@ function buildBinjiWizardFormDef(config = {}) {
     id: 'submit-application-btn', name: 'submitApplication',
     fieldType: 'button', buttonType: 'submit',
     label: { value: 'Submit' },
-    appliedCssClassNames: 'binji-registration__submit-btn col-12',
+    appliedCssClassNames: 'registration-wizard__submit-btn col-12',
   });
 
   const step3 = { id: 'step-3-details', name: 'step3', fieldType: 'panel', items: step3Items };
@@ -297,11 +297,11 @@ function setupWizardStepIndicator(block, isBinjiWizard = false) {
   const dotsContainer   = document.createElement('div');
 
   if (isBinjiWizard) {
-    progressWrapper.className = 'binji-registration__progress-wrapper';
-    dotsContainer.className   = 'binji-registration__dots';
+    progressWrapper.className = 'registration-wizard__progress-wrapper';
+    dotsContainer.className   = 'registration-wizard__dots';
     for (let i = 0; i < totalSteps; i++) {
       const dot = document.createElement('div');
-      dot.className = 'binji-registration__dot';
+      dot.className = 'registration-wizard__dot';
       dotsContainer.appendChild(dot);
     }
   } else {
@@ -316,7 +316,7 @@ function setupWizardStepIndicator(block, isBinjiWizard = false) {
 
   progressWrapper.appendChild(dotsContainer);
 
-  const dotSelector  = isBinjiWizard ? '.binji-registration__dot' : '.wizard-dot';
+  const dotSelector  = isBinjiWizard ? '.registration-wizard__dot' : '.wizard-dot';
   const updateDots = () => {
     const current = wizard.querySelector('.current-wizard-step');
     const idx     = current ? parseInt(current.dataset.index, 10) : 0;
@@ -364,7 +364,7 @@ function attachBinjiSubmitHandler(block, config) {
 
       const submitButton = form.querySelector("button[type='submit']");
       const webhookUrl   = submitButton?.dataset?.buttonWebhookUrl || config.buttonwebhookurl;
-      if (webhookUrl) await submitToWebhook(form, webhookUrl, 'binji-registration');
+      if (webhookUrl) await submitToWebhook(form, webhookUrl, 'registration-wizard');
 
       if (config.buttoneventtype) dispatchCustomEvent(config.buttoneventtype);
 

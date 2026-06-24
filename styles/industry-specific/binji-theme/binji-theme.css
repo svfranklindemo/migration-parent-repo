@@ -423,7 +423,7 @@ body.binji-theme main .create-account .create-account-form.is-binji-wizard .wiza
 /* --------------------------------------------------------------------------
    Step indicator
    -------------------------------------------------------------------------- */
-body.binji-theme main .create-account .binji-registration__step-indicator h2 {
+body.binji-theme main .create-account .registration-wizard__step-indicator h2 {
   font-family: 'Adobe Clean', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -438,7 +438,7 @@ body.binji-theme main .create-account .binji-registration__step-indicator h2 {
 /* --------------------------------------------------------------------------
    Title / Subtitle / Disclaimer
    -------------------------------------------------------------------------- */
-body.binji-theme main .create-account .binji-registration__title h2 {
+body.binji-theme main .create-account .registration-wizard__title h2 {
   font-family: 'Adobe Clean', sans-serif;
   font-size: 28px;
   font-weight: 700;
@@ -449,8 +449,8 @@ body.binji-theme main .create-account .binji-registration__title h2 {
   padding: 0;
 }
 
-body.binji-theme main .create-account .binji-registration__subtitle h2,
-body.binji-theme main .create-account .binji-registration__disclaimer h2 {
+body.binji-theme main .create-account .registration-wizard__subtitle h2,
+body.binji-theme main .create-account .registration-wizard__disclaimer h2 {
   font-family: 'Adobe Clean', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -464,7 +464,7 @@ body.binji-theme main .create-account .binji-registration__disclaimer h2 {
 /* --------------------------------------------------------------------------
    Label uppercase style for binji inputs
    -------------------------------------------------------------------------- */
-body.binji-theme main .create-account .binji-registration__input label {
+body.binji-theme main .create-account .registration-wizard__input label {
   font-family: 'Adobe Clean', sans-serif;
   font-size: 11px;
   font-weight: 400;
@@ -518,7 +518,7 @@ body.binji-theme main .create-account .field-wrapper.switch {
   align-items: flex-start;
 }
 
-body.binji-theme main .create-account .binji-registration__switch input[type="checkbox"] {
+body.binji-theme main .create-account .registration-wizard__switch input[type="checkbox"] {
   background-color: #666;
   height: 14px;
   margin: 7px 0 0;
@@ -534,11 +534,11 @@ body.binji-theme main .create-account .field-wrapper.switch input[type="checkbox
   transform: translateX(12px);
 }
 
-body.binji-theme main .create-account .binji-registration__switch input[type="checkbox"]:checked {
+body.binji-theme main .create-account .registration-wizard__switch input[type="checkbox"]:checked {
   background-color: #ff8038;
 }
 
-body.binji-theme main .create-account .binji-registration__switch label {
+body.binji-theme main .create-account .registration-wizard__switch label {
   font-family: 'Adobe Clean', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -564,14 +564,14 @@ body.binji-theme main .create-account .create-account-form.is-binji-wizard .wiza
 }
 
 body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard .wizard-button-next button,
-body.binji-theme main .create-account .binji-registration__submit-btn button {
+body.binji-theme main .create-account .registration-wizard__submit-btn button {
   background-color: #ff8038 !important;
   color: #fff !important;
   border: none !important;
 }
 
 body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard .wizard-button-next button:hover,
-body.binji-theme main .create-account .binji-registration__submit-btn button:hover {
+body.binji-theme main .create-account .registration-wizard__submit-btn button:hover {
   filter: brightness(1.1);
   border: none !important;
 }
@@ -587,7 +587,7 @@ body.binji-theme main .create-account .create-account-form.is-binji-wizard .wiza
   border: none !important;
 }
 
-/* First step: prev button grayed out (matches binji-registration original) */
+/* First step: prev button grayed out (matches registration-wizard original) */
 body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard > .current-wizard-step.panel-wrapper:first-of-type ~ .wizard-button-wrapper > .wizard-button-prev button {
   color: #909090 !important;
 }
@@ -595,11 +595,11 @@ body.binji-theme main .create-account .create-account-form.is-binji-wizard .wiza
 /* --------------------------------------------------------------------------
    Progress dots
    -------------------------------------------------------------------------- */
-body.binji-theme main .create-account .binji-registration__dot {
+body.binji-theme main .create-account .registration-wizard__dot {
   background-color: #666;
 }
 
-body.binji-theme main .create-account .binji-registration__dot.active {
+body.binji-theme main .create-account .registration-wizard__dot.active {
   background-color: #ff8038;
 }
 

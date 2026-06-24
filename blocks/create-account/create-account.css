@@ -450,7 +450,7 @@ main .create-account .create-account-form.is-wizard .wizard .wizard-button-wrapp
 }
 
 main .create-account .create-account-form.is-wizard .wizard .wizard-button-next,
-main .create-account .create-account-form.is-wizard .wizard .binji-registration__submit-btn {
+main .create-account .create-account-form.is-wizard .wizard .registration-wizard__submit-btn {
   order: 3;
 }
 
@@ -479,7 +479,7 @@ main .create-account .create-account-form.is-wizard .wizard .wizard-button-prev 
 }
 
 /* Binji wizard: submit button hidden by default, shown on last step */
-main .create-account .create-account-form.is-binji-wizard .binji-registration__submit-btn {
+main .create-account .create-account-form.is-binji-wizard .registration-wizard__submit-btn {
   display: none;
 }
 
@@ -487,7 +487,7 @@ main .create-account .create-account-form.is-binji-wizard .current-wizard-step:l
   display: none;
 }
 
-main .create-account .create-account-form.is-binji-wizard .current-wizard-step:last-of-type ~ .wizard-button-wrapper .binji-registration__submit-btn {
+main .create-account .create-account-form.is-binji-wizard .current-wizard-step:last-of-type ~ .wizard-button-wrapper .registration-wizard__submit-btn {
   display: block;
   margin: 0;
 }
@@ -524,19 +524,19 @@ main .create-account .wizard-dot.active {
 }
 
 /* Progress dots — binji (structure only, colors overridden in binji file) */
-main .create-account .binji-registration__progress-wrapper {
+main .create-account .registration-wizard__progress-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   order: 2;
 }
 
-main .create-account .binji-registration__dots {
+main .create-account .registration-wizard__dots {
   display: flex;
   gap: 10px;
 }
 
-main .create-account .binji-registration__dot {
+main .create-account .registration-wizard__dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -544,13 +544,13 @@ main .create-account .binji-registration__dot {
   transition: background-color 0.2s;
 }
 
-main .create-account .binji-registration__dot.active {
+main .create-account .registration-wizard__dot.active {
   background-color: #2874F0;
 }
 
 /* Step indicator / title headings inside wizard */
 main .create-account .wizard-step-indicator h2,
-main .create-account .binji-registration__step-indicator h2 {
+main .create-account .registration-wizard__step-indicator h2 {
   font-size: 13px;
   font-weight: 600;
   color: #64748b;
@@ -561,7 +561,7 @@ main .create-account .binji-registration__step-indicator h2 {
 }
 
 main .create-account .wizard-step-title h2,
-main .create-account .binji-registration__title h2 {
+main .create-account .registration-wizard__title h2 {
   font-size: 1.75rem;
   font-weight: 700;
   color: #1e293b;
@@ -570,8 +570,8 @@ main .create-account .binji-registration__title h2 {
   line-height: 1.2;
 }
 
-main .create-account .binji-registration__subtitle h2,
-main .create-account .binji-registration__disclaimer h2 {
+main .create-account .registration-wizard__subtitle h2,
+main .create-account .registration-wizard__disclaimer h2 {
   font-size: 14px;
   font-weight: 400;
   color: #475569;
@@ -581,11 +581,11 @@ main .create-account .binji-registration__disclaimer h2 {
 }
 
 /* Binji-style inputs inside create-account wizard */
-main .create-account .binji-registration__input {
+main .create-account .registration-wizard__input {
   margin: 0 0 1rem;
 }
 
-main .create-account .binji-registration__input label {
+main .create-account .registration-wizard__input label {
   display: block;
   margin-bottom: 4px;
   font-size: 11px;
@@ -596,7 +596,7 @@ main .create-account .binji-registration__input label {
 }
 
 /* Binji-style switch inside create-account */
-main .create-account .binji-registration__switch {
+main .create-account .registration-wizard__switch {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -605,7 +605,7 @@ main .create-account .binji-registration__switch {
   margin: 0 0 1rem;
 }
 
-main .create-account .binji-registration__switch input[type="checkbox"] {
+main .create-account .registration-wizard__switch input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   width: 26px;
@@ -620,15 +620,15 @@ main .create-account .binji-registration__switch input[type="checkbox"] {
   padding: 0;
 }
 
-main .create-account .binji-registration__switch input[type="checkbox"]:checked {
+main .create-account .registration-wizard__switch input[type="checkbox"]:checked {
   background-color: #2874F0;
 }
 
-main .create-account .binji-registration__switch input[type="checkbox"]:checked::after {
+main .create-account .registration-wizard__switch input[type="checkbox"]:checked::after {
   transform: translateX(12px);
 }
 
-main .create-account .binji-registration__switch label {
+main .create-account .registration-wizard__switch label {
   margin: 0;
   cursor: pointer;
   font-size: 14px;
@@ -639,7 +639,7 @@ main .create-account .binji-registration__switch label {
 }
 
 /* Submit button for binji wizard (default colors) */
-main .create-account .binji-registration__submit-btn button {
+main .create-account .registration-wizard__submit-btn button {
   background: #2874F0 !important;
   color: #fff !important;
   border: none !important;
@@ -651,7 +651,7 @@ main .create-account .binji-registration__submit-btn button {
   min-width: 80px;
 }
 
-main .create-account .binji-registration__submit-btn button:hover {
+main .create-account .registration-wizard__submit-btn button:hover {
   background: #0052cc !important;
 }
 
