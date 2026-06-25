@@ -5,8 +5,8 @@
     "/content/binji/configuration:/.helix/config.json",
     "/content/binji/metadata:/metadata.json",
     "/content/binji/redirects:/redirects.json",
-    "/content/binji/placeholders:/placeholders.json",
-    "/content/binji/binji:/binji.json"
+    "/content/binji/graphql:/graphql.json",
+    "/content/binji/placeholders:/placeholders.json"
   ],
   "includes": [
     "/content/binji/",
