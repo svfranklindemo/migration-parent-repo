@@ -6,6 +6,7 @@
     "/content/binji/metadata:/metadata.json",
     "/content/binji/redirects:/redirects.json",
     "/content/binji/placeholders:/placeholders.json"
+    "/content/binji/binji:/binji.json"
   ],
   "includes": [
     "/content/binji/",
