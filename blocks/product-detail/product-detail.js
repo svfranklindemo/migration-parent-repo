@@ -2,6 +2,7 @@ import { createLumaProductImagePicture, readBlockConfig } from "../../scripts/ae
 import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
+import { label } from "../../scripts/dom-helpers.js";
 
 const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productDescriptionByPathAndSKU;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
@@ -46,6 +47,22 @@ function updatePageTitle(product) {
   if (productTitle) {
     document.title = productTitle;
   }
+}
+
+/**
+ * Convert a sentence or text string into a hyphen-separated ID.
+ * Example: "Hello World!" -> "hello-world"
+ *
+ * @param {string} text - Input text to convert
+ * @returns {string} - Hyphen-separated ID
+ */
+function toHyphenId(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/[\s_]+/g, '-')  // Replace spaces and underscores with hyphens
+    .replace(/-+/g, '-');     // Collapse multiple hyphens
 }
 
 /**
@@ -317,7 +334,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   }
 
   // Hardcoded Extras and Quantity (Halliby theme only)
-  if (isHallibyTheme) {
+  if (eventConfig.showExtras) {
     // Extras
     const extrasEl = document.createElement("div");
     extrasEl.className = "pd-extras";
@@ -329,12 +346,19 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     const extrasList = document.createElement("div");
     extrasList.className = "pd-extras-list";
 
-    const extras = [
+    const defaultExtras = [
       { id: "extra-onion", label: "Extra onion" },
       { id: "tabasco-sauce", label: "Tabasco souce" },
       { id: "grilled-tofu", label: "Grilled tofu with basil" },
       { id: "not-today", label: "Not Today" }
     ];
+
+    const extras = eventConfig.extraOptions?.length ? eventConfig.extraOptions?.map((option) => (
+        {
+          id: toHyphenId(option),
+          label: option
+        }
+    )) : defaultExtras;
 
     extras.forEach(extra => {
       const label = document.createElement("label");
@@ -357,6 +381,9 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
 
     extrasEl.appendChild(extrasList);
     contentSection.appendChild(extrasEl);
+  }
+
+  if (eventConfig.showQuantity) {
 
     // Quantity
     const qtyEl = document.createElement("div");
@@ -377,7 +404,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     placeholderOpt.textContent = "Select...";
     select.appendChild(placeholderOpt);
 
-    for (let i = 1; i <= 2; i++) {
+    for (let i = 1; i <= eventConfig.maxQuantity; i++) {
       const opt = document.createElement("option");
       opt.value = i;
       opt.textContent = i;
@@ -388,6 +415,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     qtyEl.appendChild(selectWrap);
     contentSection.appendChild(qtyEl);
   }
+  
 
   // Action buttons
 
@@ -616,6 +644,10 @@ export default async function decorate(block) {
     showYouMayAlsoLikeSection: (config.showyoumayalsolikesection === undefined && config['show-you-may-also-like-section'] === undefined)
       ? true
       : isTruthy(config.showyoumayalsolikesection ?? config['show-you-may-also-like-section']),
+    showExtras: isTruthy(config.showextras),
+    extraOptions: config.extraoptions ? config.extraoptions?.split(',') : [],
+    showQuantity: isTruthy(config.showquantity),
+    maxQuantity: Number(config.maxquantity) || 1
   };
 
   // Extract folder path from block config
