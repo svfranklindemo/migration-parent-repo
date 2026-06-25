@@ -530,3 +530,93 @@ body.binji-theme .product-detail .pd-rec-card-title {
     min-width: 0;
   }
 }
+
+/* =============================================================================
+   5. CATEGORY PRODUCTS LISTER
+   ============================================================================= */
+
+/* 5.1 Card — transparent box, no border/shadow */
+body.binji-theme .category-products-lister .cpl-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  transition: transform 0.2s ease;
+}
+
+body.binji-theme .category-products-lister .cpl-card:hover {
+  transform: scale(1.03);
+  box-shadow: none;
+}
+
+/* 5.2 Image — aspect-ratio driven, cover fit, rounded */
+body.binji-theme .category-products-lister .cpl-card-media {
+  aspect-ratio: 3 / 2;
+  height: auto;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b0b0f;
+}
+
+/* stylelint-disable no-descending-specificity */
+body.binji-theme .category-products-lister .cpl-card-media picture,
+body.binji-theme .category-products-lister .cpl-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+}
+/* stylelint-enable no-descending-specificity */
+
+/* 5.3 Meta — left-aligned, no card padding */
+body.binji-theme .category-products-lister .cpl-card-meta {
+  text-align: left;
+  align-items: flex-start;
+  padding: 10px 0 0;
+}
+
+/* 5.4 Category label */
+body.binji-theme .category-products-lister .cpl-card-category {
+  color: #a0a0a0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+/* 5.5 Title */
+body.binji-theme .category-products-lister .cpl-card-title {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* 5.6 Filter tag chips */
+body.binji-theme .category-products-lister .cpl-tag {
+  background: rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 20%);
+  color: #fff;
+}
+
+/* 5.7 Empty state */
+body.binji-theme .category-products-lister .cpl-empty {
+  color: #a0a0a0;
+}
+
+/* 5.8 Carousel — dark adaptations */
+body.binji-theme .category-products-lister.carousel .cpl-carousel-header h2,
+body.binji-theme .category-products-lister.carousel .cpl-carousel-name {
+  color: #fff;
+}
+
+body.binji-theme .category-products-lister.carousel .cpl-carousel-btn::before {
+  border-color: #fff;
+}
+
+/* stylelint-disable no-descending-specificity */
+body.binji-theme .category-products-lister.carousel .cpl-carousel-slide picture,
+body.binji-theme .category-products-lister.carousel .cpl-carousel-slide img {
+  object-fit: cover;
+}
+/* stylelint-enable no-descending-specificity */
