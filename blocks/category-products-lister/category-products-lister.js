@@ -1,11 +1,14 @@
 import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeAemPath, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
-import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
+import {
+  getEnvironmentValue,
+  getHostname,
+  getAuthorProductsEndpoint,
+  getPublishProductsEndpointKey,
+} from '../../scripts/utils.js';
 
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
-const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
 let categoryProductsAuthorBasePromise;
 let categoryProductsPublishEnvironmentPromise;
 
@@ -65,7 +68,8 @@ function buildProductUrl(item, isAuthor, redirectUrl = "") {
 }
 
 function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, addToCartEventType = '') {
-  const { id, sku, name, damImageURL = {}, category = [], price, description = {} } = item || {};
+  const { id, sku, name, damImageURL, image, category = [], price, description = {} } = item || {};
+  const imgData = damImageURL || image || {};
   const productId = sku || id || "";
 
   const wrapper = document.createElement("div");
@@ -82,8 +86,8 @@ function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, ad
   }
 
   let picture = null;
-  if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
-    picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
+  if (imgData && (imgData._dynamicUrl || imgData._publishUrl || imgData._authorUrl)) {
+    picture = createLumaProductImagePicture(imgData, name || "Product image", {
       isAuthor,
       eager: false,
     });
@@ -113,7 +117,7 @@ function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, ad
     const formattedCategory = category
       .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
       .join(", ");
-    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+    const cartImageUrl = isAuthor ? imgData?._authorUrl : imgData?._publishUrl;
 
     const addToCartBtn = document.createElement("button");
     addToCartBtn.className = "cpl-card-add-to-cart";
@@ -149,11 +153,15 @@ async function fetchProducts(path) {
     if (!path) return [];
 
     const isAuthor = isAuthorEnvironment();
-    const authorBase = await getCategoryProductsAuthorBase();
-    const environment = await getCategoryProductsPublishEnvironment();
+    const [authorBase, environment, authorEndpoint, publishKey] = await Promise.all([
+      getCategoryProductsAuthorBase(),
+      getCategoryProductsPublishEnvironment(),
+      getAuthorProductsEndpoint(),
+      getPublishProductsEndpointKey(),
+    ]);
     const url = isAuthor
-      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
-      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
+      ? `${authorBase}${authorEndpoint}_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${publishKey}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
 
     const resp = await fetch(url, {
       method: 'GET',
@@ -163,7 +171,7 @@ async function fetchProducts(path) {
       },
     });
     const json = await resp.json();
-    return json?.data?.productModelList?.items || [];
+    return json?.data?.binjiProductModelList?.items ?? json?.data?.productModelList?.items ?? [];
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("Category Products Lister: fetch error", e);
@@ -243,13 +251,14 @@ function renderCarousel(block, items, cfg, isAuthor, redirectUrl = "") {
   track.className = "cpl-carousel-track";
 
   items.forEach((item, i) => {
-    const { damImageURL = {} } = item || {};
+    const { damImageURL, image: itemImage } = item || {};
+    const imgData = damImageURL || itemImage || {};
     const slide = document.createElement("div");
     slide.className = "cpl-carousel-slide";
     if (i === 0) slide.classList.add("active");
 
-    if (damImageURL && (damImageURL._publishUrl || damImageURL._authorUrl || damImageURL._dynamicUrl)) {
-      const picture = createLumaProductImagePicture(damImageURL, item.name || "Product image", {
+    if (imgData && (imgData._publishUrl || imgData._authorUrl || imgData._dynamicUrl)) {
+      const picture = createLumaProductImagePicture(imgData, item.name || "Product image", {
         isAuthor,
         eager: i === 0,
       });

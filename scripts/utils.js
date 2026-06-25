@@ -114,6 +114,19 @@ export async function getEnvironmentValue() {
   }
 }
 
+const DEFAULT_AUTHOR_PRODUCTS_ENDPOINT = '/graphql/execute.json/dsn-eds-configuration/productsListByPath;';
+const DEFAULT_PUBLISH_PRODUCTS_ENDPOINT_KEY = 'productsListByPath';
+
+export async function getAuthorProductsEndpoint() {
+  const ph = await fetchPlaceholders().catch(() => ({}));
+  return ph?.authorProductsEndpoint?.trim() || DEFAULT_AUTHOR_PRODUCTS_ENDPOINT;
+}
+
+export async function getPublishProductsEndpointKey() {
+  const ph = await fetchPlaceholders().catch(() => ({}));
+  return ph?.publishProductsEndpointKey?.trim() || DEFAULT_PUBLISH_PRODUCTS_ENDPOINT_KEY;
+}
+
 /**
  * Fetch the dynamic media server name from placeholder
  * @description Fetches the dynamic media server URL from placeholder.
