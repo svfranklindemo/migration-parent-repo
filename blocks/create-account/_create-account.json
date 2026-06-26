@@ -24,27 +24,36 @@
         {
           "component": "select",
           "name": "variant",
-          "label": "Variant",
+          "label": "Theme Variant",
           "value": "default",
           "valueType": "string",
           "options": [
-            {
-              "name": "Default",
-              "value": "default"
-            },
-            {
-              "name": "Luma",
-              "value": "luma"
-            },
-            {
-              "name": "Frescopa",
-              "value": "frescopa"
-            },
-            {
-              "name": "WKND Fly",
-              "value": "wknd-fly"
-            }
+            { "name": "Default", "value": "default" },
+            { "name": "Luma", "value": "luma" },
+            { "name": "Frescopa", "value": "frescopa" },
+            { "name": "WKND Fly", "value": "wknd-fly" },
+            { "name": "Binji", "value": "binji" }
           ]
+        },
+        {
+          "component": "select",
+          "name": "form-layout",
+          "label": "Form Layout",
+          "value": "single",
+          "valueType": "string",
+          "options": [
+            { "name": "Single Form (Flat)", "value": "single" },
+            { "name": "Wizard (Multi-Step)", "value": "wizard" }
+          ],
+          "description": "Choose between a standard flat form or a multi-step wizard experience."
+        },
+        {
+          "component": "boolean",
+          "name": "showcreditcard",
+          "label": "Show Credit Card Fields",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Show or hide the payment collection fields."
         },
         {
           "component": "boolean",
