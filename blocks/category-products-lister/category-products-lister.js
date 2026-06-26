@@ -205,12 +205,22 @@ function filterByCategories(items, tags) {
     .map((t) => normalizeCategoryValue(`${t}`.trim()).toLowerCase())
     .filter(Boolean);
   if (!filterList.length) return items;
-  return items.filter((item) =>
-    (item.category || []).some((cat) => {
+  return items.filter((item) => {
+    let categoryTags = item.category?.length && Array.isArray(item.category) ? item.category : []; 
+
+    if (item.shortCategory?.length && Array.isArray(item.shortCategory)) {
+      categoryTags = [...categoryTags, item.shortCategory]
+    }
+
+    if (item.tags?.length && Array.isArray(item.tags)) {
+      categoryTags = [...categoryTags, item.tags]
+    }
+
+    return (categoryTags).some((cat) => {
       const normalized = normalizeCategoryValue(cat).toLowerCase();
       return filterList.some((tag) => normalized.includes(tag) || tag.includes(normalized));
     })
-  );
+  });
 }
 
 function readCardsPerRow(cfg, block) {
@@ -366,6 +376,8 @@ export default async function decorate(block) {
 
   // Extract tags - for Universal Editor they'll be in data attributes
   const tags = block.dataset?.["cqTags"]
+    || cfg?.cqtags
+    || cfg?.cqTags
     || cfg?.tags
     || cfg?.["cq-tags"]
     || cfg?.["cq:tags"]
@@ -383,8 +395,11 @@ export default async function decorate(block) {
   // Clear author table
   block.innerHTML = "";
 
+  const maxCount = Number(cfg.maxcardsdisplayed);
+
   const allItems = await fetchProducts(folderHref);
-  const items = filterByCategories(allItems, tags);
+  const categoryItems = filterByCategories(allItems, tags);
+  let items = maxCount && maxCount > 0 ? categoryItems?.slice(0, maxCount) : categoryItems;
 
   if (styleVariant === "carousel") {
     if (!items || items.length === 0) {
