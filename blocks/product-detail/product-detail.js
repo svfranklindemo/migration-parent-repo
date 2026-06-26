@@ -76,7 +76,7 @@ async function fetchProductDetail(path, sku, isAuthor, modelType = "default") {
       : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path};sku=${sku}`;
 
     if (modelType === 'video') {
-      url = url.replaceAll(PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY, PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY_BINJI);
+      url = url.replaceAll(PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY, PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY_BINJI)?.replaceAll('sku', 'id');
     }
 
     const resp = await fetch(url, {
@@ -87,7 +87,7 @@ async function fetchProductDetail(path, sku, isAuthor, modelType = "default") {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.productModelList?.items || [];
+    const items = json?.data?.productModelList?.items ?? json?.data?.binjiProductModelList?.items ?? [];
     return items.length > 0 ? items[0] : null;
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -228,10 +228,11 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     damImageURL = {},
     sku,
     id,
-    videoUrl,
+    video,
     poster = {},
     cast,
-    age
+    age,
+    image
   } = product;
   
   const modelType = eventConfig.modelType || 'default';
@@ -279,10 +280,10 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
 
   if (modelType === 'video') {
     // 1. Render Image (above video, hidden by default via CSS)
-    if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
+    if (image && (image._dynamicUrl || image._publishUrl || image._authorUrl)) {
       const pictureWrapper = document.createElement("div");
       pictureWrapper.className = "pd-video-image-wrapper";
-      const picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
+      const picture = createLumaProductImagePicture(image, name || "Product image", {
         isAuthor,
         eager: true,
       });
@@ -291,7 +292,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     }
 
     // 2. Render Video
-    if (videoUrl) {
+    if (video) {
       const videoEl = document.createElement("video");
       videoEl.controls = true;
       videoEl.className = "pd-video-player";
@@ -300,7 +301,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
       if (posterUrl) videoEl.poster = posterUrl;
       
       const source = document.createElement("source");
-      source.src = videoUrl;
+      source.src = video;
       source.type = "video/mp4"; 
       
       videoEl.appendChild(source);
@@ -332,7 +333,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     if (category && category.length > 0) {
       const catEl = document.createElement("span");
       catEl.className = "pd-video-category-tag";
-      catEl.textContent = category[0];
+      catEl.textContent = category?.map(cat => normalizeCategoryValue(cat))?.join('/');
       metaRow.appendChild(catEl);
     }
 
@@ -353,7 +354,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     if (cast) {
       const castEl = document.createElement("p");
       castEl.className = "pd-cast";
-      castEl.innerHTML = `<strong>Cast:</strong><br/> ${cast}`;
+      castEl.innerHTML = `<span>Cast:</span> ${cast}`;
       contentSection.appendChild(castEl);
     }
 

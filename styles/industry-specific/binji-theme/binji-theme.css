@@ -38,7 +38,6 @@ body.binji-theme {
 
 body.binji-theme main {
   flex: 1;
-  padding-top: 90px; /* offset fixed header (min-height: 90px in styles.css) */
 }
 
 body.binji-theme:has(.user-profile-host) header nav .nav-sections {
@@ -47,6 +46,23 @@ body.binji-theme:has(.user-profile-host) header nav .nav-sections {
 
 body.binji-theme:has(.user-profile-host) footer .footer .section:not(.default) ul {
   display: flex;
+}
+
+body.binji-theme main .product-detail .pd-video-layout .pd-video-image-wrapper {
+  display: block;
+  height: 500px;
+}
+
+body.binji-theme main .product-detail .pd-video-layout video {
+  display: none;
+}
+
+body.binji-theme:has(.user-profile-host) main .product-detail .pd-video-layout .pd-video-image-wrapper {
+  display: none;
+}
+
+body.binji-theme:has(.user-profile-host) main .product-detail .pd-video-layout video {
+  display: block;
 }
 
 /* (b) Header */
@@ -114,8 +130,8 @@ body.binji-theme header nav .nav-sections ul {
 }
 
 /* <li> may hold plain text (no <a>), so color both */
-body.binji-theme header nav .nav-sections ul > li,
-body.binji-theme header nav .nav-sections ul > li > a {
+body.binji-theme header nav .nav-sections ul>li,
+body.binji-theme header nav .nav-sections ul>li>a {
   color: var(--nav-text-color);
   font-family: var(--heading-font-family);
   font-size: 1rem;
@@ -123,15 +139,15 @@ body.binji-theme header nav .nav-sections ul > li > a {
 }
 
 /* Active underline indicator */
-body.binji-theme header nav .nav-sections ul > li > a::before {
+body.binji-theme header nav .nav-sections ul>li>a::before {
   background: var(--main-accent-color);
 }
 
 /* Hover + expanded states */
-body.binji-theme header nav .nav-sections ul > li:hover,
-body.binji-theme header nav .nav-sections ul > li > a:hover,
-body.binji-theme header nav .nav-sections ul > li[aria-expanded="true"],
-body.binji-theme header nav .nav-sections ul > li[aria-expanded="true"] > a {
+body.binji-theme header nav .nav-sections ul>li:hover,
+body.binji-theme header nav .nav-sections ul>li>a:hover,
+body.binji-theme header nav .nav-sections ul>li[aria-expanded="true"],
+body.binji-theme header nav .nav-sections ul>li[aria-expanded="true"]>a {
   color: var(--main-accent-color);
 }
 
@@ -180,22 +196,22 @@ body.binji-theme header nav .nav-sections ul {
 }
 
 /* list items hold plain text (no <a>), so style the <li> too */
-body.binji-theme header nav .nav-sections ul > li,
-body.binji-theme header nav .nav-sections ul > li > a {
+body.binji-theme header nav .nav-sections ul>li,
+body.binji-theme header nav .nav-sections ul>li>a {
   color: var(--nav-text-color);
   font-family: var(--heading-font-family);
   font-size: 1rem;
   cursor: pointer;
 }
 
-body.binji-theme header nav .nav-sections ul > li > a::before {
+body.binji-theme header nav .nav-sections ul>li>a::before {
   background: var(--main-accent-color);
 }
 
-body.binji-theme header nav .nav-sections ul > li:hover,
-body.binji-theme header nav .nav-sections ul > li > a:hover,
-body.binji-theme header nav .nav-sections ul > li[aria-expanded="true"],
-body.binji-theme header nav .nav-sections ul > li[aria-expanded="true"] > a {
+body.binji-theme header nav .nav-sections ul>li:hover,
+body.binji-theme header nav .nav-sections ul>li>a:hover,
+body.binji-theme header nav .nav-sections ul>li[aria-expanded="true"],
+body.binji-theme header nav .nav-sections ul>li[aria-expanded="true"]>a {
   color: var(--main-accent-color);
 }
 
@@ -236,7 +252,7 @@ body.binji-theme header a.sign-in-btn {
   padding: 5px 14px;
   background-color: transparent;
   color: var(--nav-text-color);
-  border: 1px solid var(--nav-text-color);
+  border: 2px solid var(--nav-text-color);
   border-radius: var(--border-radius-x-large);
   font-family: var(--heading-font-family);
   text-align: center;
@@ -271,8 +287,9 @@ body.binji-theme header .nav-hamburger-icon::after {
 
 /* 2.9 Header — mobile (< 900px) */
 @media (width < 900px) {
-  body.binji-theme header nav .nav-sections ul > li,
-  body.binji-theme header nav .nav-sections ul > li > a {
+
+  body.binji-theme header nav .nav-sections ul>li,
+  body.binji-theme header nav .nav-sections ul>li>a {
     color: var(--nav-text-color);
   }
 
@@ -294,7 +311,7 @@ body.binji-theme footer {
 }
 
 /* Match container width to header (1400px) */
-body.binji-theme footer .footer > div {
+body.binji-theme footer .footer>div {
   max-width: 1200px;
   padding: 32px 0;
 }
@@ -414,7 +431,7 @@ body.binji-theme header .nav-hamburger-icon::after {
     margin: 0;
   }
 
-  body.binji-theme header nav .nav-sections ul > li > a {
+  body.binji-theme header nav .nav-sections ul>li>a {
     color: var(--nav-text-color);
   }
 
@@ -463,6 +480,10 @@ body.binji-theme header .nav-hamburger-icon::after {
    ============================================================================= */
 
 /* 4.1 Block base — override hardcoded background: #fff and padding in product-detail.css */
+body.binji-theme .product-detail-wrapper {
+  padding: 0;
+}
+
 body.binji-theme .product-detail {
   background: #000;
   color: #fff;
@@ -476,19 +497,19 @@ body.binji-theme .product-detail .pd-container {
   gap: 32px;
   max-width: 1400px;
   margin: 0 auto;
-  padding-inline: 32px;
+  padding: 0;
 }
 
 /* 4.3 Image panel — constrained height so image + title both visible in first fold */
 body.binji-theme .product-detail .pd-image {
   position: static;
   background: #0b0b0f;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: none;
-  height: 65vh;
   min-height: 380px;
   max-height: 720px;
   overflow: hidden;
+  padding: 0;
 }
 
 body.binji-theme .product-detail .pd-image picture,
@@ -499,6 +520,19 @@ body.binji-theme .product-detail .pd-image img {
   object-position: top center;
 }
 
+body.binji-theme main .product-detail .pd-video-layout .pd-video-player {
+  border-radius: 0;
+}
+
+body.binji-theme main .product-detail .pd-video-layout .pd-video-category-tag {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #ff8038;
+  border-radius: 5px;
+  font-weight: 500;
+  color: #fff;
+}
+
 /* 4.4 Content area grid:
    row 1 = category (full width, above title)
    row 2 = title (left) | CTA button (right) — matches source ACTION button position
@@ -506,15 +540,12 @@ body.binji-theme .product-detail .pd-image img {
    row 4 = description (full width) */
 body.binji-theme .product-detail .pd-content {
   display: grid;
-  grid-template-columns: 1fr auto;
-  column-gap: 32px;
-  align-items: center;
+  grid-template-areas: "name meta" "cast cast" "description description";
+  grid-template-columns: 1.5fr 1fr;
 }
 
 /* Category: full-width row above title */
 body.binji-theme .product-detail .pd-category {
-  grid-column: 1 / -1;
-  grid-row: 1;
   display: inline-block;
   color: #a0a0a0;
   font-size: 0.75rem;
@@ -526,53 +557,41 @@ body.binji-theme .product-detail .pd-category {
 
 /* Title: left column, row 2 */
 body.binji-theme .product-detail .pd-name {
-  grid-column: 1;
-  grid-row: 2;
-  align-self: center;
+  font-size: 70px;
+  font-weight: 700;
   color: #fff;
-  font-size: clamp(2.25rem, 4vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0;
+  grid-area: name;
+  width: fit-content;
+  line-height: 1.5;
 }
 
-/* CTA: right column, row 2 — inline with title (matches ACTION badge position in source) */
-body.binji-theme .product-detail .pd-actions {
-  grid-column: 2;
-  grid-row: 2;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 0;
+body.binji-theme main .product-detail .pd-video-layout .pd-video-meta {
+  grid-area: meta;
+  margin: 12px 0;
 }
 
-/* Buttons must not flex-grow inside the auto column */
-body.binji-theme .product-detail .pd-btn {
-  flex: 0 0 auto;
-  width: auto;
-  min-width: 160px;
+body.binji-theme main .product-detail .pd-video-layout .pd-video-age {
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 8px;
+  font-size: 16px;
+  line-height: 1;
 }
 
-/* Price: full width, row 3 */
-body.binji-theme .product-detail .pd-price {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  color: #ff8038;
-  margin-top: 16px;
-}
-
-/* Description: full width, row 4 */
-body.binji-theme .product-detail .pd-description {
-  grid-column: 1 / -1;
-  grid-row: 4;
+body.binji-theme .product-detail .pd-video-layout .pd-cast {
+  grid-area: cast;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1.5;
+  margin: 0.83em 0 0;
+  font-weight: 700;
 }
 
 /* 4.6 Description */
 body.binji-theme .product-detail .pd-description {
-  color: #c1c1c1;
-  border-top-color: rgb(255 255 255 / 10%);
+  color: #fff;
+  grid-area: description;
+  border-top: 0;
 }
 
 body.binji-theme .product-detail .pd-description a {
@@ -635,16 +654,12 @@ body.binji-theme .product-detail .pd-rec-card:hover {
   box-shadow: 0 8px 24px rgb(0 0 0 / 60%);
 }
 
-body.binji-theme .product-detail .pd-rec-card-category {
-  color: #a0a0a0;
-}
-
 body.binji-theme .product-detail .pd-rec-card-title {
   color: #fff;
 }
 
 /* 4.10 Mobile — collapse title+button inline grid to stacked */
-@media (width <= 768px) {
+@media (width <=768px) {
   body.binji-theme .product-detail .pd-container {
     max-width: 100%;
     padding-inline: 0;
@@ -655,35 +670,24 @@ body.binji-theme .product-detail .pd-rec-card-title {
     height: auto;
     min-height: 0;
     max-height: none;
-    border-radius: 8px;
-    aspect-ratio: 2 / 3;
+    border-radius: 0;
     margin-inline: 16px;
   }
 
   /* Content area gets its own padding since container has none */
   body.binji-theme .product-detail .pd-content {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     padding-inline: 16px;
   }
 
   body.binji-theme .product-detail .pd-name {
-    grid-column: 1;
-    grid-row: 2;
+    line-height: 1;
   }
 
   body.binji-theme .product-detail .pd-actions {
-    grid-column: 1;
-    grid-row: 3;
     flex-direction: column;
     margin-top: 16px;
-  }
-
-  body.binji-theme .product-detail .pd-price {
-    grid-row: 4;
-  }
-
-  body.binji-theme .product-detail .pd-description {
-    grid-row: 5;
   }
 
   body.binji-theme .product-detail .pd-btn {
@@ -727,6 +731,7 @@ body.binji-theme .category-products-lister .cpl-card-media img {
   object-fit: cover;
   filter: none;
 }
+
 /* stylelint-enable no-descending-specificity */
 
 /* 5.3 Meta — left-aligned, no card padding */
@@ -780,6 +785,7 @@ body.binji-theme .category-products-lister.carousel .cpl-carousel-slide picture,
 body.binji-theme .category-products-lister.carousel .cpl-carousel-slide img {
   object-fit: cover;
 }
+
 /* stylelint-enable no-descending-specificity */
 
 /* ==========================================================================
@@ -797,7 +803,7 @@ body.binji-theme .section.create-account-container {
   background-color: rgb(52, 52, 52);
 }
 
-body.binji-theme main > .section.create-account-container > .create-account-wrapper {
+body.binji-theme main>.section.create-account-container>.create-account-wrapper {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -822,7 +828,7 @@ body.binji-theme main .create-account {
 /* --------------------------------------------------------------------------
    Panel background
    -------------------------------------------------------------------------- */
-body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard > .panel-wrapper.current-wizard-step {
+body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard>.panel-wrapper.current-wizard-step {
   background-color: rgb(52, 52, 52) !important;
 }
 
@@ -994,7 +1000,7 @@ body.binji-theme main .create-account .create-account-form.is-binji-wizard .wiza
 }
 
 /* First step: prev button grayed out (matches registration-wizard original) */
-body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard > .current-wizard-step.panel-wrapper:first-of-type ~ .wizard-button-wrapper > .wizard-button-prev button {
+body.binji-theme main .create-account .create-account-form.is-binji-wizard .wizard>.current-wizard-step.panel-wrapper:first-of-type~.wizard-button-wrapper>.wizard-button-prev button {
   color: #909090 !important;
 }
 
@@ -1013,7 +1019,7 @@ body.binji-theme main .create-account .registration-wizard__dot.active {
    Mobile
    -------------------------------------------------------------------------- */
 @media (max-width: 600px) {
-  body.binji-theme main > .section.create-account-container > .create-account-wrapper {
+  body.binji-theme main>.section.create-account-container>.create-account-wrapper {
     padding: 2rem 1rem;
   }
 
@@ -1021,3 +1027,362 @@ body.binji-theme main .create-account .registration-wizard__dot.active {
     margin-top: 32px;
   }
 }
+
+body.binji-theme main .binji-home-signin.section {
+  margin: 0;
+}
+
+body.binji-theme main .sign-in-wrapper {
+  display: block;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block {
+  margin: 0 0 0 auto;
+  padding: 2rem;
+  background: #000;
+  border-radius: 2rem;
+  max-width: 400px;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block .form {
+  position: relative;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block .heading-wrapper {
+  display: none;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block label {
+  font-size: 12px;
+  padding: 4px 0 5px;
+  margin: 0;
+  color: #fff;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block [data-required=true]>label::after {
+  content: unset;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block input[type=text],
+body.binji-theme main .sign-in-wrapper .sign-in.block input[type=email],
+body.binji-theme main .sign-in-wrapper .sign-in.block input[type=password] {
+  margin: 0;
+  height: 32px;
+  padding: 3px 12px 5px 11px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block .submit-wrapper {
+  text-align: center;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block .submit-wrapper button {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 3px 14px 5px;
+  background-color: #ff8038;
+  border-radius: 2rem;
+  text-transform: unset;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block .sign-in-divider {
+  display: none;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block .sign-in-links .create-account-link {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: #fff;
+  text-decoration: underline;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 400;
+  font-family: "Adobe Clean", sans-serif;
+  text-transform: unset;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) {
+  margin: 2rem auto;
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .submit-wrapper {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: 55px;
+}
+
+@media screen and (max-width: 768px) {
+  body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .submit-wrapper {
+    margin-left: 0;
+  }
+}
+
+body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .sign-in-links {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0;
+  position: absolute;
+  bottom: 12px;
+  left: 165px;
+}
+
+@media screen and (max-width: 768px) {
+  body.binji-theme main .sign-in-wrapper .sign-in.block:has(.create-account-link) .sign-in-links {
+    left: 100px;
+  }
+}
+
+body.binji-theme main .sign-in-page.section .sign-in-wrapper .sign-in.block {
+  margin: 0 auto;
+}
+
+body.binji-theme main .sign-in-page.section .sign-in-wrapper .sign-in.block .heading-wrapper {
+  display: block;
+}
+
+body.binji-theme main .sign-in-page.section .sign-in-wrapper .sign-in.block .heading-wrapper h2#heading-sign-in {
+  font-size: 28px;
+  margin: 0.67rem auto;
+  padding-bottom: 32px;
+  color: #fff;
+}
+
+body.binji-theme main>.section.home-nli-banner.section-has-bg[data-sec-full-width=true]>div {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body.binji-theme main>.section.home-nli-banner.section-has-bg[data-sec-full-width=true]>div.default-content-wrapper {
+  max-width: 700px;
+}
+
+body.binji-theme main>.section.home-nli-banner.section-has-bg[data-sec-full-width=true]>div.sign-in-wrapper {
+  max-width: 500px;
+}
+
+body.binji-theme main .home-nli-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  body.binji-theme main .home-nli-banner {
+    flex-direction: column;
+    padding: 2rem 1rem 1rem;
+  }
+}
+
+body.binji-theme main .home-nli-banner .default-content-wrapper p {
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #fff;
+  max-width: 600px;
+  margin: 0;
+}
+
+body.binji-theme main .home-nli-banner .default-content-wrapper h1 {
+  font-size: 48px;
+  line-height: 1.5;
+  color: #fff;
+  font-weight: 700;
+  padding: 0;
+  margin: 0.67em 0;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 768px) {
+  body.binji-theme main .section.category-products-lister-container {
+    padding: 0 1rem;
+  }
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister-wrapper {
+  padding: 0;
+}
+
+body.binji-theme main .section.category-products-lister-container .default-content-wrapper {
+  padding: 0;
+}
+
+body.binji-theme main .section.category-products-lister-container .default-content-wrapper h2 {
+  color: #fff;
+  padding: 0;
+  margin: 0.67em 0;
+  font-size: 28px;
+  line-height: 1.5;
+}
+
+body.binji-theme main .section.category-products-lister-container .cpl-tags {
+  display: none;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-grid {
+  gap: 1rem;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card .cpl-card-media {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card .cpl-card-media img {
+  min-height: 150px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card .cpl-card-meta {
+  padding: 16px 0 0;
+  align-items: flex-start;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card .cpl-card-meta .cpl-card-category {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+}
+
+body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card .cpl-card-meta .cpl-card-title {
+  font-size: 21px;
+  line-height: 32px;
+  margin: 0 0 0.83em;
+}
+
+body.binji-theme main .section.binji-promo-banner {
+  margin: 0;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block {
+  padding: 1rem 0;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block .columns-row {
+  gap: 48px;
+  justify-content: center;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block div>.columns-img-col picture::before {
+  content: unset;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block div>.columns-img-col img {
+  max-width: 500px;
+  margin-left: auto;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block .columns-item-vertical:not(.columns-img-col) {
+  gap: 0;
+  max-width: 450px;
+}
+
+@media screen and (max-width: 768px) {
+
+  body.binji-theme main .section.binji-promo-banner .columns.block .columns-item-vertical:not(.columns-img-col) h1,
+  body.binji-theme main .section.binji-promo-banner .columns.block .columns-item-vertical:not(.columns-img-col) h2,
+  body.binji-theme main .section.binji-promo-banner .columns.block .columns-item-vertical:not(.columns-img-col) p {
+    text-align: center;
+  }
+
+  body.binji-theme main .section.binji-promo-banner .columns.block .columns-item-vertical:not(.columns-img-col) .button {
+    margin: 1rem auto 0;
+  }
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block h1 {
+  font-size: 28px;
+  margin: 0.67em 0;
+  padding: 0;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block h2 {
+  margin: 0.83em 0;
+  padding: 0;
+  font-size: 21px;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  font-weight: 400;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block .button {
+  display: block;
+  background-color: #ff8038;
+  padding: 4px 14px 6px;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 2rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block .button::after {
+  content: unset;
+}
+
+body.binji-theme main .section.binji-promo-banner .columns.block .button:hover {
+  color: #fff;
+}
+
+body.binji-theme main .section.binji-promo-banner--reverse .columns.block div>.columns-img-col img {
+  max-width: 500px;
+  height: 450px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  margin-left: unset;
+}
+
+@media screen and (max-width: 768px) {
+  body.binji-theme main .section.binji-promo-banner--reverse .columns.block div>.columns-img-col img {
+    height: unset;
+  }
+}
+
+body.binji-theme main .section.binji-promo-banner--reverse .columns.block .columns-item-vertical:not(.columns-img-col) {
+  align-items: flex-end;
+  text-align: right;
+}
+
+body.binji-theme main .section.binji-promo-banner--reverse .columns.block .button {
+  margin-left: auto;
+}
+
+body.binji-theme main .section.video-container .video-wrapper {
+  padding: 0;
+}
+
+body.binji-theme main .section.video-container .video-wrapper video {
+  width: 100%;
+  max-width: unset;
+}
+
+body.binji-theme:has(.user-profile-btn) main .section:has(.sign-in-wrapper) {
+  display: none !important;
+}
+
+/*# sourceMappingURL=binji-theme.v2.css.map */
