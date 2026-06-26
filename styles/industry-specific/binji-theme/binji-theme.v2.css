@@ -284,6 +284,13 @@ body.binji-theme main .section.binji-promo-banner--reverse .columns.block .colum
 body.binji-theme main .section.binji-promo-banner--reverse .columns.block .button {
   margin-left: auto;
 }
+body.binji-theme main .section.video-container .video-wrapper {
+  padding: 0;
+}
+body.binji-theme main .section.video-container .video-wrapper video {
+  width: 100%;
+  max-width: unset;
+}
 
 body.binji-theme:has(.user-profile-btn) main .section:has(.sign-in-wrapper) {
   display: none !important;
