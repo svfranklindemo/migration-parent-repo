@@ -43,8 +43,19 @@
             {
               "name": "WKND Fly",
               "value": "wknd-fly"
+            },
+            {
+              "name": "Halliby",
+              "value": "halliby"
             }
           ]
+        },
+        {
+          "component": "text",
+          "name": "createaccounttitle",
+          "label": "Heading",
+          "value": "Create an account",
+          "valueType": "string"
         },
         {
           "component": "boolean",
@@ -66,6 +77,13 @@
           "component": "boolean",
           "name": "showloyaltyprogram",
           "label": "Show Loyalty Program",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "showprivacypolicy",
+          "label": "Show Privacy Policy",
           "value": "false",
           "valueType": "boolean"
         },

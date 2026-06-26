@@ -79,11 +79,65 @@
         },
         {
           "component": "text",
+          "name": "relatedproductstitle",
+          "label": "Heading for Related Products section",
+          "value": "YOU MAY ALSO LIKE",
+          "valueType": "string",
+          "description": "Authored heading will be displayed as a title of the Related Product Section."
+        },
+        {
+          "component": "boolean",
+          "name": "alt-variation",
+          "label": "Recipe Detail Variation for Halliby",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Features a full-width, 50/50 split header hero (image left, bold title right). Below is a 70/30 layout: a wide left column for rich-text ingredients/instructions, and a narrow right sidebar housing the chef's profile card and a vertical stack of compact recipe recommendation cards. Collapses to a single column on mobile. (Note: Styling will be required for other websites as the base styling is halliby only.)"
+        },
+        {
+          "component": "aem-content",
+          "name": "pd-recommended-path",
+          "label": "Recommended Product Detail Page Path",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
+        },
+        {
+          "component": "boolean",
+          "name": "showextras",
+          "label": "Show Extras",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "When enabled, an extras section with checkboxes will be shown based on the options authored below."
+        },
+        {
+          "component": "text",
+          "name": "extraoptions",
+          "label": "Extra Options",
+          "multi": true,
+          "valueType": "string[]",
+          "description": "If the extra options are enabled, the authored values will be shown as the extras in the UI."
+        },
+        {
+          "component": "boolean",
+          "name": "showquantity",
+          "label": "Show Quantity Dropdown",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "When enabled, a quantity dropdown will be shown."
+        },
+        {
+          "component": "number",
+          "name": "maxquantity",
+          "label": "Quantity Options",
+          "valueType": "number",
+          "value": 1,
+          "description": "The number of quantity options to be shown from when adding to cart. The dropdown will be populated with values starting from 1 and ends on the number that is authored."
         }
       ]
     }

@@ -2,6 +2,7 @@ import { createLumaProductImagePicture, readBlockConfig } from "../../scripts/ae
 import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
+import { label } from "../../scripts/dom-helpers.js";
 
 const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productDescriptionByPathAndSKU;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
@@ -46,6 +47,22 @@ function updatePageTitle(product) {
   if (productTitle) {
     document.title = productTitle;
   }
+}
+
+/**
+ * Convert a sentence or text string into a hyphen-separated ID.
+ * Example: "Hello World!" -> "hello-world"
+ *
+ * @param {string} text - Input text to convert
+ * @returns {string} - Hyphen-separated ID
+ */
+function toHyphenId(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/[\s_]+/g, '-')  // Replace spaces and underscores with hyphens
+    .replace(/-+/g, '-');     // Collapse multiple hyphens
 }
 
 /**
@@ -125,7 +142,7 @@ async function fetchAllProducts(path, isAuthor) {
  * @param {boolean} isAuthor - Is author environment
  * @returns {HTMLElement} - Product card
  */
-function buildRecommendationCard(item, isAuthor) {
+function buildRecommendationCard(item, isAuthor, recommendedPath) {
   const { id, sku, name, damImageURL = {}, category = [] } = item || {};
   const productId = sku || id || "";
 
@@ -158,8 +175,8 @@ function buildRecommendationCard(item, isAuthor) {
 
       // On author add .html extension, on publish don't
       const productPath = isAuthor
-        ? `${basePath}/product.html`
-        : `${basePath}/product`;
+        ? `${basePath}${recommendedPath}.html`
+        : `${basePath}${recommendedPath}`;
       window.location.href = `${productPath}?productId=${encodeURIComponent(
         productId
       )}`;
@@ -292,6 +309,22 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     contentSection.appendChild(priceEl);
   }
 
+  const isHallibyTheme = document.body.classList.contains("halliby-theme");
+
+  // Rating stars (Halliby theme only)
+  if (isHallibyTheme) {
+    const ratingEl = document.createElement("div");
+    ratingEl.className = "pd-rating";
+    ratingEl.innerHTML = `
+      <span class="star filled">★</span>
+      <span class="star filled">★</span>
+      <span class="star filled">★</span>
+      <span class="star filled">★</span>
+      <span class="star empty">★</span>
+    `;
+    contentSection.appendChild(ratingEl);
+  }
+
   // Description (using HTML format)
   if (description?.html) {
     const descEl = document.createElement("div");
@@ -299,6 +332,90 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     descEl.innerHTML = description.html;
     contentSection.appendChild(descEl);
   }
+
+  // Hardcoded Extras and Quantity (Halliby theme only)
+  if (eventConfig.showExtras) {
+    // Extras
+    const extrasEl = document.createElement("div");
+    extrasEl.className = "pd-extras";
+    const extrasTitle = document.createElement("h3");
+    extrasTitle.className = "pd-extras-title";
+    extrasTitle.textContent = "Pick Extras";
+    extrasEl.appendChild(extrasTitle);
+
+    const extrasList = document.createElement("div");
+    extrasList.className = "pd-extras-list";
+
+    const defaultExtras = [
+      { id: "extra-onion", label: "Extra onion" },
+      { id: "tabasco-sauce", label: "Tabasco souce" },
+      { id: "grilled-tofu", label: "Grilled tofu with basil" },
+      { id: "not-today", label: "Not Today" }
+    ];
+
+    const extras = eventConfig.extraOptions?.length ? eventConfig.extraOptions?.map((option) => (
+        {
+          id: toHyphenId(option),
+          label: option
+        }
+    )) : defaultExtras;
+
+    extras.forEach(extra => {
+      const label = document.createElement("label");
+      label.className = "pd-extra-item";
+      
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.className = "pd-extra-checkbox";
+      input.name = "extras";
+      input.value = extra.id;
+      
+      const text = document.createElement("span");
+      text.className = "pd-extra-label";
+      text.textContent = extra.label;
+      
+      label.appendChild(input);
+      label.appendChild(text);
+      extrasList.appendChild(label);
+    });
+
+    extrasEl.appendChild(extrasList);
+    contentSection.appendChild(extrasEl);
+  }
+
+  if (eventConfig.showQuantity) {
+
+    // Quantity
+    const qtyEl = document.createElement("div");
+    qtyEl.className = "pd-quantity";
+    const qtyTitle = document.createElement("h3");
+    qtyTitle.className = "pd-quantity-title";
+    qtyTitle.textContent = "Quantity";
+    qtyEl.appendChild(qtyTitle);
+
+    const selectWrap = document.createElement("div");
+    selectWrap.className = "pd-quantity-select-wrapper";
+    
+    const select = document.createElement("select");
+    select.className = "pd-quantity-select";
+    
+    const placeholderOpt = document.createElement("option");
+    placeholderOpt.value = "";
+    placeholderOpt.textContent = "Select...";
+    select.appendChild(placeholderOpt);
+
+    for (let i = 1; i <= eventConfig.maxQuantity; i++) {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = i;
+      select.appendChild(opt);
+    }
+
+    selectWrap.appendChild(select);
+    qtyEl.appendChild(selectWrap);
+    contentSection.appendChild(qtyEl);
+  }
+  
 
   // Action buttons
 
@@ -380,7 +497,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
  * @param {boolean} isAuthor - Is author environment
  * @returns {HTMLElement|null} - Recommendations section or null
  */
-function buildRecommendations(currentProduct, allProducts, isAuthor) {
+function buildRecommendations(currentProduct, allProducts, isAuthor, recommendedPath, relatedProductsTitle) {
   const { sku: currentSku, category: currentCategories = [] } = currentProduct;
 
   if (!currentCategories || currentCategories.length === 0) {
@@ -407,21 +524,101 @@ function buildRecommendations(currentProduct, allProducts, isAuthor) {
   const section = document.createElement("div");
   section.className = "pd-recommendations";
 
+  const isHallibyTheme = document.body.classList.contains("halliby-theme");
   const title = document.createElement("h2");
   title.className = "pd-rec-title";
-  title.textContent = "YOU MAY ALSO LIKE";
+  title.textContent = relatedProductsTitle || "YOU MAY ALSO LIKE";
 
   const grid = document.createElement("div");
   grid.className = "pd-rec-grid";
 
   recommendations.forEach((product) => {
-    const card = buildRecommendationCard(product, isAuthor);
+    const card = buildRecommendationCard(product, isAuthor, recommendedPath);
     grid.append(card);
   });
 
   section.append(title, grid);
 
   return section;
+}
+
+/**
+ * Build the Recipe Detail Layout (Split Hero + 70/30 Sidebar) using BEM
+ */
+function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, recommendedPath, relatedProductsTitle) {
+  const {
+    name,
+    description = {},
+    damImageURL = {},
+    authorName = "Marry Poppin", // Fallback/Mockup data
+    authorRole = "Chef de Partie" // Fallback/Mockup data
+  } = product;
+
+  const imageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "recipe-detail";
+
+  // 1. Build the Split Hero Header
+  const heroContainer = document.createElement("div");
+  heroContainer.className = "recipe-hero";
+  heroContainer.innerHTML = `
+    <div class="recipe-hero__wrapper">
+      <div class="recipe-hero__image">
+        <img src="${imageUrl || ''}" alt="${name}">
+      </div>
+      <div class="recipe-hero__content">
+        <h1 class="recipe-hero__title">${name}</h1>
+      </div>
+    </div>
+  `;
+
+  // 2. Build the 70/30 Content Area
+  const bodyContainer = document.createElement("div");
+  bodyContainer.className = "recipe-body";
+  
+  const bodyContent = document.createElement("div");
+  bodyContent.className = "recipe-body__wrapper";
+
+  // Left Column (70%)
+  const mainSection = document.createElement("div");
+  mainSection.className = "recipe-main";
+  mainSection.innerHTML = `
+    <h2 class="recipe-main__title">Ingredients</h2>
+    <div class="recipe-main__content">
+      ${description?.html || ""}
+    </div>
+  `;
+
+  // Right Column (30%)
+  const sidebarSection = document.createElement("div");
+  sidebarSection.className = "recipe-sidebar";
+  sidebarSection.innerHTML = `
+    <div class="recipe-author">
+      <div class="recipe-author__image">
+        <img src="/assets/halliby/personas/Eli.jpg" alt="${authorName}">
+      </div>
+      <div class="recipe-author__content">
+        <h2 class="recipe-author__name">${authorName}</h2>
+        <p class="recipe-author__role">${authorRole}</p>
+      </div>
+    </div>
+  `;
+
+  // Inject Recommendations directly into the right sidebar container
+  // Inject Standard Recommendations directly into the right sidebar container
+  if (eventConfig.showYouMayAlsoLikeSection) {
+    const recs = buildRecommendations(product, allProducts, isAuthor, recommendedPath, relatedProductsTitle);
+    if (recs) {
+      sidebarSection.appendChild(recs);
+    }
+  }
+
+  bodyContent.append(mainSection, sidebarSection);
+  bodyContainer.appendChild(bodyContent);
+  wrapper.append(heroContainer, bodyContainer);
+
+  return wrapper;
 }
 
 /**
@@ -447,6 +644,10 @@ export default async function decorate(block) {
     showYouMayAlsoLikeSection: (config.showyoumayalsolikesection === undefined && config['show-you-may-also-like-section'] === undefined)
       ? true
       : isTruthy(config.showyoumayalsolikesection ?? config['show-you-may-also-like-section']),
+    showExtras: isTruthy(config.showextras),
+    extraOptions: config.extraoptions ? config.extraoptions?.split(',') : [],
+    showQuantity: isTruthy(config.showquantity),
+    maxQuantity: Number(config.maxquantity) || 1
   };
 
   // Extract folder path from block config
@@ -512,17 +713,26 @@ export default async function decorate(block) {
 
   updatePageTitle(product);
 
-  // Display product detail
-  const productDetail = buildProductDetail(product, isAuthor, eventConfig);
-  block.appendChild(productDetail);
+  const recommendedPath = config['pd-recommended-path'] || '/product';
+  const relatedProductsTitle = config['relatedproductstitle'] || 'YOU MAY ALSO LIKE';
 
-  // Display recommendations
-  if (eventConfig.showYouMayAlsoLikeSection) {
-    const recommendations = buildRecommendations(product, allProducts, isAuthor);
-    if (recommendations) {
-      block.appendChild(recommendations);
+  if (config['alt-variation'] && isTruthy(config['alt-variation'])) {
+    const recipeDetail = buildRecipeDetail(product, allProducts, isAuthor, eventConfig, recommendedPath, relatedProductsTitle);
+    block.appendChild(recipeDetail);
+  } else {
+    // Display product detail
+    const productDetail = buildProductDetail(product, isAuthor, eventConfig);
+    block.appendChild(productDetail);
+    
+    // Display recommendations
+    if (eventConfig.showYouMayAlsoLikeSection) {
+      const recommendations = buildRecommendations(product, allProducts, isAuthor, recommendedPath, relatedProductsTitle);
+      if (recommendations) {
+        block.appendChild(recommendations);
+      }
     }
   }
+
   if (eventConfig.productView) {
     dispatchCustomEvent(eventConfig.productView);
   }

@@ -37,15 +37,21 @@ function clearProductObject() {
 
 function buildCreateAccountFormDef(config = {}) {
   const isLumaVariant = normalizeVariant(config.variant) === "luma";
-  const isFrescopaVariant = normalizeVariant(config.variant) === "frescopa"
-    || document.body.classList.contains('frescopa-theme');
+  const isFrescopaVariant = normalizeVariant(config.variant) === "frescopa" || document.body.classList.contains('frescopa-theme');
   const isWkndFlyVariant = normalizeVariant(config.variant) === "wknd-fly";
+  
+  // Theme check for Halliby specific architecture
+  const isHallibyVariant = normalizeVariant(config.variant) === "halliby" || document.body.classList.contains('halliby-theme');
+  
   const showLoyaltyProgram = isTruthy(config.showloyaltyprogram);
+  const showPrivacyPolicy = isTruthy(config.showprivacypolicy);
   const showCommunicationPreferences = config.showcommunicationpreferences !== undefined
     ? isTruthy(config.showcommunicationpreferences)
     : true;
   const showAddress = config.showaddress !== undefined ? isTruthy(config.showaddress) : true;
   const showDateOfBirth = config.showdateofbirth !== undefined ? isTruthy(config.showdateofbirth) : true;
+  const formHeading = config.createaccounttitle;
+  
   const shoeSizes = ["", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
   const shirtSizes = ["", "s", "m", "l", "xl", "xxl"];
   const favoriteColors = ["", "black", "blue", "green", "orange", "pink", "purple", "red", "white", "yellow"];
@@ -58,7 +64,7 @@ function buildCreateAccountFormDef(config = {}) {
       {
         id: "heading-create-account",
         fieldType: "heading",
-        label: { value: "Create an account" },
+        label: { value: formHeading || 'Create an account' },
         appliedCssClassNames: "col-12",
       },
       {
@@ -86,7 +92,7 @@ function buildCreateAccountFormDef(config = {}) {
             fieldType: "text-input",
             label: { value: "Email address" },
             autoComplete: "email",
-            properties: { colspan: isFrescopaVariant ? 6 : 12 },
+            properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 },
           },
           {
             id: "phone",
@@ -94,7 +100,7 @@ function buildCreateAccountFormDef(config = {}) {
             fieldType: "text-input",
             label: { value: "Phone number" },
             autoComplete: "tel",
-            properties: { colspan: isFrescopaVariant ? 6 : 12 },
+            properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 },
           },
           ...(isWkndFlyVariant ? [{
             id: "wkndFlyMember",
@@ -112,7 +118,7 @@ function buildCreateAccountFormDef(config = {}) {
             fieldType: "text-input",
             label: { value: "Address" },
             autoComplete: "street-address",
-            properties: { colspan: 12 },
+            properties: { colspan: isHallibyVariant ? 6 : 12 },
             ...(showAddress ? {} : { appliedCssClassNames: "is-hidden" }),
           },
           {
@@ -137,87 +143,71 @@ function buildCreateAccountFormDef(config = {}) {
             id: "dateOfBirth",
             name: "dateOfBirth",
             fieldType: "text-input",
-            label: { value: "Date of birth (YYYY-MM-DD)" },
-            placeholder: "YYYY-MM-DD",
-            properties: { colspan: 12 },
+            label: { value: isHallibyVariant ? "Birth day and month (MM-DD)" : "Date of birth (YYYY-MM-DD)" },
+            placeholder: isHallibyVariant ? "12-31" : "YYYY-MM-DD",
+            properties: { colspan: isHallibyVariant ? 6 : 12 },
             ...(showDateOfBirth ? {} : { appliedCssClassNames: "is-hidden" }),
           },
-          {
-            id: "joinLoyaltyProgram",
-            name: "joinLoyaltyProgram",
-            fieldType: "checkbox",
-            label: { value: "I want to join loyalty program" },
-            enum: ["true"],
+          
+          /* Halliby Specific Dietary Dropdown */
+          ...(isHallibyVariant ? [{
+            id: "dietaryRestrictions",
+            name: "dietaryRestrictions",
+            fieldType: "drop-down",
+            label: { value: "Dietary restrictions" },
+            enum: ["none", "no-gluten", "no-dairy", "no-nuts", "no-soy", "vegetarian"],
+            enumNames: ["I have none", "No gluten", "No dairy", "No nuts", "No soy", "Vegetarian"],
             type: "string",
-            appliedCssClassNames: withConditionalClasses("col-12 loyalty-program-field", showLoyaltyProgram),
-            properties: {
-              variant: "switch",
-              alignment: "horizontal",
-              colspan: 12,
+            appliedCssClassNames: "col-6",
+            properties: { colspan: 6 },
+          }] : []),
+          
+          /* Legacy Communication Switches */
+          ...(showCommunicationPreferences ? [
+            {
+              id: "communicationHeading",
+              fieldType: "heading",
+              label: { value: "Communication preferences" },
+              appliedCssClassNames: "col-12 communication-heading",
             },
-          },
-          {
-            id: "communicationHeading",
-            fieldType: "heading",
-            label: { value: "Communication preferences" },
-            appliedCssClassNames: withConditionalClasses("col-12 communication-heading", showCommunicationPreferences),
-          },
-          {
-            id: "prefEmail",
-            name: "prefEmail",
-            fieldType: "checkbox",
-            label: { value: "Email" },
-            enum: ["true"],
-            type: "string",
-            properties: {
-              variant: "switch",
-              alignment: "horizontal",
-              colspan: 4,
+            {
+              id: "prefEmail",
+              name: "prefEmail",
+              fieldType: "checkbox",
+              label: { value: "Email" },
+              enum: ["true"],
+              type: "string",
+              properties: { variant: "switch", alignment: "horizontal", colspan: 4 },
             },
-            ...(showCommunicationPreferences ? {} : { appliedCssClassNames: "is-hidden" }),
-          },
-          {
-            id: "prefPhone",
-            name: "prefPhone",
-            fieldType: "checkbox",
-            label: { value: "Phone" },
-            enum: ["true"],
-            type: "string",
-            properties: {
-              variant: "switch",
-              alignment: "horizontal",
-              colspan: 4,
+            {
+              id: "prefPhone",
+              name: "prefPhone",
+              fieldType: "checkbox",
+              label: { value: "Phone" },
+              enum: ["true"],
+              type: "string",
+              properties: { variant: "switch", alignment: "horizontal", colspan: 4 },
             },
-            ...(showCommunicationPreferences ? {} : { appliedCssClassNames: "is-hidden" }),
-          },
-          {
-            id: "prefSms",
-            name: "prefSms",
-            fieldType: "checkbox",
-            label: { value: "SMS" },
-            enum: ["true"],
-            type: "string",
-            properties: {
-              variant: "switch",
-              alignment: "horizontal",
-              colspan: 4,
+            {
+              id: "prefSms",
+              name: "prefSms",
+              fieldType: "checkbox",
+              label: { value: "SMS" },
+              enum: ["true"],
+              type: "string",
+              properties: { variant: "switch", alignment: "horizontal", colspan: 4 },
             },
-            ...(showCommunicationPreferences ? {} : { appliedCssClassNames: "is-hidden" }),
-          },
-          {
-            id: "prefWhatsapp",
-            name: "prefWhatsapp",
-            fieldType: "checkbox",
-            label: { value: "WhatsApp" },
-            enum: ["true"],
-            type: "string",
-            properties: {
-              variant: "switch",
-              alignment: "horizontal",
-              colspan: 4,
-            },
-            ...(showCommunicationPreferences ? {} : { appliedCssClassNames: "is-hidden" }),
-          },
+            {
+              id: "prefWhatsapp",
+              name: "prefWhatsapp",
+              fieldType: "checkbox",
+              label: { value: "WhatsApp" },
+              enum: ["true"],
+              type: "string",
+              properties: { variant: "switch", alignment: "horizontal", colspan: 4 },
+            }
+          ] : []),
+          
           {
             id: "heading-know-you-better",
             fieldType: "heading",
@@ -267,6 +257,28 @@ function buildCreateAccountFormDef(config = {}) {
             appliedCssClassNames: "frescopa-machine-field",
           }] : []),
           {
+            id: "privacyPolicy",
+            name: "privacyPolicy",
+            fieldType: "checkbox",
+            label: { value: "I have read and understand the Privacy and Cookies Policy" },
+            enum: ["true"],
+            type: "string",
+            appliedCssClassNames: withConditionalClasses("col-12", showPrivacyPolicy),
+            properties: { colspan: 12 },
+          },
+          {
+            id: "joinLoyaltyProgram",
+            name: "joinLoyaltyProgram",
+            fieldType: "checkbox",
+            label: { value: "I want to join loyalty program" },
+            enum: ["true"],
+            type: "string",
+            appliedCssClassNames: withConditionalClasses("col-12 loyalty-program-field", showLoyaltyProgram),
+            properties: isHallibyVariant 
+              ? { colspan: 12 } /* Plain checkbox mapping */
+              : { variant: "switch", alignment: "horizontal", colspan: 12 }, /* Legacy toggle mapping */
+          },
+          {
             id: "submit-btn",
             name: "submitButton",
             fieldType: "button",
@@ -302,10 +314,21 @@ export default async function decorate(block) {
     applyButtonConfigToSubmitButton(block, config);
     prePopulateFormFromDataLayer(block);
     attachCreateAccountSubmitHandler(block, config);
+    
     const form = block.querySelector("form");
     if (form) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
       attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
+      
+      // Dynamic Logo Injection for Halliby Variant
+      const hasLogo = config.logoImageCa ?? config['logo-image-ca'];
+      const logoAlt = config.logoImageAltCa ?? config['logo-image-alt-ca'];
+      if (hasLogo) {
+        const logoDiv = document.createElement('div');
+        logoDiv.className = 'create-account-logo col-12';
+        logoDiv.innerHTML = `<img src="${hasLogo}" alt="${logoAlt || 'Logo'}" />`;
+        block.insertAdjacentElement('afterbegin', logoDiv);
+      }
     }
 
     // Individual preference switches — ON by default
@@ -356,9 +379,9 @@ function attachCreateAccountSubmitHandler(block, config) {
         const registrationData = {
           ...formData,
           communicationPreferences: {
-            email: formData.prefEmail === "true" ? "y" : "n",
-            phone: formData.prefPhone === "true" ? "y" : "n",
-            sms: formData.prefSms === "true" ? "y" : "n",
+            email: (formData.prefEmail === "true") ? "y" : "n",
+            phone: (formData.prefPhone === "true") ? "y" : "n",
+            sms: (formData.prefSms === "true") ? "y" : "n",
             whatsapp: formData.prefWhatsapp === "true" ? "y" : "n",
           },
           registeredAt: new Date().toISOString(),

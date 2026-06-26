@@ -573,7 +573,8 @@ function handleSignOut(langCode) {
 function usesLumaStyleHeader() {
   return document.body.classList.contains('luma-theme')
     || document.body.classList.contains('citi-signal-theme')
-    || document.body.classList.contains('frescopa-theme');
+    || document.body.classList.contains('frescopa-theme')
+    || document.body.classList.contains('halliby-theme');
 }
 
 function addLumaCartIcon(container, langCode) {
