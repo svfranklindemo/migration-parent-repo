@@ -92,8 +92,8 @@ function buildBinjiWizardFormDef(config = {}) {
 
     // Address (conditional)
     { id: 'address', name: 'streetAddress', fieldType: 'text-input', label: { value: 'Address' },   autoComplete: 'street-address', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-12', showAddress) },
-    { id: 'zipCode', name: 'zipCode',       fieldType: 'text-input', label: { value: 'ZIP code' },  autoComplete: 'postal-code',     properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', showAddress) },
-    { id: 'city',    name: 'city',          fieldType: 'text-input', label: { value: 'City' },       autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', showAddress) },
+    { id: 'zipCode', name: 'zipCode',       fieldType: 'text-input', label: { value: 'ZIP code' },   autoComplete: 'postal-code',     properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', showAddress) },
+    { id: 'city',    name: 'city',          fieldType: 'text-input', label: { value: 'City' },        autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', showAddress) },
 
     // Date of birth (conditional)
     { id: 'dateOfBirth', name: 'dateOfBirth', fieldType: 'text-input', label: { value: 'Date of birth (YYYY-MM-DD)' }, placeholder: 'YYYY-MM-DD', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-12', showDateOfBirth) },
@@ -151,7 +151,7 @@ function buildBinjiWizardFormDef(config = {}) {
 }
 
 // ============================================================
-//  STANDARD CREATE-ACCOUNT FORM DEFINITION  (unchanged logic)
+//  STANDARD CREATE-ACCOUNT FORM DEFINITION
 // ============================================================
 function buildCreateAccountFormDef(config = {}) {
   const variant = normalizeVariant(config.variant);
@@ -161,19 +161,22 @@ function buildCreateAccountFormDef(config = {}) {
     return buildBinjiWizardFormDef(config);
   }
 
-  const isLumaVariant    = variant === 'luma';
+  const isLumaVariant     = variant === 'luma';
   const isFrescopaVariant = variant === 'frescopa' || document.body.classList.contains('frescopa-theme');
   const isWkndFlyVariant  = variant === 'wknd-fly';
+  const isHallibyVariant  = variant === 'halliby' || document.body.classList.contains('halliby-theme');
 
   const isWizard                   = normalizeVariant(config['form-layout']) === 'wizard';
   const showCreditCard             = isTruthy(config.showcreditcard);
   const showLoyaltyProgram         = isTruthy(config.showloyaltyprogram);
+  const showPrivacyPolicy          = isTruthy(config.showprivacypolicy);
   const showCommunicationPreferences = config.showcommunicationpreferences !== undefined
     ? isTruthy(config.showcommunicationpreferences) : true;
   const showAddress                = config.showaddress !== undefined
     ? isTruthy(config.showaddress) : true;
   const showDateOfBirth            = config.showdateofbirth !== undefined
     ? isTruthy(config.showdateofbirth) : true;
+  const formHeading                = config.createaccounttitle;
 
   const shoeSizes      = ['', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
   const shirtSizes     = ['', 's', 'm', 'l', 'xl', 'xxl'];
@@ -181,25 +184,40 @@ function buildCreateAccountFormDef(config = {}) {
 
   // Shared Core Fields
   const coreFieldsPart1 = [
-    { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name'      }, properties: { colspan: 6  }, appliedCssClassNames: 'col-6' },
-    { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'       }, properties: { colspan: 6  }, appliedCssClassNames: 'col-6' },
-    { id: 'email',     name: 'email',     fieldType: 'text-input', label: { value: 'Email address'   }, autoComplete: 'email', properties: { colspan: isFrescopaVariant ? 6 : 12 }, appliedCssClassNames: isFrescopaVariant ? 'col-6' : 'col-12' },
-    { id: 'phone',     name: 'phone',     fieldType: 'text-input', label: { value: 'Phone number'    }, autoComplete: 'tel',   properties: { colspan: isFrescopaVariant ? 6 : 12 }, appliedCssClassNames: isFrescopaVariant ? 'col-6' : 'col-12' },
+    { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name'       }, properties: { colspan: 6  }, appliedCssClassNames: 'col-6' },
+    { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'        }, properties: { colspan: 6  }, appliedCssClassNames: 'col-6' },
+    { id: 'email',     name: 'email',     fieldType: 'text-input', label: { value: 'Email address'    }, autoComplete: 'email', properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 }, appliedCssClassNames: (isFrescopaVariant || isHallibyVariant) ? 'col-6' : 'col-12' },
+    { id: 'phone',     name: 'phone',     fieldType: 'text-input', label: { value: 'Phone number'     }, autoComplete: 'tel',   properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 }, appliedCssClassNames: (isFrescopaVariant || isHallibyVariant) ? 'col-6' : 'col-12' },
     ...(isWkndFlyVariant ? [{ id: 'wkndFlyMember', name: 'wkndFlyMember', fieldType: 'drop-down', label: { value: 'WKND Fly Member' }, enum: ['', 'member', 'non-member'], enumNames: ['Select...', 'Member', 'Non-member'], type: 'string', properties: { colspan: 12 }, appliedCssClassNames: 'col-12' }] : []),
   ];
 
   const coreFieldsPart2 = [
-    { id: 'address',     name: 'streetAddress', fieldType: 'text-input', label: { value: 'Address'                   }, autoComplete: 'street-address', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('col-12', showAddress) },
-    { id: 'zipCode',     name: 'zipCode',       fieldType: 'text-input', label: { value: 'ZIP code'                  }, autoComplete: 'postal-code',     properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('col-6',  showAddress) },
-    { id: 'city',        name: 'city',          fieldType: 'text-input', label: { value: 'City'                      }, autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('col-6',  showAddress) },
-    { id: 'dateOfBirth', name: 'dateOfBirth',   fieldType: 'text-input', label: { value: 'Date of birth (YYYY-MM-DD)'}, placeholder: 'YYYY-MM-DD',       properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('col-12', showDateOfBirth) },
-    { id: 'joinLoyaltyProgram', name: 'joinLoyaltyProgram', fieldType: 'checkbox', label: { value: 'I want to join loyalty program' }, enum: ['true'], type: 'string', appliedCssClassNames: withConditionalClasses('col-12 switch loyalty-program-field', showLoyaltyProgram), properties: { variant: 'switch', alignment: 'horizontal', colspan: 12 } },
+    { id: 'address',     name: 'streetAddress', fieldType: 'text-input', label: { value: 'Address'                    }, autoComplete: 'street-address', properties: { colspan: isHallibyVariant ? 6 : 12 }, appliedCssClassNames: withConditionalClasses(isHallibyVariant ? 'col-6' : 'col-12', showAddress) },
+    { id: 'zipCode',     name: 'zipCode',       fieldType: 'text-input', label: { value: 'ZIP code'                   }, autoComplete: 'postal-code',     properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('col-6',  showAddress) },
+    { id: 'city',        name: 'city',          fieldType: 'text-input', label: { value: 'City'                       }, autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('col-6',  showAddress) },
+    { id: 'dateOfBirth', name: 'dateOfBirth',   fieldType: 'text-input', label: { value: isHallibyVariant ? "Birth day and month (MM-DD)" : "Date of birth (YYYY-MM-DD)"}, placeholder: isHallibyVariant ? "12-31" : 'YYYY-MM-DD',        properties: { colspan: isHallibyVariant ? 6 : 12 }, appliedCssClassNames: withConditionalClasses(isHallibyVariant ? 'col-6' : 'col-12', showDateOfBirth) },
+    
+    /* Halliby Specific Dietary Dropdown */
+    ...(isHallibyVariant ? [{
+      id: "dietaryRestrictions",
+      name: "dietaryRestrictions",
+      fieldType: "drop-down",
+      label: { value: "Dietary restrictions" },
+      enum: ["none", "no-gluten", "no-dairy", "no-nuts", "no-soy", "vegetarian"],
+      enumNames: ["I have none", "No gluten", "No dairy", "No nuts", "No soy", "Vegetarian"],
+      type: "string",
+      appliedCssClassNames: "col-6",
+      properties: { colspan: 6 },
+    }] : []),
+
+    { id: 'privacyPolicy', name: 'privacyPolicy', fieldType: 'checkbox', label: { value: 'I have read and understand the Privacy and Cookies Policy' }, enum: ['true'], type: 'string', appliedCssClassNames: withConditionalClasses('col-12', showPrivacyPolicy), properties: { colspan: 12 } },
+    { id: 'joinLoyaltyProgram', name: 'joinLoyaltyProgram', fieldType: 'checkbox', label: { value: 'I want to join loyalty program' }, enum: ['true'], type: 'string', appliedCssClassNames: withConditionalClasses('col-12 loyalty-program-field', showLoyaltyProgram), properties: isHallibyVariant ? { colspan: 12 } : { variant: 'switch', alignment: 'horizontal', colspan: 12 } },
   ];
 
   const brandFields = [
     { id: 'heading-know-you-better', fieldType: 'heading', label: { value: 'LET US KNOW YOU BETTER' }, appliedCssClassNames: withConditionalClasses('col-12 know-you-better-heading', isLumaVariant) },
-    { id: 'shoeSize',     name: 'shoeSize',     fieldType: 'drop-down', label: { value: 'Shoe size'      }, enum: shoeSizes,      enumNames: ['Select...', ...shoeSizes.slice(1)],                                appliedCssClassNames: withConditionalClasses('col-6 luma-preference-field',  isLumaVariant), properties: { colspan: 6  } },
-    { id: 'shirtSize',    name: 'shirtSize',    fieldType: 'drop-down', label: { value: 'Shirt size'     }, enum: shirtSizes,     enumNames: ['Select...', 'S', 'M', 'L', 'XL', 'XXL'],                         appliedCssClassNames: withConditionalClasses('col-6 luma-preference-field',  isLumaVariant), properties: { colspan: 6  } },
+    { id: 'shoeSize',     name: 'shoeSize',     fieldType: 'drop-down', label: { value: 'Shoe size'      }, enum: shoeSizes,      enumNames: ['Select...', ...shoeSizes.slice(1)],                               appliedCssClassNames: withConditionalClasses('col-6 luma-preference-field',  isLumaVariant), properties: { colspan: 6  } },
+    { id: 'shirtSize',    name: 'shirtSize',    fieldType: 'drop-down', label: { value: 'Shirt size'     }, enum: shirtSizes,     enumNames: ['Select...', 'S', 'M', 'L', 'XL', 'XXL'],                          appliedCssClassNames: withConditionalClasses('col-6 luma-preference-field',  isLumaVariant), properties: { colspan: 6  } },
     { id: 'favoriteColor',name: 'favoriteColor',fieldType: 'drop-down', label: { value: 'Favorite color' }, enum: favoriteColors, enumNames: ['Select...', 'Black', 'Blue', 'Green', 'Orange', 'Pink', 'Purple', 'Red', 'White', 'Yellow'], appliedCssClassNames: withConditionalClasses('col-12 luma-preference-field', isLumaVariant), properties: { colspan: 12 } },
     ...(isFrescopaVariant ? [{ id: 'frescopaOwner', name: 'frescopaOwner', fieldType: 'drop-down', label: { value: 'Do you already have a Frescopa machine?' }, placeholder: 'Do you already have a Frescopa machine?', enum: ['yes', 'no'], enumNames: ['Yes', 'No'], type: 'string', properties: { colspan: 12 }, appliedCssClassNames: 'col-12 frescopa-machine-field' }] : []),
   ];
@@ -207,7 +225,7 @@ function buildCreateAccountFormDef(config = {}) {
   const creditCardFields = [
     { id: 'cc-section-title', fieldType: 'heading',    label: { value: 'Payment Information'  }, appliedCssClassNames: 'col-12 form-step-title' },
     { id: 'cardName',   name: 'cardName',   fieldType: 'text-input', label: { value: 'NAME ON CARD'    }, properties: { colspan: 12 }, appliedCssClassNames: 'col-12' },
-    { id: 'cardNumber', name: 'cardNumber', fieldType: 'text-input', label: { value: 'CARD NUMBER'     }, properties: { colspan: 12 }, appliedCssClassNames: 'col-12' },
+    { id: 'cardNumber', name: 'cardNumber', fieldType: 'text-input', label: { value: 'CARD NUMBER'      }, properties: { colspan: 12 }, appliedCssClassNames: 'col-12' },
     { id: 'cardExpiry', name: 'cardExpiry', fieldType: 'text-input', label: { value: 'EXPIRATION DATE' }, placeholder: 'MM/YY',  properties: { colspan: 6 }, appliedCssClassNames: 'col-6' },
     { id: 'cardCvv',    name: 'cardCvv',    fieldType: 'text-input', label: { value: 'SECURITY CODE'   }, placeholder: 'CVV',    properties: { colspan: 6 }, appliedCssClassNames: 'col-6' },
     { id: 'trialConsent', name: 'trialConsent', fieldType: 'checkbox', label: { value: "I want to start with a free 30 days trial. I won't be charged for my first month of use." }, properties: { variant: 'switch', colspan: 12 }, appliedCssClassNames: 'col-12 switch' },
@@ -223,7 +241,7 @@ function buildCreateAccountFormDef(config = {}) {
       id: 'step-1', name: 'step1', fieldType: 'panel',
       items: [
         { id: 'step-1-ind',   fieldType: 'heading', label: { value: 'STEP 1' }, appliedCssClassNames: 'wizard-step-indicator col-12' },
-        { id: 'step-1-title', fieldType: 'heading', label: { value: 'Enter your details' }, appliedCssClassNames: 'wizard-step-title col-12' },
+        { id: 'step-1-title', fieldType: 'heading', label: { value: formHeading || 'Enter your details' }, appliedCssClassNames: 'wizard-step-title col-12' },
         ...coreFieldsPart1,
         ...coreFieldsPart2,
         { id: 'marketingConsent', name: 'marketingConsent', fieldType: 'checkbox', label: { value: 'Yes, I would like to receive special offers and updates by email.' }, properties: { variant: 'switch', colspan: 12 }, appliedCssClassNames: withConditionalClasses('col-12 switch', showCommunicationPreferences) },
@@ -260,7 +278,7 @@ function buildCreateAccountFormDef(config = {}) {
     return {
       id: 'create-account', fieldType: 'form', appliedCssClassNames: 'create-account-form',
       items: [
-        { id: 'heading-create-account', fieldType: 'heading', label: { value: 'Create an account' }, appliedCssClassNames: 'col-12' },
+        { id: 'heading-create-account', fieldType: 'heading', label: { value: formHeading || 'Create an account' }, appliedCssClassNames: 'col-12' },
         {
           id: 'panel-main', name: 'main', fieldType: 'panel',
           items: [
@@ -380,6 +398,196 @@ function attachBinjiSubmitHandler(block, config) {
 }
 
 // ============================================================
+//  SUBMIT HANDLER (standard create account)
+// ============================================================
+function attachCreateAccountSubmitHandler(block, config) {
+  const form = block.querySelector('form');
+  if (!form) return;
+
+  const variant = normalizeVariant(config.variant);
+  const isWkndFlyVariant = variant === 'wknd-fly';
+  const redirectUrl = config.redirecturl || config.redirectUrl;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = {};
+    form.querySelectorAll('input, select, textarea').forEach((el) => {
+      const name = el.getAttribute('name');
+      if (name) formData[name] = el.type === 'checkbox' ? (el.checked ? "true" : "false") : el.value;
+    });
+
+    const dobValue = String(formData.dateOfBirth || "").trim();
+    if (dobValue && !/^\d{4}-\d{2}-\d{2}$/.test(dobValue) && !document.body.classList.contains('halliby-theme') && variant !== 'halliby') {
+      const dobField = form.querySelector('[name="dateOfBirth"]');
+      dobField?.classList.add("error");
+      return;
+    } else {
+      const dobField = form.querySelector('[name="dateOfBirth"]');
+      dobField?.classList.remove("error");
+    }
+
+    try {
+      const registrationData = {
+        ...formData,
+        communicationPreferences: {
+          email: (formData.prefEmail === "true") ? "y" : "n",
+          phone: (formData.prefPhone === "true") ? "y" : "n",
+          sms: (formData.prefSms === "true") ? "y" : "n",
+          whatsapp: formData.prefWhatsapp === "true" ? "y" : "n",
+        },
+        registeredAt: new Date().toISOString(),
+        userId: generateUserId(),
+      };
+
+      localStorage.setItem(
+        "com.adobe.reactor.dataElements.Identities",
+        JSON.stringify({
+          Email: [
+            {
+              id: formData.email,
+              primary: true,
+              authenticatedState: "authenticated",
+            },
+          ],
+        })
+      );
+
+      sessionStorage.setItem(
+        "com.adobe.reactor.dataElements.Identity Map",
+        JSON.stringify({
+          Email: [
+            {
+              id: formData.email,
+              primary: true,
+              authenticatedState: "authenticated",
+            },
+          ],
+        })
+      );
+
+      if (registrationData.email) {
+        try {
+          localStorage.setItem("com.adobe.reactor.dataElements.Profile - Email", registrationData.email);
+          if (typeof window._satellite !== "undefined" && typeof window._satellite.setVar === "function") {
+            window._satellite.setVar("Profile - Email", registrationData.email);
+          }
+        } catch (e) {
+          // ignore storage errors
+        }
+      }
+
+      localStorage.setItem("project_registered_user", JSON.stringify(registrationData));
+
+      if (window.dataLayer?.projectName === 'luma3') {
+        window.dataLayer.createAccountConsent = true;
+      }
+
+      if (isWkndFlyVariant && typeof window.updateDataLayer === "function") {
+        const isMember = (formData.wkndFlyMember || "").toLowerCase() === "member" ? "y" : "n";
+        window.updateDataLayer({
+          person: {
+            wkndFlyMember: formData.wkndFlyMember || "",
+            isMember: isMember === "y",
+          },
+          _demosystem4: {
+            identification: {
+              core: {
+                email: formData.email || null,
+                isMember,
+              },
+            },
+          },
+        });
+      }
+
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+      clearProductObject();
+
+      const submitBtn = form.querySelector("button[type='submit']");
+      const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
+      if (buttonDataUrl && typeof window.updateDataLayer === 'function') {
+        const sheetData = await fetchButtonDataSheet(buttonDataUrl);
+        if (sheetData) window.updateDataLayer(sheetData);
+      }
+      const authoredEventType = submitBtn?.dataset?.buttonEventType?.trim();
+      if (authoredEventType) dispatchCustomEvent(authoredEventType);
+
+      const webhookUrl = submitBtn?.dataset?.buttonWebhookUrl?.trim();
+      const formId = submitBtn?.dataset?.buttonFormId?.trim();
+      if (webhookUrl) await submitToWebhook(form, webhookUrl, formId);
+
+      showSuccessMessage(form, "Account created successfully! Redirecting...");
+
+      const redirectTo = normalizeAemPath(redirectUrl);
+      if (redirectTo) setTimeout(() => { window.location.href = redirectTo; }, 2000);
+    } catch (error) {
+      console.error("Create account error:", error);
+      showErrorMessage(form, "Account creation failed. Please try again.");
+    }
+  });
+}
+
+function generateUserId() {
+  return `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+}
+
+function showSuccessMessage(form, message) {
+  const existingMessages = form.querySelectorAll(".form-message");
+  existingMessages.forEach((msg) => msg.remove());
+
+  const messageEl = document.createElement("div");
+  messageEl.className = "form-message success";
+  messageEl.textContent = message;
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  if (submitButton) {
+    submitButton.parentNode.insertBefore(messageEl, submitButton);
+    submitButton.disabled = true;
+  } else {
+    form.appendChild(messageEl);
+  }
+}
+
+function showErrorMessage(form, message) {
+  const existingMessages = form.querySelectorAll(".form-message");
+  existingMessages.forEach((msg) => msg.remove());
+
+  const messageEl = document.createElement("div");
+  messageEl.className = "form-message error";
+  messageEl.textContent = message;
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  if (submitButton) {
+    submitButton.parentNode.insertBefore(messageEl, submitButton);
+  } else {
+    form.appendChild(messageEl);
+  }
+}
+
+function prePopulateFormFromDataLayer(block) {
+  if (!window.dataLayer) return;
+
+  const form = block.querySelector("form");
+  if (!form) return;
+
+  const getNestedProperty = (obj, path) => path.split(".").reduce((current, prop) => current?.[prop], obj);
+
+  Object.entries(DEFAULT_FORM_FIELD_MAP).forEach(([fieldName, path]) => {
+    const value = getNestedProperty(window.dataLayer, path);
+    if (value === undefined || value === null || value === "") return;
+
+    const field = form.querySelector(`[name="${fieldName}"]`);
+    if (!field) return;
+
+    if (field.type === "checkbox") {
+      field.checked = value === true || value === "true" || value === "y";
+    } else {
+      field.value = value;
+    }
+  });
+}
+
+// ============================================================
 //  DECORATE
 // ============================================================
 export default async function decorate(block) {
@@ -419,6 +627,16 @@ export default async function decorate(block) {
     if (form) {
       syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
       if (!isBinjiWizard) attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
+      
+      // Dynamic Logo Injection for Halliby Variant
+      const hasLogo = config.logoImageCa ?? config['logo-image-ca'];
+      const logoAlt = config.logoImageAltCa ?? config['logo-image-alt-ca'];
+      if (hasLogo) {
+        const logoDiv = document.createElement('div');
+        logoDiv.className = 'create-account-logo col-12';
+        logoDiv.innerHTML = `<img src="${hasLogo}" alt="${logoAlt || 'Logo'}" />`;
+        block.insertAdjacentElement('afterbegin', logoDiv);
+      }
     }
 
     // Pre-check communication prefs for non-binji flat form

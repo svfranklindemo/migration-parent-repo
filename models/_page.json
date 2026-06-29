@@ -106,6 +106,10 @@
           {
             "name": "Binji Theme",
             "value": "binji-theme"
+          },
+          {
+            "name": "Halliby Theme",
+            "value": "halliby-theme"
           }
         ]
       },
