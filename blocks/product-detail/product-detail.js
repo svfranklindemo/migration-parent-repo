@@ -9,6 +9,9 @@ const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobei
 const PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY = "productDescriptionByPathAndSKU";
 const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
 const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
+const PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY_BINJI = "productDescriptionByPathAndSKUBodea";
+const PUBLISH_PRODUCTS_ENDPOINT_KEY_BINJI = "productListByPathBodea";
+
 let productDetailAuthorBasePromise;
 let productDetailPublishEnvironmentPromise;
 
@@ -70,9 +73,10 @@ function toHyphenId(text) {
  * @param {string} path - Content fragment folder path
  * @param {string} sku - Product SKU
  * @param {boolean} isAuthor - Is author environment
+ * @param {string} modelType - Defines which endpoint to hit
  * @returns {Promise<Object|null>} - Product data
  */
-async function fetchProductDetail(path, sku, isAuthor) {
+async function fetchProductDetail(path, sku, isAuthor, modelType = "default") {
   try {
     if (!path || !sku) {
       // eslint-disable-next-line no-console
@@ -82,9 +86,16 @@ async function fetchProductDetail(path, sku, isAuthor) {
     const skuItem = isAuthor ? `;sku=${sku}` : `&sku=${sku}`;
     const authorBase = await getProductDetailAuthorBase();
     const environment = await getProductDetailPublishEnvironment();
-    const url = isAuthor
+    
+    // Swap endpoint based on the modelTyKpe
+    let url = isAuthor
       ? `${authorBase}${AUTHOR_PRODUCT_DETAIL_ENDPOINT}_path=${path}${skuItem}`
       : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path};sku=${sku}`;
+
+    if (modelType === 'video') {
+      url = url.replaceAll(PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY, PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY_BINJI)?.replaceAll('sku', 'id');
+    }
+
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -93,7 +104,7 @@ async function fetchProductDetail(path, sku, isAuthor) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.productModelList?.items || [];
+    const items = json?.data?.productModelList?.items ?? json?.data?.binjiProductModelList?.items ?? [];
     return items.length > 0 ? items[0] : null;
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -108,16 +119,22 @@ async function fetchProductDetail(path, sku, isAuthor) {
  * @param {boolean} isAuthor - Is author environment
  * @returns {Promise<Array>} - Array of products
  */
-async function fetchAllProducts(path, isAuthor) {
+async function fetchAllProducts(path, isAuthor, modelType = 'default') {
   try {
     if (!path) {
       return [];
     }
     const authorBase = await getProductDetailAuthorBase();
     const environment = await getProductDetailPublishEnvironment();
-    const url = isAuthor
+
+    let url = isAuthor
       ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
       : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
+
+    if (modelType === 'video') {
+      url = url.replaceAll(PUBLISH_PRODUCTS_ENDPOINT_KEY, PUBLISH_PRODUCTS_ENDPOINT_KEY_BINJI);
+    }
+
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -216,6 +233,7 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
  * Build product detail view
  * @param {Object} product - Product data
  * @param {boolean} isAuthor - Is author environment
+ * @param {Object} eventConfig - Configuration object including modelType
  * @returns {HTMLElement} - Product detail container
  */
 function buildProductDetail(product, isAuthor, eventConfig = {}) {
@@ -227,7 +245,15 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     damImageURL = {},
     sku,
     id,
+    video,
+    poster = {},
+    cast,
+    age,
+    image
   } = product;
+  
+  const modelType = eventConfig.modelType || 'default';
+  
   const isPlansCategory = (category || [])
     .map((catValue) => normalizeCategoryValue(catValue).toLowerCase().trim())
     .some((catValue) => catValue === "plans" || catValue.endsWith("/plans"));
@@ -263,12 +289,43 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
 
   const container = document.createElement("div");
   container.className = "pd-container";
+  if (modelType === 'video') container.classList.add("pd-video-layout");
 
-  // Image section
+  // Image / Video section
   const imageSection = document.createElement("div");
   imageSection.className = "pd-image";
 
-  if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
+  if (modelType === 'video') {
+    // 1. Render Image (above video, hidden by default via CSS)
+    if (image && (image._dynamicUrl || image._publishUrl || image._authorUrl)) {
+      const pictureWrapper = document.createElement("div");
+      pictureWrapper.className = "pd-video-image-wrapper";
+      const picture = createLumaProductImagePicture(image, name || "Product image", {
+        isAuthor,
+        eager: true,
+      });
+      if (picture) pictureWrapper.appendChild(picture);
+      imageSection.appendChild(pictureWrapper);
+    }
+
+    // 2. Render Video
+    if (video) {
+      const videoEl = document.createElement("video");
+      videoEl.controls = true;
+      videoEl.className = "pd-video-player";
+      
+      const posterUrl = isAuthor ? poster._authorUrl : poster._publishUrl;
+      if (posterUrl) videoEl.poster = posterUrl;
+      
+      const source = document.createElement("source");
+      source.src = video;
+      source.type = "video/mp4"; 
+      
+      videoEl.appendChild(source);
+      imageSection.appendChild(videoEl);
+    }
+  } else if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
+    // Standard commerce image rendering
     const picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
       isAuthor,
       eager: true,
@@ -280,33 +337,71 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   const contentSection = document.createElement("div");
   contentSection.className = "pd-content";
 
-  // Category
-  if (category && category.length > 0) {
-    const categoryText = category
-      .map(
-        (catValue) =>
-          normalizeCategoryValue(catValue)
-            .replace(/\//g, " / ") // Replace slashes with /
-      )
-      .join(" / ");
-    const categoryEl = document.createElement("p");
-    categoryEl.className = "pd-category";
-    categoryEl.textContent = categoryText;
-    contentSection.appendChild(categoryEl);
-  }
+  // BINJI SPECIFIC: Meta Row (Category, Rating, Age)
+  if (modelType === 'video') {
+    const nameEl = document.createElement("h1");
+    nameEl.className = "pd-name";
+    nameEl.textContent = name || "";
+    contentSection.appendChild(nameEl);
 
-  // Name
-  const nameEl = document.createElement("h1");
-  nameEl.className = "pd-name";
-  nameEl.textContent = name || "";
-  contentSection.appendChild(nameEl);
+    const metaRow = document.createElement("div");
+    metaRow.className = "pd-video-meta";
+    
+    if (category && category.length > 0) {
+      const catEl = document.createElement("span");
+      catEl.className = "pd-video-category-tag";
+      catEl.textContent = category?.map(cat => normalizeCategoryValue(cat))?.join('/');
+      metaRow.appendChild(catEl);
+    }
 
-  // Price
-  if (price) {
-    const priceEl = document.createElement("p");
-    priceEl.className = "pd-price";
-    priceEl.textContent = `$${price}`;
-    contentSection.appendChild(priceEl);
+    const ratingEl = document.createElement("div");
+    ratingEl.className = "pd-video-rating Rating__content";
+    ratingEl.innerHTML = `<span class="filled-stars">★ ★ ★ ★</span> <span class="empty-stars">★</span>`;
+    metaRow.appendChild(ratingEl);
+
+    if (age) {
+      const ageEl = document.createElement("span");
+      ageEl.className = "pd-video-age";
+      ageEl.textContent = age;
+      metaRow.appendChild(ageEl);
+    }
+    
+    contentSection.appendChild(metaRow);
+
+    if (cast) {
+      const castEl = document.createElement("p");
+      castEl.className = "pd-cast";
+      castEl.innerHTML = `<span>Cast:</span> ${cast}`;
+      contentSection.appendChild(castEl);
+    }
+
+  } else {
+    // STANDARD COMMERCE
+    if (category && category.length > 0) {
+      const categoryText = category
+        .map(
+          (catValue) =>
+            normalizeCategoryValue(catValue)
+              .replace(/\//g, " / ") 
+        )
+        .join(" / ");
+      const categoryEl = document.createElement("p");
+      categoryEl.className = "pd-category";
+      categoryEl.textContent = categoryText;
+      contentSection.appendChild(categoryEl);
+    }
+
+    const nameEl = document.createElement("h1");
+    nameEl.className = "pd-name";
+    nameEl.textContent = name || "";
+    contentSection.appendChild(nameEl);
+
+    if (price) {
+      const priceEl = document.createElement("p");
+      priceEl.className = "pd-price";
+      priceEl.textContent = `$${price}`;
+      contentSection.appendChild(priceEl);
+    }
   }
 
   const isHallibyTheme = document.body.classList.contains("halliby-theme");
@@ -418,73 +513,74 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   
 
   // Action buttons
+  if (modelType !== 'video') {
+    const actionsEl = document.createElement("div");
+    actionsEl.className = "pd-actions";
+    
+    // Add to Cart button (conditionally rendered)
+    if (eventConfig.showAddToCartButton !== false) {
+      const addToCartBtn = document.createElement("button");
+      addToCartBtn.className = "pd-btn pd-btn-primary";
+      addToCartBtn.textContent = "Add to Cart";
+      addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
+      addToCartBtn.addEventListener("click", () => {
+        const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+        const formattedCategory =
+          category.length > 0
+            ? category
+                .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+                .join(", ")
+            : "";
 
-  const actionsEl = document.createElement("div");
-  actionsEl.className = "pd-actions";
+        window.addToCart({
+          id: id || sku || "",
+          name: name || "",
+          image: cartImageUrl || "",
+          thumbnail: cartImageUrl || "",
+          category: formattedCategory,
+          description: description?.html || description?.markdown || "",
+          price: price || 0,
+          quantity: 1,
+        });
+        if (eventConfig.addToCart) {
+          dispatchCustomEvent(eventConfig.addToCart);
+        }
 
-  // Add to Cart button (conditionally rendered)
-  if (eventConfig.showAddToCartButton !== false) {
-    const addToCartBtn = document.createElement("button");
-    addToCartBtn.className = "pd-btn pd-btn-primary";
-    addToCartBtn.textContent = "Add to Cart";
-    addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
-    addToCartBtn.addEventListener("click", () => {
-      const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
-      const formattedCategory =
-        category.length > 0
-          ? category
-              .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
-              .join(", ")
-          : "";
-
-      window.addToCart({
-        id: id || sku || "",
-        name: name || "",
-        image: cartImageUrl || "",
-        thumbnail: cartImageUrl || "",
-        category: formattedCategory,
-        description: description?.html || description?.markdown || "",
-        price: price || 0,
-        quantity: 1,
+        // Show visual feedback
+        addToCartBtn.textContent = "Added to Cart ✓";
+        setTimeout(() => {
+          addToCartBtn.textContent = "Add to Cart";
+        }, 2000);
       });
-      if (eventConfig.addToCart) {
-        dispatchCustomEvent(eventConfig.addToCart);
-      }
+      actionsEl.append(addToCartBtn);
+    }
 
-      // Show visual feedback
-      addToCartBtn.textContent = "Added to Cart ✓";
-      setTimeout(() => {
-        addToCartBtn.textContent = "Add to Cart";
-      }, 2000);
-    });
-    actionsEl.append(addToCartBtn);
+    if (isPlansCategory) {
+      const selectDeviceBtn = document.createElement("button");
+      selectDeviceBtn.className = "pd-btn pd-btn-secondary";
+      selectDeviceBtn.textContent = "Select a device";
+      selectDeviceBtn.setAttribute("aria-label", "Select a device");
+      selectDeviceBtn.addEventListener("click", () => {
+        window.location.href = "/en/phones";
+      });
+      actionsEl.append(selectDeviceBtn);
+    }
+
+    if (eventConfig.showAddToWishlistButton) {
+      const addToWishlistBtn = document.createElement("button");
+      addToWishlistBtn.className = "pd-btn pd-btn-secondary";
+      addToWishlistBtn.textContent = "Add to Wishlist";
+      addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
+      addToWishlistBtn.addEventListener("click", () => {
+        if (eventConfig.addToWishlist) {
+          dispatchCustomEvent(eventConfig.addToWishlist);
+        }
+      });
+      actionsEl.append(addToWishlistBtn);
+    }
+
+    contentSection.appendChild(actionsEl);
   }
-
-  if (isPlansCategory) {
-    const selectDeviceBtn = document.createElement("button");
-    selectDeviceBtn.className = "pd-btn pd-btn-secondary";
-    selectDeviceBtn.textContent = "Select a device";
-    selectDeviceBtn.setAttribute("aria-label", "Select a device");
-    selectDeviceBtn.addEventListener("click", () => {
-      window.location.href = "/en/phones";
-    });
-    actionsEl.append(selectDeviceBtn);
-  }
-
-  if (eventConfig.showAddToWishlistButton) {
-    const addToWishlistBtn = document.createElement("button");
-    addToWishlistBtn.className = "pd-btn pd-btn-secondary";
-    addToWishlistBtn.textContent = "Add to Wishlist";
-    addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
-    addToWishlistBtn.addEventListener("click", () => {
-      if (eventConfig.addToWishlist) {
-        dispatchCustomEvent(eventConfig.addToWishlist);
-      }
-    });
-    actionsEl.append(addToWishlistBtn);
-  }
-
-  contentSection.appendChild(actionsEl);
 
   container.append(imageSection, contentSection);
   return container;
@@ -634,7 +730,7 @@ export default async function decorate(block) {
   const eventConfig = {
     productView: (config.productvieweventtype || config['product-view-event-type'] || '').trim(),
     addToCart: (config.addtocarteventtype || config['add-to-cart-event-type'] || '').trim(),
-    addToWishlist: (config.addtowishlisteventtype || config['add-to-wishlist-event-type'] || '').trim(),
+    addToWishlist: (config.addtoweventtype || config['add-to-wishlist-event-type'] || '').trim(),
     showAddToCartButton: (config.showaddtocartbutton === undefined && config['show-add-to-cart-button'] === undefined)
       ? true
       : isTruthy(config.showaddtocartbutton ?? config['show-add-to-cart-button']),
@@ -644,6 +740,7 @@ export default async function decorate(block) {
     showYouMayAlsoLikeSection: (config.showyoumayalsolikesection === undefined && config['show-you-may-also-like-section'] === undefined)
       ? true
       : isTruthy(config.showyoumayalsolikesection ?? config['show-you-may-also-like-section']),
+    modelType: config.productmodeltype || 'default',
     showExtras: isTruthy(config.showextras),
     extraOptions: config.extraoptions ? config.extraoptions?.split(',') : [],
     showQuantity: isTruthy(config.showquantity),
@@ -694,10 +791,11 @@ export default async function decorate(block) {
   block.appendChild(loader);
 
   // Fetch product and (optionally) recommendations source data in parallel
+  // Passes modelType into fetchProductDetail
   const [product, allProducts] = await Promise.all([
-    fetchProductDetail(folderHref, sku, isAuthor),
+    fetchProductDetail(folderHref, sku, isAuthor, eventConfig.modelType),
     eventConfig.showYouMayAlsoLikeSection
-      ? fetchAllProducts(folderHref, isAuthor)
+      ? fetchAllProducts(folderHref, isAuthor, eventConfig.modelType)
       : Promise.resolve([]),
   ]);
 

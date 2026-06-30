@@ -521,6 +521,80 @@ main .product-detail .pd-rec-card-title {
     }
 }
 
+
+/* ==========================================================================
+   Binji Video Layout Default Styles
+   ========================================================================== */
+
+/* Hide the image wrapper by default in video layout */
+main .product-detail .pd-video-layout .pd-video-image-wrapper {
+    display: none;
+}
+
+/* Ensure video player is responsive and matches base image styling */
+main .product-detail .pd-video-layout .pd-video-player {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Meta row layout */
+main .product-detail .pd-video-layout .pd-video-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 20px 0 32px;
+}
+
+/* Category Tag Pill */
+main .product-detail .pd-video-layout .pd-video-category-tag {
+    padding: 6px 16px;
+    border-radius: 24px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background: #212529;
+    color: #fff;
+    cursor: default;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Age Badge */
+main .product-detail .pd-video-layout .pd-video-age {
+    border: 2px solid #212529;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #212529;
+}
+
+/* Star Rating */
+main .product-detail .pd-video-layout .pd-video-rating {
+    font-size: 1.25rem;
+}
+
+main .product-detail .pd-video-layout .pd-video-rating .filled-stars {
+    color: #f37b2d;
+}
+
+main .product-detail .pd-video-layout .pd-video-rating .empty-stars {
+    color: #ccc;
+}
+
+/* Cast Typography (Inherits from base description styles) */
+main .product-detail .pd-video-layout .pd-cast {
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #495057;
+}
+
+main .product-detail .pd-video-layout .pd-cast strong {
+    color: #212529;
+}
 /* --------------------------------------------------------------------------
    Hero Header Banner (50/50 Split)
    -------------------------------------------------------------------------- */
