@@ -13,6 +13,7 @@
     "/content/public-bodea/configuration:/.helix/config.json",
     "/content/public-bodea/metadata:/metadata.json",
     "/content/public-bodea/redirects:/redirects.json",
+    "/content/binji/graphql:/graphql.json",
     "/content/public-bodea/placeholders:/placeholders.json"
   ],
   "includes": [
