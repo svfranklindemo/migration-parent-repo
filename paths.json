@@ -11,9 +11,8 @@
     "/content/public-bodea/language-masters/de/:/de/",
     "/content/public-bodea/language-masters/de:/de",
     "/content/public-bodea/configuration:/.helix/config.json",
-    "/content/public-bodea/metadata:/metadata.json",
+    "/content/public-bodea/graphql:/graphql.json",
     "/content/public-bodea/redirects:/redirects.json",
-    "/content/luma-site/graphql:/graphql.json",
     "/content/public-bodea/placeholders:/placeholders.json"
   ],
   "includes": [
