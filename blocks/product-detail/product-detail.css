@@ -525,6 +525,11 @@ main .product-detail .pd-rec-card-title {
    Video Layout Default Styles (Stacked Layout)
    ========================================================================== */
 
+.section.product-detail-container:has(.pd-video-layout),
+.section.product-detail-container:has(.pd-video-layout) .product-detail-wrapper {
+  max-width: unset;
+}
+
 /* Stack the main container */
 main .product-detail .pd-container.pd-video-layout {
     grid-template-columns: 1fr;
@@ -535,7 +540,7 @@ main .product-detail .pd-container.pd-video-layout {
 main .product-detail .pd-container.pd-video-layout .pd-image {
     position: static;
     min-height: 380px;
-    max-height: 720px;
+    max-height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -546,7 +551,7 @@ main .product-detail .pd-video-layout .pd-video-image-wrapper {
 }
 
 main .product-detail .pd-video-layout .pd-video-player {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: cover;
     display: block;
@@ -567,6 +572,8 @@ main .product-detail .pd-container.pd-video-layout .pd-content {
     column-gap: 24px;
     align-items: center;
     padding-top: 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 main .product-detail .pd-container.pd-video-layout .pd-name {
