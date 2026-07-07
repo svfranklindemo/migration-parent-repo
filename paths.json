@@ -1,22 +1,22 @@
 {
   "mappings": [
-    "/content/public-bodea/language-masters/en:/",
-    "/content/public-bodea/language-masters/en/:/en/",
-    "/content/public-bodea/language-masters/fr/:/fr/",
-    "/content/public-bodea/language-masters/fr:/fr",
-    "/content/public-bodea/language-masters/es/:/es/",
-    "/content/public-bodea/language-masters/es:/es",
-    "/content/public-bodea/language-masters/ja/:/ja/",
-    "/content/public-bodea/language-masters/ja:/ja",
-    "/content/public-bodea/language-masters/de/:/de/",
-    "/content/public-bodea/language-masters/de:/de",
-    "/content/public-bodea/configuration:/.helix/config.json",
-    "/content/public-bodea/graphql:/graphql.json",
-    "/content/public-bodea/redirects:/redirects.json",
-    "/content/public-bodea/placeholders:/placeholders.json"
+    "/content/luma-site/language-masters/en:/",
+    "/content/luma-site/language-masters/en/:/en/",
+    "/content/luma-site/language-masters/fr/:/fr/",
+    "/content/luma-site/language-masters/fr:/fr",
+    "/content/luma-site/language-masters/es/:/es/",
+    "/content/luma-site/language-masters/es:/es",
+    "/content/luma-site/language-masters/ja/:/ja/",
+    "/content/luma-site/language-masters/ja:/ja",
+    "/content/luma-site/language-masters/de/:/de/",
+    "/content/luma-site/language-masters/de:/de",
+    "/content/luma-site/configuration:/.helix/config.json",
+    "/content/luma-site/graphql:/graphql.json",
+    "/content/luma-site/redirects:/redirects.json",
+    "/content/luma-site/placeholders:/placeholders.json"
   ],
   "includes": [
-    "/content/public-bodea/",
-    "/content/dam/public-bodea/"
+    "/content/luma-site/",
+    "/content/dam/luma-sit/"
   ]
 }
