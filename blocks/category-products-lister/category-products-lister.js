@@ -15,7 +15,7 @@ let graphqlConfigPromise;
 async function getGraphQLConfig() {
   if (!graphqlConfigPromise) {
     graphqlConfigPromise = fetchPlaceholders()
-      .then((placeholders) => fetch(`${placeholders?.siteName || ''}${GRAPHQL_CONFIG_PATH}`))
+      .then((placeholders) => fetch(`${placeholders?.default?.siteName || ''}${GRAPHQL_CONFIG_PATH}`))
       .then((r) => {
         if (!r.ok) return {};
         return r.json().then((json) => (Array.isArray(json?.data) ? json : {}));
