@@ -14,6 +14,7 @@ const DEFAULT_GRAPHQL_QUERY_NAME = 'productsListByPath';
 let graphqlConfigPromise;
 async function getGraphQLConfig() {
   if (!graphqlConfigPromise) {
+    GRAPHQL_CONFIG_PATH = window.placeholders["default"]["siteName"] + GRAPHQL_CONFIG_PATH;
     graphqlConfigPromise = fetch(GRAPHQL_CONFIG_PATH)
       .then((r) => {
         if (!r.ok) return {};
