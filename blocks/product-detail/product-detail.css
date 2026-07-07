@@ -528,7 +528,7 @@ main .product-detail .pd-rec-card-title {
 .section.product-detail-container:has(.pd-video-layout),
 .section.product-detail-container:has(.pd-video-layout) .product-detail,
 .section.product-detail-container:has(.pd-video-layout) .product-detail-wrapper {
-  max-width: 1600px;
+  max-width: 1420px;
   padding: 0;
 }
 
