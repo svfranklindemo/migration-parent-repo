@@ -992,3 +992,17 @@ body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-
   background-color: #58181d;
   color: #ffffff;
 }
+
+body.frescopa-theme .section.product-detail-container:has(.pd-video-layout), body.frescopa-theme .section.product-detail-container:has(.pd-video-layout) .product-detail, body.frescopa-theme .section.product-detail-container:has(.pd-video-layout) .product-detail-wrapper {
+  max-width: 1420px;
+}
+
+body.frescopa-theme main .product-detail .pd-video-layout .pd-video-category-tag {
+  background-color: #27647d;
+}
+
+body.frescopa-theme main .product-detail .pd-video-layout .pd-video-age {
+  color: #27647d;
+  border-color: #27647d;
+  border-radius: 99px;
+}
