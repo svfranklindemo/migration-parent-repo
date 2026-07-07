@@ -894,3 +894,123 @@ main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after
     max-width: unset;
   }
 }
+
+/* ==========================================================================
+   Extras Section
+   ========================================================================== */
+main .product-detail .pd-extras {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 1px solid #e9ecef;
+}
+
+main .product-detail .pd-extras-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 16px;
+}
+
+main .product-detail .pd-extras-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+main .product-detail .pd-extra-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #495057;
+  transition: opacity 0.2s ease;
+}
+
+main .product-detail .pd-extra-item:hover {
+  opacity: 0.8;
+}
+
+main .product-detail .pd-extra-checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #212529; /* Matches the primary dark theme color */
+}
+
+main .product-detail .pd-extra-label {
+  line-height: 1.4;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Quantity Section
+   ========================================================================== */
+main .product-detail .pd-quantity {
+  margin: 0 0 32px;
+}
+
+main .product-detail .pd-quantity-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 12px;
+}
+
+main .product-detail .pd-quantity-select-wrapper {
+  position: relative;
+  max-width: 120px;
+}
+
+main .product-detail .pd-quantity-select {
+  width: 100%;
+  padding: 12px 32px 12px 16px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  appearance: none; /* Removes native OS styling for a custom dropdown arrow */
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+main .product-detail .pd-quantity-select:focus {
+  outline: none;
+  border-color: #212529;
+}
+
+/* Custom Dropdown Arrow */
+main .product-detail .pd-quantity-select-wrapper::after {
+  content: "▼";
+  font-size: 0.65rem;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #495057;
+}
+
+/* ==========================================================================
+   Adjustments for the Recipe Variant (Sidebar)
+   ========================================================================== */
+main .product-detail .recipe-sidebar .pd-extras {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 24px;
+  width: 100%;
+}
+
+main .product-detail .recipe-sidebar .pd-quantity {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+main .product-detail .recipe-sidebar .pd-actions {
+  width: 100%;
+  flex-direction: column; /* Stacks buttons neatly in the narrow sidebar */
+}

@@ -87,7 +87,7 @@ async function fetchProductDetail(path, sku, isAuthor, modelType = "default") {
     const authorBase = await getProductDetailAuthorBase();
     const environment = await getProductDetailPublishEnvironment();
     
-    // Swap endpoint based on the modelTyKpe
+    // Swap endpoint based on the modelType
     let url = isAuthor
       ? `${authorBase}${AUTHOR_PRODUCT_DETAIL_ENDPOINT}_path=${path}${skuItem}`
       : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path};sku=${sku}`;
@@ -230,6 +230,173 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
 }
 
 /**
+ * Helper: Build Extras Section
+ */
+function buildExtras(eventConfig) {
+  if (!eventConfig.showExtras) return null;
+
+  const extrasEl = document.createElement("div");
+  extrasEl.className = "pd-extras";
+  const extrasTitle = document.createElement("h3");
+  extrasTitle.className = "pd-extras-title";
+  extrasTitle.textContent = "Pick Extras";
+  extrasEl.appendChild(extrasTitle);
+
+  const extrasList = document.createElement("div");
+  extrasList.className = "pd-extras-list";
+
+  const defaultExtras = [
+    { id: "extra-onion", label: "Extra onion" },
+    { id: "tabasco-sauce", label: "Tabasco sauce" },
+    { id: "grilled-tofu", label: "Grilled tofu with basil" },
+    { id: "not-today", label: "Not Today" }
+  ];
+
+  const extras = eventConfig.extraOptions?.length ? eventConfig.extraOptions?.map((option) => (
+      {
+        id: toHyphenId(option),
+        label: option
+      }
+  )) : defaultExtras;
+
+  extras.forEach(extra => {
+    const label = document.createElement("label");
+    label.className = "pd-extra-item";
+    
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.className = "pd-extra-checkbox";
+    input.name = "extras";
+    input.value = extra.id;
+    
+    const text = document.createElement("span");
+    text.className = "pd-extra-label";
+    text.textContent = extra.label;
+    
+    label.appendChild(input);
+    label.appendChild(text);
+    extrasList.appendChild(label);
+  });
+
+  extrasEl.appendChild(extrasList);
+  return extrasEl;
+}
+
+/**
+ * Helper: Build Quantity Section
+ */
+function buildQuantity(eventConfig) {
+  if (!eventConfig.showQuantity) return null;
+
+  const qtyEl = document.createElement("div");
+  qtyEl.className = "pd-quantity";
+  const qtyTitle = document.createElement("h3");
+  qtyTitle.className = "pd-quantity-title";
+  qtyTitle.textContent = "Quantity";
+  qtyEl.appendChild(qtyTitle);
+
+  const selectWrap = document.createElement("div");
+  selectWrap.className = "pd-quantity-select-wrapper";
+  
+  const select = document.createElement("select");
+  select.className = "pd-quantity-select";
+  
+  const placeholderOpt = document.createElement("option");
+  placeholderOpt.value = "";
+  placeholderOpt.textContent = "Select...";
+  select.appendChild(placeholderOpt);
+
+  for (let i = 1; i <= eventConfig.maxQuantity; i++) {
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = i;
+    select.appendChild(opt);
+  }
+
+  selectWrap.appendChild(select);
+  qtyEl.appendChild(selectWrap);
+  return qtyEl;
+}
+
+/**
+ * Helper: Build Action Buttons (Add to Cart, Wishlist, Select Device)
+ */
+function buildActions(product, isAuthor, eventConfig) {
+  const actionsEl = document.createElement("div");
+  actionsEl.className = "pd-actions";
+
+  const { name, price, category = [], damImageURL = {}, sku, id, description = {} } = product;
+
+  // Add to Cart button
+  if (eventConfig.showAddToCartButton !== false) {
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "pd-btn pd-btn-primary";
+    addToCartBtn.textContent = "Add to Cart";
+    addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
+    addToCartBtn.addEventListener("click", () => {
+      const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+      const formattedCategory =
+        category.length > 0
+          ? category
+              .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+              .join(", ")
+          : "";
+
+      window.addToCart({
+        id: id || sku || "",
+        name: name || "",
+        image: cartImageUrl || "",
+        thumbnail: cartImageUrl || "",
+        category: formattedCategory,
+        description: description?.html || description?.markdown || "",
+        price: price || 0,
+        quantity: 1, 
+      });
+      if (eventConfig.addToCart) {
+        dispatchCustomEvent(eventConfig.addToCart);
+      }
+
+      // Show visual feedback
+      addToCartBtn.textContent = "Added to Cart ✓";
+      setTimeout(() => {
+        addToCartBtn.textContent = "Add to Cart";
+      }, 2000);
+    });
+    actionsEl.append(addToCartBtn);
+  }
+
+  const isPlansCategory = (category || [])
+    .map((catValue) => normalizeCategoryValue(catValue).toLowerCase().trim())
+    .some((catValue) => catValue === "plans" || catValue.endsWith("/plans"));
+
+  if (isPlansCategory) {
+    const selectDeviceBtn = document.createElement("button");
+    selectDeviceBtn.className = "pd-btn pd-btn-secondary";
+    selectDeviceBtn.textContent = "Select a device";
+    selectDeviceBtn.setAttribute("aria-label", "Select a device");
+    selectDeviceBtn.addEventListener("click", () => {
+      window.location.href = "/en/phones";
+    });
+    actionsEl.append(selectDeviceBtn);
+  }
+
+  if (eventConfig.showAddToWishlistButton) {
+    const addToWishlistBtn = document.createElement("button");
+    addToWishlistBtn.className = "pd-btn pd-btn-secondary";
+    addToWishlistBtn.textContent = "Add to Wishlist";
+    addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
+    addToWishlistBtn.addEventListener("click", () => {
+      if (eventConfig.addToWishlist) {
+        dispatchCustomEvent(eventConfig.addToWishlist);
+      }
+    });
+    actionsEl.append(addToWishlistBtn);
+  }
+
+  return actionsEl;
+}
+
+/**
  * Build product detail view
  * @param {Object} product - Product data
  * @param {boolean} isAuthor - Is author environment
@@ -253,13 +420,6 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
   } = product;
   
   const modelType = eventConfig.modelType || 'default';
-  
-  const isPlansCategory = (category || [])
-    .map((catValue) => normalizeCategoryValue(catValue).toLowerCase().trim())
-    .some((catValue) => catValue === "plans" || catValue.endsWith("/plans"));
-
-  // Update dataLayer with product information
-  // If dataLayer is not ready, the update will be queued automatically
   const imageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
 
   const productData = {
@@ -428,158 +588,17 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     contentSection.appendChild(descEl);
   }
 
-  // Hardcoded Extras and Quantity (Halliby theme only)
-  if (eventConfig.showExtras) {
-    // Extras
-    const extrasEl = document.createElement("div");
-    extrasEl.className = "pd-extras";
-    const extrasTitle = document.createElement("h3");
-    extrasTitle.className = "pd-extras-title";
-    extrasTitle.textContent = "Pick Extras";
-    extrasEl.appendChild(extrasTitle);
+  // NEW: Append Extras and Quantity via helpers
+  const extrasEl = buildExtras(eventConfig);
+  if (extrasEl) contentSection.appendChild(extrasEl);
 
-    const extrasList = document.createElement("div");
-    extrasList.className = "pd-extras-list";
-
-    const defaultExtras = [
-      { id: "extra-onion", label: "Extra onion" },
-      { id: "tabasco-sauce", label: "Tabasco souce" },
-      { id: "grilled-tofu", label: "Grilled tofu with basil" },
-      { id: "not-today", label: "Not Today" }
-    ];
-
-    const extras = eventConfig.extraOptions?.length ? eventConfig.extraOptions?.map((option) => (
-        {
-          id: toHyphenId(option),
-          label: option
-        }
-    )) : defaultExtras;
-
-    extras.forEach(extra => {
-      const label = document.createElement("label");
-      label.className = "pd-extra-item";
-      
-      const input = document.createElement("input");
-      input.type = "checkbox";
-      input.className = "pd-extra-checkbox";
-      input.name = "extras";
-      input.value = extra.id;
-      
-      const text = document.createElement("span");
-      text.className = "pd-extra-label";
-      text.textContent = extra.label;
-      
-      label.appendChild(input);
-      label.appendChild(text);
-      extrasList.appendChild(label);
-    });
-
-    extrasEl.appendChild(extrasList);
-    contentSection.appendChild(extrasEl);
-  }
-
-  if (eventConfig.showQuantity) {
-
-    // Quantity
-    const qtyEl = document.createElement("div");
-    qtyEl.className = "pd-quantity";
-    const qtyTitle = document.createElement("h3");
-    qtyTitle.className = "pd-quantity-title";
-    qtyTitle.textContent = "Quantity";
-    qtyEl.appendChild(qtyTitle);
-
-    const selectWrap = document.createElement("div");
-    selectWrap.className = "pd-quantity-select-wrapper";
-    
-    const select = document.createElement("select");
-    select.className = "pd-quantity-select";
-    
-    const placeholderOpt = document.createElement("option");
-    placeholderOpt.value = "";
-    placeholderOpt.textContent = "Select...";
-    select.appendChild(placeholderOpt);
-
-    for (let i = 1; i <= eventConfig.maxQuantity; i++) {
-      const opt = document.createElement("option");
-      opt.value = i;
-      opt.textContent = i;
-      select.appendChild(opt);
-    }
-
-    selectWrap.appendChild(select);
-    qtyEl.appendChild(selectWrap);
-    contentSection.appendChild(qtyEl);
-  }
-  
+  const qtyEl = buildQuantity(eventConfig);
+  if (qtyEl) contentSection.appendChild(qtyEl);
 
   // Action buttons
   if (modelType !== 'video') {
-    const actionsEl = document.createElement("div");
-    actionsEl.className = "pd-actions";
-    
-    // Add to Cart button (conditionally rendered)
-    if (eventConfig.showAddToCartButton !== false) {
-      const addToCartBtn = document.createElement("button");
-      addToCartBtn.className = "pd-btn pd-btn-primary";
-      addToCartBtn.textContent = "Add to Cart";
-      addToCartBtn.setAttribute("aria-label", `Add ${name} to cart`);
-      addToCartBtn.addEventListener("click", () => {
-        const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
-        const formattedCategory =
-          category.length > 0
-            ? category
-                .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
-                .join(", ")
-            : "";
-
-        window.addToCart({
-          id: id || sku || "",
-          name: name || "",
-          image: cartImageUrl || "",
-          thumbnail: cartImageUrl || "",
-          category: formattedCategory,
-          description: description?.html || description?.markdown || "",
-          price: price || 0,
-          quantity: 1,
-        });
-        if (eventConfig.addToCart) {
-          dispatchCustomEvent(eventConfig.addToCart);
-        }
-
-        // Show visual feedback
-        addToCartBtn.textContent = "Added to Cart ✓";
-        setTimeout(() => {
-          addToCartBtn.textContent = "Add to Cart";
-        }, 2000);
-      });
-      actionsEl.append(addToCartBtn);
-    }
-
-    if (isPlansCategory) {
-      const selectDeviceBtn = document.createElement("button");
-      selectDeviceBtn.className = "pd-btn pd-btn-secondary";
-      selectDeviceBtn.textContent = "Select a device";
-      selectDeviceBtn.setAttribute("aria-label", "Select a device");
-      selectDeviceBtn.addEventListener("click", () => {
-        window.location.href = "/en/phones";
-      });
-      actionsEl.append(selectDeviceBtn);
-    }
-
-    if (eventConfig.showAddToWishlistButton) {
-      const addToWishlistBtn = document.createElement("button");
-      addToWishlistBtn.className = "pd-btn pd-btn-secondary";
-      addToWishlistBtn.textContent = "Add to Wishlist";
-      addToWishlistBtn.setAttribute("aria-label", `Add ${name} to wishlist`);
-      addToWishlistBtn.addEventListener("click", () => {
-        if (eventConfig.addToWishlist) {
-          dispatchCustomEvent(eventConfig.addToWishlist);
-        }
-      });
-      actionsEl.append(addToWishlistBtn);
-    }
-
-    contentSection.appendChild(actionsEl);
+    const actionsEl = buildActions(product, isAuthor, eventConfig);
+    if (actionsEl.children.length > 0) contentSection.appendChild(actionsEl);
   }
 
   container.append(imageSection, contentSection);
@@ -701,7 +720,16 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
     </div>
   `;
 
-  // Inject Recommendations directly into the right sidebar container
+  // NEW: Append Extras, Quantity, and Actions to Sidebar
+  const extrasEl = buildExtras(eventConfig);
+  if (extrasEl) sidebarSection.appendChild(extrasEl);
+
+  const qtyEl = buildQuantity(eventConfig);
+  if (qtyEl) sidebarSection.appendChild(qtyEl);
+
+  const actionsEl = buildActions(product, isAuthor, eventConfig);
+  if (actionsEl.children.length > 0) sidebarSection.appendChild(actionsEl);
+
   // Inject Standard Recommendations directly into the right sidebar container
   if (eventConfig.showYouMayAlsoLikeSection) {
     const recs = buildRecommendations(product, allProducts, isAuthor, recommendedPath, relatedProductsTitle);
@@ -791,7 +819,6 @@ export default async function decorate(block) {
   block.appendChild(loader);
 
   // Fetch product and (optionally) recommendations source data in parallel
-  // Passes modelType into fetchProductDetail
   const [product, allProducts] = await Promise.all([
     fetchProductDetail(folderHref, sku, isAuthor, eventConfig.modelType),
     eventConfig.showYouMayAlsoLikeSection

@@ -1060,7 +1060,6 @@ body.halliby-theme:has(.sign-in-container) main {
 body.halliby-theme:has(.sign-in-container) main > .section:first-of-type {
   margin: 0 !important;
   padding: 0 !important;
-  height: 100vh;
   overflow: hidden;
   max-width: 600px;
   width: 100%;
