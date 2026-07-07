@@ -16,7 +16,7 @@ let graphqlConfigPromise;
 async function getGraphQLConfig() {
   if (!graphqlConfigPromise) {
     const placeholders = await fetchPlaceholders();
-    GRAPHQL_CONFIG_PATH = placeholders["default"]["siteName"] + GRAPHQL_CONFIG_PATH;
+    GRAPHQL_CONFIG_PATH = placeholders["siteName"] + GRAPHQL_CONFIG_PATH;
     graphqlConfigPromise = fetch(GRAPHQL_CONFIG_PATH)
       .then((r) => {
         if (!r.ok) return {};
