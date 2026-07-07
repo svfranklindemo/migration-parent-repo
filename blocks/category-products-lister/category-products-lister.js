@@ -1,11 +1,10 @@
-import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/aem.js";
+import { readBlockConfig, createLumaProductImagePicture, fetchPlaceholders } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeAemPath, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import {
   getEnvironmentValue,
   getHostname,
 } from '../../scripts/utils.js';
-import { fetchPlaceholders } from "../../scripts/aem.js";
 
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
 const GRAPHQL_CONFIG_PATH = '/graphql.json';
@@ -15,9 +14,8 @@ const DEFAULT_GRAPHQL_QUERY_NAME = 'productsListByPath';
 let graphqlConfigPromise;
 async function getGraphQLConfig() {
   if (!graphqlConfigPromise) {
-    const placeholders = await fetchPlaceholders();
-    GRAPHQL_CONFIG_PATH = placeholders["siteName"] + GRAPHQL_CONFIG_PATH;
-    graphqlConfigPromise = fetch(GRAPHQL_CONFIG_PATH)
+    graphqlConfigPromise = fetchPlaceholders()
+      .then((placeholders) => fetch(`${placeholders?.siteName || ''}${GRAPHQL_CONFIG_PATH}`))
       .then((r) => {
         if (!r.ok) return {};
         return r.json().then((json) => (Array.isArray(json?.data) ? json : {}));
