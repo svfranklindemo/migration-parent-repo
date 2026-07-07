@@ -973,6 +973,14 @@ body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card-title {
   font-size: 16px !important;
 }
 
+body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card {
+  gap: 1rem;
+}
+
+body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card-meta {
+  padding: 0;
+}
+
 body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card-meta::after {
   color: #58181d;
   border-color: #58181d;

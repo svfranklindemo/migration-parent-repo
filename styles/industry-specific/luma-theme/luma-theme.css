@@ -739,6 +739,14 @@ body.luma-theme main .product-detail .recipe-sidebar .pd-rec-title {
   text-transform: uppercase;
 }
 
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card {
+  gap: 1rem;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-meta {
+  padding: 0;
+}
+
 body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-meta::after {
   color: #2f3138;
   border-color: #d8d8d8;
