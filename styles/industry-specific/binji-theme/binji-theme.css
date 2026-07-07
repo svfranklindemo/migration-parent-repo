@@ -40,12 +40,23 @@ body.binji-theme main {
   flex: 1;
 }
 
-body.binji-theme:has(.user-profile-host) header nav .nav-sections {
+body.binji-theme:has(.user-profile-host) header nav .nav-sections,
+body.binji-theme:has(.user-profile-host) footer .footer .section:not(.default) ul {
   display: flex;
 }
 
-body.binji-theme:has(.user-profile-host) footer .footer .section:not(.default) ul {
-  display: flex;
+body.binji-theme main .section.video-container, body.binji-theme main .section.video-container .video-wrapper {
+  max-width: unset;
+}
+
+body.binji-theme main .section.video-container .video.block {
+  height: 360px;
+}
+
+body.binji-theme main .section.video-container video {
+  height: 800px;
+  width: auto;
+  object-fit: cover;
 }
 
 body.binji-theme main .product-detail .pd-video-layout .pd-video-image-wrapper {
@@ -97,7 +108,7 @@ body.binji-theme header nav#nav {
 /* 2.2 Nav layout — logo | links | … | tools */
 body.binji-theme header nav {
   justify-content: flex-start;
-  gap: 40px;
+  gap: 32px;
 }
 
 body.binji-theme header nav .nav-sections {
@@ -117,6 +128,11 @@ body.binji-theme header nav .nav-brand a,
 body.binji-theme header nav .nav-brand picture {
   display: flex;
   align-items: center;
+  flex-basis: unset;
+}
+
+body.binji-theme header nav .nav-brand a::after {
+  content: unset;
 }
 
 body.binji-theme header nav .nav-brand picture img {
@@ -127,6 +143,7 @@ body.binji-theme header nav .nav-brand picture img {
 /* 2.4 Nav links */
 body.binji-theme header nav .nav-sections ul {
   justify-content: flex-start;
+  gap: 32px;
 }
 
 /* <li> may hold plain text (no <a>), so color both */
@@ -136,6 +153,7 @@ body.binji-theme header nav .nav-sections ul>li>a {
   font-family: var(--heading-font-family);
   font-size: 1rem;
   cursor: pointer;
+  display: block;
 }
 
 /* Active underline indicator */
@@ -388,7 +406,7 @@ body.binji-theme header .nav-hamburger {
 }
 
 body.binji-theme:has(.user-profile-host) header .nav-hamburger {
-  display: block;
+  display: none;
 }
 
 /* Mobile hamburger */
@@ -410,6 +428,11 @@ body.binji-theme header .nav-hamburger-icon::after {
 }
 
 @media (width < 900px) {
+
+  body.binji-theme:has(.user-profile-host) header .nav-hamburger {
+    display: block;
+  }
+
   body.binji-theme header nav#nav {
     margin: 0 1rem;
     justify-content: space-between;
@@ -559,8 +582,14 @@ body.binji-theme main .product-detail .pd-video-layout .pd-video-category-tag {
    row 4 = description (full width) */
 body.binji-theme .product-detail .pd-content {
   display: grid;
-  grid-template-areas: "name meta" "cast cast" "description description";
   grid-template-columns: 1.5fr 1fr;
+  grid-template-areas: 
+      "name meta" 
+      "cast cast" 
+      "description description"
+      "extras extras"
+      "quantity quantity"
+      "actions actions";
 }
 
 /* Category: full-width row above title */
@@ -1270,6 +1299,10 @@ body.binji-theme main .section.category-products-lister-container .category-prod
   align-items: flex-start;
 }
 
+body.binji-theme main .section.category-products-lister-container.center-card-content .category-products-lister .cpl-card .cpl-card-meta {
+  align-items: center;
+}
+
 body.binji-theme main .section.category-products-lister-container .category-products-lister .cpl-card .cpl-card-meta .cpl-card-category {
   padding: 0;
   margin: 0;
@@ -1393,11 +1426,6 @@ body.binji-theme main .section.binji-promo-banner--reverse .columns.block .butto
 
 body.binji-theme main .section.video-container .video-wrapper {
   padding: 0;
-}
-
-body.binji-theme main .section.video-container .video-wrapper video {
-  width: 100%;
-  max-width: unset;
 }
 
 body.binji-theme:has(.user-profile-btn) main .section:has(.sign-in-wrapper) {

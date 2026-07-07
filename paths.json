@@ -1,22 +1,23 @@
 {
   "mappings": [
-    "/content/public-bodea/language-masters/en:/",
-    "/content/public-bodea/language-masters/en/:/en/",
-    "/content/public-bodea/language-masters/fr/:/fr/",
-    "/content/public-bodea/language-masters/fr:/fr",
-    "/content/public-bodea/language-masters/es/:/es/",
-    "/content/public-bodea/language-masters/es:/es",
-    "/content/public-bodea/language-masters/ja/:/ja/",
-    "/content/public-bodea/language-masters/ja:/ja",
-    "/content/public-bodea/language-masters/de/:/de/",
-    "/content/public-bodea/language-masters/de:/de",
-    "/content/public-bodea/configuration:/.helix/config.json",
-    "/content/public-bodea/metadata:/metadata.json",
-    "/content/public-bodea/redirects:/redirects.json",
-    "/content/public-bodea/placeholders:/placeholders.json"
+    "/content/binji/language-masters/en:/",
+    "/content/binji/language-masters/en/:/en/",
+    "/content/binji/language-masters/fr/:/fr/",
+    "/content/binji/language-masters/fr:/fr",
+    "/content/binji/language-masters/es/:/es/",
+    "/content/binji/language-masters/es:/es",
+    "/content/binji/language-masters/ja/:/ja/",
+    "/content/binji/language-masters/ja:/ja",
+    "/content/binji/language-masters/de/:/de/",
+    "/content/binji/language-masters/de:/de",
+    "/content/binji/configuration:/.helix/config.json",
+    "/content/binji/metadata:/metadata.json",
+    "/content/binji/redirects:/redirects.json",
+    "/content/binji/placeholders:/placeholders.json",
+    "/content/binji/graphql:/graphql.json"
   ],
   "includes": [
-    "/content/public-bodea/",
-    "/content/dam/public-bodea/"
+    "/content/binji/",
+    "/content/dam/binji/"
   ]
 }

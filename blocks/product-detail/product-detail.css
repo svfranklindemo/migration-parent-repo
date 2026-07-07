@@ -521,34 +521,103 @@ main .product-detail .pd-rec-card-title {
     }
 }
 
-
 /* ==========================================================================
-   Binji Video Layout Default Styles
+   Video Layout Default Styles (Stacked Layout)
    ========================================================================== */
 
-/* Hide the image wrapper by default in video layout */
+/* Stack the main container */
+main .product-detail .pd-container.pd-video-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+/* Constrain video/image height and remove sticky positioning */
+main .product-detail .pd-container.pd-video-layout .pd-image {
+    position: static;
+    min-height: 380px;
+    max-height: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 main .product-detail .pd-video-layout .pd-video-image-wrapper {
     display: none;
 }
 
-/* Ensure video player is responsive and matches base image styling */
 main .product-detail .pd-video-layout .pd-video-player {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
     border-radius: 12px;
 }
 
-/* Meta row layout */
-main .product-detail .pd-video-layout .pd-video-meta {
-    display: flex;
+/* Content Area Grid mapping */
+main .product-detail .pd-container.pd-video-layout .pd-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-areas:
+        "name meta"
+        "cast cast"
+        "description description"
+        "extras extras"
+        "quantity quantity"
+        "actions actions";
+    column-gap: 24px;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin: 20px 0 32px;
+    padding-top: 0;
 }
 
-/* Category Tag Pill */
+main .product-detail .pd-container.pd-video-layout .pd-name {
+    grid-area: name;
+    width: fit-content;
+}
+
+/* Align meta items (tag, age, rating) side-by-side with the name */
+main .product-detail .pd-container.pd-video-layout .pd-video-meta {
+    grid-area: meta;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Push to the right edge */
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0; 
+}
+
+main .product-detail .pd-container.pd-video-layout .pd-cast {
+    grid-area: cast;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #495057;
+}
+
+main .product-detail .pd-container.pd-video-layout .pd-cast strong {
+    color: #212529;
+}
+
+main .product-detail .pd-container.pd-video-layout .pd-description {
+    grid-area: description;
+    border-top: none; /* Removed border for clean flow */
+    padding-top: 0;
+}
+
+main .product-detail .pd-container.pd-video-layout .pd-extras {
+    grid-area: extras;
+}
+
+main .product-detail .pd-container.pd-video-layout .pd-quantity {
+    grid-area: quantity;
+}
+
+main .product-detail .pd-container.pd-video-layout .pd-actions {
+    grid-area: actions;
+    justify-content: flex-start;
+}
+
+/* Pill and Badge Styles (keeping default colors) */
 main .product-detail .pd-video-layout .pd-video-category-tag {
     padding: 6px 16px;
     border-radius: 24px;
@@ -561,7 +630,6 @@ main .product-detail .pd-video-layout .pd-video-category-tag {
     letter-spacing: 0.5px;
 }
 
-/* Age Badge */
 main .product-detail .pd-video-layout .pd-video-age {
     border: 2px solid #212529;
     border-radius: 6px;
@@ -571,7 +639,6 @@ main .product-detail .pd-video-layout .pd-video-age {
     color: #212529;
 }
 
-/* Star Rating */
 main .product-detail .pd-video-layout .pd-video-rating {
     font-size: 1.25rem;
 }
@@ -584,16 +651,29 @@ main .product-detail .pd-video-layout .pd-video-rating .empty-stars {
     color: #ccc;
 }
 
-/* Cast Typography (Inherits from base description styles) */
-main .product-detail .pd-video-layout .pd-cast {
-    margin-bottom: 24px;
-    font-size: 1rem;
-    line-height: 1.75;
-    color: #495057;
-}
+/* Mobile Stacked Override */
+@media (width <= 768px) {
+    main .product-detail .pd-container.pd-video-layout .pd-content {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "name"
+            "meta"
+            "cast"
+            "description"
+            "extras"
+            "quantity"
+            "actions";
+        gap: 16px;
+        align-items: start;
+    }
 
-main .product-detail .pd-video-layout .pd-cast strong {
-    color: #212529;
+    main .product-detail .pd-container.pd-video-layout .pd-video-meta {
+        justify-content: flex-start;
+    }
+    
+    main .product-detail .pd-container.pd-video-layout .pd-cast {
+        margin-top: 0;
+    }
 }
 /* --------------------------------------------------------------------------
    Hero Header Banner (50/50 Split)

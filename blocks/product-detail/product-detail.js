@@ -219,7 +219,7 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
   cat.textContent = category
     .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
     .filter(Boolean)
-    .join(" / ");
+    .join(", ");
   const title = document.createElement("h3");
   title.className = "pd-rec-card-title";
   title.textContent = name || "";
@@ -588,18 +588,16 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     contentSection.appendChild(descEl);
   }
 
-  // NEW: Append Extras and Quantity via helpers
+  // Append Extras and Quantity via helpers
   const extrasEl = buildExtras(eventConfig);
   if (extrasEl) contentSection.appendChild(extrasEl);
 
   const qtyEl = buildQuantity(eventConfig);
   if (qtyEl) contentSection.appendChild(qtyEl);
 
-  // Action buttons
-  if (modelType !== 'video') {
-    const actionsEl = buildActions(product, isAuthor, eventConfig);
-    if (actionsEl.children.length > 0) contentSection.appendChild(actionsEl);
-  }
+  // Action buttons (Now included for all variants)
+  const actionsEl = buildActions(product, isAuthor, eventConfig);
+  if (actionsEl.children.length > 0) contentSection.appendChild(actionsEl);
 
   container.append(imageSection, contentSection);
   return container;
@@ -720,7 +718,7 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
     </div>
   `;
 
-  // NEW: Append Extras, Quantity, and Actions to Sidebar
+  // Append Extras, Quantity, and Actions to Sidebar
   const extrasEl = buildExtras(eventConfig);
   if (extrasEl) sidebarSection.appendChild(extrasEl);
 
