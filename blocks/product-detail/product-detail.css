@@ -529,6 +529,9 @@ main .product-detail .pd-rec-card-title {
 .section.product-detail-container:has(.pd-video-layout) .product-detail,
 .section.product-detail-container:has(.pd-video-layout) .product-detail-wrapper {
   max-width: 1420px;
+}
+
+.section.product-detail-container:has(.pd-video-layout) .product-detail {
   padding: 0;
 }
 
