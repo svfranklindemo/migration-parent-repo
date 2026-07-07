@@ -550,7 +550,6 @@ main .product-detail .recipe-hero__wrapper {
 
 main .product-detail .recipe-hero__image {
   flex: 0 0 50%;
-  height: 350px;
   overflow: hidden;
 }
 

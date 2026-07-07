@@ -1804,6 +1804,10 @@ body.halliby-theme .product-detail .pd-container {
   align-items: start;
 }
 
+body.halliby-theme main .product-detail .recipe-hero__image {
+  height: 350px;
+}
+
 body.halliby-theme .product-detail .pd-image {
   background: transparent;
   border-radius: 0;
