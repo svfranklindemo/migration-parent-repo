@@ -22,7 +22,6 @@ body.halliby-theme main {
 
 body.halliby-theme main>.section>div {
   padding: 0;
-  max-width: 1600px;
 }
 
 body.halliby-theme .cta-button a.button::after,
@@ -1046,7 +1045,6 @@ body.halliby-theme .section.halliby-about-banner .hero p {
 body.halliby-theme:has(.sign-in-container) main {
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
   width: 100%;
   margin: 0 !important;
   padding: 0 !important;
@@ -1060,7 +1058,6 @@ body.halliby-theme:has(.sign-in-container) main {
 body.halliby-theme:has(.sign-in-container) main > .section:first-of-type {
   margin: 0 !important;
   padding: 0 !important;
-  height: 100vh;
   overflow: hidden;
   max-width: 600px;
   width: 100%;
@@ -1285,7 +1282,6 @@ body.halliby-theme:has(.sign-in-container) main .create-account-link::after {
 body.halliby-theme:has(.create-account-container) main {
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -1300,7 +1296,6 @@ body.halliby-theme:has(.create-account-container) main > .section:first-of-type 
   width: 100%;
   margin: 0 !important;
   padding: 0;
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -1338,7 +1333,6 @@ body.halliby-theme:has(.create-account-container) main .create-account-wrapper {
   width: 100%;
   max-width: 600px;
   padding: 2rem 0;
-  max-height: 100vh;
 }
 
 body.halliby-theme:has(.create-account-container) main .create-account {
