@@ -696,8 +696,10 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
   // Left Column (70%)
   const mainSection = document.createElement("div");
   mainSection.className = "recipe-main";
+  
+  // Use the config value for the title, fallback to "Ingredients"
   mainSection.innerHTML = `
-    <h2 class="recipe-main__title">Ingredients</h2>
+    <h2 class="recipe-main__title">${eventConfig.ingredientsTitle}</h2>
     <div class="recipe-main__content">
       ${description?.html || ""}
     </div>
@@ -706,17 +708,21 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
   // Right Column (30%)
   const sidebarSection = document.createElement("div");
   sidebarSection.className = "recipe-sidebar";
-  sidebarSection.innerHTML = `
-    <div class="recipe-author">
-      <div class="recipe-author__image">
-        <img src="/assets/halliby/personas/Eli.jpg" alt="${authorName}">
+  
+  // Render Author Section conditionally based on config
+  if (eventConfig.showRecipeAuthor) {
+    sidebarSection.innerHTML = `
+      <div class="recipe-author">
+        <div class="recipe-author__image">
+          <img src="/assets/halliby/personas/Eli.jpg" alt="${authorName}">
+        </div>
+        <div class="recipe-author__content">
+          <h2 class="recipe-author__name">${authorName}</h2>
+          <p class="recipe-author__role">${authorRole}</p>
+        </div>
       </div>
-      <div class="recipe-author__content">
-        <h2 class="recipe-author__name">${authorName}</h2>
-        <p class="recipe-author__role">${authorRole}</p>
-      </div>
-    </div>
-  `;
+    `;
+  }
 
   // Append Extras, Quantity, and Actions to Sidebar
   const extrasEl = buildExtras(eventConfig);
@@ -770,7 +776,10 @@ export default async function decorate(block) {
     showExtras: isTruthy(config.showextras),
     extraOptions: config.extraoptions ? config.extraoptions?.split(',') : [],
     showQuantity: isTruthy(config.showquantity),
-    maxQuantity: Number(config.maxquantity) || 1
+    maxQuantity: Number(config.maxquantity) || 1,
+    // Extract new configs here
+    ingredientsTitle: config.ingredientstitle || config['ingredients-title'] || 'Ingredients',
+    showRecipeAuthor: isTruthy(config.showrecipeauthor ?? config['show-recipe-author'])
   };
 
   // Extract folder path from block config

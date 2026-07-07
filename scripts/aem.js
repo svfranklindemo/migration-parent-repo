@@ -388,7 +388,7 @@ function createResponsiveAemDamPicture(
   fetchpriority = null,
   isAuthor = false
 ) {
-  const baseHref = resolveAemDynamicImageHref(damImageURL, isAuthor = false);
+  const baseHref = resolveAemDynamicImageHref(damImageURL, isAuthor);
   if (!baseHref) return null;
 
   const sorted = [...widths].sort((a, b) => b - a);
