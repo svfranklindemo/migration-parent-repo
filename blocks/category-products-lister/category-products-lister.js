@@ -5,6 +5,7 @@ import {
   getEnvironmentValue,
   getHostname,
 } from '../../scripts/utils.js';
+import { fetchPlaceholders } from './aem.js';
 
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
 const GRAPHQL_CONFIG_PATH = '/graphql.json';
@@ -13,9 +14,9 @@ const DEFAULT_GRAPHQL_QUERY_NAME = 'productsListByPath';
 
 let graphqlConfigPromise;
 async function getGraphQLConfig() {
-  const placeholders = await fetchPlaceholders();
   if (!graphqlConfigPromise) {
-    GRAPHQL_CONFIG_PATH = window.placeholders["default"]["siteName"] + GRAPHQL_CONFIG_PATH;
+    const placeholders = await fetchPlaceholders();
+    GRAPHQL_CONFIG_PATH = placeholders["default"]["siteName"] + GRAPHQL_CONFIG_PATH;
     graphqlConfigPromise = fetch(GRAPHQL_CONFIG_PATH)
       .then((r) => {
         if (!r.ok) return {};
