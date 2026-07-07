@@ -525,11 +525,9 @@ main .product-detail .pd-rec-card-title {
    Hero Header Banner (50/50 Split)
    -------------------------------------------------------------------------- */
   
-main .product-detail-container:has(.recipe-detail) {
-  max-width: 1600px;
-}
-
-main .product-detail-container:has(.recipe-detail) .product-detail {
+main .product-detail-container:has(.recipe-detail),
+main .product-detail-container:has(.recipe-detail) .product-detail,
+main .product-detail-container:has(.recipe-detail) .product-detail-wrapper {
   max-width: 1600px;
 }
 

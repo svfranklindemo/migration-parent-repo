@@ -596,7 +596,7 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
   sidebarSection.innerHTML = `
     <div class="recipe-author">
       <div class="recipe-author__image">
-        <img src="/assets/halliby/personas/Eli.jpg" alt="${authorName}">
+        <img src="/content/dam/halliby/en/images/recipe-author.jpg" alt="${authorName}">
       </div>
       <div class="recipe-author__content">
         <h2 class="recipe-author__name">${authorName}</h2>
