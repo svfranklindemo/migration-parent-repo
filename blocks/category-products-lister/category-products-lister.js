@@ -5,7 +5,7 @@ import {
   getEnvironmentValue,
   getHostname,
 } from '../../scripts/utils.js';
-import { fetchPlaceholders } from './aem.js';
+import { fetchPlaceholders } from "../../scripts/aem.js";
 
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
 const GRAPHQL_CONFIG_PATH = '/graphql.json';
