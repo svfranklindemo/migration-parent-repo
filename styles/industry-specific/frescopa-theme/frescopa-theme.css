@@ -958,3 +958,42 @@ body.frescopa-theme main .product-detail .pd-quantity-select:focus {
 body.frescopa-theme main .product-detail .pd-quantity-select-wrapper::after {
   display: none;
 }
+
+/* ─── Recipe Sidebar Overrides - Frescopa ─────────────────────────────── */
+
+/* Author Profile */
+body.frescopa-theme main .product-detail .recipe-author__name {
+  color: #58181d;
+  font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif !important;
+  font-weight: 400;
+}
+
+body.frescopa-theme main .product-detail .recipe-author__role {
+  color: #58181d;
+  font-family: roboto, roboto-fallback, sans-serif;
+  opacity: 0.8;
+}
+
+/* Sidebar Recommendation Title */
+body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-title {
+  color: #58181d;
+  font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif !important;
+  font-weight: 400;
+  text-transform: none;
+}
+
+/* Sidebar "Try it" Button (Pseudo-element) */
+body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card-meta::after {
+  font-family: roboto, roboto-fallback, sans-serif;
+  color: #27647d; /* Frescopa teal */
+  border-color: #27647d;
+  border-radius: 999px; /* Pill shape */
+  padding: 4px 16px 6px;
+}
+
+/* Sidebar "Try it" Button Hover */
+body.frescopa-theme main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after {
+  background-color: #27647d;
+  color: #ffffff;
+  border-color: #27647d;
+}

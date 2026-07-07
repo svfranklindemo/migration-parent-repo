@@ -722,3 +722,42 @@ body.luma-theme main .product-detail .pd-quantity-select-wrapper::after {
   color: #2f3138;
   font-size: 0.75rem;
 }
+
+/* ─── Recipe Sidebar Overrides - Luma ─────────────────────────────────── */
+
+/* Author Profile */
+body.luma-theme main .product-detail .recipe-author__name {
+  font-family: 'Adobe Clean Bold', sans-serif;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+body.luma-theme main .product-detail .recipe-author__role {
+  font-family: 'Adobe Clean', sans-serif;
+  color: #2f3138;
+}
+
+/* Sidebar Recommendation Title */
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-title {
+  font-family: 'Adobe Clean Bold', sans-serif;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+/* Sidebar "Try it" Button (Pseudo-element) */
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-meta::after {
+  font-family: 'Adobe Clean Bold', sans-serif;
+  color: #2f3138;
+  border-color: #d8d8d8;
+  border-radius: 0; /* Square shape */
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+}
+
+/* Sidebar "Try it" Button Hover */
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after {
+  background-color: var(--main-accent-color); /* Luma blue */
+  border-color: var(--main-accent-color);
+  color: #ffffff;
+}
