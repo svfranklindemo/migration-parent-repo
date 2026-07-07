@@ -906,35 +906,47 @@ body.frescopa-theme main .product-detail .pd-btn {
   padding: 0.875rem 2.5rem;
 }
 
-/* ─── Product Detail - Extras & Quantity Overrides ───────────────────── */
+/* ─── Product Detail - Extras, Quantity & Recipe Overrides ──────────────── */
+
+/* Headings (Baskerville & Dark Red) */
 body.frescopa-theme main .product-detail .pd-extras-title,
-body.frescopa-theme main .product-detail .pd-quantity-title {
+body.frescopa-theme main .product-detail .pd-quantity-title,
+body.frescopa-theme main .product-detail .recipe-hero__title,
+body.frescopa-theme main .product-detail .recipe-main__title,
+body.frescopa-theme main .product-detail .recipe-author__name {
   color: #58181d;
   font-family: baskerville-display-pt, Baskerville, "Times New Roman", serif !important;
   font-weight: 400;
 }
 
-body.frescopa-theme main .product-detail .pd-extra-label {
+/* Body Text & Labels (Roboto & Dark Red) */
+body.frescopa-theme main .product-detail .pd-extra-label,
+body.frescopa-theme main .product-detail .recipe-main__content,
+body.frescopa-theme main .product-detail .recipe-main__content p,
+body.frescopa-theme main .product-detail .recipe-main__content li,
+body.frescopa-theme main .product-detail .recipe-author__role {
   color: #58181d;
   font-family: roboto, roboto-fallback, sans-serif;
 }
 
+/* Checkboxes */
 body.frescopa-theme main .product-detail .pd-extra-checkbox {
-  accent-color: #27647d; /* Matches the Frescopa teal button color */
+  accent-color: #27647d; /* Frescopa teal */
   width: 18px;
   height: 18px;
 }
 
+/* Quantity Dropdown (Rounded, Gold Border, Custom SVG Arrow) */
 body.frescopa-theme main .product-detail .pd-quantity-select {
   color: #58181d;
   border: 2px solid #eaa33a;
   border-radius: 50px;
   padding: 10px 36px 10px 20px;
   background-color: #ffffff;
-  /* Reuses Frescopa's custom dropdown chevron */
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%2358181d' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
   background-repeat: no-repeat;
   background-position: right 16px center;
+  font-family: roboto, roboto-fallback, sans-serif;
 }
 
 body.frescopa-theme main .product-detail .pd-quantity-select:focus {
@@ -942,7 +954,7 @@ body.frescopa-theme main .product-detail .pd-quantity-select:focus {
   outline: none;
 }
 
-/* Hide the default theme-agnostic text arrow since we are using the Frescopa SVG */
+/* Hide default text arrow since Frescopa uses an SVG background */
 body.frescopa-theme main .product-detail .pd-quantity-select-wrapper::after {
   display: none;
 }
