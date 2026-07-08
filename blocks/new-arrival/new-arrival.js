@@ -1,10 +1,17 @@
-import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/aem.js";
+import { readBlockConfig, createLumaProductImagePicture, fetchPlaceholders } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
+const AUTHOR_GRAPHQL_BASE = "/graphql/execute.json/dsn-eds-configuration/";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
-const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
+const DEFAULT_GRAPHQL_QUERY_NAME = "productsListByPath";
+
+// Query name comes from the project's placeholders sheet (key: query-name);
+// missing sheet or row falls back to the default query.
+async function getGraphQLQueryName() {
+  const placeholders = await fetchPlaceholders().catch(() => ({}));
+  return placeholders?.queryName?.trim() || DEFAULT_GRAPHQL_QUERY_NAME;
+}
 let newArrivalAuthorBasePromise;
 let newArrivalPublishEnvironmentPromise;
 
@@ -102,11 +109,14 @@ function buildCard(item, isAuthor) {
 async function fetchProducts(path, isAuthor) {
   try {
     if (!path) return [];
-    const authorBase = await getNewArrivalAuthorBase();
-    const environment = await getNewArrivalPublishEnvironment();
+    const [authorBase, environment, queryName] = await Promise.all([
+      getNewArrivalAuthorBase(),
+      getNewArrivalPublishEnvironment(),
+      getGraphQLQueryName(),
+    ]);
     const url = isAuthor
-      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
-      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
+      ? `${authorBase}${AUTHOR_GRAPHQL_BASE}${queryName};_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${queryName}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -115,7 +125,7 @@ async function fetchProducts(path, isAuthor) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.productModelList?.items || [];
+    const items = json?.data?.binjiProductModelList?.items ?? json?.data?.productModelList?.items ?? [];
     // Filter out null/invalid products
     return items.filter((item) => item && item.sku);
   } catch (e) {
