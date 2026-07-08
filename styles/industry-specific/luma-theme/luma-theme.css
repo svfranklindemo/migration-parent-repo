@@ -677,6 +677,7 @@ body.luma-theme main .product-detail .recipe-author__name {
   font-family: 'Adobe Clean Bold', sans-serif;
   color: #000000;
   text-transform: uppercase;
+  font-size: 30px;
 }
 
 /* Body Text & Labels (Adobe Clean, Dark Gray) */
