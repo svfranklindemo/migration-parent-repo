@@ -14,7 +14,7 @@ const DEFAULT_GRAPHQL_QUERY_NAME = 'productsListByPath';
 // missing sheet or row falls back to the default query.
 async function getGraphQLQueryName() {
   const placeholders = await fetchPlaceholders().catch(() => ({}));
-  return placeholders?.queryName?.trim() || DEFAULT_GRAPHQL_QUERY_NAME;
+  return placeholders?.productListQueryName?.trim() || DEFAULT_GRAPHQL_QUERY_NAME;
 }
 
 let categoryProductsAuthorBasePromise;

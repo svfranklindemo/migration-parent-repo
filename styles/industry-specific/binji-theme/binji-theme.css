@@ -1431,7 +1431,7 @@ body.binji-theme main .section.video-container .video-wrapper {
   padding: 0;
 }
 
-body.binji-theme:has(.user-profile-btn) main .section:has(.sign-in-wrapper) {
+body.binji-theme:has(.user-profile-btn) main .section:has(.sign-in-wrapper), body.binji-theme:has(.user-profile-btn) main .section.sign-in-wrapper {
   display: none !important;
 }
 

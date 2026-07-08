@@ -522,7 +522,7 @@ main .product-detail .pd-rec-card-title {
 }
 
 /* ==========================================================================
-   Video Layout Default Styles (Stacked Layout)
+   Video Layout Default Styles (Stacked / Split Layout)
    ========================================================================== */
 
 .section.product-detail-container:has(.pd-video-layout),
@@ -562,47 +562,56 @@ main .product-detail .pd-video-layout .pd-video-player {
   border-radius: 12px;
 }
 
-/* Content Area Grid mapping */
+/* --- New Structural Layout for Content --- */
+
 main .product-detail .pd-container.pd-video-layout .pd-content {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  grid-template-areas:
-    "name meta"
-    "cast cast"
-    "description description"
-    "extras extras"
-    "quantity quantity"
-    "actions actions";
-  column-gap: 24px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   padding-top: 0;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+}
+
+/* Top Row: Name and Meta (50/50 Split) */
+main .product-detail .pd-video-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
 main .product-detail .pd-container.pd-video-layout .pd-name {
-  grid-area: name;
-  width: fit-content;
+  margin: 0;
+  flex: 1 1 calc(60% - 12px);
+  width: auto;
 }
 
-/* Align meta items (tag, age, rating) side-by-side with the name */
 main .product-detail .pd-container.pd-video-layout .pd-video-meta {
-  grid-area: meta;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  /* Push to the right edge */
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 16px;
   margin: 0;
+  flex: 1 1 calc(40% - 12px);
 }
 
+/* 70/30 Split Layout for Lower Content */
+main .product-detail .pd-video-split-layout {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 48px;
+}
+
+/* Margin resets for elements inside the split layout */
 main .product-detail .pd-container.pd-video-layout .pd-cast {
-  grid-area: cast;
+  margin: 0 0 24px 0;
   font-size: 1rem;
   line-height: 1.75;
   color: #495057;
-  margin-top: 24px;
 }
 
 main .product-detail .pd-container.pd-video-layout .pd-cast strong {
@@ -610,32 +619,26 @@ main .product-detail .pd-container.pd-video-layout .pd-cast strong {
 }
 
 main .product-detail .pd-container.pd-video-layout .pd-description {
-  grid-area: description;
-  border-top: none;
-  /* Removed border for clean flow */
+  margin: 0;
   padding-top: 0;
-  margin: 24px 0 0;
+  border-top: none;
 }
 
-main .product-detail .pd-container.pd-video-layout .pd-extras {
-  grid-area: extras;
-  margin-top: 24px;
+main .product-detail .pd-video-right-col .pd-extras,
+main .product-detail .pd-video-right-col .pd-quantity {
+  margin-top: 0;
+  margin-bottom: 24px;
 }
 
-main .product-detail .pd-container.pd-video-layout .pd-quantity {
-  grid-area: quantity;
-  margin-top: 24px;
-}
-
-main .product-detail .pd-container.pd-video-layout .pd-actions {
-  grid-area: actions;
-  justify-content: flex-start;
-  max-width: 520px;
-  margin-top: 24px;
+main .product-detail .pd-video-right-col .pd-actions {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 main .product-detail .pd-container.pd-video-layout .pd-actions .pd-btn {
   flex: unset;
+  width: 100%;
 }
 
 /* Pill and Badge Styles (keeping default colors) */
@@ -673,7 +676,7 @@ main .product-detail .pd-video-layout .pd-video-rating .empty-stars {
 }
 
 /* Mobile Stacked Override */
-@media (width <=768px) {
+@media (width <= 768px) {
   .section.product-detail-container:has(.pd-video-layout) .product-detail {
     padding: 0 16px;
   }
@@ -683,35 +686,20 @@ main .product-detail .pd-video-layout .pd-video-rating .empty-stars {
     width: 100%;
     height: unset;
   }
-
-  main .product-detail .pd-container.pd-video-layout .pd-content {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "name"
-      "meta"
-      "cast"
-      "description"
-      "extras"
-      "quantity"
-      "actions";
-    column-gap: 16px;
-    align-items: start;
+  
+  main .product-detail .pd-video-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 
   main .product-detail .pd-container.pd-video-layout .pd-video-meta {
-    margin-top: 16px;
     justify-content: flex-start;
   }
 
-  main .product-detail .pd-container.pd-video-layout .pd-cast {
-    margin-top: 16px;
-  }
-
-  main .product-detail .pd-container.pd-video-layout .pd-description,
-  main .product-detail .pd-container.pd-video-layout .pd-extras,
-  main .product-detail .pd-container.pd-video-layout .pd-quantity,
-  main .product-detail .pd-container.pd-video-layout .pd-actions {
-    margin-top: 16px;
+  main .product-detail .pd-video-split-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 
