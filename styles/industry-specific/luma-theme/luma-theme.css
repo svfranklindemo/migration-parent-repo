@@ -738,6 +738,7 @@ body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-title {
 
 body.luma-theme main .product-detail .recipe-sidebar .pd-rec-title {
   text-transform: uppercase;
+  font-size: 30px;
 }
 
 body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card {

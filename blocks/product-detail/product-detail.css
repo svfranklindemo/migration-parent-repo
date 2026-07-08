@@ -814,6 +814,10 @@ main .product-detail .recipe-main__content p {
   margin: 0;
 }
 
+main .product-detail .recipe-detail .pd-actions {
+  max-width: 500px;
+}
+
 /* Right Content: Sidebar */
 main .product-detail .recipe-sidebar {
   grid-column: span 4;
@@ -978,7 +982,6 @@ main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after
   }
 
   main .product-detail .recipe-hero__image {
-    height: 250px;
     flex: none;
     width: 100%;
   }
@@ -1010,8 +1013,6 @@ main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after
    ========================================================================== */
 main .product-detail .pd-extras {
   margin: 32px 0;
-  padding-top: 24px;
-  border-top: 1px solid #e9ecef;
 }
 
 main .product-detail .pd-extras-title {
@@ -1071,6 +1072,7 @@ main .product-detail .pd-quantity-title {
 
 main .product-detail .pd-quantity-select-wrapper {
   position: relative;
+  max-width: 300px;
 }
 
 main .product-detail .pd-quantity-select {
