@@ -11,12 +11,11 @@
     "/content/luma-site/language-masters/de/:/de/",
     "/content/luma-site/language-masters/de:/de",
     "/content/luma-site/configuration:/.helix/config.json",
-    "/content/luma-site/graphql:/graphql.json",
     "/content/luma-site/redirects:/redirects.json",
     "/content/luma-site/placeholders:/placeholders.json"
   ],
   "includes": [
     "/content/luma-site/",
-    "/content/dam/luma-sit/"
+    "/content/dam/luma-site/"
   ]
 }

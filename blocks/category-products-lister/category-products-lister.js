@@ -7,28 +7,14 @@ import {
 } from '../../scripts/utils.js';
 
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
-const GRAPHQL_CONFIG_PATH = '/graphql.json';
 const AUTHOR_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/';
 const DEFAULT_GRAPHQL_QUERY_NAME = 'productsListByPath';
 
-let graphqlConfigPromise;
-async function getGraphQLConfig() {
-  if (!graphqlConfigPromise) {
-    graphqlConfigPromise = fetchPlaceholders()
-      .then((placeholders) => fetch(`${GRAPHQL_CONFIG_PATH}`))
-      .then((r) => {
-        if (!r.ok) return {};
-        return r.json().then((json) => (Array.isArray(json?.data) ? json : {}));
-      })
-      .catch(() => ({}));
-  }
-  return graphqlConfigPromise;
-}
-
+// Query name comes from the project's placeholders sheet (key: query-name);
+// missing sheet or row falls back to the default query.
 async function getGraphQLQueryName() {
-  const cfg = await getGraphQLConfig();
-  const row = cfg?.data?.find((r) => r.key === 'graphql-query-name');
-  return row?.value?.trim() || DEFAULT_GRAPHQL_QUERY_NAME;
+  const placeholders = await fetchPlaceholders().catch(() => ({}));
+  return placeholders?.queryName?.trim() || DEFAULT_GRAPHQL_QUERY_NAME;
 }
 
 let categoryProductsAuthorBasePromise;
