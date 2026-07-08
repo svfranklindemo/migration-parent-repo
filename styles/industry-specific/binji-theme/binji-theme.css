@@ -559,7 +559,7 @@ body.binji-theme .product-detail .pd-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center;
 }
 
 body.binji-theme main .product-detail .pd-video-layout .pd-video-player {

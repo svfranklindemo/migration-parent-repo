@@ -551,6 +551,7 @@ main .product-detail .pd-container.pd-video-layout .pd-image {
 
 main .product-detail .pd-video-layout .pd-video-image-wrapper {
   display: none;
+  width: 100%;
 }
 
 main .product-detail .pd-video-layout .pd-video-player {
