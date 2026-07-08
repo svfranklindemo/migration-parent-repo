@@ -143,8 +143,8 @@ async function fetchAllProducts(path, isAuthor, modelType = 'default') {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.productModelList?.items || [];
-    const filtered = items.filter((item) => item && item.sku);
+    const items = json?.data?.productModelList?.items || json?.data?.binjiProductModelList?.items || [];
+    const filtered = items.filter((item) => item && (item.sku || item.id));
     return filtered;
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -611,7 +611,9 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
  * @returns {HTMLElement|null} - Recommendations section or null
  */
 function buildRecommendations(currentProduct, allProducts, isAuthor, recommendedPath, relatedProductsTitle) {
-  const { sku: currentSku, category: currentCategories = [] } = currentProduct;
+  // UPDATED: Pull both sku and id
+  const { sku, id, category: currentCategories = [] } = currentProduct;
+  const currentProductId = sku || id;
 
   if (!currentCategories || currentCategories.length === 0) {
     return null;
@@ -620,8 +622,10 @@ function buildRecommendations(currentProduct, allProducts, isAuthor, recommended
   // Filter products by matching category
   const recommendations = allProducts
     .filter((product) => {
-      // Exclude current product
-      if (product.sku === currentSku) return false;
+      const productId = product.sku || product.id;
+      
+      // Exclude current product using the fallback ID
+      if (productId === currentProductId) return false;
 
       // Check if product has any matching category
       const productCategories = product.category || [];
@@ -637,7 +641,6 @@ function buildRecommendations(currentProduct, allProducts, isAuthor, recommended
   const section = document.createElement("div");
   section.className = "pd-recommendations";
 
-  const isHallibyTheme = document.body.classList.contains("halliby-theme");
   const title = document.createElement("h2");
   title.className = "pd-rec-title";
   title.textContent = relatedProductsTitle || "YOU MAY ALSO LIKE";
@@ -705,6 +708,17 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
     </div>
   `;
 
+  // MOVED: Append Extras, Quantity, and Actions to the Main Section (Below Description)
+  const extrasEl = buildExtras(eventConfig);
+  if (extrasEl) mainSection.appendChild(extrasEl);
+
+  const qtyEl = buildQuantity(eventConfig);
+  if (qtyEl) mainSection.appendChild(qtyEl);
+
+  const actionsEl = buildActions(product, isAuthor, eventConfig);
+  if (actionsEl.children.length > 0) mainSection.appendChild(actionsEl);
+
+
   // Right Column (30%)
   const sidebarSection = document.createElement("div");
   sidebarSection.className = "recipe-sidebar";
@@ -723,16 +737,6 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
       </div>
     `;
   }
-
-  // Append Extras, Quantity, and Actions to Sidebar
-  const extrasEl = buildExtras(eventConfig);
-  if (extrasEl) sidebarSection.appendChild(extrasEl);
-
-  const qtyEl = buildQuantity(eventConfig);
-  if (qtyEl) sidebarSection.appendChild(qtyEl);
-
-  const actionsEl = buildActions(product, isAuthor, eventConfig);
-  if (actionsEl.children.length > 0) sidebarSection.appendChild(actionsEl);
 
   // Inject Standard Recommendations directly into the right sidebar container
   if (eventConfig.showYouMayAlsoLikeSection) {
