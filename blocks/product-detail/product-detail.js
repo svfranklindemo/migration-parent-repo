@@ -510,7 +510,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     if (category && category.length > 0) {
       const catEl = document.createElement("span");
       catEl.className = "pd-video-category-tag";
-      catEl.textContent = category?.map(cat => normalizeCategoryValue(cat))?.join('/');
+      catEl.textContent = category?.map(cat => normalizeCategoryValue(cat))?.join(', ');
       metaRow.appendChild(catEl);
     }
 
