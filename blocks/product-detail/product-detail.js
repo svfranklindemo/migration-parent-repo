@@ -474,7 +474,7 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
       videoEl.controls = true;
       videoEl.className = "pd-video-player";
       
-      const posterUrl = isAuthor ? poster._authorUrl : poster._publishUrl;
+      const posterUrl = isAuthor ? poster?._authorUrl : poster?._publishUrl;
       if (posterUrl) videoEl.poster = posterUrl;
       
       const source = document.createElement("source");
