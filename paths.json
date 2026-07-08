@@ -1,21 +1,23 @@
 {
   "mappings": [
-    "/content/luma-site/language-masters/en:/",
-    "/content/luma-site/language-masters/en/:/en/",
-    "/content/luma-site/language-masters/fr/:/fr/",
-    "/content/luma-site/language-masters/fr:/fr",
-    "/content/luma-site/language-masters/es/:/es/",
-    "/content/luma-site/language-masters/es:/es",
-    "/content/luma-site/language-masters/ja/:/ja/",
-    "/content/luma-site/language-masters/ja:/ja",
-    "/content/luma-site/language-masters/de/:/de/",
-    "/content/luma-site/language-masters/de:/de",
-    "/content/luma-site/configuration:/.helix/config.json",
-    "/content/luma-site/redirects:/redirects.json",
-    "/content/luma-site/placeholders:/placeholders.json"
+    "/content/binji/language-masters/en:/",
+    "/content/binji/language-masters/en/:/en/",
+    "/content/binji/language-masters/fr/:/fr/",
+    "/content/binji/language-masters/fr:/fr",
+    "/content/binji/language-masters/es/:/es/",
+    "/content/binji/language-masters/es:/es",
+    "/content/binji/language-masters/ja/:/ja/",
+    "/content/binji/language-masters/ja:/ja",
+    "/content/binji/language-masters/de/:/de/",
+    "/content/binji/language-masters/de:/de",
+    "/content/binji/configuration:/.helix/config.json",
+    "/content/binji/metadata:/metadata.json",
+    "/content/binji/redirects:/redirects.json",
+    "/content/binji/placeholders:/placeholders.json",
+    "/content/binji/graphql:/graphql.json"
   ],
   "includes": [
-    "/content/luma-site/",
-    "/content/dam/luma-site/"
+    "/content/binji/",
+    "/content/dam/binji/"
   ]
 }
