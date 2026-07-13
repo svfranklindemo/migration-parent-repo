@@ -235,8 +235,8 @@ function buildExtras(eventConfig) {
   )) : defaultExtras;
 
   extras.forEach(extra => {
-    const label = document.createElement("label");
-    label.className = "pd-extra-item";
+    const labelEl = document.createElement("label");
+    labelEl.className = "pd-extra-item";
     
     const input = document.createElement("input");
     input.type = "checkbox";
@@ -248,9 +248,9 @@ function buildExtras(eventConfig) {
     text.className = "pd-extra-label";
     text.textContent = extra.label;
     
-    label.appendChild(input);
-    label.appendChild(text);
-    extrasList.appendChild(label);
+    labelEl.appendChild(input);
+    labelEl.appendChild(text);
+    extrasList.appendChild(labelEl);
   });
 
   extrasEl.appendChild(extrasList);
@@ -371,6 +371,9 @@ function buildActions(product, isAuthor, eventConfig) {
 
 /**
  * Build product detail view
+ * @param {Object} product - Product data
+ * @param {boolean} isAuthor - Is author environment
+ * @returns {HTMLElement} - Product detail container
  */
 function buildProductDetail(product, isAuthor, eventConfig = {}) {
   const {
@@ -697,6 +700,7 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
   const actionsEl = buildActions(product, isAuthor, eventConfig);
   if (actionsEl.children.length > 0) mainSection.appendChild(actionsEl);
 
+  // Right Column (30%)
   const sidebarSection = document.createElement("div");
   sidebarSection.className = "recipe-sidebar";
   
@@ -714,6 +718,7 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
     `;
   }
 
+  // Inject Standard Recommendations directly into the right sidebar container
   if (eventConfig.showYouMayAlsoLikeSection) {
     const recs = buildRecommendations(product, allProducts, isAuthor, recommendedPath, relatedProductsTitle);
     if (recs) {

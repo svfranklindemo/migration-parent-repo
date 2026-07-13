@@ -2783,6 +2783,10 @@ body.halliby-theme .section.order-confirmation-container .default-content-wrappe
     padding: 0 24px;
   }
 
+  body.halliby-theme main .product-detail .recipe-hero__image {
+    height: 250px;
+  }
+
   body.halliby-theme .section.order-confirmation-container .order-confirmation-title {
     font-size: 30px;
     line-height: 1.3;
