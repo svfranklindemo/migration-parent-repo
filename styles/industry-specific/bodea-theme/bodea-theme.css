@@ -34,143 +34,154 @@ body.carvelo-theme main  > .section.bg-dark > div {
     margin: auto !important;
 }
 /* Banner */
-body.bodea-theme .homeBanner {
+/* ===========================
+   Bodea Banner
+=========================== */
+
+body.bodea-theme .bodea-banner .hero {
   position: relative;
-  width: 100%;
-  height: 650px;
+  min-height: 640px;
   overflow: hidden;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
 }
 
-/* Image */
-body.bodea-theme .homeBanner .Image {
+/* Background Image */
+
+body.bodea-theme .bodea-banner .hero > div:first-child {
   position: absolute;
   inset: 0;
 }
 
-body.bodea-theme .homeBanner .Image img {
+body.bodea-theme .bodea-banner .hero picture,
+body.bodea-theme .bodea-banner .hero img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+}
+
+body.bodea-theme .bodea-banner .hero img {
   display: block;
+  object-fit: cover;
 }
 
 /* Overlay */
-body.bodea-theme .homeBanner::before {
+
+body.bodea-theme .bodea-banner .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.55),
     rgba(0, 0, 0, 0.15),
-    transparent
+    rgba(0, 0, 0, 0.45)
   );
+  z-index: 1;
 }
 
 /* Content */
-body.bodea-theme .homeBanner .Banner__content {
+
+body.bodea-theme .bodea-banner .hero > div:nth-child(2) {
   position: relative;
   z-index: 2;
   max-width: 900px;
   width: 100%;
-  padding: 0 24px 80px;
   text-align: center;
+  padding: 0 24px;
 }
 
-/* Title */
-body.bodea-theme .homeBanner .Title h1 {
+/* Heading */
+
+body.bodea-theme .bodea-banner h1 {
   margin: 0;
   color: #fff;
   font-size: 64px;
-  font-weight: 700;
   line-height: 1.1;
+  font-weight: 700;
+}
+
+body.bodea-theme .bodea-banner h1 strong {
+  font-weight: inherit;
 }
 
 /* Subtitle */
-body.bodea-theme .homeBanner .Title__subtitle {
-  margin-top: 18px;
-}
 
-body.bodea-theme .homeBanner .Title__subtitle p {
-  margin: 0;
+body.bodea-theme .bodea-banner h1 + p {
+  margin: 20px 0 0;
   color: #fff;
-  font-size: 22px;
+  font-size: 24px;
   line-height: 1.5;
-  opacity: 0.95;
 }
 
-/* Button */
-body.bodea-theme .homeBanner .Button {
+/* CTA */
+
+body.bodea-theme .bodea-banner .button-container {
   margin-top: 40px;
 }
 
-body.bodea-theme .homeBanner .Button button {
-  padding: 14px 34px;
-  border: none;
+body.bodea-theme .bodea-banner .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  padding: 16px 36px;
   border-radius: 999px;
   background: #1473e6;
   color: #fff;
   font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background .3s ease;
 }
 
-body.bodea-theme .homeBanner .Button button:hover {
+body.bodea-theme .bodea-banner .button:hover {
   background: #0d66d0;
-  transform: translateY(-2px);
 }
 
 /* Alignment */
-body.bodea-theme .Banner--alignment-center {
+
+body.bodea-theme .hero--alignment-center {
   text-align: center;
 }
 
-body.bodea-theme .Title--alignment-center,
-body.bodea-theme .Text--alignment-center,
-body.bodea-theme .Button--alignment-center {
-  text-align: center;
+body.bodea-theme .hero--verticalalignment-middle {
+  align-items: center;
 }
 
 /* Responsive */
-@media (max-width: 992px) {
 
-  body.bodea-theme .homeBanner {
-    height: 500px;
+@media (max-width: 991px) {
+
+  body.bodea-theme .bodea-banner .hero {
+    min-height: 520px;
   }
 
-  body.bodea-theme .homeBanner .Title h1 {
-    font-size: 48px;
+  body.bodea-theme .bodea-banner h1 {
+    font-size: 46px;
   }
 
-  body.bodea-theme .homeBanner .Title__subtitle p {
+  body.bodea-theme .bodea-banner h1 + p {
     font-size: 20px;
   }
+
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
-  body.bodea-theme .homeBanner {
-    height: 420px;
+  body.bodea-theme .bodea-banner .hero {
+    min-height: 420px;
   }
 
-  body.bodea-theme .homeBanner .Banner__content {
-    padding-bottom: 48px;
+  body.bodea-theme .bodea-banner h1 {
+    font-size: 34px;
   }
 
-  body.bodea-theme .homeBanner .Title h1 {
-    font-size: 36px;
-  }
-
-  body.bodea-theme .homeBanner .Title__subtitle p {
+  body.bodea-theme .bodea-banner h1 + p {
     font-size: 18px;
   }
 
-  body.bodea-theme .homeBanner .Button button {
-    width: 100%;
-    max-width: 240px;
+  body.bodea-theme .bodea-banner .button {
+    width: 220px;
   }
+
 }
