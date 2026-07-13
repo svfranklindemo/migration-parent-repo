@@ -106,6 +106,10 @@
           {
             "name": "Halliby Theme",
             "value": "halliby-theme"
+          },
+          {
+            "name": "Bodea Theme",
+            "value": "bodea-theme"
           }
         ]
       },
