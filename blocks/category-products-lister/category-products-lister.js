@@ -382,11 +382,9 @@ export default async function decorate(block) {
   // Clear author table
   block.innerHTML = "";
 
-  const maxCount = Number(cfg.maxcardsdisplayed);
-
   const allItems = await fetchProducts(folderHref);
   const categoryItems = filterByCategories(allItems, tags);
-  let items = maxCount && maxCount > 0 ? categoryItems?.slice(0, maxCount) : categoryItems;
+  let items = categoryItems;
 
   if (styleVariant === "carousel") {
     if (!items || items.length === 0) {

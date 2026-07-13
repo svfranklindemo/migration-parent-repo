@@ -1435,4 +1435,166 @@ body.binji-theme:has(.user-profile-btn) main .section:has(.sign-in-wrapper), bod
   display: none !important;
 }
 
-/*# sourceMappingURL=binji-theme.v2.css.map */
+/* =============================================================================
+   NEW ARRIVAL - BINJI THEME OVERRIDES
+   ============================================================================= */
+
+/* Card base */
+body.binji-theme .new-arrival .na-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  transition: transform 0.2s ease;
+}
+
+body.binji-theme .new-arrival .na-card:hover {
+  transform: scale(1.03);
+  box-shadow: none;
+}
+
+/* Card Media */
+body.binji-theme .new-arrival .na-card-media {
+  aspect-ratio: 3 / 2;
+  height: auto;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0b0b0f;
+}
+
+body.binji-theme .new-arrival .na-card-media picture,
+body.binji-theme .new-arrival .na-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+}
+
+/* Card Meta */
+body.binji-theme .new-arrival .na-card-meta {
+  text-align: left;
+  align-items: flex-start;
+  padding: 10px 0 0;
+}
+
+/* Card Category */
+body.binji-theme .new-arrival .na-card-category {
+  color: #a0a0a0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 4px;
+}
+
+/* Card Title */
+body.binji-theme .new-arrival .na-card-title {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Tags (Mapped for future-proofing if you use tags) */
+body.binji-theme .new-arrival .na-tag {
+  background: rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 20%);
+  color: #fff;
+}
+
+/* Empty State */
+body.binji-theme .new-arrival .na-empty {
+  color: #a0a0a0;
+}
+
+/* Carousel specific UI */
+body.binji-theme .new-arrival .na-title {
+  color: #fff;
+}
+
+body.binji-theme .new-arrival .na-carousel-btn {
+  border-color: #fff !important;
+  color: #fff !important;
+  background: transparent !important;
+}
+
+body.binji-theme .new-arrival .na-carousel-btn:hover:not(:disabled) {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+/* Container and Layout overrides */
+@media screen and (max-width: 768px) {
+  body.binji-theme main .section.new-arrival-container {
+    padding: 0 1rem;
+  }
+}
+
+body.binji-theme main .section.new-arrival-container .new-arrival-wrapper {
+  padding: 0;
+}
+
+body.binji-theme main .section.new-arrival-container .default-content-wrapper {
+  padding: 0;
+}
+
+body.binji-theme main .section.new-arrival-container .default-content-wrapper h2 {
+  color: #fff;
+  padding: 0;
+  margin: 0.67em 0;
+  font-size: 28px;
+  line-height: 1.5;
+}
+
+/* Hide tags container if it exists */
+body.binji-theme main .section.new-arrival-container .na-tags {
+  display: none;
+}
+
+/* Grid Gap for your Horizontal Grid */
+body.binji-theme main .section.new-arrival-container .new-arrival .na-horizontal-grid {
+  padding: 0;
+  gap: 1rem;
+}
+
+/* Specific container overrides */
+body.binji-theme main .section.new-arrival-container .new-arrival .na-card {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+body.binji-theme main .section.new-arrival-container .new-arrival .na-card .na-card-media {
+  height: fit-content;
+}
+
+body.binji-theme main .section.new-arrival-container .new-arrival .na-card .na-card-media img {
+  min-height: 150px;
+  object-fit: cover;
+  object-position: center;
+}
+
+body.binji-theme main .section.new-arrival-container .new-arrival .na-card .na-card-meta {
+  padding: 16px 0 0;
+  align-items: flex-start;
+}
+
+body.binji-theme main .section.new-arrival-container.center-card-content .new-arrival .na-card .na-card-meta {
+  align-items: center;
+}
+
+body.binji-theme main .section.new-arrival-container .new-arrival .na-card .na-card-meta .na-card-category {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+}
+
+body.binji-theme main .section.new-arrival-container .new-arrival .na-card .na-card-meta .na-card-title {
+  font-size: 21px;
+  line-height: 32px;
+  margin: 0 0 0.83em;
+}

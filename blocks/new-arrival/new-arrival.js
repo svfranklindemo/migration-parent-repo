@@ -32,8 +32,9 @@ async function getNewArrivalPublishEnvironment() {
 }
 
 function buildCard(item, isAuthor) {
-  const { id, sku, name, damImageURL = {}, category = [] } = item || {};
-  const productId = sku || id || "";
+  const { id, sku, name, damImageURL = {}, category = [], image = {} } = item || {};
+  const imageData = Object.keys(damImageURL).length ? damImageURL : image;
+  const productId = sku || id;
 
   const card = document.createElement("article");
   card.className = "na-card";
@@ -78,8 +79,8 @@ function buildCard(item, isAuthor) {
   }
 
   let picture = null;
-  if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
-    picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
+  if (imageData && (imageData._dynamicUrl || imageData._publishUrl || imageData._authorUrl)) {
+    picture = createLumaProductImagePicture(imageData, name || "Product image", {
       isAuthor,
       eager: false,
     });
@@ -96,7 +97,7 @@ function buildCard(item, isAuthor) {
   cat.textContent = category
     .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
     .filter(Boolean)
-    .join(" / ");
+    .join(", ");
   const title = document.createElement("h3");
   title.className = "na-card-title";
   title.textContent = name || "";
@@ -127,7 +128,7 @@ async function fetchProducts(path, isAuthor) {
     const json = await resp.json();
     const items = json?.data?.binjiProductModelList?.items ?? json?.data?.productModelList?.items ?? [];
     // Filter out null/invalid products
-    return items.filter((item) => item && item.sku);
+    return items.filter((item) => item && (item.sku || item.id));
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("New Arrival: fetch error", e);
@@ -142,7 +143,7 @@ function filterProductsBySKU(products, skuList) {
   const normalizedSKUs = skuList.map((s) => s.toLowerCase().trim());
 
   return products.filter((product) => {
-    const productSKU = (product.sku || "").toLowerCase().trim();
+    const productSKU = (product.sku || product.id || "").toLowerCase().trim();
     return normalizedSKUs.includes(productSKU);
   });
 }
@@ -269,6 +270,13 @@ function extractSKUs(block, cfg) {
   }
 
   return skuList;
+}
+
+function createHorizontalGridLayout(block, cards) {
+  const grid = document.createElement("div");
+  grid.className = "na-horizontal-grid";
+  cards.forEach((card) => grid.append(card));
+  block.append(grid);
 }
 
 function createCarousel(block, cards) {
@@ -499,7 +507,9 @@ export default async function decorate(block) {
     folderHref = folderHref.replace(/\.html$/, "");
   }
 
-  const isVertical = (cfg?.layout || '').trim().toLowerCase() === 'vertical';
+  const layout = (cfg?.layout || '').trim().toLowerCase();
+  const isVertical = layout === 'vertical';
+  const isHorizontalGrid = layout === 'horizontal-grid';
 
   // Extract SKUs from multifield
   const skuList = extractSKUs(block, cfg);
@@ -551,6 +561,8 @@ export default async function decorate(block) {
 
   if (isVertical) {
     createVerticalLayout(block, cards);
+  } else if (isHorizontalGrid) {
+    createHorizontalGridLayout(block, cards);
   } else {
     createCarousel(block, cards);
   }

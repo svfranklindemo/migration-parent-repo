@@ -8794,14 +8794,6 @@
         ]
       },
       {
-        "component": "number",
-        "name": "maxcardsdisplayed",
-        "label": "Max Cards",
-        "value": 0,
-        "valueType": "number",
-        "description": "Max number of cards to be displayed (0 will display all cards available)."
-      },
-      {
         "component": "boolean",
         "name": "enableaddtocartattileview",
         "label": "Enable Add to Cart at Tile View",

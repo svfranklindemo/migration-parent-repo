@@ -298,3 +298,36 @@
 .na-vertical .na-card-title {
   text-align: left;
 }
+
+/* Horizontal Grid Layout */
+.na-horizontal-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5rem; /* 24px */
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.na-horizontal-grid .na-card {
+  flex: none;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .na-horizontal-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .na-horizontal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .na-horizontal-grid {
+    grid-template-columns: 1fr;
+  }
+}
