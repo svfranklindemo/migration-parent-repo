@@ -1,35 +1,41 @@
-body.carvelo-theme {
-  --main-accent-color: #f82216;
-  --main-accent-hover: #c41a10;
-  --link-hover-color: #f82216;
-  --nav-text-color: #000000;
-  --footer-text-color: #ffffff;
-  --light-color: #f3f2f6;
-  --dark-color: #050e13;
+body.bodea-theme {
+  --bot-icon: url("https://demo-system-next.s3.amazonaws.com/assets/bot/bot.png");
+  --body-font-family: "Open Sans", sans-serif, proxima-nova, sans-serif;
+  --heading-font-family: "Open Sans", sans-serif, proxima-nova, sans-serif;
+  --logo: url("https://demo-system-next.s3.amazonaws.com/assets/bodea/Bodea_logo.png");
+  --footer-logo: url("https://demo-system-next.s3.amazonaws.com/assets/bodea/Bodea_logo.png");
+
+  --main-accent-color: #35b28c;
+  --main-accent-hover: #2d9a78;
+  --link-hover-color: #35b28c;
+
   --background-color: #ffffff;
-  --text-color: #000000;
-  --body-font-family: adobe-clean, proxima-nova, "Proxima Nova", sans-serif;
-  --heading-font-family: adobe-clean, proxima-nova, "Proxima Nova", sans-serif;
-  --heading-font-size-xxl: 3.5rem;
-  --heading-font-size-xl: 3rem;
-  --heading-font-size-l: 2.35rem;
-  --heading-font-size-m: 1.9rem;
-  --heading-font-size-s: 1.5rem;
-  --nav-height: 72px;
+  --header-background-color: #ffffff;
+  --footer-background-color: #f2f2f2;
+
+  --text-color: #2c2c2c;
+  --primary-text-color: #2c2c2c;
+  --nav-text-color: #28272b;
+  --footer-text-color: #2c2c2c;
+
+  --border-radius: 0;
+  --fonts-project-id: ysb2tjo;
+
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-body.carvelo-theme main {
+body.bodea-theme main {
   flex: 1;
+  overflow: hidden;
 }
 
-body.carvelo-theme main > .section:not([data-sec-full-width="true"]) {
+body.bodea-theme main > .section:not([data-sec-full-width="true"]) {
   max-width: 1280px;
   width: 100%;
 }
-body.carvelo-theme main  > .section.bg-dark > div {
+body.bodea-theme main  > .section.bg-dark > div {
     max-width: 1200px !important;
     margin: auto !important;
 }
@@ -37,151 +43,127 @@ body.carvelo-theme main  > .section.bg-dark > div {
 /* ===========================
    Bodea Banner
 =========================== */
+/* ─────────── Hero Banner ─────────── */
 
-body.bodea-theme .bodea-banner .hero {
-  position: relative;
-  min-height: 640px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+body.bodea-theme main .bodea-banner {
+    max-width: 100% !important;
+    padding: 0;
 }
 
-/* Background Image */
-
-body.bodea-theme .bodea-banner .hero > div:first-child {
-  position: absolute;
-  inset: 0;
+body.bodea-theme main .bodea-banner .hero-wrapper,
+body.bodea-theme main .bodea-banner .hero {
+    max-width: 100%;
 }
 
-body.bodea-theme .bodea-banner .hero picture,
-body.bodea-theme .bodea-banner .hero img {
-  width: 100%;
-  height: 100%;
+body.bodea-theme main .bodea-banner .hero {
+    position: relative;
+    min-height: 640px;
+    display: block;
 }
 
-body.bodea-theme .bodea-banner .hero img {
-  display: block;
-  object-fit: cover;
+/* Image */
+
+body.bodea-theme main .bodea-banner .hero > div:first-child {
+    width: 100%;
 }
 
-/* Overlay */
-
-body.bodea-theme .bodea-banner .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.15),
-    rgba(0, 0, 0, 0.45)
-  );
-  z-index: 1;
+body.bodea-theme main .bodea-banner .hero picture {
+    display: block;
 }
 
-/* Content */
+body.bodea-theme main .bodea-banner .hero picture img {
+    width: 100%;
+    height: 640px;
+    object-fit: cover;
+    display: block;
+}
 
-body.bodea-theme .bodea-banner .hero > div:nth-child(2) {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
-  padding: 0 24px;
+/* White Card */
+
+body.bodea-theme main .bodea-banner .hero > div:nth-child(2) {
+    position: absolute;
+    left: 11%;
+    bottom: -70px;
+    width: 78%;
+    background: #fff;
+    padding: 40px 55px;
+    z-index: 5;
+    box-sizing: border-box;
 }
 
 /* Heading */
 
-body.bodea-theme .bodea-banner h1 {
-  margin: 0;
-  color: #fff;
-  font-size: 64px;
-  line-height: 1.1;
-  font-weight: 700;
+body.bodea-theme main .bodea-banner h1 {
+    color: #1b1b1b;
+    font-family: var(--heading-font-family);
+    font-size: 3.25rem;
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0 0 15px;
 }
 
-body.bodea-theme .bodea-banner h1 strong {
-  font-weight: inherit;
+body.bodea-theme main .bodea-banner h1 strong {
+    font-weight: 400;
 }
 
 /* Subtitle */
 
-body.bodea-theme .bodea-banner h1 + p {
-  margin: 20px 0 0;
-  color: #fff;
-  font-size: 24px;
-  line-height: 1.5;
+body.bodea-theme main .bodea-banner p:first-of-type {
+    color: #222;
+    font-size: 1.4rem;
+    margin-bottom: 32px;
 }
 
-/* CTA */
+/* Button */
 
-body.bodea-theme .bodea-banner .button-container {
-  margin-top: 40px;
+body.bodea-theme main .bodea-banner .button-container {
+    margin: 0;
 }
 
-body.bodea-theme .bodea-banner .button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
-  padding: 16px 36px;
-  border-radius: 999px;
-  background: #1473e6;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background .3s ease;
+body.bodea-theme main .bodea-banner .button {
+    background: #35b28c;
+    border: 2px solid #35b28c;
+    color: #fff !important;
+    padding: 16px 42px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 0;
+    display: inline-block;
 }
 
-body.bodea-theme .bodea-banner .button:hover {
-  background: #0d66d0;
+body.bodea-theme main .bodea-banner .button:hover {
+    background: #2b9a77;
+    border-color: #2b9a77;
 }
 
-/* Alignment */
+/* Leave space for overlap */
 
-body.bodea-theme .hero--alignment-center {
-  text-align: center;
+body.bodea-theme main .bodea-banner {
+    margin-bottom: 110px;
 }
 
-body.bodea-theme .hero--verticalalignment-middle {
-  align-items: center;
-}
-
-/* Responsive */
+/* Mobile */
 
 @media (max-width: 991px) {
 
-  body.bodea-theme .bodea-banner .hero {
-    min-height: 520px;
-  }
+    body.bodea-theme main .bodea-banner .hero > div:nth-child(2) {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        width: calc(100% - 40px);
+        margin: -80px auto 0;
+        padding: 32px;
+    }
 
-  body.bodea-theme .bodea-banner h1 {
-    font-size: 46px;
-  }
+    body.bodea-theme main .bodea-banner .hero picture img {
+        height: 450px;
+    }
 
-  body.bodea-theme .bodea-banner h1 + p {
-    font-size: 20px;
-  }
+    body.bodea-theme main .bodea-banner h1 {
+        font-size: 2.2rem;
+    }
 
-}
-
-@media (max-width: 767px) {
-
-  body.bodea-theme .bodea-banner .hero {
-    min-height: 420px;
-  }
-
-  body.bodea-theme .bodea-banner h1 {
-    font-size: 34px;
-  }
-
-  body.bodea-theme .bodea-banner h1 + p {
-    font-size: 18px;
-  }
-
-  body.bodea-theme .bodea-banner .button {
-    width: 220px;
-  }
-
+    body.bodea-theme main .bodea-banner p:first-of-type {
+        font-size: 1.1rem;
+    }
 }
