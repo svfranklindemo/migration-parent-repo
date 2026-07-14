@@ -1,22 +1,23 @@
 {
   "mappings": [
-    "/content/halliby/language-masters/en:/",
-    "/content/halliby/language-masters/en/:/en/",
-    "/content/halliby/language-masters/fr/:/fr/",
-    "/content/halliby/language-masters/fr:/fr",
-    "/content/halliby/language-masters/es/:/es/",
-    "/content/halliby/language-masters/es:/es",
-    "/content/halliby/language-masters/ja/:/ja/",
-    "/content/halliby/language-masters/ja:/ja",
-    "/content/halliby/language-masters/de/:/de/",
-    "/content/halliby/language-masters/de:/de",
-    "/content/halliby/configuration:/.helix/config.json",
-    "/content/halliby/metadata:/metadata.json",
-    "/content/halliby/redirects:/redirects.json",
-    "/content/halliby/placeholders:/placeholders.json"
+    "/content/binji/language-masters/en:/",
+    "/content/binji/language-masters/en/:/en/",
+    "/content/binji/language-masters/fr/:/fr/",
+    "/content/binji/language-masters/fr:/fr",
+    "/content/binji/language-masters/es/:/es/",
+    "/content/binji/language-masters/es:/es",
+    "/content/binji/language-masters/ja/:/ja/",
+    "/content/binji/language-masters/ja:/ja",
+    "/content/binji/language-masters/de/:/de/",
+    "/content/binji/language-masters/de:/de",
+    "/content/binji/configuration:/.helix/config.json",
+    "/content/binji/metadata:/metadata.json",
+    "/content/binji/redirects:/redirects.json",
+    "/content/binji/placeholders:/placeholders.json",
+    "/content/binji/graphql:/graphql.json"
   ],
   "includes": [
-    "/content/halliby/",
-    "/content/dam/halliby/"
+    "/content/binji/",
+    "/content/dam/binji/"
   ]
 }

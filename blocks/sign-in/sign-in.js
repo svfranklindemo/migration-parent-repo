@@ -34,6 +34,8 @@ export default async function decorate(block) {
     logoWrapper.append(img);
   }
 
+  const signInBtnText = config.signInBtnText ?? config['sign-in-btn-text'] ?? 'SIGN IN';
+
   // Set authorable redirect URLs
   const signInRedirectUrl = normalizeAemPath(config['sign-in-redirect-url']);
   block.dataset.signInRedirectUrl = signInRedirectUrl;
@@ -82,7 +84,7 @@ export default async function decorate(block) {
             name: "signInButton",
             fieldType: "button",
             buttonType: "submit",
-            label: { value: "SIGN IN" },
+            label: { value: signInBtnText },
             appliedCssClassNames: "submit-wrapper col-12",
           },
         ],

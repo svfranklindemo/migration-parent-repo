@@ -1,14 +1,16 @@
-import { createLumaProductImagePicture, readBlockConfig } from "../../scripts/aem.js";
+import { createLumaProductImagePicture, readBlockConfig, fetchPlaceholders } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
 import { label } from "../../scripts/dom-helpers.js";
 
-const AUTHOR_PRODUCT_DETAIL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productDescriptionByPathAndSKU;";
+const AUTHOR_GRAPHQL_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
-const PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY = "productDescriptionByPathAndSKU";
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
-const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
+
+// Strict fallback defaults (Original Non-Binji queries)
+const DEFAULT_DETAIL_QUERY = "productDescriptionByPathAndSKU";
+const DEFAULT_LIST_QUERY = "productsListByPath";
+
 let productDetailAuthorBasePromise;
 let productDetailPublishEnvironmentPromise;
 
@@ -51,40 +53,34 @@ function updatePageTitle(product) {
 
 /**
  * Convert a sentence or text string into a hyphen-separated ID.
- * Example: "Hello World!" -> "hello-world"
- *
- * @param {string} text - Input text to convert
- * @returns {string} - Hyphen-separated ID
  */
 function toHyphenId(text) {
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '') // Remove special characters
-    .replace(/[\s_]+/g, '-')  // Replace spaces and underscores with hyphens
-    .replace(/-+/g, '-');     // Collapse multiple hyphens
+    .replace(/[^\w\s-]/g, '') 
+    .replace(/[\s_]+/g, '-')  
+    .replace(/-+/g, '-');     
 }
 
 /**
- * Fetch product details from GraphQL
- * @param {string} path - Content fragment folder path
- * @param {string} sku - Product SKU
- * @param {boolean} isAuthor - Is author environment
- * @returns {Promise<Object|null>} - Product data
+ * Fetch product details dynamically from GraphQL
  */
-async function fetchProductDetail(path, sku, isAuthor) {
+async function fetchProductDetail(path, sku, isAuthor, endpointKey) {
   try {
     if (!path || !sku) {
-      // eslint-disable-next-line no-console
       console.error("Product Detail: Missing path or SKU");
       return null;
     }
-    const skuItem = isAuthor ? `;sku=${sku}` : `&sku=${sku}`;
+    
     const authorBase = await getProductDetailAuthorBase();
     const environment = await getProductDetailPublishEnvironment();
+    
+    // Always use sku= in the request URL
     const url = isAuthor
-      ? `${authorBase}${AUTHOR_PRODUCT_DETAIL_ENDPOINT}_path=${path}${skuItem}`
-      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCT_DETAIL_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path};sku=${sku}`;
+      ? `${authorBase}${AUTHOR_GRAPHQL_ENDPOINT}${endpointKey};_path=${path};sku=${sku}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${endpointKey}${environment ? `&environment=${environment}` : ''}&_path=${path};sku=${sku}`;
+
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -93,31 +89,32 @@ async function fetchProductDetail(path, sku, isAuthor) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.productModelList?.items || [];
+    
+    const dataValues = Object.values(json?.data || {});
+    const items = dataValues.length > 0 ? dataValues[0]?.items || [] : [];
+    
     return items.length > 0 ? items[0] : null;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Product Detail: fetch error", e);
     return null;
   }
 }
 
 /**
- * Fetch all products from a folder
- * @param {string} path - Content fragment folder path
- * @param {boolean} isAuthor - Is author environment
- * @returns {Promise<Array>} - Array of products
+ * Fetch all products dynamically from a folder
  */
-async function fetchAllProducts(path, isAuthor) {
+async function fetchAllProducts(path, isAuthor, endpointKey) {
   try {
     if (!path) {
       return [];
     }
     const authorBase = await getProductDetailAuthorBase();
     const environment = await getProductDetailPublishEnvironment();
+
     const url = isAuthor
-      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
-      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
+      ? `${authorBase}${AUTHOR_GRAPHQL_ENDPOINT}${endpointKey};_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${endpointKey}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
+
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -126,11 +123,14 @@ async function fetchAllProducts(path, isAuthor) {
       },
     });
     const json = await resp.json();
-    const items = json?.data?.productModelList?.items || [];
-    const filtered = items.filter((item) => item && item.sku);
+    
+    const dataValues = Object.values(json?.data || {});
+    const items = dataValues.length > 0 ? dataValues[0]?.items || [] : [];
+    
+    // We still keep item.sku || item.id here because the *returned* Bodea JSON only has 'id'
+    const filtered = items.filter((item) => item && (item.sku || item.id));
     return filtered;
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error("Product Detail: fetch all products error", e);
     return [];
   }
@@ -138,9 +138,6 @@ async function fetchAllProducts(path, isAuthor) {
 
 /**
  * Build a recommendation card
- * @param {Object} item - Product data
- * @param {boolean} isAuthor - Is author environment
- * @returns {HTMLElement} - Product card
  */
 function buildRecommendationCard(item, isAuthor, recommendedPath) {
   const { id, sku, name, damImageURL = {}, category = [] } = item || {};
@@ -149,16 +146,12 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
   const card = document.createElement("article");
   card.className = "pd-rec-card";
 
-  // Make card clickable and redirect to product page
   if (productId) {
     card.style.cursor = "pointer";
     card.addEventListener("click", () => {
       const currentPath = window.location.pathname;
-
-      // Smart path construction: ensure we navigate to the correct product page
       let basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
 
-      // If the current page doesn't have a language segment, try to add it
       const langPattern = /\/(en|fr|de|es|it|ja|zh|pt|nl|sv|da|no|fi)$/;
       if (!langPattern.test(basePath) && !basePath.includes("/en/")) {
         const pathMatch = currentPath.match(
@@ -173,7 +166,6 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
         }
       }
 
-      // On author add .html extension, on publish don't
       const productPath = isAuthor
         ? `${basePath}${recommendedPath}.html`
         : `${basePath}${recommendedPath}`;
@@ -202,7 +194,7 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
   cat.textContent = category
     .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
     .filter(Boolean)
-    .join(" / ");
+    .join(", ");
   const title = document.createElement("h3");
   title.className = "pd-rec-card-title";
   title.textContent = name || "";
@@ -230,7 +222,7 @@ function buildExtras(eventConfig) {
 
   const defaultExtras = [
     { id: "extra-onion", label: "Extra onion" },
-    { id: "tabasco-sauce", label: "Tabasco souce" },
+    { id: "tabasco-sauce", label: "Tabasco sauce" },
     { id: "grilled-tofu", label: "Grilled tofu with basil" },
     { id: "not-today", label: "Not Today" }
   ];
@@ -310,10 +302,6 @@ function buildActions(product, isAuthor, eventConfig) {
 
   const { name, price, category = [], damImageURL = {}, sku, id, description = {} } = product;
 
-  const isPlansCategory = (category || [])
-    .map((catValue) => normalizeCategoryValue(catValue).toLowerCase().trim())
-    .some((catValue) => catValue === "plans" || catValue.endsWith("/plans"));
-
   if (eventConfig.showAddToCartButton !== false) {
     const addToCartBtn = document.createElement("button");
     addToCartBtn.className = "pd-btn pd-btn-primary";
@@ -336,7 +324,7 @@ function buildActions(product, isAuthor, eventConfig) {
         category: formattedCategory,
         description: description?.html || description?.markdown || "",
         price: price || 0,
-        quantity: 1,
+        quantity: 1, 
       });
       if (eventConfig.addToCart) {
         dispatchCustomEvent(eventConfig.addToCart);
@@ -349,6 +337,10 @@ function buildActions(product, isAuthor, eventConfig) {
     });
     actionsEl.append(addToCartBtn);
   }
+
+  const isPlansCategory = (category || [])
+    .map((catValue) => normalizeCategoryValue(catValue).toLowerCase().trim())
+    .some((catValue) => catValue === "plans" || catValue.endsWith("/plans"));
 
   if (isPlansCategory) {
     const selectDeviceBtn = document.createElement("button");
@@ -392,10 +384,14 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     damImageURL = {},
     sku,
     id,
+    video,
+    poster = {},
+    cast,
+    age,
+    image
   } = product;
-
-  // Update dataLayer with product information
-  // If dataLayer is not ready, the update will be queued automatically
+  
+  const isVideoLayout = !!video; // Intelligently trigger video layout
   const imageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
 
   const productData = {
@@ -418,19 +414,44 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     window.updateDataLayer({ product: productData });
   } else {
     // eslint-disable-next-line no-console
-    console.warn(
-      "⚠️ window.updateDataLayer not available, product data not sent"
-    );
+    console.warn("⚠️ window.updateDataLayer not available, product data not sent");
   }
 
   const container = document.createElement("div");
   container.className = "pd-container";
+  if (isVideoLayout) container.classList.add("pd-video-layout");
 
-  // Image section
+  // Image / Video section
   const imageSection = document.createElement("div");
   imageSection.className = "pd-image";
 
-  if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
+  if (isVideoLayout) {
+    if (image && (image._dynamicUrl || image._publishUrl || image._authorUrl)) {
+      const pictureWrapper = document.createElement("div");
+      pictureWrapper.className = "pd-video-image-wrapper";
+      const picture = createLumaProductImagePicture(image, name || "Product image", {
+        isAuthor,
+        eager: true,
+      });
+      if (picture) pictureWrapper.appendChild(picture);
+      imageSection.appendChild(pictureWrapper);
+    }
+
+    const videoEl = document.createElement("video");
+    videoEl.controls = true;
+    videoEl.className = "pd-video-player";
+    
+    const posterUrl = isAuthor ? poster?._authorUrl : poster?._publishUrl;
+    if (posterUrl) videoEl.poster = posterUrl;
+    
+    const source = document.createElement("source");
+    source.src = video;
+    source.type = "video/mp4"; 
+    
+    videoEl.appendChild(source);
+    imageSection.appendChild(videoEl);
+
+  } else if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
     const picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
       isAuthor,
       eager: true,
@@ -438,71 +459,144 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
     if (picture) imageSection.appendChild(picture);
   }
 
-  // Content section
   const contentSection = document.createElement("div");
   contentSection.className = "pd-content";
 
-  // Category
-  if (category && category.length > 0) {
-    const categoryText = category
-      .map(
-        (catValue) =>
-          normalizeCategoryValue(catValue)
-            .replace(/\//g, " / ") // Replace slashes with /
-      )
-      .join(" / ");
-    const categoryEl = document.createElement("p");
-    categoryEl.className = "pd-category";
-    categoryEl.textContent = categoryText;
-    contentSection.appendChild(categoryEl);
-  }
+  // Build Layouts Dynamically based on type
+  if (isVideoLayout) {
+    // Top Row (50/50 Name and Meta)
+    const topRow = document.createElement("div");
+    topRow.className = "pd-video-top-row";
+    
+    const nameEl = document.createElement("h1");
+    nameEl.className = "pd-name";
+    nameEl.textContent = name || "";
+    topRow.appendChild(nameEl);
 
-  // Name
-  const nameEl = document.createElement("h1");
-  nameEl.className = "pd-name";
-  nameEl.textContent = name || "";
-  contentSection.appendChild(nameEl);
+    const metaRow = document.createElement("div");
+    metaRow.className = "pd-video-meta";
+    
+    if (category && category.length > 0) {
+      const catEl = document.createElement("span");
+      catEl.className = "pd-video-category-tag";
+      catEl.textContent = category?.map(cat => normalizeCategoryValue(cat))?.join(', ');
+      metaRow.appendChild(catEl);
+    }
 
-  // Price
-  if (price) {
-    const priceEl = document.createElement("p");
-    priceEl.className = "pd-price";
-    priceEl.textContent = `$${price}`;
-    contentSection.appendChild(priceEl);
-  }
-
-  const isHallibyTheme = document.body.classList.contains("halliby-theme");
-
-  // Rating stars (Halliby theme only)
-  if (isHallibyTheme) {
     const ratingEl = document.createElement("div");
-    ratingEl.className = "pd-rating";
-    ratingEl.innerHTML = `
-      <span class="star filled">★</span>
-      <span class="star filled">★</span>
-      <span class="star filled">★</span>
-      <span class="star filled">★</span>
-      <span class="star empty">★</span>
-    `;
-    contentSection.appendChild(ratingEl);
+    ratingEl.className = "pd-video-rating Rating__content";
+    ratingEl.innerHTML = `<span class="filled-stars">★ ★ ★ ★</span> <span class="empty-stars">★</span>`;
+    metaRow.appendChild(ratingEl);
+
+    if (age) {
+      const ageEl = document.createElement("span");
+      ageEl.className = "pd-video-age";
+      ageEl.textContent = age;
+      metaRow.appendChild(ageEl);
+    }
+    topRow.appendChild(metaRow);
+    contentSection.appendChild(topRow); // Append Row 1
+
+    // Build standard body elements
+    let castEl = null;
+    if (cast) {
+      castEl = document.createElement("p");
+      castEl.className = "pd-cast";
+      castEl.innerHTML = `<span>Cast:</span> ${cast}`;
+    }
+
+    let descEl = null;
+    if (description?.html) {
+      descEl = document.createElement("div");
+      descEl.className = "pd-description";
+      descEl.innerHTML = description.html;
+    }
+
+    // Build actionable elements
+    const extrasEl = buildExtras(eventConfig);
+    const qtyEl = buildQuantity(eventConfig);
+    const actionsEl = buildActions(product, isAuthor, eventConfig);
+
+    // Conditionally Split Layout if actionable items exist
+    const hasSidebar = extrasEl || qtyEl || actionsEl.children.length > 0;
+
+    if (hasSidebar) {
+      const splitLayout = document.createElement("div");
+      splitLayout.className = "pd-video-split-layout";
+      
+      const leftCol = document.createElement("div");
+      leftCol.className = "pd-video-left-col";
+      if (castEl) leftCol.appendChild(castEl);
+      if (descEl) leftCol.appendChild(descEl);
+
+      const rightCol = document.createElement("div");
+      rightCol.className = "pd-video-right-col";
+      if (extrasEl) rightCol.appendChild(extrasEl);
+      if (qtyEl) rightCol.appendChild(qtyEl);
+      if (actionsEl.children.length > 0) rightCol.appendChild(actionsEl);
+
+      splitLayout.append(leftCol, rightCol);
+      contentSection.appendChild(splitLayout); // Append Row 2 (Split)
+    } else {
+      // Default Stacked if no extras/quantity/actions
+      if (castEl) contentSection.appendChild(castEl);
+      if (descEl) contentSection.appendChild(descEl);
+    }
+
+  } else {
+    // STANDARD COMMERCE
+    if (category && category.length > 0) {
+      const categoryText = category
+        .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
+        .join(" / ");
+      const categoryEl = document.createElement("p");
+      categoryEl.className = "pd-category";
+      categoryEl.textContent = categoryText;
+      contentSection.appendChild(categoryEl);
+    }
+
+    const nameEl = document.createElement("h1");
+    nameEl.className = "pd-name";
+    nameEl.textContent = name || "";
+    contentSection.appendChild(nameEl);
+
+    if (price) {
+      const priceEl = document.createElement("p");
+      priceEl.className = "pd-price";
+      priceEl.textContent = `$${price}`;
+      contentSection.appendChild(priceEl);
+    }
+
+    const isHallibyTheme = document.body.classList.contains("halliby-theme");
+    if (isHallibyTheme) {
+      const ratingEl = document.createElement("div");
+      ratingEl.className = "pd-rating";
+      ratingEl.innerHTML = `
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star empty">★</span>
+      `;
+      contentSection.appendChild(ratingEl);
+    }
+
+    if (description?.html) {
+      const descEl = document.createElement("div");
+      descEl.className = "pd-description";
+      descEl.innerHTML = description.html;
+      contentSection.appendChild(descEl);
+    }
+
+    const extrasEl = buildExtras(eventConfig);
+    if (extrasEl) contentSection.appendChild(extrasEl);
+
+    const qtyEl = buildQuantity(eventConfig);
+    if (qtyEl) contentSection.appendChild(qtyEl);
+
+    const actionsEl = buildActions(product, isAuthor, eventConfig);
+    if (actionsEl.children.length > 0) contentSection.appendChild(actionsEl);
   }
-
-  // Description (using HTML format)
-  if (description?.html) {
-    const descEl = document.createElement("div");
-    descEl.className = "pd-description";
-    descEl.innerHTML = description.html;
-    contentSection.appendChild(descEl);
-  }
-
-  const extrasEl = buildExtras(eventConfig);
-  if (extrasEl) contentSection.appendChild(extrasEl);
-
-  const qtyEl = buildQuantity(eventConfig);
-  if (qtyEl) contentSection.appendChild(qtyEl);
-
-  const actionsEl = buildActions(product, isAuthor, eventConfig);
-  if (actionsEl.children.length > 0) contentSection.appendChild(actionsEl);
 
   container.append(imageSection, contentSection);
   return container;
@@ -510,35 +604,28 @@ function buildProductDetail(product, isAuthor, eventConfig = {}) {
 
 /**
  * Build "You May Also Like" recommendations section
- * @param {Object} currentProduct - Current product data
- * @param {Array} allProducts - All products from the folder
- * @param {boolean} isAuthor - Is author environment
- * @returns {HTMLElement|null} - Recommendations section or null
  */
 function buildRecommendations(currentProduct, allProducts, isAuthor, recommendedPath, relatedProductsTitle) {
-  const { sku: currentSku, category: currentCategories = [] } = currentProduct;
+  const { sku, id, category: currentCategories = [] } = currentProduct;
+  const currentProductId = sku || id;
 
   if (!currentCategories || currentCategories.length === 0) {
     return null;
   }
 
-  // Filter products by matching category
   const recommendations = allProducts
     .filter((product) => {
-      // Exclude current product
-      if (product.sku === currentSku) return false;
-
-      // Check if product has any matching category
+      const productId = product.sku || product.id;
+      if (productId === currentProductId) return false;
       const productCategories = product.category || [];
       return productCategories.some((cat) => currentCategories.includes(cat));
     })
-    .slice(0, 5); // Limit to 5 products
+    .slice(0, 5);
 
   if (recommendations.length === 0) {
     return null;
   }
 
-  // Build recommendations section
   const section = document.createElement("div");
   section.className = "pd-recommendations";
 
@@ -576,7 +663,6 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
   const wrapper = document.createElement("div");
   wrapper.className = "recipe-detail";
 
-  // 1. Build the Split Hero Header
   const heroContainer = document.createElement("div");
   heroContainer.className = "recipe-hero";
   heroContainer.innerHTML = `
@@ -590,14 +676,12 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
     </div>
   `;
 
-  // 2. Build the 70/30 Content Area
   const bodyContainer = document.createElement("div");
   bodyContainer.className = "recipe-body";
   
   const bodyContent = document.createElement("div");
   bodyContent.className = "recipe-body__wrapper";
 
-  // Left Column (70%)
   const mainSection = document.createElement("div");
   mainSection.className = "recipe-main";
   mainSection.innerHTML = `
@@ -651,13 +735,11 @@ function buildRecipeDetail(product, allProducts, isAuthor, eventConfig = {}, rec
 
 /**
  * Decorate the product detail block
- * @param {HTMLElement} block - The block element
  */
 export default async function decorate(block) {
   const isTruthy = (value) => value === true || String(value || '').trim().toLowerCase() === 'true';
   const isAuthor = isAuthorEnvironment();
 
-  // Read block config for authorable event types and folder path
   const config = readBlockConfig(block);
   const eventConfig = {
     productView: (config.productvieweventtype || config['product-view-event-type'] || '').trim(),
@@ -680,7 +762,6 @@ export default async function decorate(block) {
     showRecipeAuthor: isTruthy(config.showrecipeauthor ?? config['show-recipe-author'])
   };
 
-  // Extract folder path from block config
   let folderHref = "";
   const link = block.querySelector("a[href]");
   if (link) {
@@ -689,22 +770,18 @@ export default async function decorate(block) {
     folderHref = config.folder || "";
   }
 
-  // Strip .html extension if present
   if (folderHref && folderHref.endsWith(".html")) {
     folderHref = folderHref.replace(/\.html$/, "");
   }
 
-  // Get SKU from URL query parameter
   const sku = getQueryParam("productId");
 
-  // Clear block content
   block.textContent = "";
 
   if (!folderHref) {
     const errorMsg = document.createElement("p");
     errorMsg.className = "pd-error";
-    errorMsg.textContent =
-      "Please configure the product folder path in the properties panel.";
+    errorMsg.textContent = "Please configure the product folder path in the properties panel.";
     block.appendChild(errorMsg);
     return;
   }
@@ -717,17 +794,28 @@ export default async function decorate(block) {
     return;
   }
 
-  // Show loading state
   const loader = document.createElement("p");
   loader.className = "pd-loading";
   loader.textContent = "Loading product details...";
   block.appendChild(loader);
 
-  // Fetch product and (optionally) recommendations source data in parallel
+  // Fetch placeholders gracefully
+  let placeholders = {};
+  try {
+    placeholders = await fetchPlaceholders();
+  } catch (e) {
+    console.warn("Product Detail: Could not fetch placeholders, falling back to default queries.");
+  }
+
+  // Extract strings directly from placeholders with strict defaults
+  const detailEndpointKey = placeholders.productDetailQueryName || DEFAULT_DETAIL_QUERY;
+  const listEndpointKey = placeholders.productListQueryName || DEFAULT_LIST_QUERY;
+
+  // Fetch product and recommendations using the plain endpoint keys
   const [product, allProducts] = await Promise.all([
-    fetchProductDetail(folderHref, sku, isAuthor),
+    fetchProductDetail(folderHref, sku, isAuthor, detailEndpointKey),
     eventConfig.showYouMayAlsoLikeSection
-      ? fetchAllProducts(folderHref, isAuthor)
+      ? fetchAllProducts(folderHref, isAuthor, listEndpointKey)
       : Promise.resolve([]),
   ]);
 
@@ -750,11 +838,9 @@ export default async function decorate(block) {
     const recipeDetail = buildRecipeDetail(product, allProducts, isAuthor, eventConfig, recommendedPath, relatedProductsTitle);
     block.appendChild(recipeDetail);
   } else {
-    // Display product detail
     const productDetail = buildProductDetail(product, isAuthor, eventConfig);
     block.appendChild(productDetail);
     
-    // Display recommendations
     if (eventConfig.showYouMayAlsoLikeSection) {
       const recommendations = buildRecommendations(product, allProducts, isAuthor, recommendedPath, relatedProductsTitle);
       if (recommendations) {
