@@ -39,6 +39,10 @@ body.bodea-theme main  > .section.bg-dark > div {
     max-width: 1200px !important;
     margin: auto !important;
 }
+
+body.bodea-theme main .button:hover{
+    filter: brightness(115%);
+}
 /* header */
 body.bodea-theme header {
     display: none;
@@ -130,6 +134,11 @@ body.bodea-theme main .bodea-banner h1 {
     text-align: left;
 }
 
+body.bodea-theme main .bodea-banner .hero h1::after {
+    content: none;
+    display: none;
+}
+
 body.bodea-theme main .bodea-banner h1 strong {
     font-weight: 500;
 }
@@ -165,8 +174,8 @@ body.bodea-theme main .bodea-banner .button {
 }
 
 body.bodea-theme main .bodea-banner .button:hover {
-    background: #2b9a77;
-    border-color: #2b9a77;
+    background: var(--link-hover-color);
+    border-color: var(--link-hover-color);
 }
 
 /* Leave space for overlap */
