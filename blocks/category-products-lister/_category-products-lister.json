@@ -30,13 +30,6 @@
         },
         {
           "component": "aem-tag",
-          "name": "cq:tags",
-          "label": "Tags",
-          "valueType": "string",
-          "rootPath": "/content/cq:tags"
-        },
-        {
-          "component": "aem-tag",
           "name": "cqTags",
           "label": "Category Tags",
           "valueType": "string",
