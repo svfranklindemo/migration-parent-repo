@@ -2389,6 +2389,13 @@
       },
       {
         "component": "text",
+        "name": "createaccountbuttontext",
+        "label": "Button Text",
+        "value": "Submit",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "buttoneventtype",
         "label": "Button Event Type",
         "value": "",
