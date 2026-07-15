@@ -1,11 +1,22 @@
-import { readBlockConfig, createLumaProductImagePicture } from "../../scripts/aem.js";
+import { readBlockConfig, createLumaProductImagePicture, fetchPlaceholders } from "../../scripts/aem.js";
 import { isAuthorEnvironment, normalizeAemPath, normalizeCategoryValue } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
-import { getEnvironmentValue, getHostname } from "../../scripts/utils.js";
+import {
+  getEnvironmentValue,
+  getHostname,
+} from '../../scripts/utils.js';
 
-const AUTHOR_PRODUCTS_ENDPOINT = "/graphql/execute.json/dsn-eds-configuration/productsListByPath;";
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
-const PUBLISH_PRODUCTS_ENDPOINT_KEY = "productsListByPath";
+const AUTHOR_GRAPHQL_BASE = '/graphql/execute.json/dsn-eds-configuration/';
+const DEFAULT_GRAPHQL_QUERY_NAME = 'productsListByPath';
+
+// Query name comes from the project's placeholders sheet (key: query-name);
+// missing sheet or row falls back to the default query.
+async function getGraphQLQueryName() {
+  const placeholders = await fetchPlaceholders().catch(() => ({}));
+  return placeholders?.productListQueryName?.trim() || DEFAULT_GRAPHQL_QUERY_NAME;
+}
+
 let categoryProductsAuthorBasePromise;
 let categoryProductsPublishEnvironmentPromise;
 
@@ -65,7 +76,8 @@ function buildProductUrl(item, isAuthor, redirectUrl = "") {
 }
 
 function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, addToCartEventType = '') {
-  const { id, sku, name, damImageURL = {}, category = [], price, description = {} } = item || {};
+  const { id, sku, name, damImageURL, image, category = [], price, description = {} } = item || {};
+  const imgData = damImageURL || image || {};
   const productId = sku || id || "";
 
   const wrapper = document.createElement("div");
@@ -82,8 +94,8 @@ function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, ad
   }
 
   let picture = null;
-  if (damImageURL && (damImageURL._dynamicUrl || damImageURL._publishUrl || damImageURL._authorUrl)) {
-    picture = createLumaProductImagePicture(damImageURL, name || "Product image", {
+  if (imgData && (imgData._dynamicUrl || imgData._publishUrl || imgData._authorUrl)) {
+    picture = createLumaProductImagePicture(imgData, name || "Product image", {
       isAuthor,
       eager: false,
     });
@@ -100,7 +112,7 @@ function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, ad
   cat.textContent = category
     .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
     .filter(Boolean)
-    .join(" / ");
+    .join(", ");
   const title = document.createElement("h3");
   title.className = "cpl-card-title";
   title.textContent = name || "";
@@ -113,7 +125,7 @@ function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, ad
     const formattedCategory = category
       .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
       .join(", ");
-    const cartImageUrl = isAuthor ? damImageURL?._authorUrl : damImageURL?._publishUrl;
+    const cartImageUrl = isAuthor ? imgData?._authorUrl : imgData?._publishUrl;
 
     const addToCartBtn = document.createElement("button");
     addToCartBtn.className = "cpl-card-add-to-cart";
@@ -149,11 +161,14 @@ async function fetchProducts(path) {
     if (!path) return [];
 
     const isAuthor = isAuthorEnvironment();
-    const authorBase = await getCategoryProductsAuthorBase();
-    const environment = await getCategoryProductsPublishEnvironment();
+    const [authorBase, environment, queryName] = await Promise.all([
+      getCategoryProductsAuthorBase(),
+      getCategoryProductsPublishEnvironment(),
+      getGraphQLQueryName(),
+    ]);
     const url = isAuthor
-      ? `${authorBase}${AUTHOR_PRODUCTS_ENDPOINT}_path=${path}`
-      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${PUBLISH_PRODUCTS_ENDPOINT_KEY}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
+      ? `${authorBase}${AUTHOR_GRAPHQL_BASE}${queryName};_path=${path}`
+      : `${PUBLISH_GRAPHQL_PROXY_ENDPOINT}?endpoint=${queryName}${environment ? `&environment=${environment}` : ''}&_path=${path}`;
 
     const resp = await fetch(url, {
       method: 'GET',
@@ -163,7 +178,7 @@ async function fetchProducts(path) {
       },
     });
     const json = await resp.json();
-    return json?.data?.productModelList?.items || [];
+    return json?.data?.binjiProductModelList?.items ?? json?.data?.productModelList?.items ?? [];
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error("Category Products Lister: fetch error", e);
@@ -177,12 +192,22 @@ function filterByCategories(items, tags) {
     .map((t) => normalizeCategoryValue(`${t}`.trim()).toLowerCase())
     .filter(Boolean);
   if (!filterList.length) return items;
-  return items.filter((item) =>
-    (item.category || []).some((cat) => {
+  return items.filter((item) => {
+    let categoryTags = item.category?.length && Array.isArray(item.category) ? item.category : []; 
+
+    if (item.shortCategory?.length && Array.isArray(item.shortCategory)) {
+      categoryTags = [...categoryTags, item.shortCategory]
+    }
+
+    if (item.tags?.length && Array.isArray(item.tags)) {
+      categoryTags = [...categoryTags, item.tags]
+    }
+
+    return (categoryTags).some((cat) => {
       const normalized = normalizeCategoryValue(cat).toLowerCase();
       return filterList.some((tag) => normalized.includes(tag) || tag.includes(normalized));
     })
-  );
+  });
 }
 
 function readCardsPerRow(cfg, block) {
@@ -243,13 +268,14 @@ function renderCarousel(block, items, cfg, isAuthor, redirectUrl = "") {
   track.className = "cpl-carousel-track";
 
   items.forEach((item, i) => {
-    const { damImageURL = {} } = item || {};
+    const { damImageURL, image: itemImage } = item || {};
+    const imgData = damImageURL || itemImage || {};
     const slide = document.createElement("div");
     slide.className = "cpl-carousel-slide";
     if (i === 0) slide.classList.add("active");
 
-    if (damImageURL && (damImageURL._publishUrl || damImageURL._authorUrl || damImageURL._dynamicUrl)) {
-      const picture = createLumaProductImagePicture(damImageURL, item.name || "Product image", {
+    if (imgData && (imgData._publishUrl || imgData._authorUrl || imgData._dynamicUrl)) {
+      const picture = createLumaProductImagePicture(imgData, item.name || "Product image", {
         isAuthor,
         eager: i === 0,
       });
@@ -337,6 +363,8 @@ export default async function decorate(block) {
 
   // Extract tags - for Universal Editor they'll be in data attributes
   const tags = block.dataset?.["cqTags"]
+    || cfg?.cqtags
+    || cfg?.cqTags
     || cfg?.tags
     || cfg?.["cq-tags"]
     || cfg?.["cq:tags"]
@@ -355,7 +383,8 @@ export default async function decorate(block) {
   block.innerHTML = "";
 
   const allItems = await fetchProducts(folderHref);
-  const items = filterByCategories(allItems, tags);
+  const categoryItems = filterByCategories(allItems, tags);
+  let items = categoryItems;
 
   if (styleVariant === "carousel") {
     if (!items || items.length === 0) {

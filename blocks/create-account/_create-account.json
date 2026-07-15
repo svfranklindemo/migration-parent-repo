@@ -24,7 +24,7 @@
         {
           "component": "select",
           "name": "variant",
-          "label": "Variant",
+          "label": "Theme Variant",
           "value": "default",
           "valueType": "string",
           "options": [
@@ -47,6 +47,14 @@
             {
               "name": "Halliby",
               "value": "halliby"
+            },
+            {
+              "name": "Binji",
+              "value": "binji"
+            },
+            {
+              "name": "Bodea",
+              "value": "bodea"
             }
           ]
         },
@@ -56,6 +64,26 @@
           "label": "Heading",
           "value": "Create an account",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "form-layout",
+          "label": "Form Layout",
+          "value": "single",
+          "valueType": "string",
+          "options": [
+            { "name": "Single Form (Flat)", "value": "single" },
+            { "name": "Wizard (Multi-Step)", "value": "wizard" }
+          ],
+          "description": "Choose between a standard flat form or a multi-step wizard experience."
+        },
+        {
+          "component": "boolean",
+          "name": "showcreditcard",
+          "label": "Show Credit Card Fields",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Show or hide the payment collection fields."
         },
         {
           "component": "boolean",
@@ -100,6 +128,13 @@
           "name": "redirectUrl",
           "label": "Redirect URL",
           "description": "Page to redirect to after successful account creation. Leave empty for no redirect."
+        },
+        {
+          "component": "text",
+          "name": "createaccountbuttontext",
+          "label": "Button Text",
+          "value": "Submit",
+          "valueType": "string"
         },
         {
           "component": "text",
