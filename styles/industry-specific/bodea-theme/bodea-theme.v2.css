@@ -1,0 +1,613 @@
+body.bodea-theme header {
+  display: none !important;
+}
+body.bodea-theme .newsletter-toast {
+  background-color: #007e50;
+  max-width: 374px;
+  padding: 0.75rem;
+}
+body.bodea-theme main .section.common-auth-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  -moz-column-gap: 10rem;
+       column-gap: 10rem;
+  margin: 0;
+}
+body.bodea-theme main .section.common-auth-wrapper:has(.sign-in) {
+  -moz-column-gap: 19rem;
+       column-gap: 19rem;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.common-auth-wrapper {
+    flex-direction: column-reverse;
+    padding: 0 16px;
+    gap: 2rem;
+  }
+}
+body.bodea-theme main .section.common-auth-wrapper .default-content-wrapper {
+  max-width: 600px;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.common-auth-wrapper .default-content-wrapper {
+    max-width: 100%;
+  }
+}
+body.bodea-theme main .section.common-auth-wrapper .default-content-wrapper p:has(picture) {
+  margin: 0;
+}
+body.bodea-theme main .section.common-auth-wrapper .default-content-wrapper img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  max-height: 100vb;
+}
+body.bodea-theme main .sign-in-wrapper {
+  width: 100%;
+}
+body.bodea-theme main .sign-in {
+  box-shadow: unset;
+  padding: 0;
+  border-radius: 0;
+  margin: 0;
+}
+body.bodea-theme main .sign-in .form {
+  position: relative;
+}
+body.bodea-theme main .sign-in .sign-in-logo {
+  margin: 0;
+}
+body.bodea-theme main .sign-in .sign-in-logo img {
+  width: auto;
+  height: 42px;
+  display: block;
+  padding: 1rem 0;
+  box-sizing: content-box;
+}
+body.bodea-theme main .sign-in .heading-wrapper {
+  margin: 0;
+}
+body.bodea-theme main .sign-in .heading-wrapper h2#heading-sign-in {
+  text-align: left;
+  font-size: 28px;
+  line-height: 1.5;
+  color: #2c2c2c;
+  position: relative;
+  margin: 0.67em 0;
+  font-family: "Adobe Clean", sans-serif;
+  font-weight: 500;
+  padding: 0;
+}
+body.bodea-theme main .sign-in .heading-wrapper h2#heading-sign-in::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 1px;
+  bottom: -5px;
+  left: 0%;
+  border-bottom: 2px solid #35b28c;
+}
+body.bodea-theme main .sign-in .field-wrapper:not(.button-wrapper, .field-main) {
+  max-width: 280px;
+}
+body.bodea-theme main .sign-in label {
+  font-size: 12px;
+  padding: 4px 0 5px;
+  line-height: 1.4;
+}
+body.bodea-theme main .sign-in input[type=text], body.bodea-theme main .sign-in input[type=email], body.bodea-theme main .sign-in input[type=password], body.bodea-theme main .sign-in select {
+  background-color: #e6e6e6;
+  color: #2c2c2c;
+  border-radius: 0;
+  border: 1px solid #909090;
+  padding: 3px 12px 5px 11px;
+  height: 32px;
+  margin: 0;
+}
+body.bodea-theme main .sign-in select {
+  background-color: transparent;
+  border-radius: 4px;
+}
+body.bodea-theme main .sign-in .sign-in-links {
+  margin: 0;
+  position: absolute;
+  bottom: 25px;
+  left: 170px;
+}
+body.bodea-theme main .sign-in .sign-in-links .create-account-link {
+  font-size: 16px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  font-family: "Adobe Clean", sans-serif;
+  font-weight: 400;
+  text-transform: unset;
+  text-decoration: underline;
+}
+body.bodea-theme main .sign-in .sign-in-divider {
+  display: none;
+}
+body.bodea-theme main .sign-in .submit-wrapper {
+  margin-top: 2rem;
+}
+body.bodea-theme main .sign-in .submit-wrapper button {
+  border-radius: 0;
+  background: #35b28c;
+  font-size: 14px;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 140px;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .sign-in .submit-wrapper button {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+body.bodea-theme main .create-account {
+  padding: 0;
+}
+body.bodea-theme main .create-account .create-account-logo img {
+  height: 42px;
+  width: auto;
+}
+body.bodea-theme main .create-account .heading-wrapper h2#heading-create-account, body.bodea-theme main .create-account .heading-wrapper h2#communicationHeading {
+  font-size: 28px;
+  line-height: 1.5;
+  color: #2c2c2c;
+  position: relative;
+  margin: 0.67em 0;
+  font-family: "Adobe Clean", sans-serif;
+  font-weight: 500;
+  padding: 0;
+}
+body.bodea-theme main .create-account .heading-wrapper h2#heading-create-account::after, body.bodea-theme main .create-account .heading-wrapper h2#communicationHeading::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 1px;
+  bottom: -5px;
+  left: 0%;
+  border-bottom: 2px solid #35b28c;
+}
+body.bodea-theme main .create-account .heading-wrapper h2#communicationHeading {
+  margin-bottom: 0;
+}
+body.bodea-theme main .create-account label {
+  font-size: 12px;
+  padding: 4px 0 5px;
+  line-height: 1.4;
+}
+body.bodea-theme main .create-account input[type=text], body.bodea-theme main .create-account input[type=email], body.bodea-theme main .create-account select {
+  background-color: #e6e6e6;
+  color: #2c2c2c;
+  border-radius: 0;
+  border: 1px solid #909090;
+  padding: 3px 12px 5px 11px;
+  height: 32px;
+  margin: 0;
+}
+body.bodea-theme main .create-account select {
+  background-color: transparent;
+  border-radius: 4px;
+}
+body.bodea-theme main .create-account .field-wrapper.switch {
+  align-items: flex-start;
+  grid-column: span 2 !important;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .create-account .field-wrapper.switch {
+    grid-column: span 4 !important;
+  }
+}
+body.bodea-theme main .create-account .field-wrapper.switch input[type=checkbox] {
+  background-color: #666;
+  height: 14px;
+  margin: 7px 0 0;
+  width: 26px;
+}
+body.bodea-theme main .create-account .field-wrapper.switch input[type=checkbox]::before {
+  width: 10px;
+  height: 10px;
+  top: 2px;
+}
+body.bodea-theme main .create-account .field-wrapper.switch input[type=checkbox]:checked::before {
+  transform: translateX(12px);
+}
+body.bodea-theme main .create-account .field-wrapper.switch input[type=checkbox]:checked {
+  background-color: #464646;
+}
+body.bodea-theme main .create-account .field-wrapper.switch label {
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+body.bodea-theme main .create-account .checkbox-wrapper:not(.switch) {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+}
+body.bodea-theme main .create-account .checkbox-wrapper:not(.switch) input {
+  margin: 4px 0;
+  accent-color: #2c2c2c;
+}
+body.bodea-theme main .create-account .checkbox-wrapper:not(.switch) .field-label {
+  font-size: 14px;
+  padding: 0;
+  color: #2c2c2c;
+}
+body.bodea-theme main .create-account .submit-wrapper {
+  margin-top: 0;
+}
+body.bodea-theme main .create-account .submit-wrapper button {
+  border-radius: 0;
+  background: #35b28c;
+  font-size: 14px;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .create-account .submit-wrapper button {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+body.bodea-theme main .section.about-us-banner {
+  margin: 0 0 1rem;
+}
+@media screen and (max-width: 900px) {
+  body.bodea-theme main .section.about-us-banner {
+    padding: 0 16px;
+  }
+}
+body.bodea-theme main .section.about-us-banner .hero img {
+  -o-object-position: center;
+     object-position: center;
+}
+body.bodea-theme main .section.about-us-content {
+  margin: 0 0 1rem;
+  display: flex;
+  -moz-column-gap: 5rem;
+       column-gap: 5rem;
+}
+@media screen and (max-width: 900px) {
+  body.bodea-theme main .section.about-us-content {
+    padding: 0 16px;
+    flex-direction: column;
+  }
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper {
+  padding: 0;
+  max-width: 65%;
+}
+@media screen and (max-width: 900px) {
+  body.bodea-theme main .section.about-us-content .default-content-wrapper {
+    max-width: unset;
+  }
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper h2, body.bodea-theme main .section.about-us-content .default-content-wrapper h3 {
+  font-size: 28px;
+  font-weight: 400;
+  font-family: "Adobe Clean", sans-serif;
+  position: relative;
+  padding: 0;
+  line-height: 1.5;
+  margin: 0.67em 0;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper h2::after, body.bodea-theme main .section.about-us-content .default-content-wrapper h3::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 1px;
+  bottom: -5px;
+  left: 0%;
+  border-bottom: 2px solid #35b28c;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper h3 {
+  padding: 40px;
+  width: 80%;
+  margin: 0;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper h3::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(217, 214, 214, 0.3607843137);
+  width: 125%;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper h3::after {
+  bottom: 35px;
+  left: 40px;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper p {
+  margin: 0;
+  font-size: 16px;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper p:last-child {
+  margin-bottom: 0;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-content-panel {
+  padding: 0;
+  gap: 0;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-content-panel h6 {
+  font-family: "Adobe Clean", sans-serif;
+  font-weight: 300;
+  color: #2c2c2c;
+  font-size: 14px;
+  margin: 0.83em 0 1px;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-content-panel p {
+  font-size: 16px;
+  line-height: 2rem;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-input-wrapper {
+  flex-direction: column;
+  gap: 1rem;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-email-input {
+  height: 56px;
+  background-color: #e6e6e6;
+  padding: 3px 12px 5px 11px;
+  text-transform: unset;
+  border: 1px solid #909090;
+  flex: unset;
+  max-width: 280px;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-email-input:focus-visible {
+  border-color: #35b28c;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-submit-button {
+  background-color: #35b28c;
+  color: #fff;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 7px 40px 8px;
+  border: 0;
+  transition: all 0.3s ease-in-out;
+  line-height: 18px;
+  font-size: 14px;
+}
+body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-submit-button:hover {
+  filter: brightness(115%);
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper {
+  padding: 0;
+  gap: 2rem;
+  align-items: center;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper {
+    padding: 16px;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper .newsletter.block {
+  width: 100%;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper .newsletter.block .newsletter-wrapper {
+  padding: 0;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-image-panel {
+  max-width: 33.3%;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-newsletter .newsletter-image-panel {
+    max-width: unset;
+  }
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-image-panel img {
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel {
+  padding: 0;
+  height: 100%;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel h3 {
+  font-size: 28px;
+  color: #2c2c2c;
+  line-height: 1.5;
+  margin: 0 0 0.67em;
+  font-weight: 500;
+  font-family: "Adobe Clean", sans-serif;
+  padding: 0;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #2c2c2c;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper {
+    flex-direction: row;
+    flex-wrap: unset;
+  }
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input {
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 192px;
+  flex: unset;
+  font-size: 12px;
+  background: #e6e6e6;
+  padding: 3px 12px 5px 11px;
+  text-transform: unset;
+  border: 1px solid #909090;
+  height: 32px;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input:focus-visible {
+  border-color: #35b28c;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input::-moz-placeholder {
+  color: #2c2c2c;
+  text-transform: uppercase;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input::placeholder {
+  color: #2c2c2c;
+  text-transform: uppercase;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button {
+  padding: 4px 40px;
+  color: #222;
+  border: 2px solid #222;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 14px;
+}
+body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button:hover {
+  filter: brightness(115%);
+  background-color: transparent;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+body.bodea-theme main .section.bodea-webinar {
+  display: grid;
+  grid-template-columns: auto 280px;
+  -moz-column-gap: 8rem;
+       column-gap: 8rem;
+  grid-auto-rows: max-content;
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-webinar {
+    -moz-column-gap: 0;
+         column-gap: 0;
+    display: block;
+    padding: 0 16px;
+  }
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper,
+body.bodea-theme main .section.bodea-webinar .video-wrapper {
+  padding: 0;
+  grid-column: 1 !important;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper {
+  margin: 0;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper h2 {
+  font-size: 28px;
+  line-height: 1.5;
+  color: #2c2c2c;
+  position: relative;
+  margin: 0.67em 0;
+  font-family: "Adobe Clean", sans-serif;
+  font-weight: 500;
+  padding: 0;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper h2::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 1px;
+  bottom: -5px;
+  left: 0%;
+  border-bottom: 2px solid #35b28c;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 2rem;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper ul {
+  list-style-position: outside;
+  padding-left: 40px;
+  font-size: 14px;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper ul li {
+  color: #2c2c2c;
+  margin: 5px 0;
+}
+body.bodea-theme main .section.bodea-webinar .default-content-wrapper h5, body.bodea-theme main .section.bodea-webinar .default-content-wrapper h6 {
+  font-size: 14px;
+  margin: 0.67em 0 1px;
+  padding: 0;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  grid-column: 2 !important;
+  grid-row: 1/span 999 !important;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-webinar .create-account-wrapper {
+    position: static;
+  }
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper .create-account.block {
+  padding: 0;
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper .create-account.block .create-account-form:not(.is-wizard) .panel-wrapper {
+  gap: 0 !important;
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper .create-account.block .heading-wrapper h2#heading-create-account {
+  font-size: 14px;
+  font-family: "Adobe Clean Bold", sans-serif;
+  margin-bottom: 0;
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper .create-account.block .heading-wrapper h2#heading-create-account::after {
+  content: unset;
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper .create-account.block .field-wrapper {
+  grid-column: span 12 !important;
+}
+body.bodea-theme main .section.bodea-webinar .create-account-wrapper .create-account.block .submit-wrapper button {
+  padding: 6px 40px;
+  font-size: 14px;
+  margin-top: 12px;
+}
+body.bodea-theme main .section.bodea-marketplace-banner {
+  margin: 0;
+}
+body.bodea-theme main .section.bodea-marketplace-banner .hero {
+  padding: 0;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-marketplace-banner .hero {
+    padding: 0 16px;
+  }
+}
+body.bodea-theme main .section.bodea-marketplace-banner .hero > div:first-child {
+  width: 100%;
+}
+body.bodea-theme main .section.bodea-marketplace-banner .hero picture {
+  position: static;
+}
+body.bodea-theme main .section.bodea-marketplace-article {
+  margin: 0;
+}
+body.bodea-theme main .section.bodea-marketplace-article .default-content-wrapper h2 {
+  color: #35b28c;
+}
+body.bodea-theme main .section.bodea-marketplace-article .default-content-wrapper p {
+  font-weight: 300;
+  color: #2c2c2c;
+  margin: 0;
+}/*# sourceMappingURL=bodea-theme.v2.css.map */
