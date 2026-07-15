@@ -1,0 +1,96 @@
+{
+  "definitions": [
+    {
+      "title": "Newsletter",
+      "id": "newsletter",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Newsletter",
+              "model": "newsletter",
+              "key-value": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "newsletter",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "image",
+          "label": "Image",
+          "valueType": "string",
+          "description": "Image to display alongside the newsletter sign-up. Leave empty to omit."
+        },
+        {
+          "component": "text",
+          "name": "image-alt",
+          "label": "Image Alt Text",
+          "value": "",
+          "valueType": "string",
+          "description": "Accessible alt text for the image."
+        },
+        {
+          "component": "richtext",
+          "name": "content",
+          "label": "Content",
+          "value": "",
+          "valueType": "string",
+          "description": "Heading, sub-heading or body copy shown above the sign-up form."
+        },
+        {
+          "component": "text",
+          "name": "button-text",
+          "label": "Button Text",
+          "value": "Sign Up",
+          "valueType": "string",
+          "description": "Label for the submit button."
+        },
+        {
+          "component": "text",
+          "name": "placeholder",
+          "label": "Input Placeholder",
+          "value": "Type your email address",
+          "valueType": "string",
+          "description": "Placeholder text inside the email input."
+        },
+        {
+          "component": "text",
+          "name": "toast-content",
+          "label": "Toast Message",
+          "value": "Thank you for subscribing!",
+          "valueType": "string",
+          "description": "Message shown in the success toast after form submission."
+        },
+        {
+          "component": "text",
+          "name": "background-color",
+          "label": "Background Color",
+          "value": "",
+          "valueType": "string",
+          "description": "CSS colour value (e.g. #f3f4f6 or var(--color-gray)). Leave empty to use the default."
+        },
+        {
+          "component": "boolean",
+          "name": "use-image-as-background",
+          "label": "Use Image as Background",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "When enabled, the image fills the block background instead of appearing in a side panel."
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "newsletter",
+      "components": []
+    }
+  ]
+}
