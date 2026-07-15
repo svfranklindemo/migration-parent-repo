@@ -66,7 +66,7 @@ body.bodea-theme main .button:hover{
     filter: brightness(115%);
 }
 /* header */
-body.bodea-theme header {
+/* body.bodea-theme header {
     display: none;
     width: 100%;
     overflow: hidden;
@@ -74,7 +74,7 @@ body.bodea-theme header {
     color: var(--nav-text-color);
     background-color: var(--header-background-color);
     transition: top .3s;
-}
+} */
 
 
 /* Banner */
