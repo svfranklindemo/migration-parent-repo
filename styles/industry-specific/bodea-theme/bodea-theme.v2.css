@@ -324,10 +324,10 @@ body.bodea-theme main .section.about-us-content .default-content-wrapper h3::aft
   left: 40px;
 }
 body.bodea-theme main .section.about-us-content .default-content-wrapper p {
-  margin: 0;
+  margin: 0 0 2rem;
   font-size: 16px;
-  margin-bottom: 2rem;
-  line-height: 1.5;
+  line-height: 2rem;
+  font-weight: 300;
   color: #2c2c2c;
 }
 body.bodea-theme main .section.about-us-content .default-content-wrapper p:last-child {
@@ -607,4 +607,116 @@ body.bodea-theme main .section.bodea-marketplace-article .default-content-wrappe
   font-weight: 300;
   color: #2c2c2c;
   margin: 0;
+}
+body.bodea-theme main .section.bodea-service-article .default-content-wrapper p {
+  font-weight: 300;
+  color: #2c2c2c;
+  margin: 0;
+}
+body.bodea-theme main .section.bodea-article-content {
+  margin: 0 0 1rem;
+}
+@media screen and (max-width: 900px) {
+  body.bodea-theme main .section.bodea-article-content {
+    padding: 0 16px;
+  }
+}
+body.bodea-theme main .section.bodea-article-content .columns-wrapper {
+  padding: 0;
+}
+body.bodea-theme main .section.bodea-article-content .columns-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  -moz-column-gap: 8rem;
+       column-gap: 8rem;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-article-content .columns-row {
+    flex-direction: column;
+  }
+}
+body.bodea-theme main .section.bodea-article-content .columns-row .columns-item-vertical {
+  gap: 0;
+}
+body.bodea-theme main .section.bodea-article-content .columns-row .columns-item-vertical:last-child {
+  max-width: 268px;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  body.bodea-theme main .section.bodea-article-content .columns-row .columns-item-vertical:last-child {
+    max-width: unset;
+  }
+}
+body.bodea-theme main .section.bodea-article-content h2, body.bodea-theme main .section.bodea-article-content h3 {
+  font-size: 28px !important;
+  font-weight: 400;
+  font-family: "Adobe Clean", sans-serif;
+  position: relative;
+  padding: 0 !important;
+  line-height: 1.5;
+  margin: 0.67em 0 !important;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.bodea-article-content h2::after, body.bodea-theme main .section.bodea-article-content h3::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 1px;
+  bottom: -5px;
+  left: 0%;
+  border-bottom: 2px solid #35b28c;
+}
+body.bodea-theme main .section.bodea-article-content h3 {
+  padding: 0.67em 0 0.67em 2rem !important;
+  margin: 0 !important;
+}
+body.bodea-theme main .section.bodea-article-content h3::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(217, 214, 214, 0.3607843137);
+}
+body.bodea-theme main .section.bodea-article-content h3::after {
+  bottom: 15px;
+  left: 2rem;
+}
+body.bodea-theme main .section.bodea-article-content h5 {
+  font-family: "Adobe Clean Bold", sans-serif;
+  font-weight: 700;
+  font-size: 14px !important;
+  margin: 0.83em 0 0 !important;
+  color: #2c2c2c;
+  padding: 0 !important;
+}
+body.bodea-theme main .section.bodea-article-content p {
+  font-size: 16px;
+  margin: 0;
+  line-height: 2rem;
+  font-weight: 300;
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.bodea-article-content p:last-child {
+  margin-bottom: 0;
+}
+body.bodea-theme main .section.bodea-article-content .button {
+  font-size: 14px;
+  border: 2px solid #222;
+  text-align: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 4px 40px !important;
+  font-family: "Adobe Clean Bold", sans-serif;
+  font-weight: 700;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+body.bodea-theme main .section.bodea-article-content .button::after {
+  content: unset;
+}
+body.bodea-theme main .section.bodea-article-content .button:hover {
+  background-color: #e6e6e6;
+  color: #222;
+  text-decoration: unset;
 }/*# sourceMappingURL=bodea-theme.v2.css.map */
