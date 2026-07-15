@@ -94,6 +94,22 @@
           "description": "Features a full-width, 50/50 split header hero (image left, bold title right). Below is a 70/30 layout: a wide left column for rich-text ingredients/instructions, and a narrow right sidebar housing the chef's profile card and a vertical stack of compact recipe recommendation cards. Collapses to a single column on mobile. (Note: Styling will be required for other websites as the base styling is halliby only.)"
         },
         {
+          "component": "text",
+          "name": "ingredientstitle",
+          "label": "Recipe Details Title",
+          "value": "Ingredients",
+          "valueType": "string",
+          "description": "Heading of the recipe details content section below the hero image."
+        },
+        {
+          "component": "boolean",
+          "name": "showrecipeauthor",
+          "label": "Show Recipe Author",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "If enabled, a hardcoded recipe author block in the sidebar will be shown."
+        },
+        {
           "component": "aem-content",
           "name": "pd-recommended-path",
           "label": "Recommended Product Detail Page Path",

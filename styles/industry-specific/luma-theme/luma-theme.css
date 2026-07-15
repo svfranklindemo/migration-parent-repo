@@ -665,3 +665,113 @@ body.luma-theme .na-carousel-wrapper{
     grid-column: 1 / -1;
   }
 }
+
+/* ─── Product Detail - Extras, Quantity & Recipe Overrides ──────────────── */
+
+/* Headings (Adobe Clean Bold, Black, Uppercase) */
+body.luma-theme main .product-detail .pd-extras-title,
+body.luma-theme main .product-detail .pd-quantity-title,
+body.luma-theme main .product-detail .recipe-hero__title,
+body.luma-theme main .product-detail .recipe-main__title,
+body.luma-theme main .product-detail .recipe-author__name {
+  font-family: 'Adobe Clean Bold', sans-serif;
+  color: #000000;
+  text-transform: uppercase;
+  font-size: 30px;
+}
+
+/* Body Text & Labels (Adobe Clean, Dark Gray) */
+body.luma-theme main .product-detail .recipe-main__content,
+body.luma-theme main .product-detail .recipe-main__content p,
+body.luma-theme main .product-detail .recipe-main__content li,
+body.luma-theme main .product-detail .recipe-author__role {
+  color: #2f3138;
+  font-family: 'Adobe Clean', sans-serif;
+}
+
+/* Checkbox Labels specifically bolded for Luma */
+body.luma-theme main .product-detail .pd-extra-label {
+  color: #2f3138;
+  font-family: 'Adobe Clean Bold', sans-serif;
+  font-size: 0.95rem;
+}
+
+/* Checkboxes */
+body.luma-theme main .product-detail .pd-extra-checkbox {
+  accent-color: var(--main-accent-color); /* Luma blue */
+  border-radius: 0;
+}
+
+/* Quantity Dropdown (Square, Gray Border) */
+body.luma-theme main .product-detail .pd-quantity-select {
+  border: 2px solid #d8d8d8;
+  border-radius: 0;
+  color: #2f3138;
+  height: 42px;
+  padding: 0 32px 0 16px;
+  font-family: 'Adobe Clean Bold', sans-serif;
+  background-color: #ffffff;
+}
+
+body.luma-theme main .product-detail .pd-quantity-select:focus {
+  border-color: #bdbdbd;
+  outline: none;
+}
+
+/* Match the default text dropdown arrow to Luma's dark gray */
+body.luma-theme main .product-detail .pd-quantity-select-wrapper::after {
+  color: #2f3138;
+  font-size: 0.75rem;
+}
+/* ─── Recipe Sidebar Recommendations Overrides - Luma ────────────────── */
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-title,
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-title {
+  color: #000000;
+  font-family: 'Adobe Clean Bold', sans-serif;
+  text-align: left;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-title {
+  font-size: 16px !important;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-title {
+  text-transform: uppercase;
+  font-size: 30px;
+  padding: 0;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card {
+  gap: 1rem;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-meta {
+  padding: 0;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card-meta::after {
+  color: #2f3138;
+  border-color: #d8d8d8;
+  border-radius: 0; /* Luma square shape */
+  font-family: 'Adobe Clean Bold', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-card-meta::after {
+  background-color: var(--main-accent-color); /* Luma blue */
+  border-color: var(--main-accent-color);
+  color: #ffffff;
+}
+
+body.luma-theme main .product-detail .pd-video-layout .pd-video-category-tag {
+  background-color: #2f3138;
+  border-radius: 0;
+}
+
+body.luma-theme main .product-detail .pd-video-layout .pd-video-age {
+  color: #2f3138;
+  border-color: #2f3138;
+  border-radius: 0;
+}

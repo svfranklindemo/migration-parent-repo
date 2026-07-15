@@ -49,6 +49,10 @@
             {
               "name": "Vertical (Grid)",
               "value": "vertical"
+            },
+            {
+              "name": "Horizontal (Grid)",
+              "value": "horizontal-grid"
             }
           ]
         },
