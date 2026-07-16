@@ -155,3 +155,4 @@ body.bodea-theme main .section > .default-content-wrapper:not(:has(> *:not(h3, u
 		font-size: clamp(0.95rem, 0.88rem + 0.45vw, 1rem);
 	}
 }
+
