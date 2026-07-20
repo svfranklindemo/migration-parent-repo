@@ -220,19 +220,14 @@ function buildExtras(eventConfig) {
   const extrasList = document.createElement("div");
   extrasList.className = "pd-extras-list";
 
-  const defaultExtras = [
-    { id: "extra-onion", label: "Extra onion" },
-    { id: "tabasco-sauce", label: "Tabasco sauce" },
-    { id: "grilled-tofu", label: "Grilled tofu with basil" },
-    { id: "not-today", label: "Not Today" }
-  ];
-
   const extras = eventConfig.extraOptions?.length ? eventConfig.extraOptions?.map((option) => (
       {
         id: toHyphenId(option),
         label: option
       }
-  )) : defaultExtras;
+  )) : [];
+
+  if (!extras?.length) return null;
 
   extras.forEach(extra => {
     const labelEl = document.createElement("label");
