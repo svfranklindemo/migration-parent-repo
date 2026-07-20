@@ -84,8 +84,16 @@
             "value": "carvelo-theme"
           },
           {
+            "name": "Binji Theme",
+            "value": "binji-theme"
+          },
+          {
             "name": "Halliby Theme",
             "value": "halliby-theme"
+          },
+          {
+            "name": "Expnews Theme",
+            "value": "expnews-theme"
           }
         ]
       },
@@ -2274,7 +2282,7 @@
       {
         "component": "select",
         "name": "variant",
-        "label": "Variant",
+        "label": "Theme Variant",
         "value": "default",
         "valueType": "string",
         "options": [
@@ -2297,6 +2305,14 @@
           {
             "name": "Halliby",
             "value": "halliby"
+          },
+          {
+            "name": "Binji",
+            "value": "binji"
+          },
+          { 
+            "name": "Exp News", 
+            "value": "expnews"
           }
         ]
       },
@@ -2306,6 +2322,26 @@
         "label": "Heading",
         "value": "Create an account",
         "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "form-layout",
+        "label": "Form Layout",
+        "value": "single",
+        "valueType": "string",
+        "options": [
+          { "name": "Default Form (Single-Page)", "value": "single" },
+          { "name": "Wizard (Multi-Step)", "value": "wizard" }
+        ],
+        "description": "Choose between the default single page form or a multi-step wizard experience."
+      },
+      {
+        "component": "boolean",
+        "name": "showcreditcard",
+        "label": "Show Credit Card Fields",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Show or hide the payment collection fields."
       },
       {
         "component": "boolean",
@@ -2504,6 +2540,14 @@
   {
     "id": "sign-in",
     "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sign-in-btn-text",
+        "label": "Sign In Button Text",
+        "value": "Sign In",
+        "description": "The text to be shown on the Sign in button, default is Sign In."
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -8723,8 +8767,8 @@
       },
       {
         "component": "aem-tag",
-        "name": "cq:tags",
-        "label": "Tags",
+        "name": "cqTags",
+        "label": "Category Tags",
         "valueType": "string",
         "rootPath": "/content/cq:tags"
       },
@@ -8845,6 +8889,18 @@
   {
     "id": "product-detail",
     "fields": [
+      {
+        "component": "select",
+        "name": "productmodeltype",
+        "label": "Content Model Type",
+        "value": "default",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "default" },
+          { "name": "Product with Video (Binji)", "value": "video" }
+        ],
+        "description": "Select the model used for this product to determine the layout and API payload."
+      },
       {
         "component": "aem-content",
         "name": "folder",
@@ -9022,6 +9078,10 @@
           {
             "name": "Vertical (Grid)",
             "value": "vertical"
+          },
+          {
+            "name": "Horizontal (Grid)",
+            "value": "horizontal-grid"
           }
         ]
       },
@@ -9258,6 +9318,67 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      }
+    ]
+  },
+  {
+    "id": "rss-list",
+    "fields": [
+      {
+        "component": "number",
+        "name": "maxcardsdisplayed",
+        "label": "Max Cards Displayed",
+        "value": 6,
+        "valueType": "number"
+      },
+      {
+        "component": "select",
+        "name": "cards-per-row",
+        "label": "Cards Per Row",
+        "valueType": "string",
+        "value": "3",
+        "options": [
+          { "name": "3", "value": "3" },
+          { "name": "4", "value": "4" },
+          { "name": "5", "value": "5" }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "category-filter",
+        "label": "Category Filter",
+        "valueType": "string",
+        "description": "Leave blank to show all categories."
+      },
+      {
+        "component": "text",
+        "name": "detail-page-url",
+        "label": "Detail Page Redirect URL",
+        "valueType": "string",
+        "value": "/en/article"
+      },
+      {
+        "component": "boolean",
+        "name": "showdescription",
+        "label": "Show Description",
+        "value": "true",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "rss-details",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "rss-promo-banner",
+        "label": "RSS Promo Banner",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "rss-promo-banner-alt",
+        "label": "RSS Promo Banner Alt Text"
       }
     ]
   }

@@ -26,7 +26,10 @@ main .create-account .create-account-form {
   --form-field-horz-gap: 24px;
 }
 
-main .create-account .panel-wrapper {
+/* Flat (single) form panel — always a 12-col grid.
+   Scoped to :not(.is-wizard) so wizard step panels are never touched here
+   and the AEM wizard JS retains full control of their display. */
+main .create-account .create-account-form:not(.is-wizard) .panel-wrapper {
   display: grid !important;
   grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
   gap: 16px !important;
@@ -373,5 +376,297 @@ main .create-account [data-required="true"] > label::after {
   main .create-account h2#heading-create-account {
     font-size: 1.75rem;
     margin-bottom: 28px;
+  }
+}
+
+/* ============================================
+   Wizard Mode — Structural (all variants)
+   ============================================ */
+
+/* Wizard step panels: let AEM wizard JS control display on inactive steps.
+   The active step gets display:grid so its children lay out correctly.
+   Inner panels (nested inside a step) always get grid regardless. */
+main .create-account .create-account-form.is-wizard .wizard > .panel-wrapper {
+  display: none;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+main .create-account .create-account-form.is-wizard .wizard > .panel-wrapper.current-wizard-step {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 0 1rem !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+/* Inner panels nested inside a step always render as grid */
+main .create-account .create-account-form.is-wizard .wizard > .panel-wrapper > .panel-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+main .create-account .create-account-form.is-wizard .panel-wrapper > * {
+  grid-column: span 12;
+}
+
+main .create-account .create-account-form.is-wizard .col-6 {
+  grid-column: span 6 !important;
+}
+
+main .create-account .create-account-form.is-wizard .col-12 {
+  grid-column: span 12 !important;
+}
+
+/* Wizard navigation bar */
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  width: 100%;
+  margin: 0;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-wrapper button {
+  min-width: 80px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-next,
+main .create-account .create-account-form.is-wizard .wizard .registration-wizard__submit-btn {
+  order: 3;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-next button {
+  background: #2874F0;
+  color: #fff;
+  border: none;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-next button:hover {
+  background: #0052cc;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-prev {
+  order: 1;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-prev button {
+  background: #e6e6e6;
+  color: #1e293b;
+  border: none;
+}
+
+main .create-account .create-account-form.is-wizard .wizard .wizard-button-prev button:hover {
+  background: #d1d5db;
+}
+
+/* Binji wizard: submit button hidden by default, shown on last step */
+main .create-account .create-account-form.is-binji-wizard .registration-wizard__submit-btn {
+  display: none;
+}
+
+main .create-account .create-account-form.is-binji-wizard .current-wizard-step:last-of-type ~ .wizard-button-wrapper .wizard-button-next {
+  display: none;
+}
+
+main .create-account .create-account-form.is-binji-wizard .current-wizard-step:last-of-type ~ .wizard-button-wrapper .registration-wizard__submit-btn {
+  display: block;
+  margin: 0;
+}
+
+/* Standard wizard: submit wrapper lives inside step, not button-wrapper */
+main .create-account .create-account-form.is-wizard:not(.is-binji-wizard) .submit-wrapper {
+  grid-column: span 12 !important;
+  margin-top: 8px;
+}
+
+/* Progress dots — default (non-binji) */
+main .create-account .wizard-progress-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+}
+
+main .create-account .wizard-dots {
+  display: flex;
+  gap: 10px;
+}
+
+main .create-account .wizard-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #cbd5e1;
+  transition: background-color 0.2s;
+}
+
+main .create-account .wizard-dot.active {
+  background-color: #2874F0;
+}
+
+/* Progress dots — binji (structure only, colors overridden in binji file) */
+main .create-account .registration-wizard__progress-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+}
+
+main .create-account .registration-wizard__dots {
+  display: flex;
+  gap: 10px;
+}
+
+main .create-account .registration-wizard__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #cbd5e1;
+  transition: background-color 0.2s;
+}
+
+main .create-account .registration-wizard__dot.active {
+  background-color: #2874F0;
+}
+
+/* Step indicator / title headings inside wizard */
+main .create-account .wizard-step-indicator h2,
+main .create-account .registration-wizard__step-indicator h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 4px;
+  padding: 0;
+}
+
+main .create-account .wizard-step-title h2,
+main .create-account .registration-wizard__title h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px;
+  padding: 0;
+  line-height: 1.2;
+}
+
+main .create-account .registration-wizard__subtitle h2,
+main .create-account .registration-wizard__disclaimer h2 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+/* Binji-style inputs inside create-account wizard */
+main .create-account .registration-wizard__input {
+  margin: 0 0 1rem;
+}
+
+main .create-account .registration-wizard__input label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Binji-style switch inside create-account */
+main .create-account .registration-wizard__switch {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 12px;
+  margin: 0 0 1rem;
+}
+
+main .create-account .registration-wizard__switch input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 26px;
+  min-width: 26px;
+  height: 14px;
+  background-color: #94a3b8;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  margin: 4px 0 0;
+  transition: background-color 0.2s ease;
+  padding: 0;
+}
+
+main .create-account .registration-wizard__switch input[type="checkbox"]:checked {
+  background-color: #2874F0;
+}
+
+main .create-account .registration-wizard__switch input[type="checkbox"]:checked::after {
+  transform: translateX(12px);
+}
+
+main .create-account .registration-wizard__switch label {
+  margin: 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  color: #334155;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+/* Submit button for binji wizard (default colors) */
+main .create-account .registration-wizard__submit-btn button {
+  background: #2874F0 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 80px;
+}
+
+main .create-account .registration-wizard__submit-btn button:hover {
+  background: #0052cc !important;
+}
+
+/* Hide legacy AEM wizard menu */
+main .create-account .wizard-menu-items,
+main .create-account .credit-card-application-form-step-label {
+  display: none;
+}
+
+@media (width <= 600px) {
+  main .create-account .create-account-form.is-wizard .col-6 {
+    grid-column: span 12 !important;
+  }
+
+  main .create-account .create-account-form.is-wizard .wizard .wizard-button-wrapper {
+    padding: 1rem 0;
   }
 }

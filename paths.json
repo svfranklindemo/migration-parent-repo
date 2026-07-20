@@ -1,22 +1,15 @@
 {
   "mappings": [
-    "/content/halliby/language-masters/en:/",
-    "/content/halliby/language-masters/en/:/en/",
-    "/content/halliby/language-masters/fr/:/fr/",
-    "/content/halliby/language-masters/fr:/fr",
-    "/content/halliby/language-masters/es/:/es/",
-    "/content/halliby/language-masters/es:/es",
-    "/content/halliby/language-masters/ja/:/ja/",
-    "/content/halliby/language-masters/ja:/ja",
-    "/content/halliby/language-masters/de/:/de/",
-    "/content/halliby/language-masters/de:/de",
-    "/content/halliby/configuration:/.helix/config.json",
-    "/content/halliby/metadata:/metadata.json",
-    "/content/halliby/redirects:/redirects.json",
-    "/content/halliby/placeholders:/placeholders.json"
+    "/content/expnews/language-masters/en:/",
+    "/content/expnews/language-masters/en/:/en/",
+    "/content/expnews/configuration:/.helix/config.json",
+    "/content/expnews/metadata:/metadata.json",
+    "/content/expnews/redirects:/redirects.json",
+    "/content/expnews/graphql:/graphql.json",
+    "/content/expnews/placeholders:/placeholders.json"
   ],
   "includes": [
-    "/content/halliby/",
-    "/content/dam/halliby/"
+    "/content/expnews/",
+    "/content/dam/expnews/"
   ]
 }

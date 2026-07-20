@@ -62,7 +62,9 @@
       "order-summary",
       "product-detail",
       "product-card",
-      "build-your-own"
+      "build-your-own",
+      "rss-list",
+      "rss-details"
     ]
   },
   {

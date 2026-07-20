@@ -512,3 +512,57 @@ export function dynamicMediaAssetProcess(pictureElement, qParam) {
     });
   }
 }
+
+export function encodeId(guid) {
+  return btoa(unescape(encodeURIComponent(guid))).replace(/=/g, '');
+}
+
+export function decodeId(id) {
+  try {
+    return decodeURIComponent(escape(atob(id)));
+  } catch (e) {
+    return null;
+  }
+}
+
+export function parseRSS(xmlText) {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+  const items = xmlDoc.querySelectorAll('item');
+  
+  return Array.from(items).map((item) => {
+    const guid = item.querySelector('guid')?.textContent || '';
+    const mediaContents = Array.from(item.querySelectorAll('media\\:content, content'));
+    const bestMedia = mediaContents.find(m => m.getAttribute('width') === '700') || mediaContents[0];
+
+    return {
+      id: encodeId(guid),
+      guid,
+      title: item.querySelector('title')?.textContent || '',
+      link: item.querySelector('link')?.textContent || '',
+      description: item.querySelector('description')?.textContent || '',
+      pubDate: item.querySelector('pubDate')?.textContent || '',
+      creator: item.querySelector('creator')?.textContent || item.querySelector('dc\\:creator')?.textContent || '',
+      category: item.querySelector('category')?.textContent || '',
+      image: bestMedia ? bestMedia.getAttribute('url') : '',
+    };
+  });
+}
+
+export function updateLocalStorage(newItems, maxStorageCount = 100) {
+  const existingData = localStorage.getItem('rss_feed_cache');
+  let currentItems = existingData ? JSON.parse(existingData) : [];
+
+  newItems.forEach((newItem) => {
+    if (!currentItems.some(item => item.id === newItem.id)) {
+      currentItems.unshift(newItem);
+    }
+  });
+
+  if (currentItems.length > maxStorageCount) {
+    currentItems = currentItems.slice(0, maxStorageCount);
+  }
+
+  localStorage.setItem('rss_feed_cache', JSON.stringify(currentItems));
+  return currentItems;
+}

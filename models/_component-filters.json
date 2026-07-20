@@ -60,7 +60,9 @@
       "text",
       "title",
       "transfer-funds",
-      "video"
+      "video",
+      "rss-list",
+      "rss-details"
     ]
   },
   {
