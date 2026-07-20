@@ -1,23 +1,15 @@
 {
   "mappings": [
-    "/content/binji/language-masters/en:/",
-    "/content/binji/language-masters/en/:/en/",
-    "/content/binji/language-masters/fr/:/fr/",
-    "/content/binji/language-masters/fr:/fr",
-    "/content/binji/language-masters/es/:/es/",
-    "/content/binji/language-masters/es:/es",
-    "/content/binji/language-masters/ja/:/ja/",
-    "/content/binji/language-masters/ja:/ja",
-    "/content/binji/language-masters/de/:/de/",
-    "/content/binji/language-masters/de:/de",
-    "/content/binji/configuration:/.helix/config.json",
-    "/content/binji/metadata:/metadata.json",
-    "/content/binji/redirects:/redirects.json",
-    "/content/binji/placeholders:/placeholders.json",
-    "/content/binji/graphql:/graphql.json"
+    "/content/expnews/language-masters/en:/",
+    "/content/expnews/language-masters/en/:/en/",
+    "/content/expnews/configuration:/.helix/config.json",
+    "/content/expnews/metadata:/metadata.json",
+    "/content/expnews/redirects:/redirects.json",
+    "/content/expnews/graphql:/graphql.json",
+    "/content/expnews/placeholders:/placeholders.json"
   ],
   "includes": [
-    "/content/binji/",
-    "/content/dam/binji/"
+    "/content/expnews/",
+    "/content/dam/expnews/"
   ]
 }

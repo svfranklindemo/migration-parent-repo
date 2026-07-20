@@ -223,7 +223,9 @@
         "title",
         "video",
         "form",
-        "embed-adaptive-form"
+        "embed-adaptive-form",
+        "rss-list",
+        "rss-details"
       ]
     }
   ]

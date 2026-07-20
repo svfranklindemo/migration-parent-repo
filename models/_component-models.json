@@ -90,6 +90,10 @@
           {
             "name": "Halliby Theme",
             "value": "halliby-theme"
+          },
+          {
+            "name": "Expnews Theme",
+            "value": "expnews-theme"
           }
         ]
       },
@@ -1249,6 +1253,67 @@
         "value": "true",
         "valueType": "boolean",
         "description": "Keep the hero text overlay enabled. Turn off for transparent text background and darker image."
+      }
+    ]
+  },
+  {
+    "id": "rss-list",
+    "fields": [
+      {
+        "component": "number",
+        "name": "maxcardsdisplayed",
+        "label": "Max Cards Displayed",
+        "value": 6,
+        "valueType": "number"
+      },
+      {
+        "component": "select",
+        "name": "cards-per-row",
+        "label": "Cards Per Row",
+        "valueType": "string",
+        "value": "3",
+        "options": [
+          { "name": "3", "value": "3" },
+          { "name": "4", "value": "4" },
+          { "name": "5", "value": "5" }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "category-filter",
+        "label": "Category Filter",
+        "valueType": "string",
+        "description": "Leave blank to show all categories."
+      },
+      {
+        "component": "text",
+        "name": "detail-page-url",
+        "label": "Detail Page Redirect URL",
+        "valueType": "string",
+        "value": "/en/article"
+      },
+      {
+        "component": "boolean",
+        "name": "showdescription",
+        "label": "Show Description",
+        "value": "true",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "rss-details",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "rss-promo-banner",
+        "label": "RSS Promo Banner",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "rss-promo-banner-alt",
+        "label": "RSS Promo Banner Alt Text"
       }
     ]
   },

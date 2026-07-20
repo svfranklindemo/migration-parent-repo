@@ -165,6 +165,7 @@ function buildCreateAccountFormDef(config = {}) {
   const isFrescopaVariant = variant === 'frescopa' || document.body.classList.contains('frescopa-theme');
   const isWkndFlyVariant  = variant === 'wknd-fly';
   const isHallibyVariant  = variant === 'halliby' || document.body.classList.contains('halliby-theme');
+  const isExpNewsVariant  = variant === 'expnews' || document.body.classList.contains('expnews-theme');
 
   const isWizard                   = normalizeVariant(config['form-layout']) === 'wizard';
   const showCreditCard             = isTruthy(config.showcreditcard);
@@ -181,6 +182,8 @@ function buildCreateAccountFormDef(config = {}) {
   const shoeSizes      = ['', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
   const shirtSizes     = ['', 's', 'm', 'l', 'xl', 'xxl'];
   const favoriteColors = ['', 'black', 'blue', 'green', 'orange', 'pink', 'purple', 'red', 'white', 'yellow'];
+  const newsCategories = ['', 'politics', 'entertainment', 'business', 'sport', 'high-tech'];
+  const accountTypes   = ['home', 'business/school'];
 
   // Shared Core Fields
   const coreFieldsPart1 = [
@@ -215,11 +218,22 @@ function buildCreateAccountFormDef(config = {}) {
   ];
 
   const brandFields = [
-    { id: 'heading-know-you-better', fieldType: 'heading', label: { value: 'LET US KNOW YOU BETTER' }, appliedCssClassNames: withConditionalClasses('col-12 know-you-better-heading', isLumaVariant) },
+    // Note: We show the "LET US KNOW YOU BETTER" heading for both Luma and Exp News variants now
+    { id: 'heading-know-you-better', fieldType: 'heading', label: { value: 'LET US KNOW YOU BETTER' }, appliedCssClassNames: withConditionalClasses('col-12 know-you-better-heading', isLumaVariant || isExpNewsVariant) },
+    
+    // Luma Variant Fields
     { id: 'shoeSize',     name: 'shoeSize',     fieldType: 'drop-down', label: { value: 'Shoe size'      }, enum: shoeSizes,      enumNames: ['Select...', ...shoeSizes.slice(1)],                               appliedCssClassNames: withConditionalClasses('col-6 luma-preference-field',  isLumaVariant), properties: { colspan: 6  } },
     { id: 'shirtSize',    name: 'shirtSize',    fieldType: 'drop-down', label: { value: 'Shirt size'     }, enum: shirtSizes,     enumNames: ['Select...', 'S', 'M', 'L', 'XL', 'XXL'],                          appliedCssClassNames: withConditionalClasses('col-6 luma-preference-field',  isLumaVariant), properties: { colspan: 6  } },
     { id: 'favoriteColor',name: 'favoriteColor',fieldType: 'drop-down', label: { value: 'Favorite color' }, enum: favoriteColors, enumNames: ['Select...', 'Black', 'Blue', 'Green', 'Orange', 'Pink', 'Purple', 'Red', 'White', 'Yellow'], appliedCssClassNames: withConditionalClasses('col-12 luma-preference-field', isLumaVariant), properties: { colspan: 12 } },
+    
+    // Frescopa Variant Field
     ...(isFrescopaVariant ? [{ id: 'frescopaOwner', name: 'frescopaOwner', fieldType: 'drop-down', label: { value: 'Do you already have a Frescopa machine?' }, placeholder: 'Do you already have a Frescopa machine?', enum: ['yes', 'no'], enumNames: ['Yes', 'No'], type: 'string', properties: { colspan: 12 }, appliedCssClassNames: 'col-12 frescopa-machine-field' }] : []),
+    
+    // Exp News Variant Fields
+    ...(isExpNewsVariant ? [
+      { id: 'favouriteNewsCategory', name: 'favouriteNewsCategory', fieldType: 'drop-down', label: { value: 'Favourite news category' }, enum: newsCategories, enumNames: ['None', 'Politics', 'Entertainment', 'Business', 'Sport', 'High-Tech'], properties: { colspan: 6 }, appliedCssClassNames: 'col-6 expnews-field' },
+      { id: 'accountType', name: 'accountType', fieldType: 'drop-down', label: { value: 'Account Type' }, enum: accountTypes, enumNames: ['Home', 'Business/School'], properties: { colspan: 6 }, appliedCssClassNames: 'col-6 expnews-field' }
+    ] : [])
   ];
 
   const creditCardFields = [

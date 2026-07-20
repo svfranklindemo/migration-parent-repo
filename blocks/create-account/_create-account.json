@@ -51,6 +51,10 @@
             {
               "name": "Binji",
               "value": "binji"
+            },
+            { 
+              "name": "Exp News", 
+              "value": "expnews"
             }
           ]
         },
