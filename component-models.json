@@ -84,6 +84,10 @@
             "value": "carvelo-theme"
           },
           {
+            "name": "Binji Theme",
+            "value": "binji-theme"
+          },
+          {
             "name": "Halliby Theme",
             "value": "halliby-theme"
           }
@@ -2274,7 +2278,7 @@
       {
         "component": "select",
         "name": "variant",
-        "label": "Variant",
+        "label": "Theme Variant",
         "value": "default",
         "valueType": "string",
         "options": [
@@ -2297,6 +2301,10 @@
           {
             "name": "Halliby",
             "value": "halliby"
+          },
+          {
+            "name": "Binji",
+            "value": "binji"
           }
         ]
       },
@@ -2306,6 +2314,26 @@
         "label": "Heading",
         "value": "Create an account",
         "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "form-layout",
+        "label": "Form Layout",
+        "value": "single",
+        "valueType": "string",
+        "options": [
+          { "name": "Default Form (Single-Page)", "value": "single" },
+          { "name": "Wizard (Multi-Step)", "value": "wizard" }
+        ],
+        "description": "Choose between the default single page form or a multi-step wizard experience."
+      },
+      {
+        "component": "boolean",
+        "name": "showcreditcard",
+        "label": "Show Credit Card Fields",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Show or hide the payment collection fields."
       },
       {
         "component": "boolean",
@@ -2504,6 +2532,14 @@
   {
     "id": "sign-in",
     "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sign-in-btn-text",
+        "label": "Sign In Button Text",
+        "value": "Sign In",
+        "description": "The text to be shown on the Sign in button, default is Sign In."
+      },
       {
         "component": "reference",
         "valueType": "string",
@@ -8723,8 +8759,8 @@
       },
       {
         "component": "aem-tag",
-        "name": "cq:tags",
-        "label": "Tags",
+        "name": "cqTags",
+        "label": "Category Tags",
         "valueType": "string",
         "rootPath": "/content/cq:tags"
       },
@@ -8845,6 +8881,18 @@
   {
     "id": "product-detail",
     "fields": [
+      {
+        "component": "select",
+        "name": "productmodeltype",
+        "label": "Content Model Type",
+        "value": "default",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "default" },
+          { "name": "Product with Video (Binji)", "value": "video" }
+        ],
+        "description": "Select the model used for this product to determine the layout and API payload."
+      },
       {
         "component": "aem-content",
         "name": "folder",
@@ -9022,6 +9070,10 @@
           {
             "name": "Vertical (Grid)",
             "value": "vertical"
+          },
+          {
+            "name": "Horizontal (Grid)",
+            "value": "horizontal-grid"
           }
         ]
       },

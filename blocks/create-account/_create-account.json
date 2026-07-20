@@ -24,7 +24,7 @@
         {
           "component": "select",
           "name": "variant",
-          "label": "Variant",
+          "label": "Theme Variant",
           "value": "default",
           "valueType": "string",
           "options": [
@@ -47,6 +47,10 @@
             {
               "name": "Halliby",
               "value": "halliby"
+            },
+            {
+              "name": "Binji",
+              "value": "binji"
             }
           ]
         },
@@ -56,6 +60,26 @@
           "label": "Heading",
           "value": "Create an account",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "form-layout",
+          "label": "Form Layout",
+          "value": "single",
+          "valueType": "string",
+          "options": [
+            { "name": "Default Form (Single-Page)", "value": "single" },
+            { "name": "Wizard (Multi-Step)", "value": "wizard" }
+          ],
+          "description": "Choose between the default single page form or a multi-step wizard experience."
+        },
+        {
+          "component": "boolean",
+          "name": "showcreditcard",
+          "label": "Show Credit Card Fields",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Show or hide the payment collection fields."
         },
         {
           "component": "boolean",

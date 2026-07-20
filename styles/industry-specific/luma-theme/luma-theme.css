@@ -764,3 +764,14 @@ body.luma-theme main .product-detail .recipe-sidebar .pd-rec-card:hover .pd-rec-
   border-color: var(--main-accent-color);
   color: #ffffff;
 }
+
+body.luma-theme main .product-detail .pd-video-layout .pd-video-category-tag {
+  background-color: #2f3138;
+  border-radius: 0;
+}
+
+body.luma-theme main .product-detail .pd-video-layout .pd-video-age {
+  color: #2f3138;
+  border-color: #2f3138;
+  border-radius: 0;
+}
