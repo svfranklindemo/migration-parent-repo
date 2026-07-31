@@ -141,6 +141,15 @@ main .rss-details .rss-detail-category {
   font-size: 16px;
 }
 
+main .rss-details .rss-detail-wrapper--no-image {
+  grid-template-columns: 1fr;
+}
+
+main .rss-details .rss-detail-wrapper--no-image .rss-detail-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 @media (width <= 768px) {
   main .rss-details {
     padding: 0 16px;
