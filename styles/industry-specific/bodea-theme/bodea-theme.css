@@ -237,7 +237,7 @@ display: none;
     
 
     body.bodea-theme main .bodea-banner .hero picture img {
-        height: 450px;
+        height: auto;
     }
 
     body.bodea-theme main .bodea-banner h1 {
@@ -1079,6 +1079,10 @@ body.bodea-theme main .sign-in .sign-in-links .create-account-link {
   font-weight: 400;
   text-transform: unset;
   text-decoration: underline;
+}
+body.bodea-theme main .sign-in .sign-in-links .create-account-link:hover{
+  color:#2874F0;
+  box-shadow:none;
 }
 body.bodea-theme main .sign-in .sign-in-divider {
   display: none;
