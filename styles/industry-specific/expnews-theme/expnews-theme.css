@@ -907,7 +907,7 @@ body.expnews-theme .sign-in-container .sign-in-wrapper .sign-in.block .create-ac
 
 @media screen and (max-width: 768px) {
   body.expnews-theme .sign-in-container .sign-in-wrapper .sign-in.block {
-    margin: 0;
+    margin: 0 auto;
     padding: 0 16px;
   }
 
