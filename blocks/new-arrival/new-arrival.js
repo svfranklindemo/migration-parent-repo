@@ -97,7 +97,7 @@ function buildCard(item, isAuthor) {
   cat.textContent = category
     .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
     .filter(Boolean)
-    .join(", ");
+    .join(" / ");
   const title = document.createElement("h3");
   title.className = "na-card-title";
   title.textContent = name || "";

@@ -1,6 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 
-const BLOCK_PATH = '/blocks/bodea-secure-antivirus';
+const ICONS_PATH = '/icons';
 
 const FEATURE_CARDS = [
   {
@@ -9,7 +9,7 @@ const FEATURE_CARDS = [
     status: 'QUICK SCAN | LIVEUPDATE',
     statusClass: '',
     buttonLabel: 'START SCAN',
-    image: `${BLOCK_PATH}/bodea-device-security.png`,
+    image: `${ICONS_PATH}/bodea-device-security.png`,
   },
   {
     id: 'id-theft',
@@ -17,7 +17,7 @@ const FEATURE_CARDS = [
     status: 'THREAT FOUND',
     statusClass: 'warning',
     buttonLabel: 'VIEW ALERT',
-    image: `${BLOCK_PATH}/Bodea-TheftProtection.png`,
+    image: `${ICONS_PATH}/bodea-theft-protection.png`,
   },
   {
     id: 'secure-vpn',
@@ -25,7 +25,7 @@ const FEATURE_CARDS = [
     status: 'PROTECTED',
     statusClass: 'success',
     buttonLabel: 'MANAGE',
-    image: `${BLOCK_PATH}/Bodea-SecureVPN.png`,
+    image: `${ICONS_PATH}/bodea-secure-vpn.png`,
   },
   {
     id: 'cloud-backup',
@@ -33,7 +33,7 @@ const FEATURE_CARDS = [
     status: 'WARNING',
     statusClass: 'warning',
     buttonLabel: 'RUN BACKUP',
-    image: `${BLOCK_PATH}/Bodea-CloudBackup.png`,
+    image: `${ICONS_PATH}/bodea-cloud-backup.png`,
   },
   {
     id: 'password-manager',
@@ -41,7 +41,7 @@ const FEATURE_CARDS = [
     status: 'EXTENSION INSTALLED',
     statusClass: 'success',
     buttonLabel: 'OPEN VAULT',
-    image: `${BLOCK_PATH}/Bodea-Password-Manager.png`,
+    image: `${ICONS_PATH}/bodea-password-manager.png`,
   },
 ];
 
@@ -58,7 +58,7 @@ function createTrainingHeader(config) {
   const websiteUrl = config['bodea-website-url'] || '#';
   header.innerHTML = `
     <div class="bsav-training-header__inner">
-      <img class="bsav-training-header__logo" src="${BLOCK_PATH}/Bodea_logo.png" alt="Bodea logo" height="40">
+      <img class="bsav-training-header__logo" src="${ICONS_PATH}/bodea-secure-logo.png" alt="Bodea logo" height="40">
       <h4 class="bsav-training-header__title">Training Page</h4>
       <a class="bsav-btn bsav-btn--primary" href="${websiteUrl}">Bodea Website</a>
     </div>

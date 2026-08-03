@@ -1,9 +1,6 @@
 body.bodea-theme {
-  --bot-icon: url("https://demo-system-next.s3.amazonaws.com/assets/bot/bot.png");
   --body-font-family: "Adobe Clean", sans-serif;
   --heading-font-family: "Adobe Clean", sans-serif;
-  --logo: url("https://demo-system-next.s3.amazonaws.com/assets/bodea/Bodea_logo.png");
-  --footer-logo: url("https://demo-system-next.s3.amazonaws.com/assets/bodea/Bodea_logo.png");
 
   --main-accent-color: #35b28c;
   --main-accent-hover: #2d9a78;
@@ -786,12 +783,6 @@ body.bodea-theme footer .columns-row > div:first-child p:last-child {
     }
 }
 
-@media screen and (max-width: 768px) {
-    body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button {
-        padding:2px 10px !important;
-    }
-}
-
 /* software */
 
 body.bodea-theme main .section > .default-content-wrapper:not(:has(> *:not(h3, ul))):has(> h3:nth-of-type(6)) {
@@ -1226,19 +1217,29 @@ body.bodea-theme main .section.about-us-banner .hero img {
 }
 body.bodea-theme main .section.about-us-content {
   margin: 0 0 1rem;
-  display: flex;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: 65% auto;
+  place-items: flex-start;
   -moz-column-gap: 5rem;
        column-gap: 5rem;
 }
 @media screen and (max-width: 900px) {
   body.bodea-theme main .section.about-us-content {
     padding: 0 16px;
+    display: flex;
     flex-direction: column;
   }
 }
+body.bodea-theme main .section.about-us-content .separator-wrapper {
+  display: none;
+}
 body.bodea-theme main .section.about-us-content .default-content-wrapper {
   padding: 0;
-  max-width: 65%;
+  margin: 0;
+}
+body.bodea-theme main .section.about-us-content .default-content-wrapper:first-child {
+  grid-row: span 2;
 }
 @media screen and (max-width: 900px) {
   body.bodea-theme main .section.about-us-content .default-content-wrapper {
@@ -1291,94 +1292,104 @@ body.bodea-theme main .section.about-us-content .default-content-wrapper p {
 body.bodea-theme main .section.about-us-content .default-content-wrapper p:last-child {
   margin-bottom: 0;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper {
+body.bodea-theme main .section.about-us-content .get-offer-wrapper {
   margin: 0;
   padding: 0;
   background-color: transparent;
+  width: 100%;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-content-panel {
-  padding: 0;
-  gap: 0;
-}
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-content-panel h6 {
+body.bodea-theme main .section.about-us-content .default-content-wrapper h6 {
   font-family: "Adobe Clean", sans-serif;
   font-weight: 300;
   color: #2c2c2c;
   font-size: 14px;
   margin: 0.83em 0 1px;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-content-panel p {
-  font-size: 16px;
-  line-height: 2rem;
-  color: #2c2c2c;
+body.bodea-theme main .section.about-us-content .get-offer.block {
+  width: 100%;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-input-wrapper {
+body.bodea-theme main .section.about-us-content .get-offer.block .get-offer-wrapper {
+  display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 1rem;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  max-width: unset;
+  margin: 0;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-email-input {
+body.bodea-theme main .section.about-us-content .get-offer-input {
   height: 56px;
   background-color: #e6e6e6;
   padding: 3px 12px 5px 11px;
   text-transform: unset;
   border: 1px solid #909090;
+  border-radius: 0;
   flex: unset;
   max-width: 280px;
+  width: 100%;
+  font-size: 12px;
+  color: #2c2c2c;
+  outline: none;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-email-input:focus-visible {
+body.bodea-theme main .section.about-us-content .get-offer-input:focus-visible {
   border-color: #35b28c;
+  outline: none;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-submit-button {
+body.bodea-theme main .section.about-us-content .get-offer-button {
   background-color: #35b28c;
   color: #fff;
   width: -moz-fit-content;
   width: fit-content;
-  padding: 7px 40px 8px;
+  padding: 7px 40px 8px !important;
   border: 0;
+  border-radius: 0;
   transition: all 0.3s ease-in-out;
   line-height: 18px;
   font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
 }
-body.bodea-theme main .section.about-us-content .newsletter-wrapper .newsletter-submit-button:hover {
+body.bodea-theme main .section.about-us-content .get-offer-button:hover {
   filter: brightness(115%);
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper {
+
+/* ─── New newsletter: section-has-bg + default-content-wrapper + get-offer ─── */
+body.bodea-theme main .section.bodea-newsletter.section-has-bg {
+  display: grid;
+  grid-template-columns: 33.3% 1fr;
+  grid-template-rows: auto auto;
+  background: #f3f4f6;
   padding: 0;
-  gap: 2rem;
+  gap: 1.25rem 2rem;
   align-items: center;
 }
-@media screen and (max-width: 768px) {
-  body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper {
-    padding: 16px;
-    align-items: flex-start;
-    gap: 0;
-  }
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper .newsletter.block {
+body.bodea-theme main .section.bodea-newsletter.section-has-bg picture.section-bg {
+  position: static;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: block;
+  overflow: hidden;
   width: 100%;
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-wrapper .newsletter.block .newsletter-wrapper {
-  padding: 0;
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-image-panel {
-  max-width: 33.3%;
-  width: 100%;
-}
-@media screen and (max-width: 768px) {
-  body.bodea-theme main .section.bodea-newsletter .newsletter-image-panel {
-    max-width: unset;
-  }
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-image-panel img {
-  height: 200px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel {
-  padding: 0;
   height: 100%;
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel h3 {
+body.bodea-theme main .section.bodea-newsletter.section-has-bg picture.section-bg img.sec-img {
+  width: 100%;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+}
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .default-content-wrapper {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0;
+  margin: 0;
+  align-self: flex-end;
+}
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .default-content-wrapper h2 {
   font-size: 28px;
   color: #2c2c2c;
   line-height: 1.5;
@@ -1387,18 +1398,38 @@ body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel h3 {
   font-family: "Adobe Clean", sans-serif;
   padding: 0;
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-content-panel p {
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .default-content-wrapper h2::after {
+  content: none;
+}
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .default-content-wrapper p {
   font-size: 16px;
   line-height: 1.5;
   color: #2c2c2c;
+  margin: 0;
 }
-@media screen and (max-width: 768px) {
-  body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper {
-    flex-direction: row;
-    flex-wrap: unset;
-  }
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-wrapper {
+  grid-column: 2;
+  grid-row: 2;
+  padding: 0;
+  margin: 0;
+  align-items: flex-start;
+  align-self: flex-start;
+  background-color: transparent;
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input {
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer.block .get-offer-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  max-width: unset;
+  margin: 0;
+}
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-input {
   width: -moz-fit-content;
   width: fit-content;
   min-width: 192px;
@@ -1406,38 +1437,67 @@ body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsl
   font-size: 12px;
   background: #e6e6e6;
   padding: 3px 12px 5px 11px;
-  text-transform: unset;
+  text-transform: uppercase;
   border: 1px solid #909090;
+  border-radius: 0;
   height: 32px;
+  color: #111827;
+  outline: none;
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input:focus-visible {
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-input::placeholder {
+  color: #2c2c2c;
+}
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-input:focus-visible {
   border-color: #35b28c;
+  outline: none;
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input::-moz-placeholder {
-  color: #2c2c2c;
-  text-transform: uppercase;
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-email-input::placeholder {
-  color: #2c2c2c;
-  text-transform: uppercase;
-}
-body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button {
-  padding: 4px 40px;
-  color: #222;
-  border: 2px solid #222;
-  background-color: rgba(0, 0, 0, 0);
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-button {
+  flex: 0 0 auto;
+  padding: 4px 40px !important;
   font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #222;
+  background: transparent;
+  border: 2px solid #222;
+  border-radius: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  height: auto;
 }
-body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button:hover {
+body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-button:hover {
   filter: brightness(115%);
   background-color: transparent;
 }
 @media screen and (max-width: 768px) {
-  body.bodea-theme main .section.bodea-newsletter .newsletter-input-wrapper .newsletter-submit-button {
+  body.bodea-theme main .section.bodea-newsletter.section-has-bg {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 16px;
+    margin: 16px !important;
+    gap: 1.25rem 0;
+  }
+  body.bodea-theme main .section.bodea-newsletter.section-has-bg picture.section-bg {
+    grid-column: 1;
+    grid-row: 1;
+    height: 200px;
+  }
+  body.bodea-theme main .section.bodea-newsletter.section-has-bg .default-content-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-wrapper {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  body.bodea-theme main .section.bodea-newsletter.section-has-bg .get-offer-button {
     width: -moz-fit-content;
     width: fit-content;
   }
 }
+
 body.bodea-theme main .section.bodea-webinar {
   display: grid;
   grid-template-columns: auto 280px;

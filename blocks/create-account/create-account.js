@@ -166,7 +166,7 @@ function buildCreateAccountFormDef(config = {}) {
   const isFrescopaVariant = variant === 'frescopa' || document.body.classList.contains('frescopa-theme');
   const isWkndFlyVariant  = variant === 'wknd-fly';
   const isHallibyVariant  = variant === 'halliby' || document.body.classList.contains('halliby-theme');
-  const isBodeaVariant    = variant === 'bodea' || document.body.classList.contains('bodea-theme');
+  const isBodeaVariant    = variant === 'bodea';
   const isExpNewsVariant  = variant === 'expnews' || document.body.classList.contains('expnews-theme');
 
   const isWizard                   = normalizeVariant(config['form-layout']) === 'wizard';

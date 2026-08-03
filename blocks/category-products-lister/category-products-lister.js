@@ -112,7 +112,7 @@ function buildCard(item, isAuthor, redirectUrl = "", enableAddToCart = false, ad
   cat.textContent = category
     .map((catValue) => normalizeCategoryValue(catValue).replace(/\//g, " / "))
     .filter(Boolean)
-    .join(", ");
+    .join(" / ");
   const title = document.createElement("h3");
   title.className = "cpl-card-title";
   title.textContent = name || "";

@@ -36,6 +36,14 @@
         },
         {
           "component": "text",
+          "name": "toast-message",
+          "label": "Success Toast Message",
+          "value": "",
+          "valueType": "string",
+          "description": "If authored, a success toast with this message is shown after the button is clicked."
+        },
+        {
+          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",
