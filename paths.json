@@ -1,15 +1,22 @@
 {
   "mappings": [
-    "/content/expnews/language-masters/en:/",
-    "/content/expnews/language-masters/en/:/en/",
-    "/content/expnews/configuration:/.helix/config.json",
-    "/content/expnews/metadata:/metadata.json",
-    "/content/expnews/redirects:/redirects.json",
-    "/content/expnews/graphql:/graphql.json",
-    "/content/expnews/placeholders:/placeholders.json"
+    "/content/public-bodea/language-masters/en:/",
+    "/content/public-bodea/language-masters/en/:/en/",
+    "/content/public-bodea/language-masters/fr/:/fr/",
+    "/content/public-bodea/language-masters/fr:/fr",
+    "/content/public-bodea/language-masters/es/:/es/",
+    "/content/public-bodea/language-masters/es:/es",
+    "/content/public-bodea/language-masters/ja/:/ja/",
+    "/content/public-bodea/language-masters/ja:/ja",
+    "/content/public-bodea/language-masters/de/:/de/",
+    "/content/public-bodea/language-masters/de:/de",
+    "/content/public-bodea/configuration:/.helix/config.json",
+    "/content/public-bodea/metadata:/metadata.json",
+    "/content/public-bodea/redirects:/redirects.json",
+    "/content/public-bodea/placeholders:/placeholders.json"
   ],
   "includes": [
-    "/content/expnews/",
-    "/content/dam/expnews/"
+    "/content/public-bodea/",
+    "/content/dam/public-bodea/"
   ]
 }
