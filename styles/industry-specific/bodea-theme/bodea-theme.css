@@ -1733,7 +1733,8 @@ body.bodea-theme main .section.bodea-article-content .button {
 body.bodea-theme main .section.bodea-article-content .button::after {
   content: unset;
 }
-body.bodea-theme main .section.bodea-article-content .button:hover {
+body.bodea-theme main .section.bodea-article-content .button:hover,
+body.bodea-theme main .section.bodea-article-content .button:focus {
   background-color: #e6e6e6;
   color: #222;
   text-decoration: unset;
