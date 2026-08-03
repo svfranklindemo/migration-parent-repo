@@ -63,7 +63,6 @@
       "product-detail",
       "product-card",
       "build-your-own",
-      "newsletter",
       "bodea-secure-antivirus",
       "rss-list",
       "rss-details"
@@ -143,9 +142,5 @@
       "wizard",
       "range"
     ]
-  },
-  {
-    "id": "newsletter",
-    "components": []
   }
 ]
