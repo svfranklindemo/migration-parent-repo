@@ -8,6 +8,7 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
+import { normalizeAemPath } from "../../scripts/scripts.js";
 
 const DEFAULT_FORM_TITLE = 'JOIN WKND FLY CLUB';
 const DEFAULT_SUCCESS_TOAST_MESSAGE = 'Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!';
@@ -31,6 +32,8 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (formId && String(formId).trim()) submitButton.dataset.buttonFormId = String(formId).trim();
   const buttonData = config.buttondata ?? config['button-data'];
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
+  const redirectUrl = config.submitRedirectUrl ?? config['submit-redirect-url'];
+  if (redirectUrl && String(redirectUrl).trim()) submitButton.dataset.buttonRedirectUrl = String(redirectUrl).trim();
 }
 
 function showSuccessPopup(message = DEFAULT_SUCCESS_TOAST_MESSAGE) {
@@ -64,6 +67,8 @@ export default async function decorate(block) {
   const formTitle = (config.formtitle ?? config['form-title'] ?? '').toString().trim() || DEFAULT_FORM_TITLE;
   const buttonText = String(config.buttontext ?? config.buttonText ?? config['button-text'] ?? '').trim() || 'JOIN US';
   const successToastMessage = (config.successmessage ?? config['success-message'] ?? '').toString().trim() || DEFAULT_SUCCESS_TOAST_MESSAGE;
+  const formDesc = (config.formdesc ?? config['form-desc'] ?? '').toString().trim() || '';
+  const showZipCode = isTruthy(config['show-zip-code']);
 
   // Build Adaptive Form definition for Join Us (same pattern as sign-in)
   const formDef = {
@@ -76,6 +81,12 @@ export default async function decorate(block) {
         fieldType: 'heading',
         label: { value: formTitle },
         appliedCssClassNames: 'col-12',
+      },
+      {
+        id: 'description-join-us',
+        fieldType: 'heading',
+        label: { value: formDesc },
+        appliedCssClassNames: `col-12 form-description${!formDesc ? ' is-empty' : ''}`,
       },
       {
         id: 'panel-main',
@@ -110,6 +121,15 @@ export default async function decorate(block) {
             label: { value: 'Phone number' },
             properties: { colspan: 12 },
           },
+          ...(showZipCode ? [
+            {
+              id: 'zipCode',
+              name: 'zipCode',
+              fieldType: 'text-input',
+              label: { value: 'Zip code' },
+              properties: { colspan: 12 }
+            }
+          ] : []),
           {
             id: 'heading-delivery-address',
             fieldType: 'heading',
@@ -319,6 +339,9 @@ function attachFormSubmitHandler(block, formActionId = '', successToastMessage =
       const webhookUrl = submitBtn?.dataset?.buttonWebhookUrl?.trim();
       const formId = submitBtn?.dataset?.buttonFormId?.trim();
       if (webhookUrl) await submitToWebhook(form, webhookUrl, formId);
+
+      const redirectUrl = submitBtn?.dataset?.buttonRedirectUrl?.trim();
+      if (redirectUrl) window.location.href = normalizeAemPath(redirectUrl);
     }
   );
 }

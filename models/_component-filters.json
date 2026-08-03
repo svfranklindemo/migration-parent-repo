@@ -62,7 +62,10 @@
       "transfer-funds",
       "video",
       "rss-list",
-      "rss-details"
+      "rss-details",
+      "insurance-plan-selection",
+      "medicare-plan-selection",
+      "plan-application"
     ]
   },
   {

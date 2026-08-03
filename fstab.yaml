@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p35435-e1920336.adobeaemcloud.com/bin/franklin.delivery/harshal759/expnews/main"
+    url: "https://author-p35437-e2207568.adobeaemcloud.com/bin/franklin.delivery/harshal759/we-healthcare/main"
     type: "markup"
     suffix: ".html"

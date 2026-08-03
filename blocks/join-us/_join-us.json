@@ -30,6 +30,12 @@
         },
         {
           "component": "text",
+          "name": "form-desc",
+          "label": "Form Subtitle",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
           "name": "success-message",
           "label": "Success Message",
           "value": "Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!",
@@ -41,6 +47,14 @@
           "label": "Show Consent Checkbox",
           "value": "true",
           "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "show-zip-code",
+          "label": "Show Zip Code",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Toggle on to show zip code field by default"
         },
         {
           "component": "boolean",
@@ -57,6 +71,12 @@
           "value": "false",
           "valueType": "boolean",
           "description": "Pre-check the Call Before Delivery option"
+        },
+        {
+          "component": "aem-content",
+          "name": "submit-redirect-url",
+          "label": "Redirect URL (after submission)",
+          "valueType": "string"
         },
         {
           "component": "text",

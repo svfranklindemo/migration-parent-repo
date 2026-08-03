@@ -27,6 +27,7 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (formId && String(formId).trim()) submitButton.dataset.buttonFormId = String(formId).trim();
   const buttonData = config.buttondata;
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
+  submitButton.textContent = config.createaccountbuttontext?.trim() || 'Submit'
 }
 
 function clearProductObject() {
@@ -165,6 +166,7 @@ function buildCreateAccountFormDef(config = {}) {
   const isFrescopaVariant = variant === 'frescopa' || document.body.classList.contains('frescopa-theme');
   const isWkndFlyVariant  = variant === 'wknd-fly';
   const isHallibyVariant  = variant === 'halliby' || document.body.classList.contains('halliby-theme');
+  const isBodeaVariant    = variant === 'bodea' || document.body.classList.contains('bodea-theme');
   const isExpNewsVariant  = variant === 'expnews' || document.body.classList.contains('expnews-theme');
 
   const isWizard                   = normalizeVariant(config['form-layout']) === 'wizard';
@@ -185,12 +187,26 @@ function buildCreateAccountFormDef(config = {}) {
   const newsCategories = ['', 'politics', 'entertainment', 'business', 'sport', 'high-tech'];
   const accountTypes   = ['home', 'business/school'];
 
+  // Bodea Options
+  const bodeaCompanySizes = ['', '<50', '50-100', '100-1000', '1000+'];
+  const bodeaIndustries   = ['', 'technology', 'finance', 'healthcare', 'retail', 'other'];
+  const bodeaTopics       = ['', 'hi-tech', 'design', 'marketing', 'development'];
+
   // Shared Core Fields
+  const emailColSpan = (isFrescopaVariant || isHallibyVariant || isBodeaVariant) ? 6 : 12;
+
+  const bodeaFields = isBodeaVariant ? [
+    { id: 'companySize', placeholder: 'Select...', name: 'companySize', fieldType: 'drop-down', label: { value: 'Company size' }, enum: bodeaCompanySizes, enumNames: ['<50', '50-100', '100-1000', '1000+'], properties: { colspan: 6 }, appliedCssClassNames: 'col-6 bodea-dropdown' },
+    { id: 'industry', placeholder: 'Select...', name: 'industry', fieldType: 'drop-down', label: { value: 'Industry' }, enum: bodeaIndustries, enumNames: ['Technology', 'Finance', 'Healthcare', 'Retail', 'Other'], properties: { colspan: 6 }, appliedCssClassNames: 'col-6 bodea-dropdown' },
+    { id: 'topicOfInterest', placeholder: 'Select...', name: 'topicOfInterest', fieldType: 'drop-down', label: { value: 'Topic of interest' }, enum: bodeaTopics, enumNames: ['Hi - Tech', 'Design', 'Marketing', 'Development'], properties: { colspan: 12 }, appliedCssClassNames: 'col-12 bodea-dropdown' },
+  ] : [];
+
   const coreFieldsPart1 = [
     { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name'       }, properties: { colspan: 6  }, appliedCssClassNames: 'col-6' },
     { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'        }, properties: { colspan: 6  }, appliedCssClassNames: 'col-6' },
-    { id: 'email',     name: 'email',     fieldType: 'text-input', label: { value: 'Email address'    }, autoComplete: 'email', properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 }, appliedCssClassNames: (isFrescopaVariant || isHallibyVariant) ? 'col-6' : 'col-12' },
-    { id: 'phone',     name: 'phone',     fieldType: 'text-input', label: { value: 'Phone number'     }, autoComplete: 'tel',   properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 }, appliedCssClassNames: (isFrescopaVariant || isHallibyVariant) ? 'col-6' : 'col-12' },
+    { id: 'email',     name: 'email',     fieldType: 'text-input', label: { value: isBodeaVariant ? 'Email' : 'Email address' }, autoComplete: 'email', properties: { colspan: emailColSpan }, appliedCssClassNames: `col-${emailColSpan}` },
+    ...(isBodeaVariant ? [{ id: 'companyName', name: 'companyName', fieldType: 'text-input', label: { value: 'Company name' }, properties: { colspan: 6 }, appliedCssClassNames: 'col-6' }] : []),
+    ...(!isBodeaVariant ? [{ id: 'phone', name: 'phone', fieldType: 'text-input', label: { value: 'Phone number' }, autoComplete: 'tel', properties: { colspan: (isFrescopaVariant || isHallibyVariant) ? 6 : 12 }, appliedCssClassNames: (isFrescopaVariant || isHallibyVariant) ? 'col-6' : 'col-12' }] : []),
     ...(isWkndFlyVariant ? [{ id: 'wkndFlyMember', name: 'wkndFlyMember', fieldType: 'drop-down', label: { value: 'WKND Fly Member' }, enum: ['', 'member', 'non-member'], enumNames: ['Select...', 'Member', 'Non-member'], type: 'string', properties: { colspan: 12 }, appliedCssClassNames: 'col-12' }] : []),
   ];
 
@@ -200,6 +216,8 @@ function buildCreateAccountFormDef(config = {}) {
     { id: 'city',        name: 'city',          fieldType: 'text-input', label: { value: 'City'                       }, autoComplete: 'address-level2',  properties: { colspan: 6  }, appliedCssClassNames: withConditionalClasses('col-6',  showAddress) },
     { id: 'dateOfBirth', name: 'dateOfBirth',   fieldType: 'text-input', label: { value: isHallibyVariant ? "Birth day and month (MM-DD)" : "Date of birth (YYYY-MM-DD)"}, placeholder: isHallibyVariant ? "12-31" : 'YYYY-MM-DD',        properties: { colspan: isHallibyVariant ? 6 : 12 }, appliedCssClassNames: withConditionalClasses(isHallibyVariant ? 'col-6' : 'col-12', showDateOfBirth) },
     
+    ...(isBodeaVariant ? bodeaFields : []),
+
     /* Halliby Specific Dietary Dropdown */
     ...(isHallibyVariant ? [{
       id: "dietaryRestrictions",

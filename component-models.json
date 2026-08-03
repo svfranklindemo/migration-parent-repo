@@ -92,6 +92,10 @@
             "value": "halliby-theme"
           },
           {
+            "name": "Bodea Theme",
+            "value": "bodea-theme"
+          },
+          {
             "name": "Expnews Theme",
             "value": "expnews-theme"
           }
@@ -1305,6 +1309,14 @@
       },
       {
         "component": "text",
+        "name": "toast-message",
+        "label": "Success Toast Message",
+        "value": "",
+        "valueType": "string",
+        "description": "If authored, a success toast with this message is shown after the button is clicked."
+      },
+      {
+        "component": "text",
         "name": "custom-class",
         "label": "Custom class",
         "value": "",
@@ -1693,6 +1705,12 @@
       },
       {
         "component": "text",
+        "name": "form-desc",
+        "label": "Form Subtitle",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "success-message",
         "label": "Success Message",
         "value": "Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!",
@@ -1704,6 +1722,14 @@
         "label": "Show Consent Checkbox",
         "value": "true",
         "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "show-zip-code",
+        "label": "Show Zip Code",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Toggle on to show zip code field by default"
       },
       {
         "component": "boolean",
@@ -1720,6 +1746,12 @@
         "value": "false",
         "valueType": "boolean",
         "description": "Pre-check the Call Before Delivery option"
+      },
+      {
+        "component": "aem-content",
+        "name": "submit-redirect-url",
+        "label": "Redirect URL (after submission)",
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -2310,6 +2342,10 @@
             "name": "Binji",
             "value": "binji"
           },
+          {
+            "name": "Bodea",
+            "value": "bodea"
+          },
           { 
             "name": "Exp News", 
             "value": "expnews"
@@ -2386,6 +2422,13 @@
         "name": "redirectUrl",
         "label": "Redirect URL",
         "description": "Page to redirect to after successful account creation. Leave empty for no redirect."
+      },
+      {
+        "component": "text",
+        "name": "createaccountbuttontext",
+        "label": "Button Text",
+        "value": "Submit",
+        "valueType": "string"
       },
       {
         "component": "text",
@@ -9322,6 +9365,74 @@
     ]
   },
   {
+    "id": "newsletter",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string",
+        "description": "Image to display alongside the newsletter sign-up. Leave empty to omit."
+      },
+      {
+        "component": "text",
+        "name": "image-alt",
+        "label": "Image Alt Text",
+        "value": "",
+        "valueType": "string",
+        "description": "Accessible alt text for the image."
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Content",
+        "value": "",
+        "valueType": "string",
+        "description": "Heading, sub-heading or body copy shown above the sign-up form."
+      },
+      {
+        "component": "text",
+        "name": "button-text",
+        "label": "Button Text",
+        "value": "Sign Up",
+        "valueType": "string",
+        "description": "Label for the submit button."
+      },
+      {
+        "component": "text",
+        "name": "placeholder",
+        "label": "Input Placeholder",
+        "value": "Type your email address",
+        "valueType": "string",
+        "description": "Placeholder text inside the email input."
+      },
+      {
+        "component": "text",
+        "name": "toast-content",
+        "label": "Toast Message",
+        "value": "Thank you for subscribing!",
+        "valueType": "string",
+        "description": "Message shown in the success toast after form submission."
+      },
+      {
+        "component": "text",
+        "name": "background-color",
+        "label": "Background Color",
+        "value": "",
+        "valueType": "string",
+        "description": "CSS colour value (e.g. #f3f4f6). Leave empty to use the default."
+      },
+      {
+        "component": "boolean",
+        "name": "use-image-as-background",
+        "label": "Use Image as Background",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, the image fills the block background instead of a side panel."
+      }
+    ]
+  },
+  {
     "id": "rss-list",
     "fields": [
       {
@@ -9379,6 +9490,200 @@
         "component": "text",
         "name": "rss-promo-banner-alt",
         "label": "RSS Promo Banner Alt Text"
+      }
+    ]
+  },
+  {
+    "id": "insurance-plan-selection",
+    "fields": [
+      {
+        "component": "text",
+        "name": "formHeading",
+        "label": "Main Heading",
+        "value": "Which type of health insurance should I get?",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "formSubtitle",
+        "label": "Main Subtitle",
+        "value": "Take our free, short quiz to learn which type of health insurance might be best for you!",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful quiz submission."
+      },
+      {
+        "component": "text",
+        "name": "buttoneventtype",
+        "label": "Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonwebhookurl",
+        "label": "Button Webhook URL",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonformid",
+        "label": "Button Form ID",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttondata",
+        "label": "Button Data Sheet",
+        "valueType": "string",
+        "description": "AEM sheet path whose key/value rows are sent on submit"
+      },
+      {
+        "component": "text",
+        "name": "submitbuttontext",
+        "label": "Submit Button Text",
+        "value": "Submit",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
+  },
+  {
+    "id": "medicare-plan-selection",
+    "fields": [
+      {
+        "component": "text",
+        "name": "formHeading",
+        "label": "Main Heading",
+        "value": "Which type of Medicare plan should I get?",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "formSubtitle",
+        "label": "Main Subtitle",
+        "value": "Take our free, short quiz to learn which type of health insurance might be best for you!",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "redirectUrl",
+        "label": "Redirect URL",
+        "description": "Page to redirect to after successful quiz submission."
+      },
+      {
+        "component": "text",
+        "name": "buttoneventtype",
+        "label": "Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonwebhookurl",
+        "label": "Button Webhook URL",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonformid",
+        "label": "Button Form ID",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttondata",
+        "label": "Button Data Sheet",
+        "valueType": "string",
+        "description": "AEM sheet path whose key/value rows are sent on submit"
+      },
+      {
+        "component": "text",
+        "name": "submitbuttontext",
+        "label": "Submit Button Text",
+        "value": "Submit",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
+  },
+  {
+    "id": "plan-application",
+    "fields": [
+      {
+        "component": "text",
+        "name": "defaultPlanName",
+        "label": "Default Plan Name",
+        "value": "Medicare Extra (HMO) Plan",
+        "valueType": "string",
+        "description": "Fallback name if no plan URL parameter is provided."
+      },
+      {
+        "component": "text",
+        "name": "buttoneventtype",
+        "label": "Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonwebhookurl",
+        "label": "Button Webhook URL",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonformid",
+        "label": "Button Form ID",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttondata",
+        "label": "Button Data Sheet",
+        "valueType": "string",
+        "description": "AEM sheet path whose key/value rows are sent on submit"
+      },
+      {
+        "component": "text",
+        "name": "submitbuttontext",
+        "label": "Submit Button Text",
+        "value": "Submit",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
       }
     ]
   }

@@ -224,8 +224,12 @@
         "video",
         "form",
         "embed-adaptive-form",
+        "bodea-secure-antivirus",
         "rss-list",
-        "rss-details"
+        "rss-details",
+        "insurance-plan-selection",
+        "medicare-plan-selection",
+        "plan-application"
       ]
     }
   ]
