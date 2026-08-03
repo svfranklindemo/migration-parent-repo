@@ -59,3 +59,54 @@
   outline: 2px solid var(--main-accent-color, #0ea5e9);
   outline-offset: 2px;
 }
+
+/* ─── Toast ──────────────────────────────────────────────────────────────── */
+
+.get-offer-toast {
+  position: fixed;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #16a34a;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0 0 0 / 18%);
+  max-width: calc(100vw - 2rem);
+  white-space: nowrap;
+  transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.get-offer-toast.get-offer-toast-visible {
+  top: 1.5rem;
+  opacity: 1;
+}
+
+.get-offer-toast-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.get-offer-toast-text {
+  flex: 1;
+  min-width: 0;
+  white-space: normal;
+}
+
+@media (width < 768px) {
+  .get-offer-toast {
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    max-width: 100%;
+  }
+}

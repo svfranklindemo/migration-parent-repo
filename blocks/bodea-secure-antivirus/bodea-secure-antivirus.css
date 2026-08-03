@@ -7,9 +7,8 @@
   font-family: adobe-clean, 'Source Sans Pro', sans-serif;
   color: #2c2c2c;
   background: #fff;
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid #e0e0e0;
 }
 
 /* ============================================================
@@ -49,7 +48,7 @@
    ============================================================ */
 .bsav-layout {
   display: flex;
-  min-height: 600px;
+  min-height: 100vh;
 }
 
 /* ============================================================
@@ -118,10 +117,6 @@
   font-weight: 600;
 }
 
-.bsav-sidebar__complete-btn {
-  margin-top: auto;
-}
-
 /* ============================================================
    Main content area
    ============================================================ */
@@ -170,7 +165,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 9px 20px;
+  padding: 9px 20px !important;
   border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
@@ -181,9 +176,13 @@
   letter-spacing: 0.02em;
 }
 
+a.bsav-btn::after {
+  content: unset;
+}
+
 .bsav-btn--primary {
-  background: #35b28c;
-  color: #fff;
+  background: #35b28c !important;
+  color: #fff !important;
   border: 2px solid #35b28c;
 }
 
@@ -579,7 +578,7 @@
   height: 64px;
   border-radius: 12px;
   overflow: hidden;
-  background: #e8e8e8;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -622,6 +621,7 @@
 @media (width < 900px) {
   .bsav-layout {
     flex-direction: column;
+    min-height: 600px;
   }
 
   .bsav-sidebar {
@@ -631,6 +631,18 @@
     flex-wrap: wrap;
     padding: 20px;
     gap: 16px;
+  }
+  
+  .bsav-training-header__inner {
+    justify-content: center;
+  }
+
+  .bsav-training-header__title {
+    display: none;
+  }
+
+  .bsav-training-header__title + .bsav-btn {
+    display: none;
   }
 
   .bsav-sidebar__complete-btn {
