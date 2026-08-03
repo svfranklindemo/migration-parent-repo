@@ -1,6 +1,6 @@
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { readBlockConfig } from "../../scripts/aem.js";
-import { normalizeAemPath } from "../../scripts/scripts.js";
+import { normalizeAemPath, isAuthorEnvironment } from "../../scripts/scripts.js";
 
 /**
  * Generate random purchase order number
@@ -97,8 +97,11 @@ function isFullAemContentPath(path) {
 }
 
 function getNormalizedAemContentPath(path) {
-  if (!isFullAemContentPath(path)) return null;
-  return normalizeAemPath(path.trim());
+  if (!path || typeof path !== 'string') return null;
+  const p = path.trim();
+  if (isFullAemContentPath(p)) return normalizeAemPath(p);
+  // Short relative paths (e.g. /en/confirmation) — append .html in author mode
+  return isAuthorEnvironment() ? (p.endsWith('.html') ? p : `${p}.html`) : p.replace(/\.html$/, '');
 }
 
 /**
@@ -313,6 +316,7 @@ function buildButtons(config = {}) {
   backBtn.textContent = "BACK";
   backBtn.addEventListener("click", () => {
     const backPath = (config['back-path'] || config.backpath || '').toString().trim();
+    if (!backPath) return;
     const targetPath = getNormalizedAemContentPath(backPath);
     if (targetPath) window.location.href = targetPath;
   });

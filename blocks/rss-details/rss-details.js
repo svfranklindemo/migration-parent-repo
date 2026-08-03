@@ -46,11 +46,8 @@ export default async function decorate(block) {
     }
     
     block.innerHTML = `
-      <div class="rss-detail-wrapper">
-        <div class="rss-detail-image">
-          ${article.image ? `<img src="${article.image}" alt="${article.title}">` : ''}
-        </div>
-        
+      <div class="rss-detail-wrapper${article.image ? '' : ' rss-detail-wrapper--no-image'}">
+        ${article.image ? `<div class="rss-detail-image"><img src="${article.image}" alt="${article.title}"></div>` : ''}
         <div class="rss-detail-content">
           <p class="rss-detail-date">${dateText}</p>
           <h1 class="rss-detail-title">${article.title}</h1>

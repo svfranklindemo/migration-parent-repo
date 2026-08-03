@@ -29,16 +29,20 @@ export default async function decorate(block) {
     items.forEach((item) => {
       const card = document.createElement('article');
       card.className = 'rss-card';
-      
+
+      if (!item.image) {
+        card.style.display = 'none';
+        grid.appendChild(card);
+        return;
+      }
+
       const targetUrl = `${detailPageUrl}?id=${item.id}`;
       card.addEventListener('click', () => { window.location.href = targetUrl; });
 
       const dateText = item.pubDate ? new Date(item.pubDate).toLocaleString() : '';
 
       card.innerHTML = `
-        <div class="rss-card-media">
-          ${item.image ? `<img src="${item.image}" alt="${item.title}" loading="lazy">` : ''}
-        </div>
+        <div class="rss-card-media"><img src="${item.image}" alt="${item.title}" loading="lazy"></div>
         <div class="rss-card-meta">
           ${dateText ? `<p class="rss-card-date">${dateText}</p>` : ''}
           <h3 class="rss-card-title">${item.title}</h3>

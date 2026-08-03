@@ -167,8 +167,8 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
       }
 
       const productPath = isAuthor
-        ? `${basePath}${recommendedPath}.html`
-        : `${basePath}${recommendedPath}`;
+        ? `${basePath}/${recommendedPath}.html`
+        : `${basePath}/${recommendedPath}`;
       window.location.href = `${productPath}?productId=${encodeURIComponent(
         productId
       )}`;
