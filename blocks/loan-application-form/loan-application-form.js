@@ -11,8 +11,8 @@ import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 import { normalizeAemPath } from '../../scripts/scripts.js';
 
-const LOAN_APPLICATION_FORM_WIZARD_TITLE = 'Home Loan Application Form';
-const LOAN_APPLICATION_FORM_WIZARD_NAME = 'home-loan-application';
+let loanApplicationFormWizardTitle;
+let loanApplicationFormWizardName;
 function getNestedProperty(obj, path) {
   if (!obj || !path) return undefined;
   return path.split('.').reduce((current, key) => current?.[key], obj);
@@ -83,8 +83,8 @@ function buildWizardPayload(currentStepIndex, totalSteps) {
     : 0;
   const steps = Array.from({ length: totalSteps }, (_, idx) => buildStepMeta(idx));
   return {
-    name: LOAN_APPLICATION_FORM_WIZARD_NAME,
-    title: LOAN_APPLICATION_FORM_WIZARD_TITLE,
+    name: loanApplicationFormWizardName,
+    title: loanApplicationFormWizardTitle,
     steps,
     currentStep: safeIndex + 1,
   };
@@ -120,7 +120,7 @@ function applyButtonConfigToSubmitButton(block, config) {
 }
 
 function buildLoanApplicationFormDef(config = {}) {
-  const formTitle = (config['form-title'] || '').toString().trim();
+  const formTitle = loanApplicationFormWizardTitle ;
   const phoneConsentText = "By entering your phone number you're authorizing SecurFinancial to use this number to call, text and send you messages by any method. We won't charge you for any messages but your service provider may.";
   const authorizeText = "I authorize SecurFinancial to verify my credit. I've read and agreed to Mortgage's Terms of Use, Privacy Policy and Consent to Receive Electronic Documents.";
   const stateOptions = ['', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'];
@@ -381,6 +381,16 @@ function attachLoanApplicationFormStepEvents(wizard, form, stepEvent, startedEve
 
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
+  loanApplicationFormWizardTitle =
+  (config.formtitle ?? config['form-title'] ?? '')
+    .toString()
+    .trim() || 'Home Loan Application Form';
+
+  loanApplicationFormWizardName =
+  (config.formname ?? config['form-name'] ?? '')
+    .toString()
+    .trim() || 'home-loan-application';
+  
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
   const codeBasePath = window.hlx?.codeBasePath || '';

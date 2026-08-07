@@ -1081,7 +1081,14 @@
         "name": "form-title",
         "label": "Form Title",
         "valueType": "string",
-        "description": "Heading displayed at the top of the form"
+        "description": "Heading displayed at the top of the form and passed in data layer as wizard title"
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Name of the form passed in the data layer"
       },
       {
         "component": "aem-content",
@@ -1226,7 +1233,14 @@
         "name": "form-title",
         "label": "Form Title",
         "valueType": "string",
-        "description": "Heading displayed at the top of the form"
+        "description": "Heading displayed at the top of the form and passed in data layer as wizard title"
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Name of the form passed in the data layer"
       },
       {
         "component": "aem-content",
@@ -1327,6 +1341,20 @@
   {
     "id": "new-account",
     "fields": [
+      {
+        "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Heading displayed at the top of the form and passed in data layer as wizard title"
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Name of the form passed in the data layer"
+      },
       {
         "component": "aem-content",
         "valueType": "string",
