@@ -433,6 +433,18 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* Collapse section default content while loading so it neither flashes nor creates blank scroll. */
+main .section[data-section-status="initialized"] > .default-content-wrapper,
+main .section[data-section-status="loading"] > .default-content-wrapper {
+  max-height: 0;
+  overflow: hidden;
+}
+
+main .section[data-section-status="loaded"] > .default-content-wrapper {
+  max-height: 100%;
+  overflow: visible;
+}
+
 /* Prevent loan-calculator FOUC: show a skeleton until loaded. */
 .loan-calculator.block[data-block-status="initialized"],
 .loan-calculator.block[data-block-status="loading"] {
@@ -1073,6 +1085,96 @@ footer .footer[data-block-status="loaded"] {
 
 .order-confirmation.block[data-block-status="loaded"] {
   min-height: 0;
+}
+
+/* Prevent columns FOUC: reserve space until loaded. */
+.columns.block[data-block-status="initialized"],
+.columns.block[data-block-status="loading"] {
+  min-height: 300px;
+}
+
+.columns.block[data-block-status="initialized"] > *,
+.columns.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.columns.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
+/* Prevent insurance-plan-selection FOUC: show a loading shimmer until loaded. */
+.insurance-plan-selection.block[data-block-status="initialized"],
+.insurance-plan-selection.block[data-block-status="loading"] {
+  position: relative;
+  height: 500px;
+  min-height: 500px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.insurance-plan-selection.block[data-block-status="initialized"] > *,
+.insurance-plan-selection.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.insurance-plan-selection.block[data-block-status="loaded"] {
+  background: none;
+  animation: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent medicare-plan-selection FOUC: show a loading shimmer until loaded. */
+.medicare-plan-selection.block[data-block-status="initialized"],
+.medicare-plan-selection.block[data-block-status="loading"] {
+  position: relative;
+  height: 500px;
+  min-height: 500px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.medicare-plan-selection.block[data-block-status="initialized"] > *,
+.medicare-plan-selection.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.medicare-plan-selection.block[data-block-status="loaded"] {
+  background: none;
+  animation: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent plan-application FOUC: show a loading shimmer until loaded. */
+.plan-application.block[data-block-status="initialized"],
+.plan-application.block[data-block-status="loading"] {
+  position: relative;
+  height: 500px;
+  min-height: 500px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.plan-application.block[data-block-status="initialized"] > *,
+.plan-application.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.plan-application.block[data-block-status="loaded"] {
+  background: none;
+  animation: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
 }
 
 h1,

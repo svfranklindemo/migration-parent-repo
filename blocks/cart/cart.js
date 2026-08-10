@@ -369,10 +369,10 @@ function handleCheckout() {
     return;
   }
 
-  // Navigate to checkout page
   const currentPath = window.location.pathname;
   const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-  window.location.href = `${basePath}/checkout`;
+  const suffix = isAuthorEnvironment() ? ".html" : "";
+  window.location.href = `${basePath}/checkout${suffix}`;
 }
 
 /**

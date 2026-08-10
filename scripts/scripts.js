@@ -372,6 +372,13 @@ async function loadEager(doc) {
   }
 
   decorateTemplateAndTheme();
+  // Reflect auth state synchronously so login-gated sections avoid a visible flash.
+  try {
+    const loggedIn = localStorage.getItem('project_user_logged_in') === 'true';
+    document.body.classList.add(loggedIn ? 'user-logged-in' : 'user-logged-out');
+  } catch (e) {
+    document.body.classList.add('user-logged-out');
+  }
   renderWBDataLayer();
   const main = doc.querySelector('main');
   if (main) {

@@ -137,6 +137,19 @@ async function fetchAllProducts(path, isAuthor, endpointKey) {
 }
 
 /**
+ * Resolve the language root of the current page (e.g. "/en" or "/content/site/en").
+ */
+function getLanguageBasePath() {
+  const currentPath = window.location.pathname;
+  const langCodes = "en|fr|de|es|it|ja|zh|pt|nl|sv|da|no|fi";
+  const midMatch = currentPath.match(new RegExp(`^(.*/(?:${langCodes}))/`));
+  if (midMatch) return midMatch[1];
+  const endMatch = currentPath.match(new RegExp(`^(.*/(?:${langCodes}))(?:\\.html)?$`));
+  if (endMatch) return endMatch[1];
+  return currentPath.substring(0, currentPath.lastIndexOf("/"));
+}
+
+/**
  * Build a recommendation card
  */
 function buildRecommendationCard(item, isAuthor, recommendedPath) {
@@ -149,26 +162,23 @@ function buildRecommendationCard(item, isAuthor, recommendedPath) {
   if (productId) {
     card.style.cursor = "pointer";
     card.addEventListener("click", () => {
-      const currentPath = window.location.pathname;
-      let basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
-
-      const langPattern = /\/(en|fr|de|es|it|ja|zh|pt|nl|sv|da|no|fi)$/;
-      if (!langPattern.test(basePath) && !basePath.includes("/en/")) {
-        const pathMatch = currentPath.match(
-          /\/(en|fr|de|es|it|ja|zh|pt|nl|sv|da|no|fi)\//
-        );
-        if (pathMatch) {
-          const langCode = pathMatch[1];
-          const langIndex = currentPath.indexOf(`/${langCode}/`);
-          basePath = currentPath.substring(0, langIndex + langCode.length + 1);
-        } else {
-          basePath = `${basePath}/en`;
+      // Normalize recommendedPath: a full URL becomes its pathname; strip .html/trailing slash.
+      let target = recommendedPath || "";
+      if (/^https?:\/\//i.test(target)) {
+        try {
+          target = new URL(target).pathname;
+        } catch {
+          // keep original value if parsing fails
         }
       }
+      target = target.replace(/\.html$/, "").replace(/\/$/, "");
 
-      const productPath = isAuthor
-        ? `${basePath}${recommendedPath}.html`
-        : `${basePath}${recommendedPath}`;
+      // Prepend the language base path unless the target already includes it.
+      const basePath = getLanguageBasePath();
+      const includesBase = target === basePath || target.startsWith(`${basePath}/`);
+      let productPath = includesBase ? target : `${basePath}/${target.replace(/^\//, "")}`;
+      if (isAuthor) productPath = `${productPath}.html`;
+
       window.location.href = `${productPath}?productId=${encodeURIComponent(
         productId
       )}`;

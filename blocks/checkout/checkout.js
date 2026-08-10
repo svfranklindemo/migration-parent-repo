@@ -1,6 +1,6 @@
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { readBlockConfig } from '../../scripts/aem.js';
-import { normalizeAemPath } from '../../scripts/scripts.js';
+import { normalizeAemPath, isAuthorEnvironment } from '../../scripts/scripts.js';
 import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 /**
  * Checkout block – consolidates selected flights from the flights block and shows Trip Summary.
@@ -17,8 +17,7 @@ const LIVE_CONFIRMATION_PATH = '/en/confirmation';
 function getConfirmationPath(authoredPath) {
   if (authoredPath) return normalizeAemPath(authoredPath);
   if (typeof window === 'undefined') return LIVE_CONFIRMATION_PATH;
-  const isAuthor = window.location.hostname.includes('author') || window.location.hostname.includes('adobeaemcloud');
-  if (isAuthor) {
+  if (isAuthorEnvironment()) {
     const pathname = window.location.pathname;
     const enIndex = pathname.indexOf('/en/');
     if (enIndex !== -1) return pathname.slice(0, enIndex + 4) + 'confirmation.html';

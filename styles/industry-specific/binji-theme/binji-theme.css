@@ -1081,6 +1081,12 @@ body.binji-theme main .create-account .registration-wizard__dot.active {
 
 body.binji-theme main .binji-home-signin.section {
   margin: 0;
+  /* Hidden by default; revealed only for logged-out users to prevent a load-then-hide flash. */
+  display: none;
+}
+
+body.binji-theme.user-logged-out:not(:has(.user-profile-btn)) main .binji-home-signin.section {
+  display: block;
 }
 
 body.binji-theme main .sign-in-wrapper {

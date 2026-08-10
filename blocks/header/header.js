@@ -565,8 +565,8 @@ function handleSignOut(langCode) {
     window.updateDataLayer({ page: {}, product: {}, mortgage: {}, partnerData: {}, project: { id: 'securfinancial2' }, wizard: {} }, true);
   }
 
-  // Redirect to home page
-  const homeUrl = langCode === "en" ? "/" : `/${langCode}`;
+  const homeSuffix = isAuthorEnvironment() ? '.html' : '';
+  const homeUrl = langCode === "en" ? `/${homeSuffix}` : `/${langCode}${homeSuffix}`;
   window.location.href = homeUrl;
 }
 
@@ -582,8 +582,13 @@ function addLumaCartIcon(container, langCode) {
     return;
   }
 
+  const isAuthor = isAuthorEnvironment();
+  const suffix = isAuthor ? '.html' : '';
+  const cartHref = isAuthor
+    ? `/content/${siteName}${PATH_PREFIX}/${langCode}/cart.html`
+    : `/${langCode}/cart`;
   const cartLink = document.createElement('a');
-  cartLink.href = `/${langCode}/cart`;
+  cartLink.href = cartHref;
   cartLink.className = 'cart-icon';
   cartLink.setAttribute('aria-label', 'Shopping Cart');
   cartLink.setAttribute('title', 'Shopping Cart');
@@ -709,7 +714,9 @@ export default async function decorate(block) {
       createUserProfile(targetContainer, langCode, true);
     } else if (!targetContainer.querySelector('.sign-in-btn')) {
       const signInLink = document.createElement('a');
-      signInLink.href = `/${langCode}/sign-in`;
+      signInLink.href = isAuthor
+        ? `/content/${siteName}${PATH_PREFIX}/${langCode}/sign-in.html`
+        : `/${langCode}/sign-in`;
       signInLink.className = 'sign-in-btn';
       signInLink.textContent = 'Sign in';
       signInLink.title = 'Sign-In';
