@@ -1,6 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { isAuthorEnvironment, moveInstrumentation } from '../../scripts/scripts.js';
 import { readBlockConfig } from '../../scripts/aem.js';
+import { getSiteName, PATH_PREFIX } from '../../scripts/utils.js';
 
 /**
  *
@@ -137,16 +138,27 @@ export default function decorate(block) {
   }
 
   /* Section link: do not use when value is a hex color (UE may put Text Color in Link field) */
-  const sectionLinkRaw = (config.link ?? rowVal(12)) && String(config.link ?? rowVal(12)).trim();
+  const sectionLinkRaw = (config.link ?? rowVal(13)) && String(config.link ?? rowVal(13)).trim();
   if (sectionLinkRaw && isHexColor(sectionLinkRaw)) {
     delete block.dataset.sectionLink;
   } else if (sectionLinkRaw) {
     block.dataset.sectionLink = sectionLinkRaw;
+    block.addEventListener('click', async () => {
+      const siteName = await getSiteName();
+      const isAuthor = isAuthorEnvironment();
+      const defaultPath = `/content/${siteName}${PATH_PREFIX}`;
+      const sectionLink = sectionLinkRaw.replaceAll(defaultPath, '');
+      if(sectionLinkRaw.includes(defaultPath)){
+        window.location.href = isAuthor ? sectionLinkRaw + '.html' : sectionLink;
+      } else {
+        window.location.href = sectionLinkRaw;
+      }
+    });
   }
 
   const ctaLink = block.querySelector('p.button-container a, .button-container a');
   if (ctaLink) {
-    const eventType = config.buttoneventtype ?? rowVal(13);
+    const eventType = config.buttoneventtype ?? rowVal(14);
     if (eventType && String(eventType).trim()) ctaLink.dataset.buttonEventType = String(eventType).trim();
   }
 

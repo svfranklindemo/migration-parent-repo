@@ -120,6 +120,7 @@ main .rss-list .rss-card-desc a {
   display: inline;
   font-weight: 400;
   font-family: 'Adobe Clean', sans-serif;
+  white-space: normal;
 }
 
 main .rss-list .rss-card-desc a::after {

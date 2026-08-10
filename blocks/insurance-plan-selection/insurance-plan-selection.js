@@ -173,7 +173,6 @@ function attachSubmitHandler(block, config) {
 
       const submitBtn = form.querySelector("button[type='submit']");
       if (submitBtn) {
-        submitBtn.textContent = 'Processing...';
         submitBtn.disabled = true;
       }
 
@@ -192,7 +191,7 @@ function attachSubmitHandler(block, config) {
 
       const redirectTo = normalizeAemPath(redirectUrl);
       if (redirectTo) {
-        setTimeout(() => { window.location.href = redirectTo; }, 1000);
+        window.location.href = redirectTo;
       } else {
         alert("Success! Form submitted.");
         if (submitBtn) {

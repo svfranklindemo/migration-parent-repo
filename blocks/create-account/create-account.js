@@ -48,6 +48,8 @@ function buildBinjiWizardFormDef(config = {}) {
     ? isTruthy(config.showaddress) : true;
   const showDateOfBirth           = config.showdateofbirth !== undefined
     ? isTruthy(config.showdateofbirth) : true;
+  const variant = normalizeVariant(config.variant);
+  const isBinjiVariant = variant === 'binji';
 
   /* ---- STEP 1: EMAIL (unchanged from registration-wizard) ---- */
   const step1 = {
@@ -84,12 +86,12 @@ function buildBinjiWizardFormDef(config = {}) {
 
   /* ---- STEP 3: DETAILS + OPTIONAL PAYMENT ---- */
   const step3Items = [
-    { id: 'step-3-title', fieldType: 'heading', label: { value: 'Complete your profile' }, appliedCssClassNames: 'registration-wizard__title col-12' },
-    { id: 'step-3-sub',   fieldType: 'heading', label: { value: 'Just a few more details to get you started.' }, appliedCssClassNames: 'registration-wizard__subtitle col-12' },
+    { id: 'step-3-title', fieldType: 'heading', label: { value: 'Complete your profile' }, appliedCssClassNames: withConditionalClasses('registration-wizard__title col-12', !isBinjiVariant) },
+    { id: 'step-3-sub',   fieldType: 'heading', label: { value: 'Just a few more details to get you started.' }, appliedCssClassNames: withConditionalClasses('registration-wizard__subtitle col-12', !isBinjiVariant) },
 
     // First name / Last name always shown
-    { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name' }, properties: { colspan: 6 }, appliedCssClassNames: 'registration-wizard__input col-6' },
-    { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'  }, properties: { colspan: 6 }, appliedCssClassNames: 'registration-wizard__input col-6' },
+    { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First name' }, properties: { colspan: 6 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', !isBinjiVariant) },
+    { id: 'lastName',  name: 'lastName',  fieldType: 'text-input', label: { value: 'Last name'  }, properties: { colspan: 6 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-6', !isBinjiVariant) },
 
     // Address (conditional)
     { id: 'address', name: 'streetAddress', fieldType: 'text-input', label: { value: 'Address' },   autoComplete: 'street-address', properties: { colspan: 12 }, appliedCssClassNames: withConditionalClasses('registration-wizard__input col-12', showAddress) },

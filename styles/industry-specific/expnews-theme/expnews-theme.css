@@ -423,7 +423,9 @@ body.expnews-theme main .create-account .field-wrapper.switch label {
    -------------------------------------------------------------------------- */
 body.expnews-theme main .create-account .submit-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center; /* Centers the button as seen in Exp News mockup */
+  align-items: center;
 }
 
 body.expnews-theme main .create-account .submit-wrapper button {

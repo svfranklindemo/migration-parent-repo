@@ -2498,3 +2498,43 @@ padding-left: 0 !important;
 .form-message.error-message {
   display: none;
 }
+
+/* Prevent rss-list FOUC: show a loading shimmer until loaded. */
+.rss-list.block[data-block-status="initialized"],
+.rss-list.block[data-block-status="loading"] {
+  position: relative;
+  height: 320px;
+  min-height: 320px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.rss-list.block[data-block-status="initialized"] > *,
+.rss-list.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.rss-list.block[data-block-status="loaded"] {
+  background: none;
+  animation: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent rss-details FOUC: reserve space until loaded. */
+.rss-details.block[data-block-status="initialized"],
+.rss-details.block[data-block-status="loading"] {
+  min-height: 520px;
+}
+
+.rss-details.block[data-block-status="initialized"] > *,
+.rss-details.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.rss-details.block[data-block-status="loaded"] {
+  min-height: 0;
+}
