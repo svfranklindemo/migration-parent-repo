@@ -242,15 +242,16 @@ function toCamelCase(name) {
  * @returns {object} The block config
  */
 // eslint-disable-next-line import/prefer-default-export
-// EDS strips protocol+host off links to other EDS-hosted sites, keeping only the path in
-// href; the original absolute URL survives in the anchor's text, so prefer it when it matches
+// authors may put the real destination as an absolute URL in the link text (e.g. when EDS
+// strips protocol+host off links to other EDS-hosted sites) — trust it over href when present
 export function resolveAnchorValue(anchor) {
   const hrefAttr = (anchor.getAttribute('href') || '').trim();
   const text = (anchor.textContent || '').trim();
   if (/^https?:\/\//i.test(text) && !/^https?:\/\//i.test(hrefAttr)) {
     try {
-      const parsed = new URL(text);
-      if (`${parsed.pathname}${parsed.search}${parsed.hash}` === hrefAttr) return text;
+      // eslint-disable-next-line no-new
+      new URL(text);
+      return text;
     } catch {
       /* not a valid absolute URL, ignore */
     }
