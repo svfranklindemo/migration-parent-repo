@@ -1,5 +1,6 @@
 import { div, a, span } from '../../scripts/dom-helpers.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
+import { resolveAnchorValue } from '../../scripts/aem.js';
 
 function getTextFromSelector(block, selector) {
   const el = block.querySelector(selector);
@@ -15,7 +16,7 @@ export default function decorate(block) {
     const col = row.children[1] ?? row.children[0];
     if (col?.querySelector?.('a')) {
       const as = [...col.querySelectorAll('a')];
-      return as.length === 1 ? as[0].href : as.map((a) => a.href);
+      return as.length === 1 ? resolveAnchorValue(as[0]) : as.map(resolveAnchorValue);
     }
     return col?.textContent?.trim();
   };
@@ -28,18 +29,25 @@ export default function decorate(block) {
   const appendHtmlIfAuthor = (value) => {
     if (!value) return value;
     if (!isAuthorEnvironment()) return value;
-    return value.toLowerCase().endsWith('.html') ? value : `${value}.html`;
+    if (/^https?:\/\//i.test(value)) {
+      try {
+        if (!new URL(value).pathname.startsWith('/content/')) return value; // external link — leave untouched
+      } catch {
+        return value;
+      }
+    }
+    // insert .html before any query string/hash instead of appending to the very end
+    const [pathname, suffix = ''] = value.match(/^([^?#]*)([?#].*)?$/).slice(1);
+    return pathname.toLowerCase().endsWith('.html') ? value : `${pathname}.html${suffix}`;
   };
 
-  const rowLinkElement = block.querySelector(':scope > div:nth-child(1) a');
-  const rowLink = appendHtmlIfAuthor(rowLinkElement?.textContent?.trim() || '');
-  const rowLinkUrl = appendHtmlIfAuthor(rowLinkElement?.getAttribute('href')?.trim() || '');
+  const rowLinkElement = block.querySelector(':scope > div:nth-child(1) a') || block.querySelector('a[href]');
+  const rowLinkUrl = rowLinkElement ? appendHtmlIfAuthor(resolveAnchorValue(rowLinkElement)) : '';
   const rowLabel = normalizeRowValue(rowVal(2));
   const rowTitle = normalizeRowValue(rowVal(3));
   const rowStyle = normalizeRowValue(rowVal(4));
 
-  const linkEl = block.querySelector('a[href]');
-  const buttonLink = linkEl?.getAttribute('href')?.trim() || rowLinkUrl || '#';
+  const buttonLink = rowLinkUrl || '#';
 
   const buttonLabel = getTextFromSelector(block, '[data-aue-prop="label"]')
     || getTextFromSelector(block, '[data-aue-prop="title"]')
