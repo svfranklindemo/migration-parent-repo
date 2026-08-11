@@ -29,6 +29,12 @@ body.binji-theme {
   --footer-background-color: #000;
   --footer-text-color: #a0a0a0;
 
+  /* Skeleton/FOUC loaders — dark shades so they don't flash white on this dark theme */
+  --skeleton-shimmer-color-1: #1a1a1f;
+  --skeleton-shimmer-color-2: #2a2a30;
+  --skeleton-block-color: #1a1a1f;
+  --skeleton-block-color-alt: #1a1a1f;
+
   /* Sticky full-height layout */
   display: flex;
   flex-direction: column;
