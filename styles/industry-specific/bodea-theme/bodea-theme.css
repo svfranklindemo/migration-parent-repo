@@ -231,7 +231,10 @@ display: none;
 
 @media (max-width: 991px) {
 
-    
+    body.bodea-theme main .bodea-banner .hero {
+    min-height:400px;
+    height: auto;
+}
 
     body.bodea-theme main .bodea-banner .hero picture img {
         height: auto;
