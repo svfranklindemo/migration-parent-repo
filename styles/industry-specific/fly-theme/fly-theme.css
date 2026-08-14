@@ -70,3 +70,47 @@ body.fly-theme .cta-button a.button::after {
   font-size: 17px;
   margin-left: 0;
 }
+
+@media (max-width: 425px) {
+
+  .fly-theme header nav .nav-brand picture{
+    width:auto;
+  }
+  body.fly-theme #nav {
+  justify-content: space-around;
+  padding:0;
+}
+    body.fly-theme header nav .nav-hamburger button {
+      color:#000000;
+    }
+      body.fly-theme #nav .nav-brand a {
+        display: flex;
+        align-items: center;
+        height: auto;
+      }
+      body.fly-theme header  nav .nav-tools{
+        margin-left:0;
+      }
+      body.fly-theme .section.fly-img.cards-container,
+      body.fly-theme .join-us-sontainer,
+      body.fly-theme .sign-in-container{
+      flex-direction:column;
+    }
+    body.fly-theme .section.fly-img.cards-container > div,
+    body.fly-theme .join-us-sontainer > div{
+        flex: 1 1 100% !important;
+        max-width: 100% !important;
+    }
+    body.fly-theme .sign-in-container .sign-in-wrapper .sign-in{
+margin:30px auto;
+    }
+    body.fly-theme .hero-wrapper .hero.image-background-text-right div:nth-child(2){
+      background-color: none;
+    }
+    body.fly-theme .fly-club .cards > ul > li .cards-card-image.contain img{
+      height:100px;
+    }
+}
+
+/* sign in */
+
