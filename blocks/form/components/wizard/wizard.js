@@ -72,10 +72,6 @@ export class WizardLayout {
       const navigateToMenuItem = panel.querySelector(`li[data-index="${navigateTo.dataset.index}"]`);
       currentMenuItem.classList.remove('wizard-menu-active-item');
       navigateToMenuItem.classList.add('wizard-menu-active-item');
-      // this DOM toggle alone doesn't tell the AFB model a new step is active; without
-      // syncing activeChild here, the model only learns it on the first interaction
-      // inside the new step (e.g. a submit click), requiring a second click to take effect.
-      window.myForm?.getElement(navigateTo.id)?.focus();
       const event = new CustomEvent('wizard:navigate', {
         detail: {
           prevStep: { id: current.id, index: +current.dataset.index },

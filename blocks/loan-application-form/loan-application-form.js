@@ -310,6 +310,8 @@ function attachLoanApplicationFormSubmitHandler(block, redirectUrl) {
 function setupLoanApplicationStepIndicator(block, stepEvent, startedEvent) {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
+  // AFB model only learns the active step on first interaction otherwise, causing a double-submit
+  wizard.addEventListener('wizard:navigate', (e) => window.myForm?.getElement(e.detail.currStep.id)?.focus());
   const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
   const btnWrapper = wizard.querySelector('.wizard-button-wrapper');
   if (!btnWrapper || totalSteps === 0) return;
