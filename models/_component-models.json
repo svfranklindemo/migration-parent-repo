@@ -123,6 +123,16 @@
         "label": "Page Category"
       },
       {
+        "component": "aem-content",
+        "name": "mobileIcon",
+        "label": "Mobile Icon",
+        "valueType": "string",
+        "description": "DAM path of the icon used for the mobile event on this page",
+        "validation": {
+          "rootPath": "/content/dam"
+        }
+      },
+      {
         "component": "aem-tag",
         "name": "cq:tags",
         "label": "Tags",
