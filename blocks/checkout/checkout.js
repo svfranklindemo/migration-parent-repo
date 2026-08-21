@@ -1,5 +1,5 @@
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
-import { readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { normalizeAemPath, isAuthorEnvironment } from '../../scripts/scripts.js';
 import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 /**
@@ -204,26 +204,81 @@ function renderTripSummary(container, onRemove) {
   return getFlightsTotal(flights);
 }
 
-function renderUpgradeAndPreferences(mainCol) {
-  const section = document.createElement('div');
-  section.className = 'checkout-section';
-  section.innerHTML = `
-    <h3 class="checkout-section-title">Upgrade your trip</h3>
-    <label class="checkout-checkbox"><input type="checkbox" name="upgrade-points"> Upgrade class with points</label>
-    <label class="checkout-checkbox"><input type="checkbox" name="upgrade-luggage"> Add extra piece of checked-in luggage</label>
-  `;
-  mainCol.appendChild(section);
-  const prefs = document.createElement('div');
-  prefs.className = 'checkout-section';
-  prefs.innerHTML = `
-    <h3 class="checkout-section-title">Preferences</h3>
-    <div class="checkout-prefs">
-      <label>Seat <select name="seat"><option value="">Select...</option><option value="window">Window</option><option value="aisle">Aisle</option></select></label>
-      <label>Section <select name="section"><option value="">Select...</option><option value="forward">Forward</option><option value="rear">Rear</option></select></label>
-      <label>Meal <select name="meal"><option value="">Select...</option><option value="regular">Regular</option><option value="vegetarian">Vegetarian</option><option value="low-calories">Low Calories</option><option value="peanut-free">Peanut-Free</option><option value="non-lactose">Non-Lactose</option><option value="diabetic">Diabetic</option></select></label>
-    </div>
-  `;
-  mainCol.appendChild(prefs);
+/**
+ * Adaptive form definition for the Upgrade, Preferences, Passenger Info and Payment sections.
+ * Field `name` values are kept identical to the previous hand-rolled markup so all existing
+ * datalayer/prefill/validation logic (which looks up fields by `name`) keeps working unchanged.
+ * `appliedCssClassNames` re-uses the legacy `checkout-section`/`checkout-form`/`checkout-prefs`/
+ * `checkout-checkbox` class names so existing block + theme CSS continues to apply.
+ */
+function buildCheckoutFieldsFormDef() {
+  const passengerDescription = 'Please make sure your full name is entered exactly as it appears on your government-issued identification. This information is required based on international regulations.';
+  const paymentDescription = 'Only credit/debit card payments are accepted. Ignore this section if you chose to pay with Frequent Flyer program points.';
+
+  return {
+    id: 'checkout-fields-form',
+    fieldType: 'form',
+    items: [
+      {
+        id: 'panel-upgrade',
+        fieldType: 'panel',
+        label: { value: '' },
+        appliedCssClassNames: 'checkout-section',
+        items: [
+          { id: 'upgrade-heading', fieldType: 'heading', label: { value: 'Upgrade your trip' }, appliedCssClassNames: 'checkout-section-title', properties: { colspan: 12 } },
+          { id: 'upgrade-points', name: 'upgrade-points', fieldType: 'checkbox', label: { value: 'Upgrade class with points' }, enum: ['on'], appliedCssClassNames: 'checkout-checkbox', properties: { colspan: 12 } },
+          { id: 'upgrade-luggage', name: 'upgrade-luggage', fieldType: 'checkbox', label: { value: 'Add extra piece of checked-in luggage' }, enum: ['on'], appliedCssClassNames: 'checkout-checkbox', properties: { colspan: 12 } },
+        ],
+      },
+      {
+        id: 'panel-preferences',
+        fieldType: 'panel',
+        label: { value: '' },
+        appliedCssClassNames: 'checkout-section checkout-prefs',
+        items: [
+          { id: 'preferences-heading', fieldType: 'heading', label: { value: 'Preferences' }, appliedCssClassNames: 'checkout-section-title', properties: { colspan: 12 } },
+          { id: 'seat', name: 'seat', fieldType: 'drop-down', label: { value: 'Seat' }, enum: ['', 'window', 'aisle'], enumNames: ['Select...', 'Window', 'Aisle'], properties: { colspan: 4 } },
+          { id: 'section', name: 'section', fieldType: 'drop-down', label: { value: 'Section' }, enum: ['', 'forward', 'rear'], enumNames: ['Select...', 'Forward', 'Rear'], properties: { colspan: 4 } },
+          { id: 'meal', name: 'meal', fieldType: 'drop-down', label: { value: 'Meal' }, enum: ['', 'regular', 'vegetarian', 'low-calories', 'peanut-free', 'non-lactose', 'diabetic'], enumNames: ['Select...', 'Regular', 'Vegetarian', 'Low Calories', 'Peanut-Free', 'Non-Lactose', 'Diabetic'], properties: { colspan: 4 } },
+        ],
+      },
+      {
+        id: 'panel-passenger',
+        fieldType: 'panel',
+        label: { value: '' },
+        appliedCssClassNames: 'checkout-section checkout-form',
+        items: [
+          { id: 'passenger-heading', fieldType: 'heading', label: { value: 'Passenger Information' }, appliedCssClassNames: 'checkout-section-title', properties: { colspan: 12 } },
+          { id: 'passenger-description', fieldType: 'plain-text', value: passengerDescription, appliedCssClassNames: 'checkout-description', properties: { colspan: 12 } },
+          { id: 'firstName', name: 'firstName', fieldType: 'text-input', label: { value: 'First Name' }, properties: { colspan: 12 } },
+          { id: 'middleName', name: 'middleName', fieldType: 'text-input', label: { value: 'Middle Name (optional)' }, properties: { colspan: 12 } },
+          { id: 'lastName', name: 'lastName', fieldType: 'text-input', label: { value: 'Last Name' }, properties: { colspan: 12 } },
+          { id: 'birthDate', name: 'birthDate', fieldType: 'text-input', label: { value: 'Birth Date' }, placeholder: 'mm/dd/yyyy', properties: { colspan: 12 } },
+          { id: 'gender', name: 'gender', fieldType: 'drop-down', label: { value: 'Gender' }, enum: ['', 'male', 'female'], enumNames: ['Not Specified', 'Male', 'Female'], properties: { colspan: 12 } },
+          { id: 'frequentFlyerId', name: 'frequentFlyerId', fieldType: 'text-input', label: { value: 'Frequent Flyer ID' }, properties: { colspan: 12 } },
+          { id: 'email', name: 'email', fieldType: 'text-input', label: { value: 'Email Address' }, properties: { colspan: 12 } },
+          { id: 'phone', name: 'phone', fieldType: 'text-input', label: { value: 'Phone Number' }, properties: { colspan: 12 } },
+          { id: 'wknd-club', name: 'wknd-club', fieldType: 'checkbox', label: { value: 'I want to sign up for WKND Fly Club' }, enum: ['on'], appliedCssClassNames: 'checkout-checkbox', properties: { colspan: 12 } },
+          { id: 'sms', name: 'sms', fieldType: 'checkbox', label: { value: 'I want to get SMS with booking confirmation' }, enum: ['on'], appliedCssClassNames: 'checkout-checkbox', properties: { colspan: 12 } },
+          { id: 'promo', name: 'promo', fieldType: 'checkbox', label: { value: 'I want to receive electronic mail with promotions and announcements' }, enum: ['on'], appliedCssClassNames: 'checkout-checkbox', properties: { colspan: 12 } },
+        ],
+      },
+      {
+        id: 'panel-payment',
+        fieldType: 'panel',
+        label: { value: '' },
+        appliedCssClassNames: 'checkout-section checkout-form',
+        items: [
+          { id: 'payment-heading', fieldType: 'heading', label: { value: 'Payment Method' }, appliedCssClassNames: 'checkout-section-title', properties: { colspan: 12 } },
+          { id: 'payment-description', fieldType: 'plain-text', value: paymentDescription, appliedCssClassNames: 'checkout-description', properties: { colspan: 12 } },
+          { id: 'nameOnCard', name: 'nameOnCard', fieldType: 'text-input', label: { value: 'Name on Card' }, properties: { colspan: 12 } },
+          { id: 'expiration', name: 'expiration', fieldType: 'text-input', label: { value: 'Expiration' }, placeholder: 'MM/YY', properties: { colspan: 12 } },
+          { id: 'cardNumber', name: 'cardNumber', fieldType: 'text-input', label: { value: 'Card Number' }, placeholder: 'Digits only', maxLength: 19, pattern: '[0-9]*', properties: { colspan: 12 } },
+          { id: 'cvv', name: 'cvv', fieldType: 'text-input', label: { value: 'CVV' }, placeholder: '3 or 4 digits', maxLength: 4, pattern: '[0-9]*', properties: { colspan: 12 } },
+        ],
+      },
+    ],
+  };
 }
 
 /** Read value from input/select (text or checked for checkbox) */
@@ -295,45 +350,6 @@ function attachCheckoutDataLayerListeners(block) {
     const event = el.type === 'checkbox' ? 'change' : 'blur';
     el.addEventListener(event, () => updateDataLayerFromCheckoutForm(block));
   });
-}
-
-function renderPassengerForm(mainCol) {
-  const section = document.createElement('div');
-  section.className = 'checkout-section';
-  section.innerHTML = `
-    <h3 class="checkout-section-title">Passenger Information</h3>
-    <p class="checkout-description">Please make sure your full name is entered exactly as it appears on your government-issued identification. This information is required based on international regulations.</p>
-    <div class="checkout-form">
-      <label>First Name <input type="text" name="firstName"></label>
-      <label>Middle Name (optional) <input type="text" name="middleName"></label>
-      <label>Last Name <input type="text" name="lastName"></label>
-      <label>Birth Date <input type="text" name="birthDate" placeholder="mm/dd/yyyy"></label>
-      <label>Gender <select name="gender"><option value="">Not Specified</option><option value="male">Male</option><option value="female">Female</option></select></label>
-      <label>Frequent Flyer ID <input type="text" name="frequentFlyerId"></label>
-      <label>Email Address <input type="text" name="email"></label>
-      <label>Phone Number <input type="text" name="phone"></label>
-      <label class="checkout-checkbox"><input type="checkbox" name="wknd-club" checked> I want to sign up for WKND Fly Club</label>
-      <label class="checkout-checkbox"><input type="checkbox" name="sms"> I want to get SMS with booking confirmation</label>
-      <label class="checkout-checkbox"><input type="checkbox" name="promo"> I want to receive electronic mail with promotions and announcements</label>
-    </div>
-  `;
-  mainCol.appendChild(section);
-}
-
-function renderPaymentForm(mainCol) {
-  const section = document.createElement('div');
-  section.className = 'checkout-section';
-  section.innerHTML = `
-    <h3 class="checkout-section-title">Payment Method</h3>
-    <p class="checkout-description">Only credit/debit card payments are accepted. Ignore this section if you chose to pay with Frequent Flyer program points.</p>
-    <div class="checkout-form">
-      <label>Name on Card <input type="text" name="nameOnCard"></label>
-      <label>Expiration <input type="text" name="expiration" placeholder="MM/YY"></label>
-      <label>Card Number <input type="text" name="cardNumber" inputmode="numeric" pattern="[0-9]*" maxlength="19" placeholder="Digits only"></label>
-      <label>CVV <input type="text" name="cvv" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="3 or 4 digits"></label>
-    </div>
-  `;
-  mainCol.appendChild(section);
 }
 
 function renderTripTotal(sidebar, total, config) {
@@ -520,13 +536,33 @@ export default async function decorate(block) {
   };
 
   refreshTripAndTotal();
-  renderUpgradeAndPreferences(mainCol);
-  renderPassengerForm(mainCol);
-  renderPaymentForm(mainCol);
+
+  const formContainer = document.createElement('div');
+  formContainer.className = 'checkout-fields-wrapper form';
+  const pre = document.createElement('pre');
+  const code = document.createElement('code');
+  code.textContent = JSON.stringify(buildCheckoutFieldsFormDef());
+  pre.append(code);
+  formContainer.append(pre);
+  mainCol.appendChild(formContainer);
 
   wrapper.appendChild(mainCol);
   wrapper.appendChild(sidebar);
   block.appendChild(wrapper);
+
+  await loadCSS(`${window.hlx?.codeBasePath || ''}/blocks/form/form.css`);
+  const formModule = await import('../form/form.js');
+  await formModule.default(formContainer);
+
+  /* Preserve original default-checked state for the loyalty opt-in checkbox */
+  const wkndClub = block.querySelector('[name="wknd-club"]');
+  if (wkndClub) wkndClub.checked = true;
+
+  /* Rule engine can reset select value after render, so force the first option as default */
+  ['seat', 'section', 'meal', 'gender'].forEach((name) => {
+    const select = block.querySelector(`select[name="${name}"]`);
+    if (select && select.options.length > 0) select.selectedIndex = 0;
+  });
 
   restrictNumericFieldsToDigits(block);
   formatBirthDateInput(block);
