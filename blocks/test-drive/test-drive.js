@@ -180,8 +180,12 @@ function buildTimeSlotPicker(config = {}, dataLayerKey) {
   const dailyOptions = rawSlots
     ? rawSlots.split(',').map((s) => s.trim()).filter(Boolean)
     : DEFAULT_TIME_SLOTS;
-  const daysShown = parseInt(config['days-shown'], 10) || DEFAULT_DAYS_SHOWN;
+  let daysShown = parseInt(config['days-shown'], 10) || DEFAULT_DAYS_SHOWN;
   const multiple = isTruthy(config['multiple-slots']);
+
+  if (screen.width <= 480) {
+    daysShown = 2;
+  }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
