@@ -118,6 +118,9 @@ body.wehealthcare-theme main .section.whc-banner .hero p.button-container a.butt
   line-height: 1.5;
   border-radius: 50px;
 }
+body.wehealthcare-theme main .section.whc-banner .hero p.button-container a.button:focus{
+  outline:none;
+}
 body.wehealthcare-theme main .section.whc-banner .hero p.button-container .button:after{
       display:none;
 }
