@@ -1173,3 +1173,7 @@ object-fit: fill;
     width: 100%;
     height: 360px;
 }
+body.wehealthcare-theme .section.whc-colcards .hero-wrapper .hero > div:nth-child(2) .button-container.cta-button a.button:focus,
+body.wehealthcare-theme .section.whc-colcards.bg-light .hero-wrapper .hero > div:nth-child(2) .button-container.cta-button a.button:focus{
+  outline:none;
+}

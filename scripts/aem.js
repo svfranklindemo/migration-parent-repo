@@ -242,6 +242,23 @@ function toCamelCase(name) {
  * @returns {object} The block config
  */
 // eslint-disable-next-line import/prefer-default-export
+// authors may put the real destination as an absolute URL in the link text (e.g. when EDS
+// strips protocol+host off links to other EDS-hosted sites) — trust it over href when present
+export function resolveAnchorValue(anchor) {
+  const hrefAttr = (anchor.getAttribute('href') || '').trim();
+  const text = (anchor.textContent || '').trim();
+  if (/^https?:\/\//i.test(text) && !/^https?:\/\//i.test(hrefAttr)) {
+    try {
+      // eslint-disable-next-line no-new
+      new URL(text);
+      return text;
+    } catch {
+      /* not a valid absolute URL, ignore */
+    }
+  }
+  return anchor.href;
+}
+
 function readBlockConfig(block) {
   const config = {};
   block.querySelectorAll(':scope > div').forEach((row) => {
@@ -254,9 +271,9 @@ function readBlockConfig(block) {
         if (col.querySelector('a')) {
           const as = [...col.querySelectorAll('a')];
           if (as.length === 1) {
-            value = as[0].href;
+            value = resolveAnchorValue(as[0]);
           } else {
-            value = as.map((a) => a.href);
+            value = as.map(resolveAnchorValue);
           }
         } else if (col.querySelector('img')) {
           const imgs = [...col.querySelectorAll('img')];
@@ -597,8 +614,29 @@ function wrapTextNodes(block) {
  * @param {Element} element container element
  */
 function decorateButtons(element) {
+  const isAuthor = window?.location?.origin?.includes('author');
   element.querySelectorAll('a').forEach((a) => {
     a.title = a.title || a.textContent;
+    if (isAuthor) {
+      const href = a.getAttribute('href') || '';
+      let skip = false;
+      if (/^https?:\/\//i.test(href)) {
+        try {
+          const parsedHref = new URL(href);
+          // external/absolute URL (different origin or not a /content/ path) — leave untouched
+          skip = parsedHref.origin !== window.location.origin || !parsedHref.pathname.startsWith('/content/');
+        } catch {
+          skip = true;
+        }
+      }
+      // author-mode requires .html, but the server can't resolve .html appended after a query string
+      if (!skip) {
+        const [pathname, suffix = ''] = href.match(/^([^?#]*)([?#].*)?$/).slice(1);
+        if (pathname && !pathname.toLowerCase().endsWith('.html')) {
+          a.setAttribute('href', `${pathname}.html${suffix}`);
+        }
+      }
+    }
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;

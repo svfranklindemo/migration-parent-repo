@@ -103,6 +103,12 @@ body.halliby-theme header nav .nav-tools {
   justify-content: flex-end;
 }
 
+body.halliby-theme header nav .nav-tools .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 body.halliby-theme header nav .nav-tools .cart-icon,
 body.halliby-theme header nav .nav-tools a[href*="cart"] {
   display: inline-flex;
@@ -1013,7 +1019,7 @@ body.halliby-theme .section.halliby-about-banner .hero.image-background-text-lef
   width: auto;
   margin-left: 0;
   padding: 0;
-  transform: none;
+  transform: none;  
   text-align: center;
 }
 
@@ -1256,6 +1262,7 @@ body.halliby-theme:has(.sign-in-container) main .create-account-link {
 body.halliby-theme:has(.sign-in-container) main .create-account-link:hover {
   color: var(--link-hover-color, #2c2c2c);
   text-decoration: underline;
+  box-shadow: none;
 }
 
 body.halliby-theme:has(.sign-in-container) main .create-account-link::after {
@@ -2198,9 +2205,9 @@ body.halliby-theme main .categoryList-alt .cpl-card-title {
 }
 
 /* Optional hover interaction on the text pill */
-body.halliby-theme main .categoryList-alt .cpl-card:hover .cpl-card-title {
+/* body.halliby-theme main .categoryList-alt .cpl-card:hover .cpl-card-title {
   color: var(--link-hover-color, #9CDD97);
-}
+} */
 
 /* --------------------------------------------------------------------------
    Responsive Layout Resets

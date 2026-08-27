@@ -1,5 +1,5 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { isAuthorEnvironment, moveInstrumentation } from '../../scripts/scripts.js';
+import { getMetadata, resolveAnchorValue } from '../../scripts/aem.js';
+import { moveInstrumentation, normalizeAemPath } from '../../scripts/scripts.js';
 import { readBlockConfig } from '../../scripts/aem.js';
 
 /**
@@ -18,7 +18,7 @@ export default function decorate(block) {
     const col = row.children[1] ?? row.children[0];
     if (col?.querySelector?.('a')) {
       const as = [...col.querySelectorAll('a')];
-      return as.length === 1 ? as[0].href : as.map((a) => a.href);
+      return as.length === 1 ? resolveAnchorValue(as[0]) : as.map(resolveAnchorValue);
     }
     return col?.textContent?.trim();
   };
@@ -137,16 +137,31 @@ export default function decorate(block) {
   }
 
   /* Section link: do not use when value is a hex color (UE may put Text Color in Link field) */
-  const sectionLinkRaw = (config.link ?? rowVal(12)) && String(config.link ?? rowVal(12)).trim();
+  const sectionLinkRaw = (config.link ?? rowVal(13)) && String(config.link ?? rowVal(13)).trim();
   if (sectionLinkRaw && isHexColor(sectionLinkRaw)) {
     delete block.dataset.sectionLink;
   } else if (sectionLinkRaw) {
     block.dataset.sectionLink = sectionLinkRaw;
+    block.addEventListener('click', () => {
+      // leave true external links (not pointing at /content/) untouched
+      if (/^https?:\/\//i.test(sectionLinkRaw)) {
+        try {
+          if (!new URL(sectionLinkRaw).pathname.startsWith('/content/')) {
+            window.location.href = sectionLinkRaw;
+            return;
+          }
+        } catch {
+          window.location.href = sectionLinkRaw;
+          return;
+        }
+      }
+      window.location.href = normalizeAemPath(sectionLinkRaw);
+    });
   }
 
   const ctaLink = block.querySelector('p.button-container a, .button-container a');
   if (ctaLink) {
-    const eventType = config.buttoneventtype ?? rowVal(13);
+    const eventType = config.buttoneventtype ?? rowVal(14);
     if (eventType && String(eventType).trim()) ctaLink.dataset.buttonEventType = String(eventType).trim();
   }
 

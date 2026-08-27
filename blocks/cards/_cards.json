@@ -212,6 +212,13 @@
           "value": "",
           "valueType": "string",
           "description": "Optional hex color for card text (e.g. #fff, #000000, or 333). Leave empty for default."
+        },
+        {
+          "component": "text",
+          "name": "mobilebuttoneventtype",
+          "label": "Mobile Button Event Type",
+          "value": "",
+          "valueType": "string"
         }
       ]
     }

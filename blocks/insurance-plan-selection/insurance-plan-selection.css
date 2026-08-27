@@ -326,10 +326,6 @@
     padding: 0 16px;
   }
 
-  .insurance-plan-selection .plan-selection-header h1 {
-    font-size: 28px;
-  }
-
   .insurance-plan-selection .wizard-step-title h2,
   .insurance-plan-selection .wizard-step-title h1 {
     font-size: 24px;
@@ -348,5 +344,11 @@
   .insurance-plan-selection .wizard-button-prev,
   .insurance-plan-selection .submit-wrapper {
     width: fit-content;
+  }
+  .insurance-plan-selection .field-wrapper fieldset > .radio-wrapper{
+    height:auto;
+  }
+  .insurance-plan-selection .field-wrapper fieldset > .radio-wrapper label{
+     margin-top:5px;
   }
 }

@@ -223,6 +223,13 @@
           "value": "true",
           "valueType": "boolean",
           "description": "Keep the hero text overlay enabled. Turn off for transparent text background and darker image."
+        },
+        {
+          "component": "text",
+          "name": "mobilebuttoneventtype",
+          "label": "Mobile Button Event Type",
+          "value": "",
+          "valueType": "string"
         }
       ]
     }

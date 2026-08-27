@@ -7,9 +7,7 @@ export default async function decorate(block) {
 */
 
 import { createOptimizedPicture, toClassName } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
-import { getSiteName, PATH_PREFIX } from '../../scripts/utils.js';
-import { isAuthorEnvironment } from '../../scripts/scripts.js';
+import { moveInstrumentation, normalizeAemPath } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   const ul = document.createElement('ul');
@@ -133,16 +131,20 @@ export default function decorate(block) {
     if (selectable.toLowerCase() === 'true') li.classList.add('cards-card--selectable');
     if (link && !isHexColor(link)) {
       li.dataset.sectionLink = link;
-      li.addEventListener('click', async () => {
-        const siteName = await getSiteName();
-        const isAuthor = isAuthorEnvironment();
-        const defaultPath = `/content/${siteName}${PATH_PREFIX}`;
-        const sectionLink = link.replaceAll(defaultPath, '');
-        if(isAuthor){
-          window.location.href = link + '.html';
-        } else {
-          window.location.href = sectionLink;
+      li.addEventListener('click', () => {
+        // leave true external links (not pointing at /content/) untouched
+        if (/^https?:\/\//i.test(link)) {
+          try {
+            if (!new URL(link).pathname.startsWith('/content/')) {
+              window.location.href = link;
+              return;
+            }
+          } catch {
+            window.location.href = link;
+            return;
+          }
         }
+        window.location.href = normalizeAemPath(link);
       });
     }
 

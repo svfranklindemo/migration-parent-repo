@@ -54,6 +54,12 @@
   --nav-text-color: var(--brand-nav-text-color, #ffffff);
   --footer-background-color: var(--brand-footer-background-color, #01153a);
   --footer-text-color: var(--brand-footer-text-color, #ffffff);
+
+  /* skeleton/FOUC loader colors, overridable per industry theme */
+  --skeleton-shimmer-color-1: #f1f5f9;
+  --skeleton-shimmer-color-2: #e2e8f0;
+  --skeleton-block-color: #e2e8f0;
+  --skeleton-block-color-alt: #e5e7eb;
   
   /* fonts */
   --body-font-family: 'Adobe Clean', roboto, roboto-fallback, sans-serif;
@@ -433,7 +439,29 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
-/* Collapse section default content while loading so it neither flashes nor creates blank scroll. */
+/* Hide the entire section until all blocks inside it have finished loading. */
+main .section[data-section-status="initialized"]:has(.block),
+main .section[data-section-status="loading"]:has(.block) {
+  visibility: hidden;
+}
+
+main .section[data-section-status="loaded"] {
+  visibility: visible;
+}
+
+/* Fully collapse content-only sections while loading: no background, padding or blank scroll. */
+main .section[data-section-status="initialized"]:not(:has(.block)),
+main .section[data-section-status="loading"]:not(:has(.block)) {
+  max-height: 0;
+  min-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+/* Collapse stray default content in sections that also contain blocks. */
 main .section[data-section-status="initialized"] > .default-content-wrapper,
 main .section[data-section-status="loading"] > .default-content-wrapper {
   max-height: 0;
@@ -465,9 +493,9 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 8px;
   background:
-    linear-gradient(#e5e7eb, #e5e7eb) 24px 24px / 300px 26px no-repeat,
-    linear-gradient(#e5e7eb, #e5e7eb) 24px 70px / calc(100% - 48px) 220px no-repeat,
-    linear-gradient(#e5e7eb, #e5e7eb) 24px 320px / calc(100% - 48px) 170px no-repeat;
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 24px 24px / 300px 26px no-repeat,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 24px 70px / calc(100% - 48px) 220px no-repeat,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 24px 320px / calc(100% - 48px) 170px no-repeat;
   z-index: 2;
 }
 
@@ -514,7 +542,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 300px;
   min-height: 300px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -549,7 +577,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 320px;
   min-height: 320px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -589,7 +617,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 600px;
   min-height: 600px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -614,7 +642,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 480px;
   min-height: 480px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -639,7 +667,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 500px;
   min-height: 500px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -707,8 +735,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -737,8 +765,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -799,7 +827,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 500px;
   min-height: 500px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -837,8 +865,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -867,8 +895,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -897,8 +925,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 420px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 420px no-repeat;
   z-index: 2;
 }
 
@@ -927,8 +955,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -972,8 +1000,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 300px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 300px no-repeat;
   z-index: 2;
 }
 
@@ -1002,8 +1030,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -1032,8 +1060,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 300px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 300px no-repeat;
   z-index: 2;
 }
 
@@ -1062,8 +1090,8 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   inset: 0;
   border-radius: 12px;
   background:
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 24px / calc(100% - 48px) 40px no-repeat,
-    linear-gradient(#e2e8f0, #e2e8f0) 24px 88px / calc(100% - 48px) 380px no-repeat;
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 380px no-repeat;
   z-index: 2;
 }
 
@@ -1109,7 +1137,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 500px;
   min-height: 500px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -1134,7 +1162,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 500px;
   min-height: 500px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -1159,7 +1187,7 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: 500px;
   min-height: 500px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }
@@ -2466,12 +2494,12 @@ main .section.home-getoffer-container > div:nth-child(1) .cards > ul > li img {
   inset: 0;
   border-radius: 8px;
   background:
-    linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%) 0 0 / 400% 100%,
-    linear-gradient(#e5e7eb, #e5e7eb) 20px 20px / calc(100% - 40px) 170px no-repeat,
-    linear-gradient(#e5e7eb, #e5e7eb) 20px 210px / 120px 14px no-repeat,
-    linear-gradient(#e5e7eb, #e5e7eb) 20px 236px / calc(100% - 40px) 20px no-repeat,
-    linear-gradient(#e5e7eb, #e5e7eb) 20px 266px / calc(100% - 80px) 14px no-repeat,
-    linear-gradient(#e5e7eb, #e5e7eb) 20px 294px / 140px 38px no-repeat;
+    linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%) 0 0 / 400% 100%,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 20px 20px / calc(100% - 40px) 170px no-repeat,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 20px 210px / 120px 14px no-repeat,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 20px 236px / calc(100% - 40px) 20px no-repeat,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 20px 266px / calc(100% - 80px) 14px no-repeat,
+    linear-gradient(var(--skeleton-block-color-alt), var(--skeleton-block-color-alt)) 20px 294px / 140px 38px no-repeat;
   animation: none !important;
   transition: none !important;
   z-index: 2;
@@ -2506,7 +2534,7 @@ padding-left: 0 !important;
   height: 320px;
   min-height: 320px;
   overflow: hidden;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 37%, #f1f5f9 63%);
+  background: linear-gradient(90deg, var(--skeleton-shimmer-color-1) 25%, var(--skeleton-shimmer-color-2) 37%, var(--skeleton-shimmer-color-1) 63%);
   background-size: 400% 100%;
   animation: new-arrival-loading-shimmer 1.4s ease-in-out infinite;
 }

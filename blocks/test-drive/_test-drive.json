@@ -110,6 +110,13 @@
           "label": "Button Data Sheet",
           "valueType": "string",
           "description": "AEM sheet path whose key/value rows are sent on submit"
+        },
+        {
+          "component": "text",
+          "name": "mobilebuttoneventtype",
+          "label": "Mobile Button Event Type",
+          "value": "",
+          "valueType": "string"
         }
       ]
     }

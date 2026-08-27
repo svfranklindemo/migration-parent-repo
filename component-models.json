@@ -123,6 +123,14 @@
         "label": "Page Category"
       },
       {
+        "component": "text",
+        "name": "mobileIcon",
+        "label": "Mobile Icon",
+        "value": "",
+        "valueType": "string",
+        "description": "DAM path of the icon used for the mobile event on this page"
+      },
+      {
         "component": "aem-tag",
         "name": "cq:tags",
         "label": "Tags",
@@ -789,6 +797,13 @@
         "value": "",
         "valueType": "string",
         "description": "Optional hex color for card text (e.g. #fff, #000000, or 333). Leave empty for default."
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -872,6 +887,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -953,6 +975,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1070,6 +1099,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1081,7 +1117,14 @@
         "name": "form-title",
         "label": "Form Title",
         "valueType": "string",
-        "description": "Heading displayed at the top of the form"
+        "description": "Heading displayed at the top of the form and passed in data layer as wizard title"
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Name of the form passed in the data layer"
       },
       {
         "component": "aem-content",
@@ -1142,6 +1185,13 @@
         "label": "Custom class",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1226,7 +1276,14 @@
         "name": "form-title",
         "label": "Form Title",
         "valueType": "string",
-        "description": "Heading displayed at the top of the form"
+        "description": "Heading displayed at the top of the form and passed in data layer as wizard title"
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Name of the form passed in the data layer"
       },
       {
         "component": "aem-content",
@@ -1287,6 +1344,13 @@
         "label": "Custom class",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1327,6 +1391,20 @@
   {
     "id": "new-account",
     "fields": [
+      {
+        "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Heading displayed at the top of the form and passed in data layer as wizard title"
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Name of the form passed in the data layer"
+      },
       {
         "component": "aem-content",
         "valueType": "string",
@@ -1369,6 +1447,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1418,6 +1503,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1477,6 +1569,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1575,6 +1674,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1676,6 +1782,13 @@
         "label": "Button Data Sheet",
         "valueType": "string",
         "description": "AEM sheet path whose key/value rows are sent on submit"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1795,6 +1908,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1949,6 +2069,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -1997,6 +2124,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -2304,6 +2438,13 @@
         "value": "true",
         "valueType": "boolean",
         "description": "Keep the hero text overlay enabled. Turn off for transparent text background and darker image."
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -2480,6 +2621,13 @@
         "label": "Logo Image Alt Text",
         "value": "",
         "description": "Alt text for the logo image"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -2528,6 +2676,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -2576,6 +2731,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -2655,6 +2817,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -8724,6 +8893,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -8771,6 +8947,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -9478,6 +9661,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -9547,6 +9737,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -9603,6 +9800,13 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   }

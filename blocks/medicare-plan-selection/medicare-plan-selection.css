@@ -361,11 +361,6 @@
     padding: 0 16px;
   }
 
-  .medicare-plan-selection .plan-selection-header h1 {
-    font-size: 28px;
-  }
-
-  .medicare-plan-selection .wizard-step-title h2,
   .medicare-plan-selection .wizard-step-title h1 {
     font-size: 24px;
   }
@@ -383,5 +378,12 @@
   .medicare-plan-selection .wizard-button-prev,
   .medicare-plan-selection .submit-wrapper {
     width: fit-content;
+  }
+  .medicare-plan-selection .field-wrapper fieldset > .radio-wrapper{
+    height:auto;
+  }
+  .medicare-plan-selection .field-wrapper fieldset > .radio-wrapper label
+  {
+    margin-top:5px;
   }
 }
