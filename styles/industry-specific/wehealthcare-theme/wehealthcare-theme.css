@@ -683,6 +683,10 @@ body.wehealthcare-theme footer .footer.block > div ul li a::after {
   body.wehealthcare-theme footer .footer.block > div .section:has(ul) {
     display: none !important;
   }
+
+  body.wehealthcare-theme footer .footer.block > div .section:first-child {
+    flex: unset;
+  }
 }
 body.wehealthcare-theme .get-offer-container {
   width: 100%;

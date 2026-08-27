@@ -9,7 +9,7 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
-import { normalizeAemPath } from '../../scripts/scripts.js';
+import { focusFormOnNavigate, normalizeAemPath } from '../../scripts/scripts.js';
 
 function getNestedProperty(obj, path) {
   if (!obj || !path) return undefined;
@@ -241,7 +241,7 @@ function setupStepIndicator(block) {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
   // AFB model only learns the active step on first interaction otherwise, causing a double-submit
-  wizard.addEventListener('wizard:navigate', (e) => window.myForm?.getElement(e.detail.currStep.id)?.focus());
+  focusFormOnNavigate(wizard)
   const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
   const btnWrapper = wizard.querySelector('.wizard-button-wrapper');
   if (!btnWrapper || totalSteps === 0) return;

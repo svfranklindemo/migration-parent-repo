@@ -1,5 +1,5 @@
 import { readBlockConfig } from "../../scripts/aem.js";
-import { normalizeAemPath } from "../../scripts/scripts.js";
+import { focusFormOnNavigate, normalizeAemPath } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
 
@@ -118,7 +118,7 @@ function setupWizardStepIndicator(block) {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
   // AFB model only learns the active step on first interaction otherwise, causing a double-submit
-  wizard.addEventListener('wizard:navigate', (e) => window.myForm?.getElement(e.detail.currStep.id)?.focus());
+  focusFormOnNavigate(wizard)
 
   const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
   const btnWrapper = wizard.querySelector('.wizard-button-wrapper');
