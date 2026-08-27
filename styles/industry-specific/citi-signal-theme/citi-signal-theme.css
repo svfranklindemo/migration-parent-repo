@@ -697,42 +697,41 @@ body.citi-signal-theme .fixed-width-section.no-border-shadow .cards > ul {
   }
 }
 
-body.citi-signal-theme header,
-body.citi-signal-theme header nav {
-  min-height: unset;
-}
-
-body.citi-signal-theme header nav .section.nav-brand a::after {
-  content: unset;
-}
-
-body.citi-signal-theme header nav .nav-brand picture {
-  width: auto;
-}
-
-body.citi-signal-theme header .nav-hamburger button {
-  color: var(--nav-text-color, #2C2C2C);
-  width: 36px;
-  height: 36px;
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="16"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="6"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="26"/></svg>');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 18px 18px;
-}
-
-body.citi-signal-theme header .nav-hamburger-icon,
-body.citi-signal-theme header .nav-hamburger-icon::before,
-body.citi-signal-theme header .nav-hamburger-icon::after {
-  content: unset;
-  display: none;
-}
-
-/* sign-in link becomes an icon-only account/avatar glyph on mobile */
-body.citi-signal-theme header nav .nav-tools .sign-in-btn::after {
-  content: none !important;
-}
-
 @media screen and (max-width: 768px) {
+  body.citi-signal-theme header,
+  body.citi-signal-theme header nav {
+    min-height: unset;
+  }
+
+  body.citi-signal-theme header nav .section.nav-brand a::after {
+    content: unset;
+  }
+
+  body.citi-signal-theme header nav .nav-brand picture {
+    width: auto;
+  }
+
+  body.citi-signal-theme header .nav-hamburger button {
+    color: var(--nav-text-color, #2C2C2C);
+    width: 36px;
+    height: 36px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="16"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="6"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="26"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+  }
+
+  body.citi-signal-theme header .nav-hamburger-icon,
+  body.citi-signal-theme header .nav-hamburger-icon::before,
+  body.citi-signal-theme header .nav-hamburger-icon::after {
+    content: unset;
+    display: none;
+  }
+
+  /* sign-in link becomes an icon-only account/avatar glyph on mobile */
+  body.citi-signal-theme header nav .nav-tools .sign-in-btn::after {
+    content: none !important;
+  }
 
   body.citi-signal-theme header .header nav .nav-tools .sign-in-btn, body.citi-signal-theme header nav .nav-tools a[href*="sign"] {
     font-size: 0 !important;

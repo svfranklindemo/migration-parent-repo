@@ -1724,7 +1724,15 @@
         "label": "Days Shown",
         "value": "3",
         "valueType": "string",
-        "description": "Number of day columns to display at once (1-7)"
+        "description": "Number of day columns to display at once for desktop (1-7)"
+      },
+      {
+        "component": "text",
+        "name": "mobile-days-shown",
+        "label": "Mobile Days Shown",
+        "value": "2",
+        "valueType": "string",
+        "description": "Number of day columns to display at once for mobile (1-7)"
       },
       {
         "component": "boolean",
