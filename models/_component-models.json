@@ -131,6 +131,13 @@
         "description": "DAM path of the icon used for the mobile event on this page"
       },
       {
+        "component": "text",
+        "name": "mobilepageeventtype",
+        "label": "Mobile Page Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
         "component": "aem-tag",
         "name": "cq:tags",
         "label": "Tags",
