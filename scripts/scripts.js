@@ -997,6 +997,11 @@ function adjustAutoImages(main) {
   }
 }
 
+export function focusFormOnNavigate(wizard) {
+  // AFB model only learns the active step on first interaction otherwise, causing a double-submit
+  wizard.addEventListener('wizard:navigate', (e) => window.myForm?.getElement(e.detail.currStep.id)?.focus());
+}
+
 /**
  * Loads everything that happens a lot later,
  * without impacting the user experience.

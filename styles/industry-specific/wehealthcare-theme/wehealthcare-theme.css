@@ -118,6 +118,9 @@ body.wehealthcare-theme main .section.whc-banner .hero p.button-container a.butt
   line-height: 1.5;
   border-radius: 50px;
 }
+body.wehealthcare-theme main .section.whc-banner .hero p.button-container a.button:focus{
+  outline:none;
+}
 body.wehealthcare-theme main .section.whc-banner .hero p.button-container .button:after{
       display:none;
 }
@@ -679,6 +682,10 @@ body.wehealthcare-theme footer .footer.block > div ul li a::after {
 @media screen and (max-width: 768px) {
   body.wehealthcare-theme footer .footer.block > div .section:has(ul) {
     display: none !important;
+  }
+
+  body.wehealthcare-theme footer .footer.block > div .section:first-child {
+    flex: unset;
   }
 }
 body.wehealthcare-theme .get-offer-container {

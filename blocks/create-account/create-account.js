@@ -1,7 +1,7 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
-import { normalizeAemPath } from "../../scripts/scripts.js";
+import { focusFormOnNavigate, normalizeAemPath } from "../../scripts/scripts.js";
 
 function isTruthy(value) {
   return value === true || String(value).trim().toLowerCase() === "true";
@@ -340,6 +340,8 @@ function buildCreateAccountFormDef(config = {}) {
 function setupWizardStepIndicator(block, isBinjiWizard = false) {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
+  // AFB model only learns the active step on first interaction otherwise, causing a double-submit
+  focusFormOnNavigate(wizard)
 
   const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
   const btnWrapper = wizard.querySelector('.wizard-button-wrapper');
