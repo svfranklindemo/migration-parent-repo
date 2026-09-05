@@ -219,6 +219,24 @@
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "mobileimagestyle",
+          "label": "Mobile Image Style",
+          "valueType": "string",
+          "value": "",
+          "description": "Image resize behavior for the mobile app only. Leave as Cover to match the default desktop look.",
+          "options": [
+            {
+              "name": "Cover (default)",
+              "value": ""
+            },
+            {
+              "name": "Contain",
+              "value": "contain"
+            }
+          ]
         }
       ]
     }
