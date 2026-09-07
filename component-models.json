@@ -8874,6 +8874,84 @@
     ]
   },
   {
+    "id": "healthcare-onboarding",
+    "fields": [
+      {
+        "component": "text",
+        "name": "time-slots",
+        "label": "Time Slots (comma-separated)",
+        "value": "9 AM, 10 AM, 11 AM, 12 AM",
+        "valueType": "string",
+        "description": "Comma-separated list of time slots shown each day"
+      },
+      {
+        "component": "text",
+        "name": "days-shown",
+        "label": "Days Shown",
+        "value": "3",
+        "valueType": "string",
+        "description": "Number of day columns to display at once (1-7)"
+      },
+      {
+        "component": "text",
+        "name": "mobile-days-shown",
+        "label": "Days Shown (Mobile)",
+        "value": "1",
+        "valueType": "string",
+        "description": "Number of day columns to display at once in mobile view (1-7)"
+      },
+      {
+        "component": "text",
+        "name": "sign-iframe-url",
+        "label": "Sign Document Iframe URL",
+        "valueType": "string",
+        "description": "Adobe Sign (or other e-sign) widget URL embedded in the iframe"
+      },
+      {
+        "component": "aem-content",
+        "name": "member-resources-url",
+        "label": "Member Resources URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttoneventtype",
+        "label": "Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonwebhookurl",
+        "label": "Button Webhook URL",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonformid",
+        "label": "Button Form ID",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttondata",
+        "label": "Button Data Sheet",
+        "valueType": "string",
+        "description": "AEM sheet path whose key/value rows are sent on submit"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
+  },
+  {
     "id": "flight-search",
     "fields": [
       {

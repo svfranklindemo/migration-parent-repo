@@ -229,7 +229,8 @@
         "rss-details",
         "insurance-plan-selection",
         "medicare-plan-selection",
-        "plan-application"
+        "plan-application",
+        "healthcare-onboarding"
       ]
     }
   ]

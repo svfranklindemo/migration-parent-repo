@@ -33,6 +33,7 @@
       "forex",
       "embed-adaptive-form",
       "find-a-doctor",
+      "healthcare-onboarding",
       "flight-search",
       "flights",
       "create-account",
@@ -112,8 +113,12 @@
       "tabs-item"
     ]
   },
-    {
+  {
     "id": "bodea-secure-antivirus",
+    "components": []
+  },
+  {
+    "id": "healthcare-onboarding",
     "components": []
   },
   {
