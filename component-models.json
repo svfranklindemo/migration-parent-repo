@@ -1387,6 +1387,14 @@
       },
       {
         "component": "text",
+        "name": "buttoneventtype",
+        "label": "Button Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when the Get Offer button is clicked"
+      },
+      {
+        "component": "text",
         "name": "custom-class",
         "label": "Custom class",
         "value": "",
@@ -2028,6 +2036,32 @@
             "value": "default-button-dark"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "alignment",
+        "label": "Alignment",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "buttoneventtype",
+        "label": "Button Event Type",
+        "value": "",
+        "valueType": "string"
       }
     ]
   },
@@ -3151,6 +3185,22 @@
         "description": "Any direct full URL of publicly available video. e.g. video URL of aem publish instance, Dynamic Media etc.",
         "name": "videoUrl",
         "label": "Video Url"
+      },
+      {
+        "component": "text",
+        "name": "started-event-type",
+        "label": "Started Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when video playback starts"
+      },
+      {
+        "component": "text",
+        "name": "ended-event-type",
+        "label": "Ended Event Type",
+        "value": "",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when video playback ends"
       },
       {
         "component": "text",
@@ -9607,6 +9657,20 @@
     "fields": [
       {
         "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Passed in the data layer as the wizard title. It is not displayed on the page."
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Passed in the data layer as the wizard name. It is not displayed on the page."
+      },
+      {
+        "component": "text",
         "name": "formHeading",
         "label": "Main Heading",
         "value": "Which type of health insurance should I get?",
@@ -9615,7 +9679,7 @@
       {
         "component": "text",
         "name": "formSubtitle",
-        "label": "Main Subtitle",
+        "label": "Main Subheading",
         "value": "Take our free, short quiz to learn which type of health insurance might be best for you!",
         "valueType": "string"
       },
@@ -9625,6 +9689,27 @@
         "name": "redirectUrl",
         "label": "Redirect URL",
         "description": "Page to redirect to after successful quiz submission."
+      },
+      {
+        "component": "text",
+        "name": "started-event-type",
+        "label": "Started Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when the form wizard starts"
+      },
+      {
+        "component": "text",
+        "name": "step-event-type",
+        "label": "Step Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired on each wizard step advance"
+      },
+      {
+        "component": "text",
+        "name": "abandoned-event-type",
+        "label": "Abandoned Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when user leaves without submitting"
       },
       {
         "component": "text",
@@ -9683,6 +9768,20 @@
     "fields": [
       {
         "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Passed in the data layer as the wizard title. It is not displayed on the page."
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Passed in the data layer as the wizard name. It is not displayed on the page."
+      },
+      {
+        "component": "text",
         "name": "formHeading",
         "label": "Main Heading",
         "value": "Which type of Medicare plan should I get?",
@@ -9691,7 +9790,7 @@
       {
         "component": "text",
         "name": "formSubtitle",
-        "label": "Main Subtitle",
+        "label": "Main Subheading",
         "value": "Take our free, short quiz to learn which type of health insurance might be best for you!",
         "valueType": "string"
       },
@@ -9701,6 +9800,27 @@
         "name": "redirectUrl",
         "label": "Redirect URL",
         "description": "Page to redirect to after successful quiz submission."
+      },
+      {
+        "component": "text",
+        "name": "started-event-type",
+        "label": "Started Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when the form wizard starts"
+      },
+      {
+        "component": "text",
+        "name": "step-event-type",
+        "label": "Step Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired on each wizard step advance"
+      },
+      {
+        "component": "text",
+        "name": "abandoned-event-type",
+        "label": "Abandoned Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when user leaves without submitting"
       },
       {
         "component": "text",
@@ -9759,11 +9879,46 @@
     "fields": [
       {
         "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Passed in the data layer as the wizard title. It is not displayed on the page."
+      },
+      {
+        "component": "text",
+        "name": "form-name",
+        "label": "Form Name",
+        "valueType": "string",
+        "description": "Passed in the data layer as the wizard name. It is not displayed on the page."
+      },
+      {
+        "component": "text",
         "name": "defaultPlanName",
         "label": "Default Plan Name",
         "value": "Medicare Extra (HMO) Plan",
         "valueType": "string",
         "description": "Fallback name if no plan URL parameter is provided."
+      },
+      {
+        "component": "text",
+        "name": "started-event-type",
+        "label": "Started Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when the form wizard starts"
+      },
+      {
+        "component": "text",
+        "name": "step-event-type",
+        "label": "Step Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired on each wizard step advance"
+      },
+      {
+        "component": "text",
+        "name": "abandoned-event-type",
+        "label": "Abandoned Event Type",
+        "valueType": "string",
+        "description": "Launch/Analytics event fired when user leaves without submitting"
       },
       {
         "component": "text",
@@ -9794,10 +9949,147 @@
         "description": "AEM sheet path whose key/value rows are sent on submit"
       },
       {
+        "component": "boolean",
+        "name": "auto-submit-on-last-panel",
+        "label": "Auto Submit On Last Panel",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, the submit step auto-advances and triggers submission flow into the success panel."
+      },
+      {
         "component": "text",
         "name": "submitbuttontext",
         "label": "Submit Button Text",
         "value": "Submit",
+        "valueType": "string",
+        "condition": {
+          "==": [
+            {
+              "var": "auto-submit-on-last-panel"
+            },
+            false
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
+  },
+  {
+    "id": "healthcare-upload-photo",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "value": "Upload your photo",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "primary-button-label",
+        "label": "Primary Button Label",
+        "value": "Take a Photo",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "secondary-button-label",
+        "label": "Secondary Button Label",
+        "value": "Or choose from the gallery",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "placeholder-image",
+        "label": "Placeholder Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "custom-class",
+        "label": "Custom class",
+        "value": "",
+        "valueType": "string",
+        "description": "Space-separated class names to add to the block"
+      }
+    ]
+  },
+  {
+    "id": "healthcare-schedule-check",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "value": "Schedule 1st check-up",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pick-date-label",
+        "label": "Pick Date Label",
+        "value": "Pick the date",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "time-slots",
+        "label": "Time Slots (comma-separated)",
+        "value": "9 AM, 10 AM, 11 AM, 12 AM",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "days-shown",
+        "label": "Days Shown",
+        "value": "3",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobile-days-shown",
+        "label": "Days Shown (Mobile)",
+        "value": "1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "doctor-name",
+        "label": "Doctor Name",
+        "value": "Dr. Verma, MD",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "doctor-role",
+        "label": "Doctor Role",
+        "value": "Doctor",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "doctor-image",
+        "label": "Doctor Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "doctor-profile-label",
+        "label": "Doctor Profile Label",
+        "value": "Doctor's Profile",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "doctor-profile-url",
+        "label": "Doctor Profile URL",
         "valueType": "string"
       },
       {

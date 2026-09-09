@@ -1205,6 +1205,51 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   overflow: visible;
 }
 
+/* Prevent video FOUC: reserve space until loaded. */
+.video.block[data-block-status="initialized"],
+.video.block[data-block-status="loading"] {
+  min-height: 220px;
+}
+
+.video.block[data-block-status="initialized"] > *,
+.video.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.video.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
+/* Prevent healthcare-upload-photo FOUC: reserve space until loaded. */
+.healthcare-upload-photo.block[data-block-status="initialized"],
+.healthcare-upload-photo.block[data-block-status="loading"] {
+  min-height: 320px;
+}
+
+.healthcare-upload-photo.block[data-block-status="initialized"] > *,
+.healthcare-upload-photo.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.healthcare-upload-photo.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
+/* Prevent healthcare-schedule-check FOUC: reserve space until loaded. */
+.healthcare-schedule-check.block[data-block-status="initialized"],
+.healthcare-schedule-check.block[data-block-status="loading"] {
+  min-height: 520px;
+}
+
+.healthcare-schedule-check.block[data-block-status="initialized"] > *,
+.healthcare-schedule-check.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.healthcare-schedule-check.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
 h1,
 h2,
 h3,

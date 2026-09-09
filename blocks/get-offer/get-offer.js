@@ -4,6 +4,8 @@
  */
 
 import { readBlockConfig } from '../../scripts/aem.js';
+import { dispatchCustomEvent } from '../../scripts/custom-events.js';
+import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from '../../scripts/form-data-layer.js';
 
 function showToast(message) {
   const existing = document.querySelector('.get-offer-toast');
@@ -51,6 +53,7 @@ export default async function decorate(block) {
     || rows[1]?.textContent?.trim()
     || 'Get offer';
   const toastMessage = (config['toast-message'] ?? config.toastmessage ?? rows[2]?.textContent ?? '').trim();
+  const buttonEventType = (config.buttoneventtype ?? config['button-event-type'] ?? rows[3]?.textContent ?? '').toString().trim();
 
   block.innerHTML = '';
 
@@ -64,14 +67,32 @@ export default async function decorate(block) {
   input.className = 'get-offer-input';
   input.setAttribute('aria-label', 'Email address');
 
+  const form = document.createElement('form');
+  form.className = 'get-offer-form';
+
   const button = document.createElement('button');
-  button.type = 'button';
+  button.type = 'submit';
   button.className = 'get-offer-button button';
   button.textContent = buttonLabel;
-  if (toastMessage) {
-    button.addEventListener('click', () => showToast(toastMessage));
+  if (buttonEventType) {
+    button.dataset.buttonEventType = buttonEventType;
   }
 
-  wrapper.append(input, button);
+  input.addEventListener('input', () => {
+    syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+    const eventType = button.dataset.buttonEventType?.trim();
+    if (eventType) dispatchCustomEvent(eventType);
+    if (toastMessage) showToast(toastMessage);
+  });
+
+  form.append(input, button);
+  wrapper.append(form);
   block.append(wrapper);
+
+  attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
 }

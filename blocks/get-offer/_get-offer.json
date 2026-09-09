@@ -43,6 +43,14 @@
         },
         {
           "component": "text",
+          "name": "buttoneventtype",
+          "label": "Button Event Type",
+          "value": "",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when the Get Offer button is clicked"
+        },
+        {
+          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",

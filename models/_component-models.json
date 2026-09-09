@@ -1337,27 +1337,6 @@
     ]
   },
   {
-    "id": "plan-application",
-    "fields": [
-      {
-        "component": "text",
-        "name": "defaultPlanName",
-        "label": "Default Plan Name",
-        "value": "Medicare Extra (HMO) Plan",
-        "valueType": "string",
-        "description": "Fallback name if no plan URL parameter is provided."
-      },
-      {
-        "component": "text",
-        "name": "custom-class",
-        "label": "Custom class",
-        "value": "",
-        "valueType": "string",
-        "description": "Space-separated class names to add to the block"
-      }
-    ]
-  },
-  {
     "...": "../blocks/*/_*.json#/models"
   }
 ]

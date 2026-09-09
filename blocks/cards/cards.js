@@ -8,8 +8,14 @@ export default async function decorate(block) {
 
 import { createOptimizedPicture, toClassName } from '../../scripts/aem.js';
 import { moveInstrumentation, normalizeAemPath } from '../../scripts/scripts.js';
+import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 
 export default function decorate(block) {
+  const fireButtonCustomEventIfConfigured = (buttonLink) => {
+    const eventType = buttonLink?.dataset?.buttonEventType?.trim();
+    if (eventType) dispatchCustomEvent(eventType);
+  };
+
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
@@ -74,9 +80,9 @@ export default function decorate(block) {
       return /^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(t) ? `#${t}` : t;
     };
 
-    // Background color: model field at index 9 (after buttoneventtype at 8).
+    // Background color: model field at index 8 (after alignment at 7).
     // Also checked via data-aue-prop on author, and via hex-link/hex-cell fallbacks.
-    let bgColorRaw = getConfigValue('backgroundcolor', 9);
+    let bgColorRaw = getConfigValue('backgroundcolor', 8);
     if (!bgColorRaw) {
       bgColorRaw = (row.querySelector('p[data-aue-prop="backgroundcolor"]')
         || row.querySelector('[data-aue-prop="backgroundcolor"]'))?.textContent?.trim() || '';
@@ -84,7 +90,7 @@ export default function decorate(block) {
     if (!bgColorRaw) {
       const hexLink = row.querySelector('a[href^="#"]');
       if (hexLink && isHexColor(hexLink.getAttribute('href') || '')) bgColorRaw = (hexLink.getAttribute('href') || '').replace(/^#/, '');
-      if (!bgColorRaw && isHexColor(getCell(9))) bgColorRaw = getCell(9).trim();
+      if (!bgColorRaw && isHexColor(getCell(8))) bgColorRaw = getCell(8).trim();
       if (!bgColorRaw && isHexColor(getCell(5))) bgColorRaw = getCell(5).trim().replace(/^#/, '');
     }
     if (bgColorRaw) {
@@ -105,7 +111,7 @@ export default function decorate(block) {
     const link = getCell(5);
     const selectable = getCell(6);
     const alignment = (getCell(7) || 'left').toLowerCase();
-    let buttonEventType = getCell(8);
+    const buttonEventType = getConfigValue('buttoneventtype', 9);
     // Read custom styles by data-aue-prop so it works regardless of column order (UE authoring)
     // customStyles is at index 10 (backgroundcolor occupies index 9)
     let customStylesRaw = getConfigValue('customstyles', 10) || getCell(10) || '';
@@ -198,6 +204,10 @@ export default function decorate(block) {
     if (ctaLink) {
       if (ctaLink.dataset.buttonEventType && isHexColor(ctaLink.dataset.buttonEventType)) delete ctaLink.dataset.buttonEventType;
       if (buttonEventType && !isHexColor(buttonEventType)) ctaLink.dataset.buttonEventType = buttonEventType;
+
+      ctaLink.addEventListener('click', () => {
+        fireButtonCustomEventIfConfigured(ctaLink);
+      });
     }
 
     // Final cleanup: ensure compact-style is ONLY on the image container

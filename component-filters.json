@@ -68,7 +68,9 @@
       "rss-details",
       "insurance-plan-selection",
       "medicare-plan-selection",
-      "plan-application"
+      "plan-application",
+      "healthcare-upload-photo",
+      "healthcare-schedule-check"
     ]
   },
   {
@@ -156,6 +158,14 @@
   },
   {
     "id": "plan-application",
+    "components": []
+  },
+  {
+    "id": "healthcare-upload-photo",
+    "components": []
+  },
+  {
+    "id": "healthcare-schedule-check",
     "components": []
   }
 ]
