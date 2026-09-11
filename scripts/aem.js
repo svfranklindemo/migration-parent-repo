@@ -152,55 +152,6 @@ function setup() {
   }
 }
 /**
- * Protects the AEM Sidekick from being opened by default
- */
-function hideSidekick() {
-  // Check if URL contains required ZDP parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const hasZdpId = urlParams.has('zdp-id');
-  const hasZdpEnv = urlParams.has('zdp-env');
-  const hasZdpToken = urlParams.has('zdp-token');
-  
-  // Only proceed if all required ZDP parameters are present
-  if (!hasZdpId || !hasZdpEnv || !hasZdpToken) {
-    console.log('ZDP parameters not found, skipping sidekick hiding');
-    return;
-  }
-  
-  const sidekick = document.querySelector('aem-sidekick');
-  
-  if (sidekick) {
-    // Sidekick found, hide it if open
-    if (sidekick.hasAttribute('open')) {
-      console.log('hiding sidekick');
-      sidekick.setAttribute('open', false);
-    }
-  } else {
-    // Sidekick not found yet, watch for it to be added
-    console.log('sidekick not found, watching for it...');
-    
-    const observer = new MutationObserver((mutations, obs) => {
-      const sidekickElement = document.querySelector('aem-sidekick');
-      if (sidekickElement) {
-        console.log('sidekick found by observer, hiding...');
-        if (sidekickElement.hasAttribute('open')) {
-          sidekickElement.setAttribute('open', false);
-        }
-        obs.disconnect(); // Stop observing once found
-      }
-    });
-    
-    // Watch body for added child nodes
-    observer.observe(document.body, {
-      childList: true,
-      subtree: false
-    });
-    
-    // Stop observing after 10 seconds as a safety measure
-    setTimeout(() => observer.disconnect(), 10000);
-  }
-}
-/**
  * Auto initialization.
  */
 
@@ -1419,5 +1370,4 @@ export {
   toClassName,
   waitForFirstImage,
   wrapTextNodes,
-  hideSidekick
 };

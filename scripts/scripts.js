@@ -17,7 +17,6 @@ import {
   toClassName,
   toCamelCase,
   decorateDefaultBlock,
-  hideSidekick
 } from './aem.js';
 import { picture, source, img } from './dom-helpers.js';
 
