@@ -806,6 +806,10 @@ body.luma-theme header nav[aria-expanded='true'] {
   padding-bottom: 20px;
 }
 
+body.luma-theme a.sign-in-btn::after, body.luma-theme header nav .nav-tools a[href*="sign"]::after {
+  content: unset;
+}
+
 @media screen and (max-width: 768px) {
   body.luma-theme header .nav-hamburger button {
     color: var(--nav-text-color, #2C2C2C);
@@ -982,5 +986,18 @@ body.luma-theme header nav[aria-expanded='true'] {
 
   body.luma-theme .checkout-shipping-actions-panel button {
     text-align: center;
+  }
+  
+  body.luma-theme .cards.feature-support > ul > li.image-left .cards-card-body {
+    align-items: center;
+  }
+
+  body.luma-theme .cards.feature-support li.image-left.cards-card--alignment-left {
+    height: unset;
+  }
+
+  body.luma-theme .cards.feature-support > ul > li.image-left picture,
+  body.luma-theme .cards.feature-support > ul > li.image-left .cards-card-image {
+    min-height: unset;
   }
 }

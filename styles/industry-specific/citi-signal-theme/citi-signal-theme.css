@@ -249,8 +249,7 @@ body.citi-signal-theme a.sign-in-btn,
 body.citi-signal-theme header nav .nav-tools a[href*="sign"] {
   text-align: center;
   align-items: center;
-  padding: 10px;
-  padding-left: 25px;
+  padding: 10px 25px;
 }
 
 body.citi-signal-theme .search.search-icon .search-box .icon img,
