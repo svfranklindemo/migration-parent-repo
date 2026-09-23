@@ -1143,73 +1143,7 @@ function decorateBlock(block) {
     if (section) section.classList.add(`${shortBlockName}-container`);
     // eslint-disable-next-line no-use-before-define
     decorateButtons(block);
-          // Set block ID with shortBlockName and index
-          const blocks = document.querySelectorAll(`.${shortBlockName}`);
-          blocks.forEach((block, index) => {
-            block.id = `${shortBlockName}-${index}`;
-            
-            // Add indexed IDs to images within the block
-            const images = block.querySelectorAll('img');
-            images.forEach((img, imgIndex) => {
-              const imgId = `${shortBlockName}_${index}_image_${imgIndex}`;
-              img.id = imgId;
-            });
-            // Skip content ID generation for blocks that handle it themselves (columns, cards, carousel)
-            const blocksWithCustomIDs = ['columns', 'cards', 'carousel'];
-            if (!blocksWithCustomIDs.includes(shortBlockName)) {
-              // Merge headings (h1-h6) and paragraphs into a single loop for efficiency
-              ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].forEach((tag) => {
-                const elements = block.querySelectorAll(tag);
-                elements.forEach((el, elIndex) => {
-                  el.id = `${shortBlockName}_${index}_${tag}_${elIndex}`;
-                });
-              });
-            }
-          });
-          }
-          }
-        
-/**
- * Decorates a default block.
- * @param {Element} block The block element
- */
-export function decorateDefaultBlock(main) {
-  const sections = main.querySelectorAll('.section');
-  sections.forEach((section, sectionIndex) => {
-    // Find all default-content-wrapper elements in this section
-    const defaultWrappers = section.querySelectorAll('.default-content-wrapper');
-    defaultWrappers.forEach((wrapper, wrapperIndex) => {
-      wrapper.setAttribute('data-section-content-index', `${sectionIndex}_${wrapperIndex}`);
-      
-      // Add IDs to text elements (overwrite any existing IDs)
-      ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol'].forEach((tag) => {
-        const elements = wrapper.querySelectorAll(tag);
-        let adjustedIndex = 0; // Use a separate counter for adjusted indexing
-        elements.forEach((el) => {
-          // Check if this is a <p> tag containing only an image (picture or img element)
-          if (tag === 'p') {
-            const hasOnlyImage = el.querySelector('picture, img') &&
-                                el.textContent.trim() === '';
-            
-            if (hasOnlyImage) {
-              // Skip ID assignment for <p> tags that only contain images
-              // The image itself will get its own ID separately
-              return; // Skip this element
-            }
-          }
-          
-          el.id = `section_${sectionIndex}_content_${wrapperIndex}_${tag}_${adjustedIndex}`;
-          adjustedIndex++;
-        });
-      });
-    });
-    
-    // Add IDs to images at section level (overwrite any existing IDs)
-    const images = section.querySelectorAll('.default-content-wrapper img');
-    images.forEach((img, imgIndex) => {
-      img.id = `section_${sectionIndex}_image_${imgIndex}`;
-    });
-  });
+  }
 }
 /**
  * Decorates all blocks in a container element.
