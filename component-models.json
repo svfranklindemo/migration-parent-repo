@@ -628,6 +628,11 @@
     "id": "card",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -804,6 +809,53 @@
         "value": "",
         "valueType": "string",
         "description": "Optional hex color for card text (e.g. #fff, #000000, or 333). Leave empty for default."
+      },
+      {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "select",
+        "name": "mobilecardstyle",
+        "label": "Card Type",
+        "valueType": "string",
+        "value": "below",
+        "options": [
+          {
+            "name": "Image and text in one line",
+            "value": "one-line"
+          },
+          {
+            "name": "Image and text overlay",
+            "value": "overlay"
+          },
+          {
+            "name": "Image and text below",
+            "value": "below"
+          },
+          {
+            "name": "Image partially overlayed",
+            "value": "partial-overlay"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "mobileimagestyle",
+        "label": "Image Resize Mode",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Contain",
+            "value": "contain"
+          },
+          {
+            "name": "Cover",
+            "value": "cover"
+          }
+        ]
       },
       {
         "component": "text",
