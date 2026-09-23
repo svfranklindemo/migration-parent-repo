@@ -143,6 +143,29 @@
         "label": "Tags",
         "valueType": "string",
         "rootPath": "/content/cq:tags/reference-demo"
+      },
+      {
+        "component": "boolean",
+        "name": "enableAdobeTargetMobile",
+        "label": "Enable Adobe Target (Mobile App)",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "When enabled, Adobe Target support is activated for the mobile app on this page."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "adobeTargetMboxMobile",
+        "label": "Mbox Name",
+        "description": "The mbox name to use for Adobe Target on the mobile app.",
+        "condition": {
+          "==": [
+            {
+              "var": "enableAdobeTargetMobile"
+            },
+            true
+          ]
+        }
       }
     ]
   },
