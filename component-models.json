@@ -853,6 +853,11 @@
     "id": "checkout",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "aem-content",
         "valueType": "string",
         "name": "confirmationpath",
@@ -896,6 +901,11 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
@@ -904,10 +914,11 @@
       },
       {
         "component": "text",
-        "name": "mobilecheckboxwidth",
-        "label": "Mobile Checkbox Width",
-        "value": "",
-        "valueType": "string"
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. width:250, padding:0)"
       }
     ]
   },
@@ -1286,6 +1297,11 @@
     "id": "loan-application-form",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "text",
         "name": "form-title",
         "label": "Form Title",
@@ -1360,6 +1376,11 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
@@ -1368,10 +1389,11 @@
       },
       {
         "component": "text",
-        "name": "mobilecheckboxwidth",
-        "label": "Mobile Checkbox Width",
-        "value": "",
-        "valueType": "string"
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. width:250, padding:0)"
       }
     ]
   },
@@ -1838,6 +1860,11 @@
     "id": "join-us",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "text",
         "name": "form-title",
         "label": "Form Title",
@@ -1939,6 +1966,11 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
@@ -1947,10 +1979,11 @@
       },
       {
         "component": "text",
-        "name": "mobilecheckboxwidth",
-        "label": "Mobile Checkbox Width",
-        "value": "",
-        "valueType": "string"
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. width:250, padding:0)"
       }
     ]
   },
@@ -2514,6 +2547,11 @@
     "id": "create-account",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "select",
         "name": "variant",
         "label": "Theme Variant",
@@ -2685,6 +2723,11 @@
         "description": "Alt text for the logo image"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
@@ -2693,16 +2736,22 @@
       },
       {
         "component": "text",
-        "name": "mobilecheckboxwidth",
-        "label": "Mobile Checkbox Width",
-        "value": "",
-        "valueType": "string"
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. width:250, padding:0)"
       }
     ]
   },
   {
     "id": "child-account-application",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
       {
         "component": "aem-content",
         "valueType": "string",
@@ -2747,6 +2796,11 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
@@ -2755,10 +2809,11 @@
       },
       {
         "component": "text",
-        "name": "mobilecheckboxwidth",
-        "label": "Mobile Checkbox Width",
-        "value": "",
-        "valueType": "string"
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. width:250, padding:0)"
       }
     ]
   },
