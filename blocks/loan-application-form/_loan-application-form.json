@@ -100,6 +100,13 @@
           "name": "mobilebuttoneventtype",
           "label": "Mobile Form Submission Event",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "mobilecheckboxwidth",
+          "label": "Mobile Checkbox Width",
+          "value": "",
+          "valueType": "string"
         }
       ]
     }

@@ -182,6 +182,13 @@
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "mobilecheckboxwidth",
+          "label": "Mobile Checkbox Width",
+          "value": "",
+          "valueType": "string"
         }
       ]
     }
