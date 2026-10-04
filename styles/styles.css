@@ -520,6 +520,12 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   min-height: 0;
 }
 
+.content-card:not(.author-placeholder),
+.decisioning-container:not(.author-placeholder),
+.inbox:not(.author-placeholder) {
+  display: none !important;
+}
+
 /* Prevent cards FOUC: reserve space until loaded. */
 .cards.block[data-block-status="initialized"],
 .cards.block[data-block-status="loading"] {
