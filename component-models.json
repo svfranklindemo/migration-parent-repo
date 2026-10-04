@@ -1812,7 +1812,29 @@
         "component": "text",
         "name": "mobileSurface",
         "label": "Surface",
-        "valueType": "string"
+        "valueType": "string",
+        "condition": {
+          "==": [
+            {
+              "var": "mobileDecisioningType"
+            },
+            "experience"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "mobileDecisionScope",
+        "label": "Decision Scope",
+        "valueType": "string",
+        "condition": {
+          "==": [
+            {
+              "var": "mobileDecisioningType"
+            },
+            "offer"
+          ]
+        }
       },
       {
         "component": "aem-content",
@@ -1971,7 +1993,7 @@
       },
       {
         "component": "text",
-        "name": "mobileCustomStyles",
+        "name": "custommobilestyle",
         "label": "Custom Styles",
         "valueType": "string",
         "multi": true
