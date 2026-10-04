@@ -9854,6 +9854,55 @@
             true
           ]
         }
+      },
+      {
+        "component": "number",
+        "name": "limit",
+        "label": "Item Limit",
+        "valueType": "number",
+        "value": 0,
+        "min": 0,
+        "description": "Maximum number of items to display in the list. Set to 0 to show all.",
+        "condition": {
+          "==": [
+            {
+              "var": "mobilerenderaslist"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "mobileimagewidth",
+        "label": "Image width",
+        "value": "",
+        "valueType": "number",
+        "description": "Image width on mobile, in pixels. Leave empty for the default.",
+        "condition": {
+          "==": [
+            {
+              "var": "mobilerenderaslist"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "mobileitemheight",
+        "label": "Item height",
+        "value": "",
+        "valueType": "number",
+        "description": "Item height on mobile, in pixels. Leave empty for the default.",
+        "condition": {
+          "==": [
+            {
+              "var": "mobilerenderaslist"
+            },
+            true
+          ]
+        }
       }
     ]
   },
