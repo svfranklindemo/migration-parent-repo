@@ -22,19 +22,19 @@
       "fields": [
         {
           "component": "text",
-          "name": "nickname",
+          "name": "mobileNickname",
           "label": "Nickname",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "surface",
+          "name": "mobileSurface",
           "label": "Surface",
           "valueType": "string"
         },
         {
           "component": "number",
-          "name": "borderRadius",
+          "name": "mobileBorderRadius",
           "label": "Border Radius (px)",
           "valueType": "number",
           "value": 9,
@@ -42,45 +42,45 @@
         },
         {
           "component": "text",
-          "name": "textColor",
+          "name": "mobileTextColor",
           "label": "Text color",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "backgroundColor",
+          "name": "mobileBackgroundColor",
           "label": "Background color",
           "valueType": "string",
           "value": "white"
         },
         {
           "component": "text",
-          "name": "borderColor",
+          "name": "mobileBorderColor",
           "label": "Border color",
           "valueType": "string",
           "value": "lightgrey"
         },
         {
           "component": "text",
-          "name": "buttonTextColor",
+          "name": "mobileButtonTextColor",
           "label": "Button Text color",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "buttonBackgroundColor",
+          "name": "mobileButtonBackgroundColor",
           "label": "Button background color",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "buttonBorderColor",
+          "name": "mobileButtonBorderColor",
           "label": "Button border color",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "customStyles",
+          "name": "custommobilestyle",
           "label": "Custom Styles",
           "valueType": "string",
           "multi": true,
