@@ -449,6 +449,10 @@ main .section[data-section-status="loaded"] {
   visibility: visible;
 }
 
+html:not(.adobe-ue-edit) main .section[data-hide-in-desktop="true"] {
+  display: none !important;
+}
+
 /* Fully collapse content-only sections while loading: no background, padding or blank scroll. */
 main .section[data-section-status="initialized"]:not(:has(.block)),
 main .section[data-section-status="loading"]:not(:has(.block)) {

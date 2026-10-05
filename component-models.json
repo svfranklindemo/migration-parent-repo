@@ -563,6 +563,20 @@
         "description": "The label shown for this section in the Content Tree"
       },
       {
+        "component": "boolean",
+        "name": "hide-in-mobile",
+        "label": "Don't show in mobile",
+        "value": "false",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "hide-in-desktop",
+        "label": "Don't show in desktop",
+        "value": "false",
+        "valueType": "boolean"
+      },
+      {
         "component": "select",
         "name": "sec-spacing",
         "value": "",
@@ -1709,6 +1723,63 @@
         "valueType": "string",
         "multi": true,
         "description": "Custom styles for the inbox"
+      }
+    ]
+  },
+  {
+    "id": "map",
+    "fields": [
+      {
+        "component": "text",
+        "name": "mobileColor",
+        "label": "Coordinates pin color",
+        "valueType": "string",
+        "value": "blue"
+      },
+      {
+        "component": "number",
+        "name": "mobileHeight",
+        "label": "Height (px)",
+        "valueType": "number",
+        "value": 500
+      },
+      {
+        "component": "text",
+        "name": "mobileLocationColor",
+        "label": "Location color",
+        "valueType": "string",
+        "value": "green"
+      },
+      {
+        "component": "text",
+        "name": "mobileText",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "mobileDisplayAs",
+        "label": "Display As",
+        "valueType": "string",
+        "value": "fullMap",
+        "options": [
+          {
+            "name": "Full Map Component",
+            "value": "fullMap"
+          },
+          {
+            "name": "Button (Show map on click)",
+            "value": "modal"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "mobileMapCoordinates",
+        "label": "Map Coordinates",
+        "valueType": "string",
+        "multi": true,
+        "description": "One location per line as: label,latitude,longitude"
       }
     ]
   },

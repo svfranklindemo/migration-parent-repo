@@ -23,6 +23,26 @@
       "id": "section",
       "fields": [
         {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "boolean",
+          "name": "hide-in-mobile",
+          "label": "Don't show in mobile",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "hide-in-desktop",
+          "label": "Don't show in desktop",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
           "component": "select",
           "name": "sec-spacing",
           "value": "",
