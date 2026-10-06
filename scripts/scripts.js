@@ -16,7 +16,6 @@ import {
   loadScript,
   toClassName,
   toCamelCase,
-  decorateDefaultBlock,
 } from './aem.js';
 import { picture, source, img } from './dom-helpers.js';
 
