@@ -10752,6 +10752,13 @@
       },
       {
         "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "custom-class",
         "label": "Custom class",
         "value": "",
