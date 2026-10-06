@@ -21,6 +21,11 @@
       "id": "hero",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -225,11 +230,125 @@
           "description": "Keep the hero text overlay enabled. Turn off for transparent text background and darker image."
         },
         {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "mobiletitlevariant",
+          "label": "Title Size",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Large",
+              "value": "titleLarge"
+            },
+            {
+              "name": "Medium",
+              "value": "titleMedium"
+            },
+            {
+              "name": "Small",
+              "value": "titleSmall"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobilesubtitlevariant",
+          "label": "Subtitle Size",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Large",
+              "value": "titleLarge"
+            },
+            {
+              "name": "Medium",
+              "value": "titleMedium"
+            },
+            {
+              "name": "Small",
+              "value": "titleSmall"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobilehorizontalalignment",
+          "label": "Horizontal Alignment",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Center",
+              "value": "center"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobilecontentalignment",
+          "label": "Content Alignment",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Center",
+              "value": "center"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobileverticalalignment",
+          "label": "Vertical Alignment",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Top",
+              "value": "top"
+            },
+            {
+              "name": "Middle",
+              "value": "middle"
+            },
+            {
+              "name": "Bottom",
+              "value": "bottom"
+            }
+          ]
+        },
+        {
+          "component": "number",
+          "name": "mobileopacity",
+          "label": "Overlay Opacity",
+          "valueType": "number",
+          "min": 0,
+          "max": 1,
+          "description": "Darkness of the overlay behind the hero text on mobile (0 = none, 1 = solid). Leave empty to follow the Text Overlay switch."
         }
       ]
     }
