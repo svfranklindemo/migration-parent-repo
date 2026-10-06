@@ -1153,12 +1153,25 @@
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
       }
     ]
   },
   {
     "id": "checkout-shipping",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
       {
         "component": "aem-content",
         "name": "back-path",
@@ -1236,11 +1249,32 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobileFormID",
+        "label": "Mobile Form ID",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional form ID to associate with this form in the mobile app."
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
       }
     ]
   },
@@ -1454,7 +1488,7 @@
       }
     ]
   },
-    {
+  {
     "id": "bodea-secure-antivirus",
     "fields": [
       {
@@ -2500,6 +2534,11 @@
     "id": "join-us",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "text",
         "name": "form-title",
         "label": "Form Title",
@@ -2601,11 +2640,32 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobileFormID",
+        "label": "Mobile Form ID",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional form ID to associate with this form in the mobile app."
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
       }
     ]
   },
@@ -3288,6 +3348,11 @@
     "id": "create-account",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "select",
         "name": "variant",
         "label": "Theme Variant",
@@ -3322,8 +3387,8 @@
             "name": "Bodea",
             "value": "bodea"
           },
-          { 
-            "name": "Exp News", 
+          {
+            "name": "Exp News",
             "value": "expnews"
           }
         ]
@@ -3342,8 +3407,14 @@
         "value": "single",
         "valueType": "string",
         "options": [
-          { "name": "Default Form (Single-Page)", "value": "single" },
-          { "name": "Wizard (Multi-Step)", "value": "wizard" }
+          {
+            "name": "Default Form (Single-Page)",
+            "value": "single"
+          },
+          {
+            "name": "Wizard (Multi-Step)",
+            "value": "wizard"
+          }
         ],
         "description": "Choose between the default single page form or a multi-step wizard experience."
       },
@@ -3459,11 +3530,32 @@
         "description": "Alt text for the logo image"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobileFormID",
+        "label": "Mobile Form ID",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional form ID to associate with this form in the mobile app."
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
       }
     ]
   },
@@ -9912,7 +10004,9 @@
         ],
         "condition": {
           "==": [
-            { "var": "mobilerenderaslist" },
+            {
+              "var": "mobilerenderaslist"
+            },
             true
           ]
         }
@@ -9928,8 +10022,22 @@
         "description": "Number of items per row (1-12). Shown only when Layout is Vertical/Grid.",
         "condition": {
           "and": [
-            { "==": [ { "var": "mobilerenderaslist" }, true ] },
-            { "==": [ { "var": "mobilelayout" }, "vertical/grid" ] }
+            {
+              "==": [
+                {
+                  "var": "mobilerenderaslist"
+                },
+                true
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "mobilelayout"
+                },
+                "vertical/grid"
+              ]
+            }
           ]
         }
       },
@@ -9951,7 +10059,9 @@
         ],
         "condition": {
           "==": [
-            { "var": "mobilerenderaslist" },
+            {
+              "var": "mobilerenderaslist"
+            },
             true
           ]
         }
@@ -10125,7 +10235,9 @@
         "description": "Heading displayed above the carousel (e.g. 'Choose your car'). Only used in Carousel variant.",
         "condition": {
           "==": [
-            { "var": "style" },
+            {
+              "var": "style"
+            },
             "carousel"
           ]
         }
@@ -10139,7 +10251,9 @@
         "description": "Text for the Learn more button in the Carousel variant.",
         "condition": {
           "==": [
-            { "var": "style" },
+            {
+              "var": "style"
+            },
             "carousel"
           ]
         }
@@ -10438,29 +10552,29 @@
         "valueType": "number",
         "value": 1,
         "description": "The number of quantity options to be shown from when adding to cart. The dropdown will be populated with values starting from 1 and ends on the number that is authored."
-        },
-        {
-          "component": "tab",
-          "label": "Mobile Specific",
-          "name": "mobileSpecific"
-        },
-        {
-          "component": "select",
-          "name": "mobileimageresize",
-          "label": "Image Resize Mode",
-          "valueType": "string",
-          "value": "cover",
-          "options": [
-            {
-              "name": "Contain",
-              "value": "contain"
-            },
-            {
-              "name": "Cover",
-              "value": "cover"
-            }
-          ]
-        }
+      },
+      {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "select",
+        "name": "mobileimageresize",
+        "label": "Image Resize Mode",
+        "valueType": "string",
+        "value": "cover",
+        "options": [
+          {
+            "name": "Contain",
+            "value": "contain"
+          },
+          {
+            "name": "Cover",
+            "value": "cover"
+          }
+        ]
+      }
     ]
   },
   {
@@ -10565,6 +10679,11 @@
     "id": "cart",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "aem-content",
         "name": "folder",
         "label": "Product Folder",
@@ -10611,12 +10730,46 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobileButtonEventOnEmptyCart",
+        "label": "Empty Cart Button Event",
+        "value": "",
+        "valueType": "string",
+        "description": "Mobile event for the Empty cart button. Leave empty to use emptyCart."
+      },
+      {
+        "component": "text",
+        "name": "mobileButtonEventOnCheckout",
+        "label": "Review Order Button Event",
+        "value": "",
+        "valueType": "string",
+        "description": "Mobile event for the Review order button that opens checkout. Leave empty to keep the existing event default."
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app when reviewing the order. Leave empty to open checkout."
       }
     ]
   },
   {
     "id": "order-summary",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
       {
         "component": "text",
         "name": "checkouteventtype",
@@ -10650,11 +10803,32 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobileFormID",
+        "label": "Mobile Form ID",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional form ID to associate with this form in the mobile app."
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after confirming the order. Leave empty to keep the current mobile redirect default."
       }
     ]
   },
@@ -10695,6 +10869,11 @@
   {
     "id": "coffee-quiz-frescopa",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
       {
         "component": "aem-content",
         "name": "completion-url",
@@ -10759,6 +10938,19 @@
         "description": "Launch/Analytics event fired when user leaves without completing"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobileFormID",
+        "label": "Mobile Form ID",
+        "value": "",
+        "valueType": "string",
+        "description": "Optional form ID to associate with this form in the mobile app."
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
@@ -10772,6 +10964,14 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
       }
     ]
   },
@@ -10842,9 +11042,18 @@
         "valueType": "string",
         "value": "3",
         "options": [
-          { "name": "3", "value": "3" },
-          { "name": "4", "value": "4" },
-          { "name": "5", "value": "5" }
+          {
+            "name": "3",
+            "value": "3"
+          },
+          {
+            "name": "4",
+            "value": "4"
+          },
+          {
+            "name": "5",
+            "value": "5"
+          }
         ]
       },
       {
