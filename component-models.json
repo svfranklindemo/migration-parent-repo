@@ -2443,6 +2443,10 @@
           {
             "name": "Schedule Appointment",
             "value": "schedule-appointment"
+          },
+          {
+            "name": "Customer Service (Order a service)",
+            "value": "service"
           }
         ]
       },

@@ -29,7 +29,8 @@
           "valueType": "string",
           "options": [
             { "name": "Test Drive (Schedule test drive)", "value": "test-drive" },
-            { "name": "Schedule Appointment", "value": "schedule-appointment" }
+            { "name": "Schedule Appointment", "value": "schedule-appointment" },
+            { "name": "Customer Service (Order a service)", "value": "service" }
           ]
         },
         {
