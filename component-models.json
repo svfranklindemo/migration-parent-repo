@@ -3487,13 +3487,11 @@
         ]
       },
       {
-        "component": "number",
+        "component": "text",
         "name": "mobileopacity",
         "label": "Overlay Opacity",
-        "valueType": "number",
-        "min": 0,
-        "max": 1,
-        "description": "Darkness of the overlay behind the hero text on mobile (0 = none, 1 = solid). Leave empty to follow the Text Overlay switch."
+        "valueType": "string",
+        "description": "Darkness of the overlay behind the hero text on mobile, as a decimal from 0 (none) to 1 (solid), e.g. 0.5. Leave empty to follow the Text Overlay switch."
       }
     ]
   },
