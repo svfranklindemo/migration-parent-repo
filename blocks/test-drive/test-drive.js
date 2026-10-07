@@ -34,7 +34,7 @@ const VARIANTS = {
     formTitle: 'Customer service',
     submitLabel: 'Submit',
     successMessage: 'Thank you! Your service has been ordered. We will confirm your appointment shortly.',
-    intro: 'Your coffee machine needs cleaning? Order a service with our partners.',
+    formDescription: 'Your coffee machine needs cleaning? Order a service with our partners.',
     showPersonalSection: false,
     showMachineType: true,
     showAddressSection: true,
@@ -129,11 +129,11 @@ function buildFormDef(variantDefaults, config) {
 
   const fieldColspan = variantDefaults.fullWidthFields ? 12 : 6;
 
-  const introFields = variantDefaults.intro ? [
+  const introFields = variantDefaults.formDescription ? [
     {
       id: 'service-intro',
       fieldType: 'plain-text',
-      value: variantDefaults.intro,
+      value: variantDefaults.formDescription,
       appliedCssClassNames: 'col-12 td-intro',
     },
   ] : [];
