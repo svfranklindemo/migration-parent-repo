@@ -1761,6 +1761,31 @@
     ]
   },
   {
+    "id": "web-view",
+    "fields": [
+      {
+        "component": "text",
+        "name": "mobileNickname",
+        "label": "Nickname",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobileUrl",
+        "label": "URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "custommobilestyle",
+        "label": "Custom Styles",
+        "valueType": "string",
+        "multi": true,
+        "description": "Mobile styles as key:value pairs"
+      }
+    ]
+  },
+  {
     "id": "map",
     "fields": [
       {

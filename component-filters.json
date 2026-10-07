@@ -48,6 +48,7 @@
       "get-offer",
       "inbox",
       "map",
+      "web-view",
       "content-card",
       "decisioning-container",
       "new-account",
