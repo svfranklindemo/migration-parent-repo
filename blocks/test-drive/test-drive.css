@@ -452,6 +452,10 @@ body.frescopa-theme main .test-drive .submit-wrapper {
   text-align: center;
 }
 
+body.frescopa-theme main .test-drive .td-intro p {
+  text-align: center;
+}
+
 /* Slot picker: amber pills like the theme's inputs (the buttons otherwise use the browser font). */
 body.frescopa-theme main .test-drive .td-slot-picker__option {
   background: #fff;
