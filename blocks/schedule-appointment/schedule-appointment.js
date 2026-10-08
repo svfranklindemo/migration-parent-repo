@@ -15,26 +15,24 @@ const NAV_ARROW_ICON = `
 const SHORT_DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const SHORT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const VARIANTS = {
-  'test-drive': {
-    formTitle: 'Schedule test drive',
-    submitLabel: 'Schedule arrival',
-    successMessage: 'Thank you! Your test drive has been scheduled. We will confirm your appointment shortly.',
-    showAddressSection: true,
-    dataLayerKey: 'testDrive',
-  },
-  'schedule-appointment': {
-    formTitle: 'Schedule an appointment',
-    submitLabel: 'Schedule appointment',
-    successMessage: 'Thank you! Your appointment has been scheduled. We will confirm shortly.',
-    showAddressSection: false,
-    dataLayerKey: 'appointment',
-  },
+const VARIANT = {
+  formTitle: 'Customer service',
+  submitLabel: 'Submit',
+  successMessage: 'Thank you! Your service has been ordered. We will confirm your appointment shortly.',
+  formDescription: 'Your coffee machine needs cleaning? Order a service with our partners.',
+  showPersonalSection: false,
+  showMachineType: true,
+  showAddressSection: true,
+  addressHeading: 'Service address',
+  streetField: 'streetAddress',
+  streetLabel: 'Street',
+  showZipCode: false,
+  fullWidthFields: true,
+  slotLabel: 'Preferred service time',
+  dataLayerGroup: 'service',
+  cssClass: 'schedule-appointment-service',
+  dataLayerKey: 'order',
 };
-
-function normalizeVariant(value) {
-  return String(value || 'test-drive').trim().toLowerCase();
-}
 
 function isTruthy(value) {
   return value === true || String(value || '').trim().toLowerCase() === 'true';
@@ -64,7 +62,7 @@ function buildFormDef(variantDefaults, config) {
   const submitLabel = config['submit-label'] || variantDefaults.submitLabel;
   const showAddress = variantDefaults.showAddressSection;
 
-  const personalFields = [
+  const personalFields = variantDefaults.showPersonalSection === false ? [] : [
     {
       id: 'personal-info-heading',
       fieldType: 'heading',
@@ -109,20 +107,47 @@ function buildFormDef(variantDefaults, config) {
     },
   ];
 
+  const fieldColspan = variantDefaults.fullWidthFields ? 12 : 6;
+
+  const formDescription = String(config.formdescription ?? config['form-description'] ?? '').trim()
+    || variantDefaults.formDescription;
+
+  const introFields = formDescription ? [
+    {
+      id: 'service-intro',
+      fieldType: 'plain-text',
+      value: formDescription,
+      appliedCssClassNames: 'col-12 td-intro',
+    },
+  ] : [];
+
+  const machineFields = variantDefaults.showMachineType ? [
+    {
+      id: 'machineType',
+      name: 'machineType',
+      fieldType: 'text-input',
+      label: { value: 'Coffee machine type' },
+      placeholder: 'Frescopa Smart Machine',
+      required: true,
+      properties: { colspan: fieldColspan },
+    },
+  ] : [];
+
   const addressFields = showAddress ? [
     {
       id: 'address-heading',
       fieldType: 'heading',
-      label: { value: 'Vehicle arrival address' },
+      label: { value: variantDefaults.addressHeading || 'Vehicle arrival address' },
       appliedCssClassNames: 'col-12 td-section-heading',
     },
     {
-      id: 'address',
-      name: 'address',
+      id: variantDefaults.streetField || 'address',
+      name: variantDefaults.streetField || 'address',
       fieldType: 'text-input',
-      label: { value: 'Address' },
+      label: { value: variantDefaults.streetLabel || 'Address' },
       autoComplete: 'street-address',
-      properties: { colspan: 6 },
+      required: variantDefaults.fullWidthFields === true,
+      properties: { colspan: fieldColspan },
     },
     {
       id: 'city',
@@ -130,7 +155,8 @@ function buildFormDef(variantDefaults, config) {
       fieldType: 'text-input',
       label: { value: 'City' },
       autoComplete: 'address-level2',
-      properties: { colspan: 6 },
+      required: variantDefaults.fullWidthFields === true,
+      properties: { colspan: fieldColspan },
     },
     {
       id: 'zipCode',
@@ -140,15 +166,15 @@ function buildFormDef(variantDefaults, config) {
       autoComplete: 'postal-code',
       properties: { colspan: 6 },
     },
-  ] : [];
+  ].filter((f) => variantDefaults.showZipCode !== false || f.id !== 'zipCode') : [];
 
   return {
-    id: 'test-drive',
+    id: 'schedule-appointment',
     fieldType: 'form',
-    appliedCssClassNames: 'test-drive-form',
+    appliedCssClassNames: variantDefaults.cssClass ? `schedule-appointment-form ${variantDefaults.cssClass}` : 'schedule-appointment-form',
     items: [
       {
-        id: 'heading-test-drive',
+        id: 'heading-schedule-appointment',
         fieldType: 'heading',
         label: { value: formTitle },
         appliedCssClassNames: 'col-12 td-form-title',
@@ -158,7 +184,9 @@ function buildFormDef(variantDefaults, config) {
         name: 'main',
         fieldType: 'panel',
         items: [
+          ...introFields,
           ...personalFields,
+          ...machineFields,
           ...addressFields,
           {
             id: 'submit-btn',
@@ -176,7 +204,7 @@ function buildFormDef(variantDefaults, config) {
 
 // ── TimeSlotPicker ────────────────────────────────────────────────────────────
 
-function buildTimeSlotPicker(config = {}, dataLayerKey) {
+function buildTimeSlotPicker(config = {}, dataLayerKey, slotLabel) {
   const rawSlots = config['time-slots'] || '';
   const dailyOptions = rawSlots
     ? rawSlots.split(',').map((s) => s.trim()).filter(Boolean)
@@ -201,7 +229,7 @@ function buildTimeSlotPicker(config = {}, dataLayerKey) {
 
   const labelEl = document.createElement('p');
   labelEl.className = 'td-slot-picker__label';
-  labelEl.textContent = 'Choose available day and time';
+  labelEl.textContent = slotLabel || 'Choose available day and time';
 
   const content = document.createElement('div');
   content.className = 'td-slot-picker__content';
@@ -373,7 +401,7 @@ function attachSubmitHandler(block, config, variantDefaults, slotPicker) {
     if (typeof window.updateDataLayer === 'function') {
       window.updateDataLayer({
         interactionDetails: {
-          automotive: {
+          [variantDefaults.dataLayerGroup || 'automotive']: {
             [variantDefaults.dataLayerKey]: {
               dateTime: selectedSlot,
             },
@@ -408,8 +436,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
-  const variant = normalizeVariant(config.variant);
-  const variantDefaults = VARIANTS[variant] || VARIANTS['test-drive'];
+  const variantDefaults = VARIANT;
 
   // Build the adaptive form
   const formDef = buildFormDef(variantDefaults, config);
@@ -428,7 +455,7 @@ export default async function decorate(block) {
   await formModule.default(formContainer);
 
   // Inject time slot picker before the submit button
-  const slotPicker = buildTimeSlotPicker(config, variantDefaults.dataLayerKey);
+  const slotPicker = buildTimeSlotPicker(config, variantDefaults.dataLayerKey, variantDefaults.slotLabel);
   const submitWrapper = block.querySelector('.submit-wrapper');
   if (submitWrapper) {
     submitWrapper.before(slotPicker);

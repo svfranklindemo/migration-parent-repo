@@ -1,15 +1,15 @@
 {
   "definitions": [
     {
-      "title": "Test Drive",
-      "id": "test-drive",
+      "title": "Schedule Appointment",
+      "id": "schedule-appointment",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Test Drive",
-              "model": "test-drive",
+              "name": "Schedule Appointment",
+              "model": "schedule-appointment",
               "key-value": true
             }
           }
@@ -19,30 +19,32 @@
   ],
   "models": [
     {
-      "id": "test-drive",
+      "id": "schedule-appointment",
       "fields": [
         {
-          "component": "select",
-          "name": "variant",
-          "label": "Variant",
-          "value": "test-drive",
-          "valueType": "string",
-          "options": [
-            { "name": "Test Drive (Schedule test drive)", "value": "test-drive" },
-            { "name": "Schedule Appointment", "value": "schedule-appointment" }
-          ]
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
         },
         {
           "component": "text",
           "name": "form-title",
-          "label": "Form Title (overrides variant default)",
+          "label": "Form Title",
           "value": "",
           "valueType": "string"
         },
         {
           "component": "text",
+          "name": "formDescription",
+          "label": "Form Description",
+          "value": "",
+          "valueType": "string",
+          "description": "Line shown under the title. Leave empty to use the default."
+        },
+        {
+          "component": "text",
           "name": "submit-label",
-          "label": "Submit Button Label (overrides variant default)",
+          "label": "Submit Button Label",
           "value": "",
           "valueType": "string"
         },
@@ -80,7 +82,7 @@
         {
           "component": "text",
           "name": "success-message",
-          "label": "Success Message (overrides variant default)",
+          "label": "Success Message",
           "value": "",
           "valueType": "string"
         },
@@ -120,18 +122,31 @@
           "description": "AEM sheet path whose key/value rows are sent on submit"
         },
         {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Screen the app opens after a successful submit (for example en)."
         }
       ]
     }
   ],
   "filters": [
     {
-      "id": "test-drive",
+      "id": "schedule-appointment",
       "components": []
     }
   ]
