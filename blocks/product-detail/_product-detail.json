@@ -167,6 +167,41 @@
           "value": "false",
           "valueType": "boolean",
           "description": "Export separate product image, title, price, add-to-cart and description components instead of a product card in the mobile app."
+        },
+        {
+          "component": "boolean",
+          "name": "mobileappshowproductimage",
+          "label": "Enable Product Image",
+          "value": "true",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "mobileappshowproducttitle",
+          "label": "Enable Product Title",
+          "value": "true",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "mobileappshowproductprice",
+          "label": "Enable Product Price",
+          "value": "true",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "mobileappshowproductaddtocartbutton",
+          "label": "Enable Add to Cart Button",
+          "value": "true",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "mobileappshowproductdescription",
+          "label": "Enable Product Description",
+          "value": "true",
+          "valueType": "boolean"
         }
       ]
     }
