@@ -154,6 +154,19 @@
           "valueType": "number",
           "value": 1,
           "description": "The number of quantity options to be shown from when adding to cart. The dropdown will be populated with values starting from 1 and ends on the number that is authored."
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "boolean",
+          "name": "mobilehideaddtocart",
+          "label": "Hide Add To Cart",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "On the mobile app, show only the product image, title and description instead of a product card."
         }
       ]
     }

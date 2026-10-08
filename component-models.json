@@ -10584,6 +10584,14 @@
         "name": "mobileSpecific"
       },
       {
+        "component": "boolean",
+        "name": "mobilehideaddtocart",
+        "label": "Hide Add To Cart",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "On the mobile app, show only the product image, title and description instead of a product card."
+      },
+      {
         "component": "select",
         "name": "mobileimageresize",
         "label": "Image Resize Mode",
