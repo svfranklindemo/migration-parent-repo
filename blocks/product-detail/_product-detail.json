@@ -162,11 +162,11 @@
         },
         {
           "component": "boolean",
-          "name": "mobilehideaddtocart",
-          "label": "Hide Add To Cart",
+          "name": "mobileappcustomproductdetails",
+          "label": "Customize for Mobile App",
           "value": "false",
           "valueType": "boolean",
-          "description": "On the mobile app, show only the product image, title and description instead of a product card."
+          "description": "Export separate product image, title, price, add-to-cart and description components instead of a product card in the mobile app."
         }
       ]
     }
