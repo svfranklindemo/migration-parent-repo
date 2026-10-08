@@ -134,12 +134,11 @@
           "valueType": "string"
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "name": "mobileRedirectUrl",
           "label": "Mobile Redirect URL",
-          "value": "",
           "valueType": "string",
-          "description": "Screen the app opens after a successful submit (for example en)."
+          "description": "Page the app opens after a successful submit. Leave empty to stay on the form."
         }
       ]
     }
