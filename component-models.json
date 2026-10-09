@@ -3117,10 +3117,26 @@
       },
       {
         "component": "text",
+        "name": "mobileicon",
+        "label": "Icon",
+        "value": "",
+        "valueType": "string",
+        "description": "Icon name shown on the mobile button, e.g. credit-card"
+      },
+      {
+        "component": "text",
         "name": "mobilebuttoneventtype",
-        "label": "Button Event Type",
+        "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobilemessage",
+        "label": "Message",
+        "value": "",
+        "valueType": "string",
+        "description": "Message shown on the mobile app after the button's event runs"
       },
       {
         "component": "text",
