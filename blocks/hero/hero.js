@@ -165,4 +165,14 @@ export default function decorate(block) {
     if (eventType && String(eventType).trim()) ctaLink.dataset.buttonEventType = String(eventType).trim();
   }
 
+  // Keep configuration editable through the Hero model, not as content-tree elements.
+  // Read all values first, and preserve instrumentation on the image and text rows.
+  [...block.children].slice(2).forEach((row) => {
+    [row, ...row.querySelectorAll('*')].forEach((element) => {
+      [...element.attributes].forEach(({ name }) => {
+        if (name.startsWith('data-aue-')) element.removeAttribute(name);
+      });
+    });
+  });
+
 }
