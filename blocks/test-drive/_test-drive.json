@@ -41,6 +41,19 @@
         },
         {
           "component": "text",
+          "name": "location",
+          "label": "Location",
+          "value": "",
+          "valueType": "string",
+          "condition": {
+            "==": [
+              { "var": "variant" },
+              "schedule-appointment"
+            ]
+          }
+        },
+        {
+          "component": "text",
           "name": "submit-label",
           "label": "Submit Button Label (overrides variant default)",
           "value": "",
