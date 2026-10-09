@@ -209,6 +209,29 @@
           "value": "",
           "label": "Item widths (%)",
           "description": "Comma-separated width percentages for items (e.g. 25,25,50). When set, items are arranged horizontally with these widths."
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilelayout",
+          "label": "Layout",
+          "valueType": "string",
+          "value": "horizontal",
+          "description": "How this section's items are laid out in the mobile app",
+          "options": [
+            {
+              "name": "Vertical",
+              "value": "vertical"
+            },
+            {
+              "name": "Horizontal",
+              "value": "horizontal"
+            }
+          ]
         }
       ]
     }
