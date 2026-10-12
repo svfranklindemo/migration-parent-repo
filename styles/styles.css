@@ -1080,6 +1080,66 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   overflow: visible;
 }
 
+/* Prevent automatic-payments FOUC: show a skeleton until loaded. */
+.automatic-payments.block[data-block-status="initialized"],
+.automatic-payments.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.automatic-payments.block[data-block-status="initialized"] > *,
+.automatic-payments.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.automatic-payments.block[data-block-status="initialized"]::before,
+.automatic-payments.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 500px no-repeat;
+  z-index: 2;
+}
+
+.automatic-payments.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent additional-service FOUC: show a skeleton until loaded. */
+.additional-service.block[data-block-status="initialized"],
+.additional-service.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 820px;
+  overflow: hidden;
+}
+
+.additional-service.block[data-block-status="initialized"] > *,
+.additional-service.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.additional-service.block[data-block-status="initialized"]::before,
+.additional-service.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 680px no-repeat;
+  z-index: 2;
+}
+
+.additional-service.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
 /* Prevent set-up-auto-save FOUC: show a skeleton until loaded. */
 .set-up-auto-save.block[data-block-status="initialized"],
 .set-up-auto-save.block[data-block-status="loading"] {
