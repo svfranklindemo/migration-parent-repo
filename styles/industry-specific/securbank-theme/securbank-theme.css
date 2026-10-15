@@ -126,7 +126,7 @@ body.securbank-theme main :is(ul, menu) ul {
     display: none;
 }
 
-body.securbank-theme .columns-row .button-container a,
+body.securbank-theme .columns-row .button-container:not(.default-button, .default-button-secondary, .default-button-dark) a,
 body.securbank-theme .button-container.cta-link a,
 body.securbank-theme .button-container.default-button-link a {
   text-decoration: underline;
@@ -134,7 +134,7 @@ body.securbank-theme .button-container.default-button-link a {
   border-radius: 0;
 }
 
-body.securbank-theme .columns-row .button-container a::after,
+body.securbank-theme .columns-row .button-container:not(.default-button, .default-button-secondary, .default-button-dark) a::after,
 body.securbank-theme .button-container.cta-link a::after,
 body.securbank-theme .button-container.default-button-link a::after {
   content: unset;
