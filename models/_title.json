@@ -20,6 +20,11 @@
       "id": "title",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "text",
           "name": "title",
           "label": "Title"
