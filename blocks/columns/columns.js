@@ -50,179 +50,6 @@ function getVideoElement(source, autoplay, background) {
   return video;
 }
 
-/** Button style values from action-button model (live output can be plain p tags) */
-const ACTION_BUTTON_STYLES = ['default-button', 'default-button-secondary', 'default-button-link', 'default-button-dark'];
-
-/** True if el is a placeholder button output from publish (shows # and duplicates real button built from p tags) */
-function isPlaceholderButtonContainer(el) {
-  if (el.tagName !== 'P' || !el.classList.contains('button-container')) return false;
-  const a = el.querySelector('a.button');
-  if (!a) return false;
-  const href = (a.getAttribute('href') || '').trim();
-  const title = (a.getAttribute('title') || '').trim();
-  const text = (a.textContent || '').trim();
-  return (href === '#' || href === '') && (title === '#' || title === '') && (text === '#' || text === '');
-}
-
-/** Mobile-app values an action button also carries; the web button has no use for them. */
-const MOBILE_VARIANTS = ['contained', 'contained-tonal', 'outlined', 'text', 'elevated'];
-const WEB_ALIGNMENTS = ['left', 'center', 'right'];
-
-/** A custom mobile style row: key:value pairs, comma separated, no spaces (width:200,fontSize:12). */
-function isCustomStyleRow(text) {
-  return /^[A-Za-z][\w-]*:[^,\s]+(,[A-Za-z][\w-]*:[^,\s]+)*$/.test(text);
-}
-
-/** A free-text web event type, as opposed to one of the mobile-only values that can follow it. */
-function isWebEventType(text) {
-  return !!text
-    && !MOBILE_VARIANTS.includes(text)
-    && !WEB_ALIGNMENTS.includes(text.toLowerCase())
-    && text !== 'stretch'
-    && !text.includes(':');
-}
-
-/**
- * Reads the rows that follow an action button's link. Empty fields are left out of the live output,
- * so rows are identified by what they hold and not by their position: label and title come first,
- * then a web style, a web alignment and a web event type if they were authored. What follows is
- * mobile-only (variant, alignment, event type, icon, message, custom style) and ends at the custom
- * style row, the model's last field, so a paragraph placed after the button stays page content.
- * Without a custom style row only the recognisable mobile values (variant, alignment) are taken,
- * because an icon, message or event type is plain text and cannot be told from page copy.
- * @param {string[]} rows Text of the paragraphs after the link
- * @returns {{label: number, title: number, style?: number, alignment?: number, eventType?: number,
- *   consumed: number}|null} Row indexes by field and how many rows belong to the button, or null
- *   when there are too few rows to be a button
- */
-export function readActionButtonRows(rows) {
-  if (rows.length < 2) return null;
-  const fields = { label: 0, title: 1 };
-  let next = 2;
-  if (next < rows.length && ACTION_BUTTON_STYLES.includes(rows[next])) {
-    fields.style = next;
-    next += 1;
-  }
-  if (next < rows.length && WEB_ALIGNMENTS.includes(rows[next].toLowerCase())) {
-    fields.alignment = next;
-    next += 1;
-  }
-  if (next < rows.length && isWebEventType(rows[next])) {
-    fields.eventType = next;
-    next += 1;
-  }
-
-  // Mobile-only rows: through the custom style row if there is one, else just the known values.
-  const customStyle = rows.findIndex((row, index) => index >= next && isCustomStyleRow(row));
-  if (customStyle >= 0) {
-    next = customStyle + 1;
-  } else {
-    if (next < rows.length && MOBILE_VARIANTS.includes(rows[next])) next += 1;
-    if (next < rows.length && (WEB_ALIGNMENTS.includes(rows[next].toLowerCase()) || rows[next] === 'stretch')) {
-      next += 1;
-    }
-  }
-  fields.consumed = next;
-  return fields;
-}
-
-/**
- * True for the paragraph that holds an action button's Link field: only a link, whose text is the
- * authored path (a friendly link text in running copy is never mistaken for a button).
- */
-function isActionButtonLink(el) {
-  if (el.tagName !== 'P' || el.children.length !== 1) return false;
-  const a = el.querySelector(':scope > a[href]');
-  if (!a) return false;
-  const text = (a.textContent || '').trim();
-  if ((el.textContent || '').trim() !== text) return false;
-  return text.startsWith('/content/') || text === a.getAttribute('href') || text === a.href;
-}
-
-/**
- * On live, action buttons in columns arrive as plain <p> tags, in model order, with every empty
- * field left out: link, label, title, then whichever of style, alignment, event type and the
- * mobile fields were authored. Each button starts at its link paragraph and runs to the next link
- * (or the end of the column), so that:
- * - the link goes into the button, so it points where it should
- * - label, title, and any web style, alignment and event type are read by value
- * - the mobile-only rows are dropped, instead of showing as stray text
- * Buttons delivered without a link (label, title, style only) are still wrapped as before.
- * Placeholder "#" buttons from publish are removed first.
- * @param {Element} col Column element
- * @returns {Element[]} Newly created action-button block elements
- */
-function normalizeLiveActionButtonsInColumn(col) {
-  // Remove broken placeholder buttons from publish so we don't show "#" or duplicate the real button
-  [...col.children].forEach((child) => {
-    if (isPlaceholderButtonContainer(child)) child.remove();
-  });
-
-  const created = [];
-
-  const children = [...col.children];
-  let i = 0;
-  while (i < children.length) {
-    if (!isActionButtonLink(children[i])) {
-      i += 1;
-    } else {
-      const link = children[i];
-      const rows = [];
-      let j = i + 1;
-      while (j < children.length && children[j].tagName === 'P' && !isActionButtonLink(children[j])) {
-        rows.push(children[j]);
-        j += 1;
-      }
-      const fields = readActionButtonRows(rows.map((row) => (row.textContent || '').trim()));
-      if (fields) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'action-button';
-        col.insertBefore(wrapper, link);
-        wrapper.append(link);
-        const props = {
-          label: 'label', title: 'title', style: 'style', alignment: 'alignment', eventType: 'buttoneventtype',
-        };
-        // Rows past the button's last field are page content and stay where they are
-        rows.slice(0, fields.consumed).forEach((row, index) => {
-          const field = Object.keys(props).find((name) => fields[name] === index);
-          if (field) {
-            row.setAttribute('data-aue-prop', props[field]);
-            wrapper.append(row);
-          } else {
-            row.remove();
-          }
-        });
-        created.push(wrapper);
-      }
-      i = j;
-    }
-  }
-
-  // Buttons delivered without a link: consecutive <p> label, title, style
-  const rest = [...col.children];
-  i = 0;
-  while (i <= rest.length - 3) {
-    const a = rest[i];
-    const b = rest[i + 1];
-    const c = rest[i + 2];
-    const styleText = (c.textContent || '').trim();
-    if (a.tagName === 'P' && b.tagName === 'P' && c.tagName === 'P' && ACTION_BUTTON_STYLES.includes(styleText)) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'action-button';
-      a.setAttribute('data-aue-prop', 'label');
-      b.setAttribute('data-aue-prop', 'title');
-      c.setAttribute('data-aue-prop', 'style');
-      col.insertBefore(wrapper, a);
-      wrapper.append(a, b, c);
-      created.push(wrapper);
-      i += 3;
-    } else {
-      i += 1;
-    }
-  }
-  return created;
-}
-
 const loadVideoEmbed = (block, link, autoplay, background) => {
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
   if (isYoutube) {
@@ -586,16 +413,11 @@ export default async function decorate(block) {
 
   const columnWidths = parseColumnWidths(block, config);
 
-  /** Action-button blocks created from live "p,p,p" pattern; decorate and load after column loop */
-  const actionButtonBlocksToLoad = [];
 
   // setup image columns
   [...block.children].forEach((row) => {
     row.classList.add('columns-row');
     [...row.children].forEach((col, colIndex) => {
-      // Normalize live action-button content (consecutive p label/title/style) so it can be decorated
-      actionButtonBlocksToLoad.push(...normalizeLiveActionButtonsInColumn(col));
-
       if (columnWidths && columnWidths[colIndex] != null) {
         const pct = columnWidths[colIndex];
         col.style.flex = `0 0 ${pct}%`;
@@ -660,15 +482,6 @@ export default async function decorate(block) {
       }
     });
   });
-
-  // Decorate and load action-button blocks created from live p-tag pattern (author already has div.action-button)
-  if (actionButtonBlocksToLoad.length > 0) {
-    const { decorateBlock, loadBlock } = await import('../../scripts/aem.js');
-    for (const actionButtonBlock of actionButtonBlocksToLoad) {
-      decorateBlock(actionButtonBlock);
-      await loadBlock(actionButtonBlock);
-    }
-  }
 
   // Mark block as decorated
   block.dataset.decorated = 'true';
