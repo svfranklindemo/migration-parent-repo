@@ -1110,21 +1110,21 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   overflow: visible;
 }
 
-/* Prevent additional-service FOUC: show a skeleton until loaded. */
-.additional-service.block[data-block-status="initialized"],
-.additional-service.block[data-block-status="loading"] {
+/* Prevent mobile-additional-service FOUC: show a skeleton until loaded. */
+.mobile-additional-service.block[data-block-status="initialized"],
+.mobile-additional-service.block[data-block-status="loading"] {
   position: relative;
   min-height: 820px;
   overflow: hidden;
 }
 
-.additional-service.block[data-block-status="initialized"] > *,
-.additional-service.block[data-block-status="loading"] > * {
+.mobile-additional-service.block[data-block-status="initialized"] > *,
+.mobile-additional-service.block[data-block-status="loading"] > * {
   visibility: hidden;
 }
 
-.additional-service.block[data-block-status="initialized"]::before,
-.additional-service.block[data-block-status="loading"]::before {
+.mobile-additional-service.block[data-block-status="initialized"]::before,
+.mobile-additional-service.block[data-block-status="loading"]::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1135,7 +1135,37 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   z-index: 2;
 }
 
-.additional-service.block[data-block-status="loaded"] {
+.mobile-additional-service.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent tv-additional-service FOUC: show a skeleton until loaded. */
+.tv-additional-service.block[data-block-status="initialized"],
+.tv-additional-service.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.tv-additional-service.block[data-block-status="initialized"] > *,
+.tv-additional-service.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.tv-additional-service.block[data-block-status="initialized"]::before,
+.tv-additional-service.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 500px no-repeat;
+  z-index: 2;
+}
+
+.tv-additional-service.block[data-block-status="loaded"] {
   min-height: 0;
   overflow: visible;
 }

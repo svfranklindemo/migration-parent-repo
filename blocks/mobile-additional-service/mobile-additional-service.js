@@ -3,81 +3,43 @@ import { normalizeAemPath } from '../../scripts/scripts.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 
-const VARIANTS = {
-  mobile: {
-    headingWeight: 'bold',
-    sections: [
-      {
-        title: 'Data & Internet Add-Ons',
-        options: [
-          ['extraData', 'Extra Data - 5GB - $40'],
-          ['internationalDataPlans', 'International Data Plans - $10/month'],
-          ['mobileHotspots', 'Mobile Hotspot Data Boosts -$35 for 5GB extra data'],
-        ],
-      },
-      {
-        title: 'Entertainment & Streaming',
-        options: [
-          ['appleMusic', 'Apple Music Subscription - $10.99/month'],
-          ['disneyHulu', 'Disney+ / Hulu / ESPN+ Bundles - $10.99/month'],
-          ['cloudStorage', 'CitiSignal Cloud Storage - 600GB: $6/month'],
-          ['gamingPass', 'Gaming Passes or Streaming Services - $10.99/month'],
-        ],
-      },
-      {
-        title: 'Device Protection & Security',
-        options: [
-          ['mobileProtect', 'CitiSignal Mobile Protect (phone insurance & tech support) - $17/month per device'],
-          ['smartFamily', 'Smart Family (parental controls & location tracking) - $4.99/month'],
-          ['callFilterPlus', 'Call Filter Plus (spam call blocking) - $2.99/month'],
-          ['totalMobileProtect', 'Total Mobile Protection (extended warranty & device repair) - $14/month per device'],
-        ],
-      },
-    ],
-  },
-  tv: {
-    headingWeight: 'regular',
-    sections: [
-      {
-        title: 'Upgrade Your Plan',
-        options: [
-          ['eliteMaxTV', '🌟 Elite Max Package (200+ channels, premium sports) – $15/month'],
-          ['entertainmentTV', '🎬 Entertainment+ Package (More movies & lifestyle channels) – $10/month'],
-        ],
-      },
-      {
-        title: 'Premium Channels',
-        options: [
-          ['hboMax', '🍿 HBO Max – $15.99/month'],
-          ['showtime', '🔥 Showtime – $10.99/month'],
-          ['starz', '🎭 Starz – $9.99/month'],
-        ],
-      },
-      {
-        title: 'Sports Add-ons',
-        options: [
-          ['nfl', '🏈 NFL RedZone – $14.99/month'],
-          ['mlb', '⚾ MLB Extra Innings – $129.99/season'],
-          ['nba', '🏀 NBA League Pass – $99.99/season'],
-        ],
-      },
-    ],
-  },
-};
+const HEADING_WEIGHT = 'bold';
 
-const DEFAULT_VARIANT = 'mobile';
+// Each section is a heading and its options: [data layer path, label]
+const SECTIONS = [
+  {
+    title: 'Data & Internet Add-Ons',
+    options: [
+      ['extraData', 'Extra Data - 5GB - $40'],
+      ['internationalDataPlans', 'International Data Plans - $10/month'],
+      ['mobileHotspots', 'Mobile Hotspot Data Boosts -$35 for 5GB extra data'],
+    ],
+  },
+  {
+    title: 'Entertainment & Streaming',
+    options: [
+      ['appleMusic', 'Apple Music Subscription - $10.99/month'],
+      ['disneyHulu', 'Disney+ / Hulu / ESPN+ Bundles - $10.99/month'],
+      ['cloudStorage', 'CitiSignal Cloud Storage - 600GB: $6/month'],
+      ['gamingPass', 'Gaming Passes or Streaming Services - $10.99/month'],
+    ],
+  },
+  {
+    title: 'Device Protection & Security',
+    options: [
+      ['mobileProtect', 'CitiSignal Mobile Protect (phone insurance & tech support) - $17/month per device'],
+      ['smartFamily', 'Smart Family (parental controls & location tracking) - $4.99/month'],
+      ['callFilterPlus', 'Call Filter Plus (spam call blocking) - $2.99/month'],
+      ['totalMobileProtect', 'Total Mobile Protection (extended warranty & device repair) - $14/month per device'],
+    ],
+  },
+];
 
 const DEFAULTS = {
-  mobile: { submitLabel: 'Buy' },
-  tv: { submitLabel: 'Add to plan' },
+  submitLabel: 'Buy',
   successMessage: 'Thank you! Your selection has been received.',
-  eventType: 'additional-service-form-submit',
+  eventType: 'mobile-additional-service-form-submit',
 };
-
-function getVariant(config) {
-  const variant = String(config.variant || '').trim().toLowerCase();
-  return VARIANTS[variant] ? variant : DEFAULT_VARIANT;
-}
 
 function applyButtonConfigToSubmitButton(block, config) {
   const submitButton = block.querySelector("form button[type='submit']");
@@ -92,17 +54,16 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function buildFormDef(config, variant) {
-  const { sections, headingWeight } = VARIANTS[variant];
-  const submitLabel = config['submit-label'] || DEFAULTS[variant].submitLabel;
+function buildFormDef(config) {
+  const submitLabel = config['submit-label'] || DEFAULTS.submitLabel;
 
   const items = [];
-  sections.forEach((section, index) => {
+  SECTIONS.forEach((section, index) => {
     items.push({
-      id: `heading-${variant}-${index + 1}`,
+      id: `heading-mobile-additional-service-${index + 1}`,
       fieldType: 'heading',
       label: { value: section.title },
-      appliedCssClassNames: `col-12 as-heading as-heading--${headingWeight}`,
+      appliedCssClassNames: `col-12 mas-heading mas-heading--${HEADING_WEIGHT}`,
     });
     section.options.forEach(([path, label]) => {
       items.push({
@@ -113,7 +74,7 @@ function buildFormDef(config, variant) {
         enum: ['y'],
         type: 'string',
         properties: { variant: 'checkbox', alignment: 'horizontal', colspan: 12 },
-        appliedCssClassNames: 'as-option',
+        appliedCssClassNames: 'mas-option',
       });
     });
   });
@@ -127,18 +88,18 @@ function buildFormDef(config, variant) {
   });
 
   return {
-    id: 'additional-service',
+    id: 'mobile-additional-service',
     fieldType: 'form',
-    appliedCssClassNames: `additional-service-form as-${variant}`,
+    appliedCssClassNames: 'mobile-additional-service-form',
     items: [{ id: 'panel-main', name: 'main', fieldType: 'panel', items }],
   };
 }
 
 // Every option writes its own path: "y" when ticked, "n" when not (same domain as the app).
-function pushSelectionToDataLayer(form, variant) {
+function pushSelectionToDataLayer(form) {
   if (typeof window.updateDataLayer !== 'function') return;
   const updates = {};
-  VARIANTS[variant].sections.forEach((section) => {
+  SECTIONS.forEach((section) => {
     section.options.forEach(([path]) => {
       const input = form.querySelector(`input[name="${path}"]`);
       updates[path] = input?.checked ? 'y' : 'n';
@@ -162,21 +123,21 @@ function showSuccessMessage(form, message) {
 }
 
 function showToast(message) {
-  document.querySelector('.as-toast')?.remove();
+  document.querySelector('.mas-toast')?.remove();
   const toast = document.createElement('div');
-  toast.className = 'as-toast';
+  toast.className = 'mas-toast';
   toast.setAttribute('role', 'status');
   toast.setAttribute('aria-live', 'polite');
   toast.textContent = message;
   document.body.appendChild(toast);
-  requestAnimationFrame(() => toast.classList.add('as-toast--visible'));
+  requestAnimationFrame(() => toast.classList.add('mas-toast--visible'));
   setTimeout(() => {
-    toast.classList.remove('as-toast--visible');
+    toast.classList.remove('mas-toast--visible');
     setTimeout(() => toast.remove(), 300);
   }, 4000);
 }
 
-function attachSubmitHandler(block, config, variant) {
+function attachSubmitHandler(block, config) {
   const form = block.querySelector('form');
   if (!form) return;
 
@@ -185,7 +146,7 @@ function attachSubmitHandler(block, config, variant) {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    pushSelectionToDataLayer(form, variant);
+    pushSelectionToDataLayer(form);
 
     const submitBtn = form.querySelector("button[type='submit']");
     const buttonDataUrl = submitBtn?.dataset?.buttonData?.trim();
@@ -207,14 +168,13 @@ function attachSubmitHandler(block, config, variant) {
 
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
-  const variant = getVariant(config);
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
   const formContainer = document.createElement('div');
   formContainer.className = 'form';
   const pre = document.createElement('pre');
   const code = document.createElement('code');
-  code.textContent = JSON.stringify(buildFormDef(config, variant));
+  code.textContent = JSON.stringify(buildFormDef(config));
   pre.append(code);
   formContainer.append(pre);
   block.replaceChildren(formContainer);
@@ -224,6 +184,6 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config);
-    attachSubmitHandler(block, config, variant);
+    attachSubmitHandler(block, config);
   }, 100);
 }

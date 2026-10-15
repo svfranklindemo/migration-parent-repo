@@ -953,20 +953,22 @@ body.citi-signal-theme .fixed-width-section.no-border-shadow .cards > ul {
 
 /* Automatic payments and additional service forms: Citi Signal type and neutrals */
 body.citi-signal-theme main .automatic-payments,
-body.citi-signal-theme main .additional-service {
+body.citi-signal-theme main .mobile-additional-service,
+body.citi-signal-theme main .tv-additional-service {
   font-family: 'Adobe Clean', sans-serif;
 }
 
-body.citi-signal-theme main .additional-service .as-heading--bold h2 {
+body.citi-signal-theme main .mobile-additional-service .mas-heading--bold h2 {
   font-family: 'Adobe Clean Bold', 'Adobe Clean', sans-serif !important;
 }
 
-body.citi-signal-theme main .additional-service .as-heading--regular h2,
+body.citi-signal-theme main .tv-additional-service .tas-heading--regular h2,
 body.citi-signal-theme main .automatic-payments .radio-group-wrapper > legend {
   font-family: 'Adobe Clean', sans-serif !important;
 }
 
 body.citi-signal-theme main .automatic-payments .submit-wrapper button,
-body.citi-signal-theme main .additional-service .submit-wrapper button {
+body.citi-signal-theme main .mobile-additional-service .submit-wrapper button,
+body.citi-signal-theme main .tv-additional-service .submit-wrapper button {
   font-family: 'Adobe Clean Bold', 'Adobe Clean', sans-serif;
 }
