@@ -55,7 +55,7 @@ function applyButtonConfigToSubmitButton(block, config) {
 }
 
 function buildFormDef(config) {
-  const submitLabel = config['submit-label'] || DEFAULTS.submitLabel;
+  const submitLabel = config['button-label'] || DEFAULTS.submitLabel;
 
   const items = [];
   SECTIONS.forEach((section, index) => {

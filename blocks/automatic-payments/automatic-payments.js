@@ -61,7 +61,7 @@ function radioGroup(id, label, options, selected) {
 }
 
 function buildFormDef(config) {
-  const submitLabel = config['submit-label'] || DEFAULTS.submitLabel;
+  const submitLabel = config['button-label'] || DEFAULTS.submitLabel;
   return {
     id: 'automatic-payments',
     fieldType: 'form',
