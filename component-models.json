@@ -3407,6 +3407,32 @@
         ]
       },
       {
+        "component": "select",
+        "name": "mobilecardstyle",
+        "label": "Card Type",
+        "valueType": "string",
+        "value": "stacked",
+        "description": "How the app shows the hero when its layout is Image Left or Image Right. Defaults to image and text below.",
+        "options": [
+          {
+            "name": "Stacked",
+            "value": "stacked"
+          },
+          {
+            "name": "Overlay",
+            "value": "overlay"
+          },
+          {
+            "name": "Partial Overlay",
+            "value": "partial-overlay"
+          },
+          {
+            "name": "Image Text One Line",
+            "value": "image-text-one-line"
+          }
+        ]
+      },
+      {
         "component": "number",
         "name": "mobileopacity",
         "label": "Overlay Opacity",
