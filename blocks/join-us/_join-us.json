@@ -146,6 +146,14 @@
           "value": "",
           "valueType": "string",
           "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. width:250, padding:0)"
         }
       ]
     }
