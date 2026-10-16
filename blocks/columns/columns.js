@@ -50,6 +50,59 @@ function getVideoElement(source, autoplay, background) {
   return video;
 }
 
+/** Button style values from action-button model (live output can be plain p tags) */
+const ACTION_BUTTON_STYLES = ['default-button', 'default-button-secondary', 'default-button-link', 'default-button-dark'];
+
+/** True if el is a placeholder button output from publish (shows # and duplicates real button built from p tags) */
+function isPlaceholderButtonContainer(el) {
+  if (el.tagName !== 'P' || !el.classList.contains('button-container')) return false;
+  const a = el.querySelector('a.button');
+  if (!a) return false;
+  const href = (a.getAttribute('href') || '').trim();
+  const title = (a.getAttribute('title') || '').trim();
+  const text = (a.textContent || '').trim();
+  return (href === '#' || href === '') && (title === '#' || title === '') && (text === '#' || text === '');
+}
+
+/**
+ * On live, action buttons in columns can be delivered as:
+ * - Consecutive <p> (label, title, style) only, or
+ * - A mix of <p class="button-container"> (placeholder #) and consecutive <p> (label, title, style).
+ * Remove placeholder button-container p tags, then wrap each 3-p group in div.action-button so they can be decorated and loaded.
+ * @param {Element} col Column element
+ * @returns {Element[]} Newly created action-button block elements
+ */
+function normalizeLiveActionButtonsInColumn(col) {
+  // Remove broken placeholder buttons from publish so we don't show "#" or duplicate the real button
+  [...col.children].forEach((child) => {
+    if (isPlaceholderButtonContainer(child)) child.remove();
+  });
+
+  const created = [];
+  const children = [...col.children];
+  let i = 0;
+  while (i <= children.length - 3) {
+    const a = children[i];
+    const b = children[i + 1];
+    const c = children[i + 2];
+    const styleText = (c.textContent || '').trim();
+    if (a.tagName === 'P' && b.tagName === 'P' && c.tagName === 'P' && ACTION_BUTTON_STYLES.includes(styleText)) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'action-button';
+      a.setAttribute('data-aue-prop', 'label');
+      b.setAttribute('data-aue-prop', 'title');
+      c.setAttribute('data-aue-prop', 'style');
+      col.insertBefore(wrapper, a);
+      wrapper.append(a, b, c);
+      created.push(wrapper);
+      i += 3;
+    } else {
+      i += 1;
+    }
+  }
+  return created;
+}
+
 const loadVideoEmbed = (block, link, autoplay, background) => {
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
   if (isYoutube) {
@@ -413,11 +466,16 @@ export default async function decorate(block) {
 
   const columnWidths = parseColumnWidths(block, config);
 
+  /** Action-button blocks created from live "p,p,p" pattern; decorate and load after column loop */
+  const actionButtonBlocksToLoad = [];
 
   // setup image columns
   [...block.children].forEach((row) => {
     row.classList.add('columns-row');
     [...row.children].forEach((col, colIndex) => {
+      // Normalize live action-button content (consecutive p label/title/style) so it can be decorated
+      actionButtonBlocksToLoad.push(...normalizeLiveActionButtonsInColumn(col));
+
       if (columnWidths && columnWidths[colIndex] != null) {
         const pct = columnWidths[colIndex];
         col.style.flex = `0 0 ${pct}%`;
@@ -482,6 +540,15 @@ export default async function decorate(block) {
       }
     });
   });
+
+  // Decorate and load action-button blocks created from live p-tag pattern (author already has div.action-button)
+  if (actionButtonBlocksToLoad.length > 0) {
+    const { decorateBlock, loadBlock } = await import('../../scripts/aem.js');
+    for (const actionButtonBlock of actionButtonBlocksToLoad) {
+      decorateBlock(actionButtonBlock);
+      await loadBlock(actionButtonBlock);
+    }
+  }
 
   // Mark block as decorated
   block.dataset.decorated = 'true';
