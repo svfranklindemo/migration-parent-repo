@@ -12057,6 +12057,11 @@
     "id": "insurance-plan-selection",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "text",
         "name": "form-title",
         "label": "Form Title",
@@ -12156,17 +12161,43 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+      },
+      {
+        "component": "text",
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. checkbox-width:250 or radio-width:250 sets the width of the checkbox or radio rows)"
       }
     ]
   },
   {
     "id": "medicare-plan-selection",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
       {
         "component": "text",
         "name": "form-title",
@@ -12267,17 +12298,43 @@
         "description": "Space-separated class names to add to the block"
       },
       {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
         "component": "text",
         "name": "mobilebuttoneventtype",
         "label": "Mobile Button Event Type",
         "value": "",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+      },
+      {
+        "component": "text",
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. checkbox-width:250 or radio-width:250 sets the width of the checkbox or radio rows)"
       }
     ]
   },
   {
     "id": "plan-application",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
       {
         "component": "text",
         "name": "form-title",
@@ -12379,6 +12436,34 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "mobileRedirectUrl",
+        "label": "Mobile Redirect URL",
+        "value": "",
+        "valueType": "string",
+        "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+      },
+      {
+        "component": "text",
+        "name": "custommobilestyle",
+        "label": "Custom Mobile Style",
+        "valueType": "string[]",
+        "multi": true,
+        "description": "One style per row, as key:value (e.g. checkbox-width:250 or radio-width:250 sets the width of the checkbox or radio rows)"
       }
     ]
   },
