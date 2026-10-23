@@ -45,7 +45,7 @@ export default async function decorate(block) {
       {
         id: "heading-set-up-auto-save",
         fieldType: "heading",
-        label: { value: "Set up auto save" },
+        label: { value: String(config["form-title"] ?? "").trim() || "Set up auto save" },
         appliedCssClassNames: "col-12",
       },
       {
