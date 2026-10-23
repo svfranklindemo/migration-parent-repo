@@ -555,6 +555,42 @@
           ]
         },
         {
+          "component": "boolean",
+          "name": "mobileshowbutton",
+          "label": "Show Button",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Show a button on the card. Its text and link come from the first link in the card text."
+        },
+        {
+          "component": "select",
+          "name": "mobilebuttonvariant",
+          "label": "Button Variant",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "contained"
+            },
+            {
+              "name": "Secondary",
+              "value": "contained-tonal"
+            },
+            {
+              "name": "Outlined",
+              "value": "outlined"
+            },
+            {
+              "name": "Quiet",
+              "value": "text"
+            },
+            {
+              "name": "Elevated",
+              "value": "elevated"
+            }
+          ],
+          "description": "Leave empty to follow the CTA Style."
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
