@@ -18,7 +18,7 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function buildChildAccountApplicationFormDef() {
+function buildChildAccountApplicationFormDef(title) {
   return {
     id: "child-account-application",
     fieldType: "form",
@@ -27,7 +27,7 @@ function buildChildAccountApplicationFormDef() {
       {
         id: "heading-child-information",
         fieldType: "heading",
-        label: { value: "Child's Information Confirmation" },
+        label: { value: title || "Child's Information Confirmation" },
         appliedCssClassNames: "col-12",
       },
       {
@@ -130,7 +130,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   [...block.children].forEach((row) => { row.style.display = "none"; });
 
-  const formDef = buildChildAccountApplicationFormDef();
+  const formDef = buildChildAccountApplicationFormDef(String(config["form-title"] ?? "").trim());
   const formContainer = document.createElement("div");
   formContainer.className = "form";
 

@@ -145,3 +145,9 @@ main .automatic-payments .radio-wrapper input[type="radio"] {
     border-radius: 8px;
   }
 }
+
+/* The form's heading field renders its text twice - as a label and as the heading. This block
+   does not load the form block's stylesheet, which is what hides the label elsewhere. */
+main .automatic-payments .heading-wrapper > label {
+  display: none;
+}

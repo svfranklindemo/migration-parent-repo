@@ -44,7 +44,7 @@ export default async function decorate(block) {
       {
         id: "heading-transfer-funds",
         fieldType: "heading",
-        label: { value: "Transfer funds" },
+        label: { value: String(config["form-title"] ?? "").trim() || "Transfer funds" },
         appliedCssClassNames: "col-12",
       },
       {
