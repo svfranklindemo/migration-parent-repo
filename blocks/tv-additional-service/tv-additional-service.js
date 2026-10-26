@@ -55,6 +55,15 @@ function buildFormDef(config) {
   const submitLabel = config['button-label'] || DEFAULTS.submitLabel;
 
   const items = [];
+  const formTitle = String(config['form-title'] ?? '').trim();
+  if (formTitle) {
+    items.push({
+      id: 'heading-tv-additional-service',
+      fieldType: 'heading',
+      label: { value: formTitle },
+      appliedCssClassNames: `col-12 tas-heading tas-heading--${HEADING_WEIGHT}`,
+    });
+  }
   SECTIONS.forEach((section, index) => {
     items.push({
       id: `heading-tv-additional-service-${index + 1}`,

@@ -62,6 +62,7 @@ function radioGroup(id, label, options, selected) {
 
 function buildFormDef(config) {
   const submitLabel = config['button-label'] || DEFAULTS.submitLabel;
+  const formTitle = String(config['form-title'] ?? '').trim();
   return {
     id: 'automatic-payments',
     fieldType: 'form',
@@ -72,6 +73,12 @@ function buildFormDef(config) {
         name: 'main',
         fieldType: 'panel',
         items: [
+          ...(formTitle ? [{
+            id: 'heading-automatic-payments',
+            fieldType: 'heading',
+            label: { value: formTitle },
+            appliedCssClassNames: 'col-12',
+          }] : []),
           {
             id: 'accountNumber',
             name: 'accountNumber',

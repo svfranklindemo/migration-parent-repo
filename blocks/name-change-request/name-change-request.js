@@ -18,7 +18,7 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function buildNameChangeRequestFormDef() {
+function buildNameChangeRequestFormDef(title) {
   return {
     id: "name-change-request",
     fieldType: "form",
@@ -27,7 +27,7 @@ function buildNameChangeRequestFormDef() {
       {
         id: "heading-name-change-request",
         fieldType: "heading",
-        label: { value: "Name change request" },
+        label: { value: title || "Name change request" },
         appliedCssClassNames: "col-12",
       },
       {
@@ -103,7 +103,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   [...block.children].forEach((row) => { row.style.display = "none"; });
 
-  const formDef = buildNameChangeRequestFormDef();
+  const formDef = buildNameChangeRequestFormDef(String(config["form-title"] ?? "").trim());
   const formContainer = document.createElement("div");
   formContainer.className = "form";
 
