@@ -14,12 +14,12 @@ function buildExternalAccountFormDef(title) {
     fieldType: 'form',
     appliedCssClassNames: 'add-external-form',
     items: [
-      {
+      ...(title ? [{
         id: 'heading-add-external',
         fieldType: 'heading',
-        label: { value: title || 'Add external account' },
+        label: { value: title },
         appliedCssClassNames: 'col-12 add-external-heading',
-      },
+      }] : []),
       {
         id: 'panel-add-external-account',
         name: 'externalAccount',
@@ -64,12 +64,12 @@ function buildExternalCreditCardFormDef(title) {
     fieldType: 'form',
     appliedCssClassNames: 'add-external-form',
     items: [
-      {
+      ...(title ? [{
         id: 'heading-add-external',
         fieldType: 'heading',
-        label: { value: title || 'Add external credit card' },
+        label: { value: title },
         appliedCssClassNames: 'col-12 add-external-heading',
-      },
+      }] : []),
       {
         id: 'panel-add-external-credit-card',
         name: 'externalCreditCard',
