@@ -144,6 +144,19 @@ body.securbank-theme header .search .search-box .icon {
   mask: unset !important;
 }
 
+body.securbank-theme .get-offer-wrapper > .get-offer-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none;
+}
+
 @media screen and (max-width: 768px) {
   body.securbank-theme header,
   body.securbank-theme header nav {
