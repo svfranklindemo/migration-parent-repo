@@ -3648,6 +3648,14 @@
         ]
       },
       {
+        "component": "boolean",
+        "name": "showBorder",
+        "label": "Show Border",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Draw a border around this column in the mobile app"
+      },
+      {
         "component": "text",
         "name": "custommobilestyle",
         "label": "Custom Mobile Style",
@@ -3655,14 +3663,6 @@
         "valueType": "string[]",
         "multi": true,
         "description": "One style per row, as key:value (e.g. gap:16, padding:16), applied to this column in the mobile app"
-      },
-      {
-        "component": "boolean",
-        "name": "showBorder",
-        "label": "Show Border",
-        "value": "false",
-        "valueType": "boolean",
-        "description": "Draw a border around this column in the mobile app"
       }
     ]
   },
