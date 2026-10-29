@@ -47,13 +47,17 @@ function showToast(message) {
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   const rows = [...block.children];
-  const placeholder = config.placeholder?.trim() || rows[0]?.textContent?.trim() || 'me@adobetest.com';
+  // Form Title is the first row; a page published before it existed starts at the placeholder.
+  const hasTitleRow = rows.length >= 5;
+  const rowText = (index) => rows[index + (hasTitleRow ? 1 : 0)]?.textContent;
+  const formTitle = (config['form-title'] ?? (hasTitleRow ? rows[0]?.textContent : '') ?? '').toString().trim();
+  const placeholder = config.placeholder?.trim() || rowText(0)?.trim() || 'me@adobetest.com';
   const buttonLabel = config['button-label']?.trim()
     || config.buttonLabel?.trim()
-    || rows[1]?.textContent?.trim()
+    || rowText(1)?.trim()
     || 'Get offer';
-  const toastMessage = (config['toast-message'] ?? config.toastmessage ?? rows[2]?.textContent ?? '').trim();
-  const buttonEventType = (config.buttoneventtype ?? config['button-event-type'] ?? rows[3]?.textContent ?? '').toString().trim();
+  const toastMessage = (config['toast-message'] ?? config.toastmessage ?? rowText(2) ?? '').trim();
+  const buttonEventType = (config.buttoneventtype ?? config['button-event-type'] ?? rowText(3) ?? '').toString().trim();
 
   block.innerHTML = '';
 
@@ -91,6 +95,12 @@ export default async function decorate(block) {
   });
 
   form.append(input, button);
+  if (formTitle) {
+    const title = document.createElement('h2');
+    title.className = 'get-offer-title';
+    title.textContent = formTitle;
+    wrapper.append(title);
+  }
   wrapper.append(form);
   block.append(wrapper);
 
