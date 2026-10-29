@@ -1875,6 +1875,13 @@
       },
       {
         "component": "text",
+        "name": "form-title",
+        "label": "Form Title",
+        "valueType": "string",
+        "description": "Heading displayed at the top of the form in the mobile app. Leave empty for no heading."
+      },
+      {
+        "component": "text",
         "name": "placeholder",
         "label": "Placeholder",
         "value": "",
@@ -1909,13 +1916,6 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
-      },
-      {
-        "component": "text",
-        "name": "form-title",
-        "label": "Form Title",
-        "valueType": "string",
-        "description": "Heading displayed at the top of the form in the mobile app. Leave empty for no heading."
       },
       {
         "component": "tab",
