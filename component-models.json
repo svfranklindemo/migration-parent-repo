@@ -152,11 +152,33 @@
         ]
       },
       {
-        "component": "text",
+        "component": "select",
         "name": "mobilepageeventtype",
         "label": "Mobile Page Event Type",
         "value": "",
-        "valueType": "string"
+        "valueType": "string",
+        "options": [
+          { "name": "None", "value": "" },
+          { "name": "Product View", "value": "commerce.productViews" },
+          { "name": "Category View", "value": "commerce.categoryViews" },
+          { "name": "Custom", "value": "custom" }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "customEvent",
+        "label": "Mobile Custom Page Event",
+        "value": "",
+        "valueType": "string",
+        "description": "Event name sent when this page opens, e.g. navigation.open",
+        "condition": {
+          "==": [
+            {
+              "var": "mobilepageeventtype"
+            },
+            "custom"
+          ]
+        }
       },
       {
         "component": "aem-tag",
