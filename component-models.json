@@ -1924,6 +1924,13 @@
       },
       {
         "component": "text",
+        "name": "mobilebuttoneventtype",
+        "label": "Mobile Button Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "valueType": "string",
         "name": "custommobilestyle",
         "label": "Custom Mobile Style",
