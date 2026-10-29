@@ -24,12 +24,12 @@ function buildNameChangeRequestFormDef(title) {
     fieldType: "form",
     appliedCssClassNames: "name-change-request-form",
     items: [
-      {
+      ...(title ? [{
         id: "heading-name-change-request",
         fieldType: "heading",
-        label: { value: title || "Name change request" },
+        label: { value: title },
         appliedCssClassNames: "col-12",
-      },
+      }] : []),
       {
         id: "panel-main",
         name: "main",

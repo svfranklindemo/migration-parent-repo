@@ -24,12 +24,12 @@ function buildChildAccountApplicationFormDef(title) {
     fieldType: "form",
     appliedCssClassNames: "child-account-application-form",
     items: [
-      {
+      ...(title ? [{
         id: "heading-child-information",
         fieldType: "heading",
-        label: { value: title || "Child's Information Confirmation" },
+        label: { value: title },
         appliedCssClassNames: "col-12",
-      },
+      }] : []),
       {
         id: "panel-main",
         name: "main",
