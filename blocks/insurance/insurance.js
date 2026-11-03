@@ -63,7 +63,7 @@ export default async function decorate(block) {
   block.classList.add('insurance-block');
 
   const cfg = readBlockConfig(block);
-  const title = (cfg.title ?? '').toString().trim();
+  const title = (cfg['form-title'] ?? cfg.formtitle ?? '').toString().trim();
 
   block.textContent = '';
 
