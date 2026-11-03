@@ -23,7 +23,7 @@
       "fields": [
         {
           "component": "text",
-          "name": "form-title",
+          "name": "formtitle",
           "label": "Form Title",
           "valueType": "string",
           "description": "Main heading of the form"
