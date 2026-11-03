@@ -2634,7 +2634,6 @@
         "component": "text",
         "name": "title",
         "label": "Title",
-        "value": "Life Insurance",
         "valueType": "string",
         "description": "Main heading of the form"
       },

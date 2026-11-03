@@ -13,12 +13,12 @@ function buildInsuranceFormDef(title) {
     fieldType: 'form',
     appliedCssClassNames: 'insurance-form',
     items: [
-      {
+      ...(title ? [{
         id: 'heading-insurance',
         fieldType: 'heading',
         label: { value: title },
         appliedCssClassNames: 'col-12 insurance-heading',
-      },
+      }] : []),
       {
         id: 'panel-insurance',
         name: 'insurance',
@@ -63,7 +63,7 @@ export default async function decorate(block) {
   block.classList.add('insurance-block');
 
   const cfg = readBlockConfig(block);
-  const title = (cfg.title ?? 'Life Insurance').toString().trim();
+  const title = (cfg.title ?? '').toString().trim();
 
   block.textContent = '';
 

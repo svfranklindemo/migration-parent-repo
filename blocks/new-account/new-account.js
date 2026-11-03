@@ -86,12 +86,12 @@ function buildNewAccountFormDef() {
     fieldType: 'form',
     appliedCssClassNames: 'new-account-form new-account-wizard',
     items: [
-      {
+      ...(newAccountWizardTitle ? [{
         id: 'heading-new-account',
         fieldType: 'heading',
         label: { value: newAccountWizardTitle },
         appliedCssClassNames: 'col-12 new-account-heading',
-      },
+      }] : []),
       {
         id: 'panel-wizard',
         name: 'wizard',
@@ -357,7 +357,7 @@ export default async function decorate(block) {
   newAccountWizardTitle =
     (config.formtitle ?? config['form-title'] ?? '')
       .toString()
-      .trim() || 'New Account Application';
+      .trim();
 
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
