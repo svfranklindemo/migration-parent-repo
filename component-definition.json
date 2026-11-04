@@ -876,7 +876,11 @@
                 "template": {
                   "name": "Video",
                   "model": "video",
-                  "key-value": true
+                  "key-value": true,
+                  "autoplay": true,
+                  "loop": true,
+                  "muted": true,
+                  "controls": true
                 }
               }
             }

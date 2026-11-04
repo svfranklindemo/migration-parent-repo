@@ -928,7 +928,12 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Video",
-                  "model": "video"
+                  "model": "video",
+                  "key-value": true,
+                  "autoplay": true,
+                  "loop": true,
+                  "muted": true,
+                  "controls": true
                 }
               }
             }
