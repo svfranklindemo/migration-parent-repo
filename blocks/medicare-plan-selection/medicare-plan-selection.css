@@ -18,23 +18,6 @@
   width: 100%;
 }
 
-.medicare-plan-selection .plan-selection-header h1 {
-  font-size: 36px;
-  font-weight: 900;
-  color: #28272b;
-  line-height: 1.5;
-  padding: 0;
-  margin: 0.67em 0;
-  font-family: 'Adobe Clean Black', sans-serif;
-}
-
-.medicare-plan-selection .plan-selection-header p {
-  font-size: 14px;
-  color: #28272b;
-  line-height: 1.5;
-  margin: 1em 0;
-}
-
 /* Custom Progress Dots (Injected into header) */
 .medicare-plan-selection .wizard-progress-wrapper {
   display: flex;

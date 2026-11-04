@@ -16,7 +16,7 @@ function getConfigValue(config, ...keys) {
 function buildInsurancePlanWizardPayload(currentStepIndex, totalSteps, config = {}) {
   if (!Number.isFinite(totalSteps) || totalSteps <= 0) return null;
   const wizardName = getConfigValue(config, 'wizard-name', 'wizardname', 'form-name', 'formname') || 'Insurance Plan Selection';
-  const wizardTitle = getConfigValue(config, 'wizard-title', 'wizardtitle', 'form-title', 'formtitle') || getConfigValue(config, 'formHeading', 'formheading') || 'Insurance Plan Selection';
+  const wizardTitle = getConfigValue(config, 'wizard-title', 'wizardtitle', 'form-title', 'formtitle') || 'Insurance Plan Selection';
   const safeIndex = Number.isFinite(currentStepIndex)
     ? Math.min(Math.max(currentStepIndex, 0), totalSteps - 1)
     : 0;
@@ -338,18 +338,12 @@ export default async function decorate(block) {
 
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
-  const headingText = getConfigValue(config, 'formHeading', 'formheading') || "Which type of health insurance should I get?";
-  const subtitleText = config.formSubtitle || config.formsubtitle || "Take our free, short quiz to learn which type of health insurance might be best for you!";
   const startedEvent = (config['started-event-type'] || '').toString().trim();
   const stepEvent = (config['step-event-type'] || '').toString().trim();
   const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
   
   const headerDiv = document.createElement('div');
   headerDiv.className = 'plan-selection-header';
-  headerDiv.innerHTML = `
-    <h1>${headingText}</h1>
-    <p>${subtitleText}</p>
-  `;
 
   const formDef = buildInsurancePlanDef();
   

@@ -41,20 +41,6 @@
           "description": "Passed in the data layer as the wizard name. It is not displayed on the page."
         },
         {
-          "component": "text",
-          "name": "formHeading",
-          "label": "Main Heading",
-          "value": "Which type of Medicare plan should I get?",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "formSubtitle",
-          "label": "Main Subheading",
-          "value": "Take our free, short quiz to learn which type of health insurance might be best for you!",
-          "valueType": "string"
-        },
-        {
           "component": "aem-content",
           "valueType": "string",
           "name": "redirectUrl",
