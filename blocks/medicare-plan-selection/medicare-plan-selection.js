@@ -152,7 +152,7 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (formId && String(formId).trim()) submitButton.dataset.buttonFormId = String(formId).trim();
   const buttonData = config.buttondata;
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
-  submitButton.textContent = config.submitbuttontext?.trim() || 'Submit';
+  submitButton.textContent = (config['button-label'] || config.submitbuttontext)?.trim() || 'Submit';
 }
 
 // ============================================================
@@ -316,7 +316,7 @@ function attachSubmitHandler(block, config) {
       } else {
         alert("Success! Form submitted.");
         if (submitBtn) {
-          submitBtn.textContent = config.submitbuttontext?.trim() || 'Submit';
+          submitBtn.textContent = (config['button-label'] || config.submitbuttontext)?.trim() || 'Submit';
           submitBtn.disabled = false;
         }
       }

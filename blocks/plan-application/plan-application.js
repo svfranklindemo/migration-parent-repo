@@ -235,7 +235,7 @@ function setupWizardStepIndicator(block, config = {}, stepEvent = '', startedEve
     }
     if (nextBtn) {
       if (isFinalStep) {
-        nextBtn.textContent = autoSubmitOnLastPanel ? 'Next' : (String(config.submitbuttontext || '').trim() || 'Submit');
+        nextBtn.textContent = autoSubmitOnLastPanel ? 'Next' : (String(config['button-label'] || config.submitbuttontext || '').trim() || 'Submit');
       } else {
         nextBtn.textContent = 'Next';
       }
