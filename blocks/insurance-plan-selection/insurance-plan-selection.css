@@ -12,13 +12,9 @@
   margin: 0 auto;
 }
 
-/* --- Header Section & Stepper Dots --- */
-.insurance-plan-selection .plan-selection-header {
-  text-align: center;
-  width: 100%;
-}
+/* --- Stepper Dots --- */
 
-/* Custom Progress Dots (Injected into header) */
+/* Custom Progress Dots (added above the form) */
 .insurance-plan-selection .wizard-progress-wrapper {
   display: flex;
   justify-content: center;
@@ -305,10 +301,6 @@
 
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
-  .insurance-plan-selection .plan-selection-header {
-    padding: 0 16px;
-  }
-
   .insurance-plan-selection .wizard-step-title h2,
   .insurance-plan-selection .wizard-step-title h1 {
     font-size: 24px;

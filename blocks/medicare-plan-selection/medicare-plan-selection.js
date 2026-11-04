@@ -225,11 +225,8 @@ function setupWizardStepIndicator(block, config = {}, stepEvent = '', startedEve
     if (startedEvent) dispatchCustomEvent(startedEvent);
   }
 
-  // Append progress dots to the main header, NOT the buttons wrapper
-  const headerDiv = block.querySelector('.plan-selection-header');
-  if (headerDiv) {
-    headerDiv.appendChild(progressWrapper);
-  }
+  // Show the progress dots above the form, NOT in the buttons wrapper
+  block.prepend(progressWrapper);
 
   // Position Submit button cleanly inside the bottom wrapper
   const submitWrapper = wizard.querySelector('.submit-wrapper');
@@ -371,9 +368,6 @@ export default async function decorate(block) {
   const stepEvent = (config['step-event-type'] || '').toString().trim();
   const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
   
-  const headerDiv = document.createElement('div');
-  headerDiv.className = 'plan-selection-header';
-
   const formDef = buildMedicarePlanDef();
   
   const formContainer = document.createElement('div');
@@ -385,8 +379,8 @@ export default async function decorate(block) {
   pre.append(code);
   formContainer.append(pre);
   
-  // Entirely replace the authored rows with our custom header and the form
-  block.replaceChildren(headerDiv, formContainer);
+  // Entirely replace the authored rows with the form
+  block.replaceChildren(formContainer);
 
   const formModule = await import('../form/form.js');
   await formModule.default(formContainer);
