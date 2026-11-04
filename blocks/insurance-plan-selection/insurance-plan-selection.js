@@ -15,8 +15,8 @@ function getConfigValue(config, ...keys) {
 
 function buildInsurancePlanWizardPayload(currentStepIndex, totalSteps, config = {}) {
   if (!Number.isFinite(totalSteps) || totalSteps <= 0) return null;
-  const wizardName = getConfigValue(config, 'form-name', 'formname') || 'Insurance Plan Selection';
-  const wizardTitle = getConfigValue(config, 'form-title', 'formtitle') || getConfigValue(config, 'formHeading', 'formheading') || 'Insurance Plan Selection';
+  const wizardName = getConfigValue(config, 'wizard-name', 'wizardname', 'form-name', 'formname') || 'Insurance Plan Selection';
+  const wizardTitle = getConfigValue(config, 'wizard-title', 'wizardtitle', 'form-title', 'formtitle') || getConfigValue(config, 'formHeading', 'formheading') || 'Insurance Plan Selection';
   const safeIndex = Number.isFinite(currentStepIndex)
     ? Math.min(Math.max(currentStepIndex, 0), totalSteps - 1)
     : 0;

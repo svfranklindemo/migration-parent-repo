@@ -22,8 +22,8 @@ function shouldAutoSubmitOnLastPanel(config = {}) {
 
 function buildPlanApplicationWizardPayload(currentStepIndex, totalSteps, config = {}) {
   if (!Number.isFinite(totalSteps) || totalSteps <= 0) return null;
-  const wizardName = getConfigValue(config, 'form-name', 'formname') || 'Plan Application';
-  const wizardTitle = getConfigValue(config, 'form-title', 'formtitle') || 'Plan Application';
+  const wizardName = getConfigValue(config, 'wizard-name', 'wizardname', 'form-name', 'formname') || 'Plan Application';
+  const wizardTitle = getConfigValue(config, 'wizard-title', 'wizardtitle', 'form-title', 'formtitle') || 'Plan Application';
   const safeIndex = Number.isFinite(currentStepIndex) ? Math.min(Math.max(currentStepIndex, 0), totalSteps - 1) : 0;
   const steps = Array.from({ length: totalSteps }, (_, idx) => ({
     name: `plan-application-step-${idx + 1}`,
