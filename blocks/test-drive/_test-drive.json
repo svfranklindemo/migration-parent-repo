@@ -59,7 +59,7 @@
         },
         {
           "component": "text",
-          "name": "submit-label",
+          "name": "button-label",
           "label": "Submit Button Label (overrides variant default)",
           "value": "",
           "valueType": "string"

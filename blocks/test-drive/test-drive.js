@@ -61,7 +61,7 @@ function applyButtonConfigToSubmitButton(block, config) {
 
 function buildFormDef(variantDefaults, config) {
   const formTitle = config['form-title'] || variantDefaults.formTitle;
-  const submitLabel = config['submit-label'] || variantDefaults.submitLabel;
+  const submitLabel = config['button-label'] || config['submit-label'] || variantDefaults.submitLabel;
   const showAddress = variantDefaults.showAddressSection;
 
   const personalFields = [
