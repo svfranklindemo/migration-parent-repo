@@ -45,22 +45,15 @@ function applyButtonConfigToSubmitButton(block, config) {
 }
 
 function buildFormDef(config) {
-  const formTitle = String(config['form-title'] ?? '').trim();
   const buttonLabel = config['button-label'] || DEFAULTS.buttonLabel;
 
   return {
     id: 'schedule-consultation',
     fieldType: 'form',
     appliedCssClassNames: 'schedule-consultation-form',
+    // The form has no heading of its own: the block's own heading is the Slots Label above the
+    // picker, so a second title above the form would only repeat what the page already says.
     items: [
-      // The heading is omitted entirely when no title is authored, rather than falling back to a
-      // default: an unauthored field means the author wants no title, not a generic one.
-      ...(formTitle ? [{
-        id: 'heading-schedule-consultation',
-        fieldType: 'heading',
-        label: { value: formTitle },
-        appliedCssClassNames: 'col-12 sc-form-title',
-      }] : []),
       {
         id: 'panel-main',
         name: 'main',

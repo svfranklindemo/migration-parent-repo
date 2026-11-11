@@ -35,28 +35,6 @@ main .schedule-consultation .panel-wrapper {
   margin: 0 !important;
 }
 
-/* Title ---------------------------------------------------------------------- */
-main .schedule-consultation .heading-wrapper label {
-  display: none !important;
-}
-
-main .schedule-consultation .heading-wrapper {
-  margin: 0 0 24px !important;
-  padding: 0 !important;
-  text-align: center;
-}
-
-main .schedule-consultation .sc-form-title h2,
-main .schedule-consultation h2#heading-schedule-consultation {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
-  color: #1e293b;
-  line-height: 1.2;
-  text-align: center;
-}
-
 /* Slot picker ---------------------------------------------------------------- */
 main .schedule-consultation .sc-slot-picker {
   margin: 0 0 24px;
@@ -283,13 +261,6 @@ main .schedule-consultation .form-message.error {
     margin: 24px 16px;
     padding: 32px 16px;
     width: auto;
-  }
-
-  /* the Secur theme sets h2 size and line height with !important, so the phone size does too */
-  main .schedule-consultation .sc-form-title h2,
-  main .schedule-consultation h2#heading-schedule-consultation {
-    font-size: 1.75rem !important;
-    line-height: 1.3 !important;
   }
 
   main .schedule-consultation .sc-slot-picker__columns {
