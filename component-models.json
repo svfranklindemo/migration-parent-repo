@@ -5340,12 +5340,45 @@
     "id": "video",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "required": true,
         "description": "Any direct full URL of publicly available video. e.g. video URL of aem publish instance, Dynamic Media etc.",
         "name": "videoUrl",
         "label": "Video Url"
+      },
+      {
+        "component": "boolean",
+        "name": "autoplay",
+        "label": "Autoplay",
+        "value": "true",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "loop",
+        "label": "Play in loop",
+        "value": "true",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "muted",
+        "label": "Mute the video",
+        "value": "true",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "controls",
+        "label": "Show controls",
+        "value": "true",
+        "valueType": "boolean"
       },
       {
         "component": "text",
@@ -5370,6 +5403,27 @@
         "value": "",
         "valueType": "string",
         "description": "Space-separated class names to add to the block"
+      },
+      {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "select",
+        "name": "mobileimageresize",
+        "label": "Image resize mode",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Contain",
+            "value": "contain"
+          },
+          {
+            "name": "Cover",
+            "value": "cover"
+          }
+        ]
       }
     ]
   },
