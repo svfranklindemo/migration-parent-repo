@@ -118,7 +118,7 @@ main .category-products-lister .cpl-card-add-to-cart {
   display: block;
   margin: 0 auto;
   padding: 12px 32px;
-  background: #3d6b87;
+  background: var(--main-accent-color);
   color: #fff;
   border: none;
   border-radius: 999px;
@@ -130,16 +130,16 @@ main .category-products-lister .cpl-card-add-to-cart {
 }
 
 main .category-products-lister .cpl-card-add-to-cart:hover {
-  background: #305a73;
+  background: var(--link-hover-color);
   box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
 }
 
 main .category-products-lister .cpl-card-add-to-cart--added {
-  background: #2d9d78;
+  background: var(--main-accent-color);
 }
 
 main .category-products-lister .cpl-card-add-to-cart--added:hover {
-  background: #268e6c;
+  background: var(--link-hover-color);
 }
 
 /* ── no-border variant ───────────────────────────────────────────────── */
