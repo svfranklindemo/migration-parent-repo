@@ -15,8 +15,8 @@ function getConfigValue(config, ...keys) {
 
 function buildMedicarePlanWizardPayload(currentStepIndex, totalSteps, config = {}) {
   if (!Number.isFinite(totalSteps) || totalSteps <= 0) return null;
-  const wizardName = getConfigValue(config, 'form-name', 'formname') || 'Medicare Plan Selection';
-  const wizardTitle = getConfigValue(config, 'form-title', 'formtitle') || getConfigValue(config, 'formHeading', 'formheading') || 'Medicare Plan Selection';
+  const wizardName = getConfigValue(config, 'wizard-name', 'wizardname') || 'Medicare Plan Selection';
+  const wizardTitle = getConfigValue(config, 'wizard-title', 'wizardtitle') || 'Medicare Plan Selection';
   const safeIndex = Number.isFinite(currentStepIndex) ? Math.min(Math.max(currentStepIndex, 0), totalSteps - 1) : 0;
   const steps = Array.from({ length: totalSteps }, (_, idx) => ({
     name: `medicare-plan-selection-step-${idx + 1}`,
@@ -225,11 +225,8 @@ function setupWizardStepIndicator(block, config = {}, stepEvent = '', startedEve
     if (startedEvent) dispatchCustomEvent(startedEvent);
   }
 
-  // Append progress dots to the main header, NOT the buttons wrapper
-  const headerDiv = block.querySelector('.plan-selection-header');
-  if (headerDiv) {
-    headerDiv.appendChild(progressWrapper);
-  }
+  // Show the progress dots above the form, NOT in the buttons wrapper
+  block.prepend(progressWrapper);
 
   // Position Submit button cleanly inside the bottom wrapper
   const submitWrapper = wizard.querySelector('.submit-wrapper');
@@ -367,19 +364,10 @@ export default async function decorate(block) {
 
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
-  const headingText = getConfigValue(config, 'formHeading', 'formheading') || "Which type of Medicare plan should I get?";
-  const subtitleText = config.formSubtitle || config.formsubtitle || "Take our free, short quiz to learn which type of health insurance might be best for you!";
   const startedEvent = (config['started-event-type'] || '').toString().trim();
   const stepEvent = (config['step-event-type'] || '').toString().trim();
   const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
   
-  const headerDiv = document.createElement('div');
-  headerDiv.className = 'plan-selection-header';
-  headerDiv.innerHTML = `
-    <h1>${headingText}</h1>
-    <p>${subtitleText}</p>
-  `;
-
   const formDef = buildMedicarePlanDef();
   
   const formContainer = document.createElement('div');
@@ -391,8 +379,8 @@ export default async function decorate(block) {
   pre.append(code);
   formContainer.append(pre);
   
-  // Entirely replace the authored rows with our custom header and the form
-  block.replaceChildren(headerDiv, formContainer);
+  // Entirely replace the authored rows with the form
+  block.replaceChildren(formContainer);
 
   const formModule = await import('../form/form.js');
   await formModule.default(formContainer);
