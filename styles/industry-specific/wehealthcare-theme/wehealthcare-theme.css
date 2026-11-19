@@ -1057,6 +1057,11 @@ body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards 
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.0588235294);
   position: relative;
 }
+
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .cards-card-body {
+  padding: 0;
+}
+
 body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) {
   border: 4px solid #00c4ff;
   box-sizing: content-box;
@@ -1136,7 +1141,6 @@ body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards 
   overflow: visible;
 }
 
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .button-container,
 body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .button-container:last-child {
   position: absolute;
   left: 0;
@@ -1146,8 +1150,6 @@ body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards 
   width: fit-content;
 }
 
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .button-container .button,
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .button-container .button.primary,
 body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .button-container:last-child .button,
 body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li .button-container:last-child .button.primary {
   display: block;
@@ -1185,20 +1187,26 @@ body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards 
   transform: none;
 }
 
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container .button,
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container .button.primary,
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container .button:hover,
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container .button.primary:hover,
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container .button:visited,
-body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container .button.primary:visited {
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container:last-child .button,
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container:last-child .button.primary,
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container:last-child .button:hover,
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container:last-child .button.primary:hover,
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container:last-child .button:visited,
+body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) .button-container:last-child .button.primary:visited {
   background-color: #0065d6 !important;
   color: #fff !important;
 }
 
 @media screen and (max-width: 768px) {
-  body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li {
+  body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li,
+  body.wehealthcare-theme .section.whc-plan-recommendations .cards-wrapper .cards > ul > li:nth-child(2) {
     min-height: auto;
+    padding: 1rem 1rem 2.5rem 1rem;
+    margin: 30px 0;
+    width: auto;
   }
+
+  
 }
 body.wehealthcare-theme main .section.txt-center .default-content-wrapper h1{
  text-align:center;
