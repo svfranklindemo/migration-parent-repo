@@ -47,8 +47,9 @@ function showToast(message) {
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
   const rows = [...block.children];
-  // Form Title is the first row; a page published before it existed starts at the placeholder.
-  const hasTitleRow = rows.length >= 5;
+  // Form Title is the first row. A page published before it existed has 5 rows (placeholder, button label,
+  // toast message, event type, custom class) and starts at the placeholder; with the title it has 6.
+  const hasTitleRow = rows.length >= 6;
   const rowText = (index) => rows[index + (hasTitleRow ? 1 : 0)]?.textContent;
   const formTitle = (config['form-title'] ?? (hasTitleRow ? rows[0]?.textContent : '') ?? '').toString().trim();
   const placeholder = config.placeholder?.trim() || rowText(0)?.trim() || 'me@adobetest.com';
