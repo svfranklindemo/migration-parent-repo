@@ -3450,14 +3450,6 @@
       },
       {
         "component": "text",
-        "name": "form-title",
-        "label": "Form Title",
-        "value": "",
-        "valueType": "string",
-        "description": "Heading shown above the slots. Leave empty for no heading."
-      },
-      {
-        "component": "text",
         "name": "slots-label",
         "label": "Slots Label",
         "value": "",
