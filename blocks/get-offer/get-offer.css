@@ -38,6 +38,18 @@
   outline-offset: 2px;
 }
 
+/* get-offer.js nests the input and button inside a form, so the flex gap on
+   .get-offer-wrapper lands on the form - its only child - and never reaches the
+   two controls: they sit flush against each other. display: contents removes the
+   form's box so the input and button become the wrapper's own flex items and
+   inherit its gap, whichever direction a site lays the wrapper out in (the
+   stacked "Need more help?" panel and the side-by-side newsletter row both read
+   their spacing from their own wrapper rather than a value hardcoded here).
+   The form element and its submit handler are untouched. */
+.get-offer-form {
+  display: contents;
+}
+
 .get-offer-button {
   padding: 0.625rem 1.5rem;
   font-size: 1rem;
