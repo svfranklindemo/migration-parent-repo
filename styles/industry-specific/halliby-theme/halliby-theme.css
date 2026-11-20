@@ -1627,6 +1627,16 @@ body.halliby-theme .category-banner > .get-offer-wrapper .get-offer .get-offer-w
   justify-content: flex-start;
 }
 
+/* The block wraps the input and button in a form; keep them on one row as the wrapper did without it. */
+body.halliby-theme .category-banner > .get-offer-wrapper .get-offer .get-offer-wrapper > .get-offer-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+}
+
 body.halliby-theme .category-banner > .get-offer-wrapper .get-offer .get-offer-wrapper input {
   border: 1px solid #909090;
   padding: 3px 12px 5px 11px;
